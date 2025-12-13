@@ -1,0 +1,726 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    /* Couleurs principales du design Figma */
+    --primary: #5B7FFF;
+    --primary-dark: #4A6BE8;
+    --primary-light: #7D9AFF;
+    --primary-hover: #4A6BE8;
+    
+    /* Couleurs de fond */
+    --bg-main: #F5F7FA;
+    --bg-sidebar: #1E2A47;
+    --bg-card: #FFFFFF;
+    
+    /* Neutrals - Échelle de gris moderne */
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-400: #9CA3AF;
+    --gray-500: #6B7280;
+    --gray-600: #4B5563;
+    --gray-700: #374151;
+    --gray-800: #1F2937;
+    --gray-900: #111827;
+    
+    /* Couleurs sémantiques */
+    --success: #10B981;
+    --success-light: #D1FAE5;
+    --warning: #F59E0B;
+    --warning-light: #FEF3C7;
+    --danger: #EF4444;
+    --danger-light: #FEE2E2;
+    --info: #3B82F6;
+    --info-light: #DBEAFE;
+    
+    /* Bordures et séparateurs */
+    --border-color: #E5E7EB;
+    --border-radius: 8px;
+    --border-radius-sm: 6px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    
+    /* Ombres - Style Figma */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    
+    /* Transitions */
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-main);
+    color: var(--gray-900);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   LOGIN PAGE - Style Figma épuré
+   ======================================== */
+
+.login-body {
+    background: var(--bg-main);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-xl);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    max-width: 440px;
+    width: 100%;
+    padding: 48px 40px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.logo p {
+    color: var(--gray-500);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ========================================
+   FORMULAIRES - Style moderne Figma
+   ======================================== */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gray-700);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: var(--transition);
+    background: white;
+    color: var(--gray-900);
+    font-weight: 400;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(91, 127, 255, 0.1);
+}
+
+input:hover:not(:focus),
+select:hover:not(:focus),
+textarea:hover:not(:focus) {
+    border-color: var(--gray-300);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* ========================================
+   BOUTONS - Style Figma
+   ======================================== */
+
+.btn-login,
+.btn-primary {
+    width: 100%;
+    padding: 11px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: 'Inter', sans-serif;
+    box-shadow: var(--shadow-xs);
+}
+
+.btn-login:hover,
+.btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-login:active,
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background: white;
+    color: var(--gray-700);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-300);
+}
+
+/* ========================================
+   ALERTES - Style épuré
+   ======================================== */
+
+.alert {
+    padding: 12px 16px;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid;
+}
+
+.alert-error {
+    background: var(--danger-light);
+    color: #B91C1C;
+    border-color: #FCA5A5;
+}
+
+.alert-success {
+    background: var(--success-light);
+    color: #065F46;
+    border-color: #6EE7B7;
+}
+
+.alert-info {
+    background: var(--info-light);
+    color: #1E40AF;
+    border-color: #93C5FD;
+}
+
+/* ========================================
+   HEADER - Style Figma avec sidebar
+   ======================================== */
+
+.header {
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-xs);
+}
+
+.header-left h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gray-900);
+    letter-spacing: -0.3px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-greeting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.user-greeting strong {
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.logout-btn {
+    padding: 8px 16px;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow-xs);
+}
+
+.logout-btn:hover {
+    background: #DC2626;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   NAVIGATION - Sidebar 
+   ======================================== */
+
+.main-nav {
+    background: var(--bg-sidebar);
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 24px 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.main-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+}
+
+.main-nav li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.main-nav li.active a {
+    color: white;
+    background: var(--primary);
+    box-shadow: var(--shadow-xs);
+}
+
+.nav-icon {
+    font-size: 18px;
+}
+
+/* Layout avec sidebar */
+.admin-layout .container {
+    margin-left: 240px;
+}
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+/* ========================================
+   BREADCRUMBS - Style Figma
+   ======================================== */
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.breadcrumbs a {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.breadcrumbs a:hover {
+    color: var(--primary);
+}
+
+.breadcrumbs .current {
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.breadcrumbs .separator {
+    color: var(--gray-400);
+}
+
+/* ========================================
+   WELCOME BANNER - Style Figma
+   ======================================== */
+
+.welcome-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 40px 32px;
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 32px;
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.welcome-banner h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.welcome-banner p {
+    font-size: 16px;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+/* ========================================
+   TABLES - Style Figma Modern AMÉLIORÉ
+   ======================================== */
+
+.table-container {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin: 24px 0;
+    border: 1px solid var(--border-color);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Permet aux colonnes de s'ajuster */
+}
+
+/* En-tête du tableau */
+.table thead {
+    background: var(--gray-50);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.table th {
+    padding: 16px 20px; /* Plus d'espace */
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap; /* Empêche le texte de se couper */
+    vertical-align: middle;
+}
+
+/* Espacement spécifique pour certaines colonnes */
+.table th:first-child {
+    padding-left: 24px;
+}
+
+.table th:last-child {
+    padding-right: 24px;
+    text-align: center;
+}
+
+/* Corps du tableau */
+.table td {
+    padding: 18px 20px; /* Plus d'espace vertical */
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+    color: var(--gray-900);
+    font-weight: 400;
+    vertical-align: middle;
+}
+
+.table td:first-child {
+    padding-left: 24px;
+    font-weight: 600; /* Nom en gras */
+    color: var(--gray-900);
+}
+
+.table td:last-child {
+    padding-right: 24px;
+}
+
+.table tbody tr {
+    transition: var(--transition-fast);
+}
+
+.table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Styles pour les cellules spécifiques */
+.table strong {
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.table code {
+    background: var(--gray-100);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* ========================================
+   MESSAGE VIDE AMÉLIORÉ
+   ======================================== */
+
+/* Masquer l'en-tête quand le tableau est vide */
+.table-container.empty .table thead {
+    display: none;
+}
+
+/* Message vide stylisé */
+.empty-message {
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--gray-500);
+    font-size: 15px;
+    font-weight: 500;
+    background: var(--gray-50);
+    border-radius: var(--border-radius-lg);
+}
+
+.empty-message::before {
+    content: "📋";
+    display: block;
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* Alternative : Message dans tbody */
+.table tbody td.empty-cell {
+    padding: 80px 24px;
+    text-align: center;
+    color: var(--gray-500);
+    font-size: 15px;
+    font-weight: 500;
+    background: var(--gray-50);
+}
+
+.table tbody td.empty-cell::before {
+    content: "📋";
+    display: block;
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* ========================================
+   ACTIONS - Espacement amélioré
+   ======================================== */
+
+.actions-cell {
+    display: flex;
+    gap: 10px; /* Plus d'espace entre les boutons */
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px !important;
+}
+
+.btn-action {
+    padding: 8px 14px; /* Boutons plus grands */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    background: white;
+    color: var(--gray-700);
+    min-width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-action:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-300);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-action.btn-view:hover {
+    background: var(--info);
+    color: white;
+    border-color: var(--info);
+}
+
+.btn-action.btn-edit:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.btn-action.btn-delete:hover {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+}
+
+/* ========================================
+   BADGES - Espacement amélioré
+   ======================================== */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px; /* Plus d'espace */
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.badge-success {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.badge-warning {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+.badge-danger,
+.badge-red {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.badge-info,
+.badge-blue {
+    background: var(--info-light);
+    color: var(--info);
+}
+
+.badge-primary {
+    background: rgba(91, 127, 255, 0.1);
+    color: var(--primary);
+}
+
+.badge-secondary,
+.badge-gray {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .table th,
+    .table td {
+        padding: 14px 16px;
+    }
+    
+    .table th:first-child,
+    .table td:first-child {
+        padding-left: 20px;
+    }
+    
+    .table th:last-child,
+    .table td:last-child {
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    .table {
+        min-width: 800px; /* Force le scroll horizontal sur mobile */
+    }
+    
+    .table th,
+    .table td {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+    
+    .actions-cell {
+        gap: 8px;
+    }
+    
+    .btn-action {
+        padding: 6px 10px;
+        min-width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+}

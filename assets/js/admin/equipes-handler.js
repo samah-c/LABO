@@ -1,0 +1,813 @@
+/**
+ * equipes-handler.js - Gestionnaire complet pour les équipes
+ * Gère toutes les opérations CRUD + ajout/retrait de membres
+ */
+
+class EquipesHandler {
+    constructor() {
+        this.baseUrl = '/TDW_project/admin/equipes/equipes';
+        this.apiUrl = '/TDW_project/api/admin/equipes';
+        this.currentEquipeId = null;
+        this.init();
+    }
+    
+    init() {
+        this.attachEventListeners();
+        this.initFilters();
+        this.checkEmptyTable();
+    }
+    
+    // ========================================
+    // GESTION DES ÉVÉNEMENTS
+    // ========================================
+    
+    attachEventListeners() {
+        // Bouton ajouter équipe
+        const addBtn = document.querySelector('[onclick*="openAddModal"]');
+        if (addBtn) {
+            addBtn.onclick = () => this.openAddModal();
+        }
+        
+        // Bouton exporter
+        const exportBtn = document.querySelector('[onclick*="exportData"]');
+        if (exportBtn) {
+            exportBtn.onclick = () => this.export();
+        }
+        
+        // Fermeture modale
+        const closeBtn = document.querySelector('.modal-close');
+        if (closeBtn) {
+            closeBtn.onclick = () => this.closeModal();
+        }
+        
+        // Clic en dehors de la modale
+        const modal = document.getElementById('equipe-modal');
+        if (modal) {
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    this.closeModal();
+                }
+            };
+        }
+        
+        // Touche Échap
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeModal();
+            }
+        });
+    }
+    
+    // ========================================
+    // OPÉRATIONS CRUD
+    // ========================================
+    
+    /**
+     * Voir les détails d'une équipe
+     */
+    view(id) {
+        window.location.href = `${this.baseUrl}/view/${id}`;
+    }
+    
+    /**
+     * Ouvrir la modale d'ajout
+     */
+    openAddModal() {
+        this.loadForm(null);
+    }
+    
+    /**
+     * Modifier une équipe
+     */
+    edit(id) {
+        this.loadForm(id);
+    }
+    
+    /**
+     * Supprimer une équipe
+     */
+    async delete(id) {
+        // Confirmation personnalisée
+        const confirmed = await this.showConfirmDialog(
+            'Supprimer l\'équipe',
+            'Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action est irréversible.',
+            'Supprimer',
+            'danger'
+        );
+        
+        if (!confirmed) return;
+        
+        try {
+            const response = await fetch(`${this.apiUrl}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Équipe supprimée avec succès', 'success');
+                
+                // Supprimer visuellement la ligne
+                const row = document.querySelector(`tr[data-id="${id}"]`);
+                if (row) {
+                    row.style.transition = 'opacity 0.3s ease';
+                    row.style.opacity = '0';
+                    setTimeout(() => {
+                        row.remove();
+                        this.checkEmptyTable();
+                    }, 300);
+                } else {
+                    setTimeout(() => location.reload(), 1000);
+                }
+            } else {
+                this.showNotification(data.message || 'Erreur lors de la suppression', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion au serveur', 'error');
+        }
+    }
+    
+    /**
+     * Charger le formulaire dans la modale
+     */
+    async loadForm(id = null) {
+        const modal = document.getElementById('equipe-modal');
+        const container = document.getElementById('modal-form-container');
+        
+        if (!modal || !container) {
+            console.error('Modale ou conteneur introuvable');
+            return;
+        }
+        
+        // Mettre à jour le titre
+        const modalTitle = modal.querySelector('.modal-header h2');
+        if (modalTitle) {
+            modalTitle.textContent = id ? 'Modifier l\'équipe' : 'Ajouter une équipe';
+        }
+        
+        // Afficher loader
+        container.innerHTML = `
+            <div class="loader">
+                <div class="spinner"></div>
+                <p>Chargement du formulaire...</p>
+            </div>
+        `;
+        
+        modal.style.display = 'flex';
+        
+        try {
+            const url = id ? `${this.baseUrl}/form/${id}` : `${this.baseUrl}/form`;
+            
+            const response = await fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Erreur de chargement');
+            }
+            
+            const html = await response.text();
+            container.innerHTML = html;
+            
+            this.currentEquipeId = id;
+            
+        } catch (error) {
+            console.error('Erreur:', error);
+            container.innerHTML = `
+                <div class="error-message">
+                    <p>❌ Erreur lors du chargement du formulaire</p>
+                    <button class="btn-secondary" onclick="equipes.closeModal()">Fermer</button>
+                </div>
+            `;
+        }
+    }
+    
+    /**
+     * Fermer la modale
+     */
+    closeModal() {
+        const modal = document.getElementById('equipe-modal');
+        if (modal) {
+            // Animation de fermeture
+            const content = modal.querySelector('.modal-content');
+            if (content) {
+                content.style.transform = 'scale(0.9)';
+                content.style.opacity = '0';
+            }
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                const container = document.getElementById('modal-form-container');
+                if (container) {
+                    container.innerHTML = '';
+                }
+                this.currentEquipeId = null;
+                
+                // Reset animation
+                if (content) {
+                    content.style.transform = '';
+                    content.style.opacity = '';
+                }
+            }, 200);
+        }
+    }
+    
+    // ========================================
+    // GESTION DES MEMBRES
+    // ========================================
+    
+    /**
+     * Ouvrir la modale d'ajout de membre
+     */
+    async openAddMembreModal(equipeId) {
+        this.currentEquipeId = equipeId;
+        
+        try {
+            // Récupérer la liste des membres disponibles (sans équipe)
+            const response = await fetch(`${this.apiUrl}/${equipeId}/membres-disponibles`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showMembreSelectionModal(data.membres);
+            } else {
+                this.showNotification('Erreur lors du chargement des membres', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+        }
+    }
+    
+    /**
+     * Afficher la modale de sélection de membre
+     */
+    showMembreSelectionModal(membres) {
+        const modal = document.getElementById('equipe-modal');
+        const container = document.getElementById('modal-form-container');
+        
+        if (!modal || !container) return;
+        
+        // Mettre à jour le titre
+        const modalTitle = modal.querySelector('.modal-header h2');
+        if (modalTitle) {
+            modalTitle.textContent = 'Ajouter un membre';
+        }
+        
+        // Créer le formulaire
+        let html = `
+            <form id="add-membre-form">
+                <div class="form-group">
+                    <label for="membre-select">Sélectionner un membre *</label>
+                    <select id="membre-select" name="membre_id" required>
+                        <option value="">-- Choisir un membre --</option>
+        `;
+        
+        if (membres.length === 0) {
+            html += `<option value="" disabled>Aucun membre disponible</option>`;
+        } else {
+            membres.forEach(membre => {
+                html += `
+                    <option value="${membre.id}">
+                        ${this.escapeHtml(membre.username)}
+                        ${membre.grade ? ' - ' + this.escapeHtml(membre.grade) : ''}
+                    </option>
+                `;
+            });
+        }
+        
+        html += `
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="equipes.closeModal()">
+                        Annuler
+                    </button>
+                    <button type="submit" class="btn-primary" ${membres.length === 0 ? 'disabled' : ''}>
+                        Ajouter à l'équipe
+                    </button>
+                </div>
+            </form>
+        `;
+        
+        container.innerHTML = html;
+        modal.style.display = 'flex';
+        
+        // Attacher le gestionnaire
+        if (membres.length > 0) {
+            document.getElementById('add-membre-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.addMembre();
+            });
+        }
+    }
+    
+    /**
+     * Ajouter un membre à une équipe
+     */
+    async addMembre() {
+        const membreId = document.getElementById('membre-select').value;
+        
+        if (!membreId) {
+            this.showNotification('Veuillez sélectionner un membre', 'warning');
+            return;
+        }
+        
+        try {
+            const response = await fetch(`${this.apiUrl}/add-membre`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    equipe_id: this.currentEquipeId,
+                    membre_id: membreId
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Membre ajouté avec succès', 'success');
+                this.closeModal();
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                this.showNotification(data.message || 'Erreur lors de l\'ajout', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+        }
+    }
+    
+    /**
+     * Retirer un membre d'une équipe
+     */
+    async removeMembre(membreId, membreName) {
+        const confirmed = await this.showConfirmDialog(
+            'Retirer le membre',
+            `Êtes-vous sûr de vouloir retirer ${membreName} de cette équipe ?`,
+            'Retirer',
+            'warning'
+        );
+        
+        if (!confirmed) return;
+        
+        try {
+            const response = await fetch(`${this.apiUrl}/remove-membre`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    membre_id: membreId
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Membre retiré avec succès', 'success');
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                this.showNotification(data.message || 'Erreur lors du retrait', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+        }
+    }
+    
+    // ========================================
+    // FILTRES ET RECHERCHE
+    // ========================================
+    
+    initFilters() {
+        const applyBtn = document.getElementById('apply-filters');
+        const searchInput = document.getElementById('search-input');
+        const filterSelects = document.querySelectorAll('.filter-select');
+        
+        if (applyBtn) {
+            applyBtn.addEventListener('click', () => this.applyFilters());
+        }
+        
+        if (searchInput) {
+            // Recherche en temps réel avec debounce
+            let timeout;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    this.liveSearch(e.target.value);
+                }, 300);
+            });
+            
+            // Recherche sur Enter
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.applyFilters();
+                }
+            });
+        }
+        
+        // Changement de filtre
+        filterSelects.forEach(select => {
+            select.addEventListener('change', () => {
+                // Option: appliquer automatiquement les filtres
+                // this.applyFilters();
+            });
+        });
+    }
+    
+    /**
+     * Appliquer les filtres
+     */
+    applyFilters() {
+        const params = new URLSearchParams();
+        
+        // Recherche
+        const searchInput = document.getElementById('search-input');
+        if (searchInput && searchInput.value) {
+            params.append('search', searchInput.value);
+        }
+        
+        // Filtres
+        document.querySelectorAll('.filter-select').forEach(select => {
+            if (select.value) {
+                params.append(select.name, select.value);
+            }
+        });
+        
+        // Redirection avec paramètres
+        window.location.href = `${this.baseUrl}?${params.toString()}`;
+    }
+    
+    /**
+     * Recherche en temps réel dans le tableau
+     */
+    liveSearch(query) {
+        const rows = document.querySelectorAll('.table tbody tr, .data-table tbody tr');
+        const lowerQuery = query.toLowerCase();
+        let visibleCount = 0;
+        
+        rows.forEach(row => {
+            // Ignorer les lignes vides ou messages
+            if (row.classList.contains('empty-row') || 
+                row.querySelector('.empty-cell') ||
+                row.querySelector('.empty-message')) {
+                return;
+            }
+            
+            const text = row.textContent.toLowerCase();
+            const matches = text.includes(lowerQuery);
+            
+            row.style.display = matches ? '' : 'none';
+            if (matches) visibleCount++;
+        });
+        
+        // Afficher message si aucun résultat
+        this.updateEmptyState(visibleCount === 0 && query);
+    }
+    
+    // ========================================
+    // EXPORT
+    // ========================================
+    
+    export() {
+        const params = new URLSearchParams(window.location.search);
+        params.set('export', 'csv');
+        window.location.href = `${this.baseUrl}?${params.toString()}`;
+    }
+    
+    // ========================================
+    // UTILITAIRES UI
+    // ========================================
+    
+    /**
+     * Vérifier si le tableau est vide
+     */
+    checkEmptyTable() {
+        const tbody = document.querySelector('.table tbody, .data-table tbody');
+        if (!tbody) return;
+        
+        const rows = tbody.querySelectorAll('tr:not(.empty-row):not(.no-results-row)');
+        const container = tbody.closest('.table-container');
+        
+        if (rows.length === 0) {
+            container?.classList.add('empty');
+        } else {
+            container?.classList.remove('empty');
+        }
+    }
+    
+    /**
+     * Mettre à jour l'état vide du tableau
+     */
+    updateEmptyState(isEmpty) {
+        const tbody = document.querySelector('.table tbody, .data-table tbody');
+        if (!tbody) return;
+        
+        const emptyRow = tbody.querySelector('.no-results-row');
+        
+        if (isEmpty) {
+            if (!emptyRow) {
+                const row = document.createElement('tr');
+                row.className = 'no-results-row';
+                row.innerHTML = `
+                    <td colspan="100" class="empty-message" style="text-align: center; padding: 40px; color: #9CA3AF;">
+                        🔍 Aucun résultat trouvé
+                    </td>
+                `;
+                tbody.appendChild(row);
+            }
+        } else {
+            emptyRow?.remove();
+        }
+    }
+    
+    /**
+     * Afficher une notification
+     */
+    showNotification(message, type = 'info') {
+        // Utiliser le système de toast global si disponible
+        if (window.toast) {
+            window.toast.show(message, type);
+            return;
+        }
+        
+        // Sinon créer une notification simple
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <span>${this.escapeHtml(message)}</span>
+            <button onclick="this.parentElement.remove()">✕</button>
+        `;
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        // Couleurs selon le type
+        const colors = {
+            success: '#10B981',
+            error: '#EF4444',
+            warning: '#F59E0B',
+            info: '#3B82F6'
+        };
+        
+        notification.style.background = colors[type] || colors.info;
+        notification.style.color = 'white';
+        
+        document.body.appendChild(notification);
+        
+        // Supprimer après 5 secondes
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 5000);
+    }
+    
+    /**
+     * Dialogue de confirmation personnalisé
+     */
+    showConfirmDialog(title, message, confirmText = 'Confirmer', type = 'primary') {
+        return new Promise((resolve) => {
+            const dialog = document.createElement('div');
+            dialog.className = 'confirm-dialog';
+            dialog.innerHTML = `
+                <div class="confirm-dialog-overlay"></div>
+                <div class="confirm-dialog-content">
+                    <h3>${this.escapeHtml(title)}</h3>
+                    <p>${this.escapeHtml(message)}</p>
+                    <div class="confirm-dialog-buttons">
+                        <button class="btn-secondary" id="confirm-cancel">Annuler</button>
+                        <button class="btn-${type}" id="confirm-ok">${this.escapeHtml(confirmText)}</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(dialog);
+            
+            // Styles inline
+            dialog.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            const overlay = dialog.querySelector('.confirm-dialog-overlay');
+            overlay.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+            `;
+            
+            const content = dialog.querySelector('.confirm-dialog-content');
+            content.style.cssText = `
+                background: white;
+                padding: 24px;
+                border-radius: 12px;
+                max-width: 400px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                position: relative;
+                z-index: 1;
+            `;
+            
+            document.getElementById('confirm-ok').addEventListener('click', () => {
+                dialog.remove();
+                resolve(true);
+            });
+            
+            document.getElementById('confirm-cancel').addEventListener('click', () => {
+                dialog.remove();
+                resolve(false);
+            });
+            
+            overlay.addEventListener('click', () => {
+                dialog.remove();
+                resolve(false);
+            });
+        });
+    }
+    
+    /**
+     * Échapper HTML
+     */
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+}
+
+// ========================================
+// INITIALISATION GLOBALE
+// ========================================
+
+let equipes;
+
+document.addEventListener('DOMContentLoaded', () => {
+    equipes = new EquipesHandler();
+    console.log('✅ Gestionnaire d\'équipes initialisé');
+});
+
+// ========================================
+// FONCTIONS GLOBALES (pour compatibilité avec le HTML)
+// ========================================
+
+function viewItem(id) {
+    if (equipes) {
+        equipes.view(id);
+    }
+}
+
+function editItem(id) {
+    if (equipes) {
+        equipes.edit(id);
+    }
+}
+
+function deleteItem(id) {
+    if (equipes) {
+        equipes.delete(id);
+    }
+}
+
+function openAddModal() {
+    if (equipes) {
+        equipes.openAddModal();
+    }
+}
+
+function closeModal() {
+    if (equipes) {
+        equipes.closeModal();
+    }
+}
+
+function exportData() {
+    if (equipes) {
+        equipes.export();
+    }
+}
+
+// ========================================
+// ANIMATIONS CSS
+// ========================================
+
+if (!document.getElementById('equipes-handler-styles')) {
+    const equipesStyle = document.createElement('style');
+    equipesStyle.id = 'equipes-handler-styles';
+    equipesStyle.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+    
+    .loader {
+        text-align: center;
+        padding: 40px;
+    }
+    
+    .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #5B7FFF;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .error-message {
+        text-align: center;
+        padding: 30px;
+        color: #EF4444;
+    }
+    
+    .confirm-dialog-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+    
+    .confirm-dialog-content h3 {
+        margin: 0 0 15px;
+        color: #1F2937;
+    }
+    
+    .confirm-dialog-content p {
+        margin: 0 0 20px;
+        color: #6B7280;
+        line-height: 1.5;
+    }
+    
+    .btn-danger {
+        background: #EF4444;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    
+    .btn-danger:hover {
+        background: #DC2626;
+    }
+`;
+    document.head.appendChild(equipesStyle);
+}

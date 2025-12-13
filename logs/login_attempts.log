@@ -1,0 +1,35 @@
+[2025-12-10 09:53:50] FAILED - User: admin - IP: ::1
+[2025-12-10 09:53:59] FAILED - User: admin - IP: ::1
+[2025-12-10 09:54:06] FAILED - User: admin - IP: ::1
+[2025-12-10 09:54:46] FAILED - User: admin - IP: ::1
+[2025-12-10 09:55:27] FAILED - User: admin - IP: ::1
+[2025-12-10 09:56:21] FAILED - User: admin - IP: ::1
+[2025-12-10 09:56:52] FAILED - User: admin - IP: ::1
+[2025-12-10 09:57:00] FAILED - User: user - IP: ::1
+[2025-12-10 10:06:08] FAILED - User: admin - IP: ::1
+[2025-12-10 10:09:07] SUCCESS - User: 1 - IP: ::1
+[2025-12-10 10:18:40] SUCCESS - User: 1 - IP: ::1
+[2025-12-10 10:19:10] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-10 10:19:43] SUCCESS - User: 1 - IP: ::1
+[2025-12-10 10:19:47] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-10 10:19:50] SUCCESS - User: 1 - IP: ::1
+[2025-12-10 10:21:44] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-10 10:21:52] SUCCESS - User: 2 - IP: ::1
+[2025-12-10 10:22:02] LOGOUT - User ID: 2 - IP: ::1
+[2025-12-10 10:22:16] SUCCESS - User: 1 - IP: ::1
+[2025-12-10 12:43:15] SUCCESS - User: 1 - IP: ::1
+[2025-12-11 13:12:16] SUCCESS - User: 1 - IP: ::1
+[2025-12-11 13:12:46] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-11 13:12:55] SUCCESS - User: 2 - IP: ::1
+[2025-12-11 13:53:57] SUCCESS - User: 1 - IP: ::1
+[2025-12-11 13:54:09] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-11 13:54:22] SUCCESS - User: 1 - IP: ::1
+[2025-12-12 07:55:50] SUCCESS - User: 1 - IP: ::1
+[2025-12-12 10:03:44] SUCCESS - User: 1 - IP: ::1
+[2025-12-12 11:55:28] SUCCESS - User: 1 - IP: ::1
+[2025-12-12 13:04:46] SUCCESS - User: 1 - IP: ::1
+[2025-12-12 15:45:46] SUCCESS - User: 1 - IP: ::1
+[2025-12-13 09:03:32] SUCCESS - User: 1 - IP: ::1
+[2025-12-13 10:05:25] SUCCESS - User: 1 - IP: ::1
+[2025-12-13 10:49:40] SUCCESS - User: 1 - IP: ::1
+[2025-12-13 14:26:23] SUCCESS - User: 1 - IP: ::1

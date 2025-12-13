@@ -1,0 +1,3082 @@
+2025-12-11 12:54:28 - URI: /TDW_project/
+2025-12-11 12:54:28 - Processed URI: /
+2025-12-11 12:54:28 - Showing login page
+2025-12-11 13:12:05 - URI: /TDW_project/
+2025-12-11 13:12:05 - Processed URI: /
+2025-12-11 13:12:05 - Showing login page
+2025-12-11 13:12:16 - URI: /TDW_project/auth/login
+2025-12-11 13:12:16 - Processed URI: /auth/login
+2025-12-11 13:12:16 - URI: /TDW_project/admin/dashboard
+2025-12-11 13:12:16 - Processed URI: /admin/dashboard
+2025-12-11 13:12:22 - URI: /TDW_project/admin/users
+2025-12-11 13:12:22 - Processed URI: /admin/users
+2025-12-11 13:12:36 - URI: /TDW_project/
+2025-12-11 13:12:36 - Processed URI: /
+2025-12-11 13:12:36 - Showing login page
+2025-12-11 13:12:36 - URI: /TDW_project/admin/dashboard
+2025-12-11 13:12:36 - Processed URI: /admin/dashboard
+2025-12-11 13:12:46 - URI: /TDW_project/logout
+2025-12-11 13:12:46 - Processed URI: /logout
+2025-12-11 13:12:46 - URI: /TDW_project/login?logout=1
+2025-12-11 13:12:46 - Processed URI: /login
+2025-12-11 13:12:46 - Showing login page
+2025-12-11 13:12:55 - URI: /TDW_project/auth/login
+2025-12-11 13:12:55 - Processed URI: /auth/login
+2025-12-11 13:12:55 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:12:55 - Processed URI: /membre/dashboard
+2025-12-11 13:12:58 - URI: /TDW_project/login?logout=1
+2025-12-11 13:12:58 - Processed URI: /login
+2025-12-11 13:12:58 - Showing login page
+2025-12-11 13:12:58 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:12:58 - Processed URI: /membre/dashboard
+2025-12-11 13:14:17 - URI: /TDW_project/admin/dashboard
+2025-12-11 13:14:17 - Processed URI: /admin/dashboard
+2025-12-11 13:14:19 - URI: /TDW_project/admin/dashboard
+2025-12-11 13:14:19 - Processed URI: /admin/dashboard
+2025-12-11 13:14:24 - URI: /TDW_project/
+2025-12-11 13:14:24 - Processed URI: /
+2025-12-11 13:14:24 - Showing login page
+2025-12-11 13:14:24 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:14:24 - Processed URI: /membre/dashboard
+2025-12-11 13:14:32 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:14:32 - Processed URI: /membre/dashboard
+2025-12-11 13:14:42 - URI: /TDW_project/
+2025-12-11 13:14:42 - Processed URI: /
+2025-12-11 13:14:42 - Showing login page
+2025-12-11 13:14:42 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:14:42 - Processed URI: /membre/dashboard
+2025-12-11 13:14:49 - URI: /TDW_project/
+2025-12-11 13:14:49 - Processed URI: /
+2025-12-11 13:14:49 - Showing login page
+2025-12-11 13:14:49 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:14:49 - Processed URI: /membre/dashboard
+2025-12-11 13:14:56 - URI: /TDW_project/login
+2025-12-11 13:14:56 - Processed URI: /login
+2025-12-11 13:14:56 - Showing login page
+2025-12-11 13:14:56 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:14:56 - Processed URI: /membre/dashboard
+2025-12-11 13:14:59 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:14:59 - Processed URI: /membre/dashboard
+2025-12-11 13:15:01 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:15:01 - Processed URI: /membre/dashboard
+2025-12-11 13:15:03 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:15:03 - Processed URI: /membre/dashboard
+2025-12-11 13:15:03 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:15:03 - Processed URI: /membre/dashboard
+2025-12-11 13:15:03 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:15:03 - Processed URI: /membre/dashboard
+2025-12-11 13:15:03 - URI: /TDW_project/admin/dashboard
+2025-12-11 13:15:03 - Processed URI: /admin/dashboard
+2025-12-11 13:15:13 - URI: /TDW_project/
+2025-12-11 13:15:13 - Processed URI: /
+2025-12-11 13:15:13 - Showing login page
+2025-12-11 13:15:13 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:15:13 - Processed URI: /membre/dashboard
+2025-12-11 13:15:26 - URI: /TDW_project/
+2025-12-11 13:15:26 - Processed URI: /
+2025-12-11 13:15:26 - Showing login page
+2025-12-11 13:15:26 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:15:26 - Processed URI: /membre/dashboard
+2025-12-11 13:46:32 - URI: /TDW_project/
+2025-12-11 13:46:32 - Processed URI: /
+2025-12-11 13:46:32 - Showing login page
+2025-12-11 13:46:33 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:46:33 - Processed URI: /membre/dashboard
+2025-12-11 13:47:12 - URI: /TDW_project/
+2025-12-11 13:47:12 - Processed URI: /
+2025-12-11 13:47:12 - Showing login page
+2025-12-11 13:47:12 - URI: /TDW_project/membre/dashboard
+2025-12-11 13:47:12 - Processed URI: /membre/dashboard
+2025-12-11 13:47:31 - URI: /TDW_project/
+2025-12-11 13:47:31 - Processed URI: /
+2025-12-11 13:47:31 - Showing login page
+2025-12-11 13:47:31 - URI: /TDW_project/assets/styles.css
+2025-12-11 13:47:31 - Processed URI: /assets/styles.css
+2025-12-11 13:47:36 - URI: /TDW_project/
+2025-12-11 13:47:36 - Processed URI: /
+2025-12-11 13:47:36 - Showing login page
+2025-12-11 13:47:36 - URI: /TDW_project/assets/styles.css
+2025-12-11 13:47:36 - Processed URI: /assets/styles.css
+2025-12-11 13:47:38 - URI: /TDW_project/
+2025-12-11 13:47:38 - Processed URI: /
+2025-12-11 13:47:38 - Showing login page
+2025-12-11 13:47:38 - URI: /TDW_project/assets/styles.css
+2025-12-11 13:47:38 - Processed URI: /assets/styles.css
+2025-12-11 13:47:38 - URI: /TDW_project/
+2025-12-11 13:47:38 - Processed URI: /
+2025-12-11 13:47:38 - Showing login page
+2025-12-11 13:47:38 - URI: /TDW_project/assets/styles.css
+2025-12-11 13:47:38 - Processed URI: /assets/styles.css
+2025-12-11 13:47:55 - URI: /TDW_project/
+2025-12-11 13:47:55 - Processed URI: /
+2025-12-11 13:47:55 - Showing login page
+2025-12-11 13:47:55 - URI: /TDW_project/assets/styles.css
+2025-12-11 13:47:55 - Processed URI: /assets/styles.css
+2025-12-11 13:48:14 - URI: /TDW_project/auth/login
+2025-12-11 13:48:14 - Processed URI: /auth/login
+2025-12-11 13:50:07 - URI: /TDW_project/
+2025-12-11 13:50:07 - Processed URI: /
+2025-12-11 13:50:07 - Showing login page
+2025-12-11 13:50:17 - URI: /TDW_project/auth/login
+2025-12-11 13:50:17 - Processed URI: /auth/login
+2025-12-11 13:50:32 - URI: /TDW_project/
+2025-12-11 13:50:32 - Processed URI: /
+2025-12-11 13:50:32 - Showing login page
+2025-12-11 13:50:39 - URI: /TDW_project/auth/login
+2025-12-11 13:50:39 - Processed URI: /auth/login
+2025-12-11 13:52:58 - URI: /TDW_project/
+2025-12-11 13:52:58 - Processed URI: /
+2025-12-11 13:52:58 - Showing login page
+2025-12-11 13:52:59 - URI: /TDW_project/
+2025-12-11 13:52:59 - Processed URI: /
+2025-12-11 13:52:59 - Showing login page
+2025-12-11 13:53:07 - URI: /TDW_project/auth/login
+2025-12-11 13:53:07 - Processed URI: /auth/login
+2025-12-11 13:53:46 - URI: /TDW_project/
+2025-12-11 13:53:46 - Processed URI: /
+2025-12-11 13:53:46 - Showing login page
+2025-12-11 13:53:57 - URI: /TDW_project/auth/login
+2025-12-11 13:53:57 - Processed URI: /auth/login
+2025-12-11 13:53:58 - URI: /TDW_project/admin/dashboard
+2025-12-11 13:53:58 - Processed URI: /admin/dashboard
+2025-12-11 13:54:09 - URI: /TDW_project/logout
+2025-12-11 13:54:09 - Processed URI: /logout
+2025-12-11 13:54:09 - URI: /TDW_project/login?logout=1
+2025-12-11 13:54:09 - Processed URI: /login
+2025-12-11 13:54:09 - Showing login page
+2025-12-11 13:54:19 - URI: /TDW_project/
+2025-12-11 13:54:19 - Processed URI: /
+2025-12-11 13:54:19 - Showing login page
+2025-12-11 13:54:22 - URI: /TDW_project/auth/login
+2025-12-11 13:54:22 - Processed URI: /auth/login
+2025-12-11 13:54:23 - URI: /TDW_project/admin/dashboard
+2025-12-11 13:54:23 - Processed URI: /admin/dashboard
+2025-12-11 13:54:27 - URI: /TDW_project/admin/publications
+2025-12-11 13:54:27 - Processed URI: /admin/publications
+2025-12-11 13:54:42 - URI: /TDW_project/admin/users
+2025-12-11 13:54:42 - Processed URI: /admin/users
+2025-12-12 07:55:45 - URI: /TDW_project/
+2025-12-12 07:55:45 - Processed URI: /
+2025-12-12 07:55:45 - Showing login page
+2025-12-12 07:55:45 - URI: /TDW_project/admin/dashboard
+2025-12-12 07:55:45 - Processed URI: /admin/dashboard
+2025-12-12 07:55:45 - URI: /TDW_project/login?timeout=1
+2025-12-12 07:55:45 - Processed URI: /login
+2025-12-12 07:55:45 - Showing login page
+2025-12-12 07:55:48 - URI: /TDW_project/login?timeout=1
+2025-12-12 07:55:48 - Processed URI: /login
+2025-12-12 07:55:48 - Showing login page
+2025-12-12 07:55:49 - URI: /TDW_project/login?timeout=1
+2025-12-12 07:55:49 - Processed URI: /login
+2025-12-12 07:55:49 - Showing login page
+2025-12-12 07:55:50 - URI: /TDW_project/auth/login
+2025-12-12 07:55:50 - Processed URI: /auth/login
+2025-12-12 07:55:51 - URI: /TDW_project/admin/dashboard
+2025-12-12 07:55:51 - Processed URI: /admin/dashboard
+2025-12-12 07:55:52 - URI: /TDW_project/api/admin/stats
+2025-12-12 07:55:52 - Processed URI: /api/admin/stats
+2025-12-12 07:56:22 - URI: /TDW_project/api/admin/stats
+2025-12-12 07:56:22 - Processed URI: /api/admin/stats
+2025-12-12 07:56:52 - URI: /TDW_project/api/admin/notifications
+2025-12-12 07:56:52 - Processed URI: /api/admin/stats
+2025-12-12 07:56:52 - Processed URI: /api/admin/notifications
+2025-12-12 07:57:22 - URI: /TDW_project/api/admin/stats
+2025-12-12 07:57:22 - Processed URI: /api/admin/stats
+2025-12-12 07:57:33 - URI: /TDW_project/admin/publications
+2025-12-12 07:57:33 - Processed URI: /admin/publications
+2025-12-12 07:57:47 - URI: /TDW_project/admin/projets
+2025-12-12 07:57:47 - Processed URI: /admin/projets
+2025-12-12 07:57:54 - URI: /TDW_project/admin/projets?search=n
+2025-12-12 07:57:54 - Processed URI: /admin/projets
+2025-12-12 07:58:01 - URI: /TDW_project/admin/projets?search=nn
+2025-12-12 07:58:01 - Processed URI: /admin/projets
+2025-12-12 07:58:05 - URI: /TDW_project/admin/projets?search=p
+2025-12-12 07:58:05 - Processed URI: /admin/projets
+2025-12-12 07:58:14 - URI: /TDW_project/admin/projets/form
+2025-12-12 07:58:14 - Processed URI: /admin/projets/form
+2025-12-12 07:58:19 - URI: /TDW_project/admin/projets?search=pr
+2025-12-12 07:58:19 - Processed URI: /admin/projets
+2025-12-12 07:58:38 - URI: /TDW_project/admin/projets?
+2025-12-12 07:58:38 - Processed URI: /admin/projets
+2025-12-12 07:58:48 - URI: /TDW_project/admin/projets?search=sys
+2025-12-12 07:58:48 - Processed URI: /admin/projets
+2025-12-12 07:58:55 - URI: /TDW_project/admin/projets?search=syst
+2025-12-12 07:58:55 - Processed URI: /admin/projets
+2025-12-12 07:59:05 - URI: /TDW_project/api/admin/projets/1
+2025-12-12 07:59:05 - Processed URI: /api/admin/projets/1
+2025-12-12 07:59:07 - URI: /TDW_project/admin/projets/view/1
+2025-12-12 07:59:07 - Processed URI: /admin/projets/view/1
+2025-12-12 07:59:09 - URI: /TDW_project/
+2025-12-12 07:59:09 - Processed URI: /
+2025-12-12 07:59:09 - Showing login page
+2025-12-12 07:59:09 - URI: /TDW_project/admin/dashboard
+2025-12-12 07:59:09 - Processed URI: /admin/dashboard
+2025-12-12 07:59:09 - URI: /TDW_project/api/admin/stats
+2025-12-12 07:59:09 - Processed URI: /api/admin/stats
+2025-12-12 07:59:20 - URI: /TDW_project/admin/users
+2025-12-12 07:59:20 - Processed URI: /admin/users
+2025-12-12 07:59:25 - URI: /TDW_project/admin/dashboard
+2025-12-12 07:59:25 - Processed URI: /admin/dashboard
+2025-12-12 07:59:25 - URI: /TDW_project/api/admin/stats
+2025-12-12 07:59:25 - Processed URI: /api/admin/stats
+2025-12-12 07:59:32 - URI: /TDW_project/admin/users
+2025-12-12 07:59:32 - Processed URI: /admin/users
+2025-12-12 07:59:44 - URI: /TDW_project/equipes
+2025-12-12 07:59:44 - Processed URI: /equipes
+2025-12-12 07:59:47 - URI: /TDW_project/
+2025-12-12 07:59:47 - Processed URI: /
+2025-12-12 07:59:47 - Showing login page
+2025-12-12 07:59:47 - URI: /TDW_project/admin/dashboard
+2025-12-12 07:59:47 - Processed URI: /admin/dashboard
+2025-12-12 07:59:47 - URI: /TDW_project/api/admin/stats
+2025-12-12 07:59:47 - Processed URI: /api/admin/stats
+2025-12-12 08:00:10 - URI: /TDW_project/admin/publications
+2025-12-12 08:00:10 - Processed URI: /admin/publications
+2025-12-12 08:00:17 - URI: /TDW_project/admin/publications?search=D
+2025-12-12 08:00:17 - Processed URI: /admin/publications
+2025-12-12 08:00:22 - URI: /TDW_project/admin/publications?search=Dee
+2025-12-12 08:00:22 - Processed URI: /admin/publications
+2025-12-12 08:00:25 - URI: /TDW_project/admin/publications?search=Deep
+2025-12-12 08:00:25 - Processed URI: /admin/publications
+2025-12-12 08:00:27 - URI: /TDW_project/admin/admin/publications?search=Deep&export=csv
+2025-12-12 08:00:27 - Processed URI: /admin/admin/publications
+2025-12-12 08:00:28 - URI: /TDW_project/
+2025-12-12 08:00:28 - Processed URI: /
+2025-12-12 08:00:28 - Showing login page
+2025-12-12 08:00:28 - URI: /TDW_project/admin/dashboard
+2025-12-12 08:00:28 - Processed URI: /admin/dashboard
+2025-12-12 08:00:28 - URI: /TDW_project/api/admin/stats
+2025-12-12 08:00:28 - Processed URI: /api/admin/stats
+2025-12-12 09:59:46 - URI: /TDW_project/api/admin/notifications
+2025-12-12 09:59:46 - URI: /TDW_project/api/admin/stats
+2025-12-12 09:59:46 - Processed URI: /api/admin/notifications
+2025-12-12 09:59:46 - Processed URI: /api/admin/stats
+2025-12-12 09:59:54 - URI: /TDW_project/api/admin/stats
+2025-12-12 09:59:54 - Processed URI: /api/admin/stats
+2025-12-12 10:00:24 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 10:00:24 - Processed URI: /api/admin/stats
+cations
+2025-12-12 10:00:54 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:00:54 - Processed URI: /api/admin/stats
+2025-12-12 10:01:24 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:01:24 - Processed URI: /api/admin/stats
+2025-12-12 10:01:24 - Processed URI: /api/admin/notifications
+2025-12-12 10:01:54 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:01:54 - Processed URI: /api/admin/stats
+2025-12-12 10:02:24 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:02:24 - Processed URI: /api/admin/stats
+2025-12-12 10:02:24 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:02:24 - Processed URI: /api/admin/notifications
+2025-12-12 10:02:54 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:02:54 - Processed URI: /api/admin/stats
+2025-12-12 10:03:24 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:03:24 - Processed URI: /api/admin/stats
+2025-12-12 10:03:24 - Processed URI: /api/admin/notifications
+2025-12-12 10:03:42 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:03:42 - Processed URI: /admin/dashboard
+2025-12-12 10:03:42 - URI: /TDW_project/login?timeout=1
+2025-12-12 10:03:42 - Processed URI: /login
+2025-12-12 10:03:42 - Showing login page
+2025-12-12 10:03:44 - URI: /TDW_project/auth/login
+2025-12-12 10:03:44 - Processed URI: /auth/login
+2025-12-12 10:03:45 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:03:45 - Processed URI: /admin/dashboard
+2025-12-12 10:03:45 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:03:45 - Processed URI: /api/admin/stats
+2025-12-12 10:03:50 - URI: /TDW_project/admin/equipes
+2025-12-12 10:03:50 - Processed URI: /admin/equipes
+2025-12-12 10:03:50 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:03:50 - Processed URI: /admin/dashboard
+2025-12-12 10:03:50 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:03:50 - Processed URI: /api/admin/stats
+2025-12-12 10:03:54 - URI: /TDW_project/admin/users
+2025-12-12 10:03:54 - Processed URI: /admin/users
+2025-12-12 10:04:06 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:04:06 - Processed URI: /admin/dashboard
+2025-12-12 10:04:06 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:04:06 - Processed URI: /api/admin/stats
+2025-12-12 10:04:09 - URI: /TDW_project/admin/parametres
+2025-12-12 10:04:09 - Processed URI: /admin/parametres
+2025-12-12 10:04:09 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:04:09 - Processed URI: /admin/dashboard
+2025-12-12 10:04:09 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:04:09 - Processed URI: /api/admin/stats
+2025-12-12 10:04:16 - URI: /TDW_project/admin/projets
+2025-12-12 10:04:16 - Processed URI: /admin/projets
+2025-12-12 10:04:20 - URI: /TDW_project/admin/projets?search=k
+2025-12-12 10:04:20 - Processed URI: /admin/projets
+2025-12-12 10:04:25 - URI: /TDW_project/admin/projets?
+2025-12-12 10:04:25 - Processed URI: /admin/projets
+2025-12-12 10:04:31 - URI: /TDW_project/admin/projets?thematique=IA
+2025-12-12 10:04:31 - Processed URI: /admin/projets
+2025-12-12 10:04:33 - URI: /TDW_project/admin/projets?thematique=IA
+2025-12-12 10:04:33 - Processed URI: /admin/projets
+2025-12-12 10:04:41 - URI: /TDW_project/admin/projets?thematique=IA&statut=en+cours
+2025-12-12 10:04:41 - Processed URI: /admin/projets
+2025-12-12 10:04:44 - URI: /TDW_project/admin/projets/form
+2025-12-12 10:04:44 - Processed URI: /admin/projets/form
+2025-12-12 10:04:45 - URI: /TDW_project/admin/admin/projets?thematique=IA&statut=en+cours&export=csv
+2025-12-12 10:04:45 - Processed URI: /admin/admin/projets
+2025-12-12 10:04:47 - URI: /TDW_project/
+2025-12-12 10:04:47 - Processed URI: /
+2025-12-12 10:04:47 - Showing login page
+2025-12-12 10:04:47 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:04:47 - Processed URI: /admin/dashboard
+2025-12-12 10:04:47 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:04:47 - Processed URI: /api/admin/stats
+2025-12-12 10:05:01 - URI: /TDW_project/admin/parametres
+2025-12-12 10:05:01 - Processed URI: /admin/parametres
+2025-12-12 10:05:01 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:05:01 - Processed URI: /admin/dashboard
+2025-12-12 10:05:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:05:01 - Processed URI: /api/admin/stats
+2025-12-12 10:05:05 - URI: /TDW_project/admin/publications
+2025-12-12 10:05:05 - Processed URI: /admin/publications
+2025-12-12 10:05:09 - URI: /TDW_project/admin/publications/view/1
+2025-12-12 10:05:09 - Processed URI: /admin/publications/view/1
+2025-12-12 10:05:11 - URI: /TDW_project/
+2025-12-12 10:05:11 - Processed URI: /
+2025-12-12 10:05:11 - Showing login page
+2025-12-12 10:05:11 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:05:11 - Processed URI: /admin/dashboard
+2025-12-12 10:05:11 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:05:11 - Processed URI: /api/admin/stats
+2025-12-12 10:05:27 - URI: /TDW_project/admin/equipements
+2025-12-12 10:05:27 - Processed URI: /admin/equipements
+2025-12-12 10:05:27 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:05:27 - Processed URI: /admin/dashboard
+2025-12-12 10:05:27 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:05:27 - Processed URI: /api/admin/stats
+2025-12-12 10:05:31 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:05:31 - Processed URI: /admin/dashboard
+2025-12-12 10:05:31 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:05:31 - Processed URI: /api/admin/stats
+2025-12-12 10:06:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:06:01 - Processed URI: /api/admin/stats
+2025-12-12 10:06:31 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 10:06:31 - Processed URI: /api/admin/notifications
+2025-12-12 10:06:31 - Processed URI: /api/admin/stats
+2025-12-12 10:07:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:07:01 - Processed URI: /api/admin/stats
+2025-12-12 10:07:31 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:07:31 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:07:31 - Processed URI: /api/admin/stats
+cations
+2025-12-12 10:08:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:08:01 - Processed URI: /api/admin/stats
+2025-12-12 10:08:31 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:08:31 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:08:31 - Processed URI: /api/admin/notifications
+2025-12-12 10:08:31 - Processed URI: /api/admin/stats
+2025-12-12 10:09:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:09:01 - Processed URI: /api/admin/stats
+2025-12-12 10:09:31 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:09:31 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:09:31 - Processed URI: /api/admin/stats
+2025-12-12 10:09:31 - Processed URI: /api/admin/notifications
+2025-12-12 10:10:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:10:01 - Processed URI: /api/admin/stats
+2025-12-12 10:10:31 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 10:10:31 - Processed URI: /api/admin/notifications
+2025-12-12 10:10:31 - Processed URI: /api/admin/stats
+2025-12-12 10:11:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:11:01 - Processed URI: /api/admin/stats
+2025-12-12 10:11:31 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:11:31 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:11:31 - Processed URI: /api/admin/notifications
+2025-12-12 10:11:39 - URI: /TDW_project/projets
+2025-12-12 10:11:39 - Processed URI: /projets
+2025-12-12 10:11:40 - URI: /TDW_project/
+2025-12-12 10:11:40 - Processed URI: /
+2025-12-12 10:11:40 - Showing login page
+2025-12-12 10:11:40 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:11:40 - Processed URI: /admin/dashboard
+2025-12-12 10:11:40 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:11:40 - Processed URI: /api/admin/stats
+2025-12-12 10:12:10 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:12:10 - Processed URI: /api/admin/stats
+2025-12-12 10:12:40 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 10:12:40 - Processed URI: /api/admin/notifications
+2025-12-12 10:12:40 - Processed URI: /api/admin/stats
+2025-12-12 10:13:10 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:13:10 - Processed URI: /api/admin/stats
+2025-12-12 10:13:40 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:13:40 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:13:40 - Processed URI: /api/admin/notifications
+2025-12-12 10:14:10 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:14:10 - Processed URI: /api/admin/stats
+2025-12-12 10:14:40 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:14:40 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:14:40 - Processed URI: /api/admin/notifications
+2025-12-12 10:15:10 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:15:10 - Processed URI: /api/admin/stats
+2025-12-12 10:15:40 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:15:40 - Processed URI: /api/admin/notifications
+2025-12-12 10:16:07 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:16:07 - Processed URI: /api/admin/stats
+2025-12-12 10:16:40 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:16:40 - Processed URI: /api/admin/notifications
+2025-12-12 10:17:07 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:17:07 - Processed URI: /api/admin/stats
+2025-12-12 10:17:29 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:17:29 - Processed URI: /api/admin/stats
+2025-12-12 10:17:40 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:17:40 - Processed URI: /api/admin/stats
+2025-12-12 10:17:40 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:17:40 - Processed URI: /api/admin/notifications
+2025-12-12 10:18:10 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:10 - Processed URI: /admin/dashboard
+2025-12-12 10:18:10 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:10 - Processed URI: /api/admin/stats
+2025-12-12 10:18:13 - URI: /TDW_project/admin/equipes
+2025-12-12 10:18:13 - Processed URI: /admin/equipes
+2025-12-12 10:18:13 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:13 - Processed URI: /admin/dashboard
+2025-12-12 10:18:13 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:13 - Processed URI: /api/admin/stats
+2025-12-12 10:18:26 - URI: /TDW_project/admin/equipes
+2025-12-12 10:18:26 - Processed URI: /admin/equipes
+2025-12-12 10:18:26 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:26 - Processed URI: /admin/dashboard
+2025-12-12 10:18:26 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:26 - Processed URI: /api/admin/stats
+2025-12-12 10:18:30 - URI: /TDW_project/admin/users
+2025-12-12 10:18:30 - Processed URI: /admin/users
+2025-12-12 10:18:36 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:36 - Processed URI: /admin/dashboard
+2025-12-12 10:18:36 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:36 - Processed URI: /api/admin/stats
+2025-12-12 10:18:38 - URI: /TDW_project/admin/equipements
+2025-12-12 10:18:38 - Processed URI: /admin/equipements
+2025-12-12 10:18:38 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:38 - Processed URI: /admin/dashboard
+2025-12-12 10:18:38 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:38 - Processed URI: /api/admin/stats
+2025-12-12 10:18:41 - URI: /TDW_project/admin/publications
+2025-12-12 10:18:41 - Processed URI: /admin/publications
+2025-12-12 10:18:44 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:44 - Processed URI: /admin/dashboard
+2025-12-12 10:18:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:44 - Processed URI: /api/admin/stats
+2025-12-12 10:18:45 - URI: /TDW_project/admin/parametres
+2025-12-12 10:18:45 - Processed URI: /admin/parametres
+2025-12-12 10:18:45 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:45 - Processed URI: /admin/dashboard
+2025-12-12 10:18:45 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:45 - Processed URI: /api/admin/stats
+2025-12-12 10:18:48 - URI: /TDW_project/admin/parametres
+2025-12-12 10:18:48 - Processed URI: /admin/parametres
+2025-12-12 10:18:48 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:48 - Processed URI: /admin/dashboard
+2025-12-12 10:18:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:48 - Processed URI: /api/admin/stats
+2025-12-12 10:18:50 - URI: /TDW_project/admin/evenements
+2025-12-12 10:18:50 - Processed URI: /admin/evenements
+2025-12-12 10:18:50 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:50 - Processed URI: /admin/dashboard
+2025-12-12 10:18:51 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:51 - Processed URI: /api/admin/stats
+2025-12-12 10:18:54 - URI: /TDW_project/admin/equipements
+2025-12-12 10:18:54 - Processed URI: /admin/equipements
+2025-12-12 10:18:54 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:18:54 - Processed URI: /admin/dashboard
+2025-12-12 10:18:54 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:18:54 - Processed URI: /api/admin/stats
+2025-12-12 10:19:24 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:19:24 - Processed URI: /api/admin/stats
+2025-12-12 10:19:54 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:19:54 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:19:54 - Processed URI: /api/admin/notifications
+2025-12-12 10:20:24 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:20:24 - Processed URI: /api/admin/stats
+2025-12-12 10:20:54 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:20:54 - Processed URI: /api/admin/stats
+2025-12-12 10:20:54 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:20:54 - Processed URI: /api/admin/notifications
+2025-12-12 10:21:24 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:21:24 - Processed URI: /api/admin/stats
+2025-12-12 10:21:30 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:21:30 - Processed URI: /admin/dashboard
+2025-12-12 10:21:30 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:21:30 - Processed URI: /api/admin/stats
+2025-12-12 10:21:33 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:33 - Processed URI: /admin/parametres
+2025-12-12 10:21:33 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:33 - Processed URI: /admin/parametres
+2025-12-12 10:21:33 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:33 - Processed URI: /admin/parametres
+2025-12-12 10:21:33 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:33 - Processed URI: /admin/parametres
+2025-12-12 10:21:33 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:33 - Processed URI: /admin/parametres
+2025-12-12 10:21:33 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:33 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:34 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:34 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:35 - URI: /TDW_project/admin/parametres
+2025-12-12 10:21:35 - Processed URI: /admin/parametres
+2025-12-12 10:21:37 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:21:37 - Processed URI: /admin/dashboard
+2025-12-12 10:21:37 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:21:37 - Processed URI: /api/admin/stats
+2025-12-12 10:22:08 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:22:08 - Processed URI: /api/admin/stats
+2025-12-12 10:22:38 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 10:22:38 - Processed URI: /api/admin/notifications
+2025-12-12 10:22:38 - Processed URI: /api/admin/stats
+2025-12-12 10:23:08 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:23:08 - Processed URI: /api/admin/stats
+2025-12-12 10:23:38 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:23:38 - Processed URI: /api/admin/stats
+2025-12-12 10:23:38 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:23:38 - Processed URI: /api/admin/notifications
+2025-12-12 10:24:08 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:24:08 - Processed URI: /api/admin/stats
+2025-12-12 10:24:38 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:24:38 - Processed URI: /api/admin/stats
+2025-12-12 10:24:38 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:24:38 - Processed URI: /api/admin/notifications
+2025-12-12 10:25:08 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:25:08 - Processed URI: /api/admin/stats
+2025-12-12 10:25:38 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:25:38 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:25:38 - Processed URI: /api/admin/notifications
+2025-12-12 10:25:38 - Processed URI: /api/admin/stats
+2025-12-12 10:26:08 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:26:08 - Processed URI: /api/admin/stats
+2025-12-12 10:26:38 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:26:38 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:26:38 - Processed URI: /api/admin/stats
+2025-12-12 10:26:38 - Processed URI: /api/admin/notifications
+2025-12-12 10:27:38 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:27:38 - Processed URI: /api/admin/notifications
+2025-12-12 10:27:39 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:27:39 - Processed URI: /api/admin/stats
+2025-12-12 10:28:40 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:28:40 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:28:40 - Processed URI: /api/admin/stats
+2025-12-12 10:28:40 - Processed URI: /api/admin/notifications
+2025-12-12 10:29:41 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:29:41 - Processed URI: /api/admin/notifications
+2025-12-12 10:29:41 - Processed URI: /api/admin/stats
+2025-12-12 10:30:42 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:30:42 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:30:42 - Processed URI: /api/admin/stats
+2025-12-12 10:30:42 - Processed URI: /api/admin/notifications
+2025-12-12 10:31:43 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:31:43 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:31:43 - Processed URI: /api/admin/notifications
+2025-12-12 10:31:43 - Processed URI: /api/admin/stats
+2025-12-12 10:32:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:32:44 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:32:44 - Processed URI: /api/admin/notifications
+2025-12-12 10:32:44 - Processed URI: /api/admin/stats
+2025-12-12 10:33:45 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:33:45 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:33:45 - Processed URI: /api/admin/notifications
+2025-12-12 10:33:45 - Processed URI: /api/admin/stats
+2025-12-12 10:34:46 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:34:46 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:34:46 - Processed URI: /api/admin/stats
+2025-12-12 10:34:46 - Processed URI: /api/admin/notifications
+2025-12-12 10:35:47 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:35:47 - Processed URI: /api/admin/stats
+2025-12-12 10:35:47 - Processed URI: /api/admin/notifications
+2025-12-12 10:36:48 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:36:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:36:48 - Processed URI: /api/admin/notifications
+2025-12-12 10:36:48 - Processed URI: /api/admin/stats
+2025-12-12 10:37:49 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:37:49 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:37:49 - Processed URI: /api/admin/stats
+2025-12-12 10:37:49 - Processed URI: /api/admin/notifications
+2025-12-12 10:38:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:38:44 - Processed URI: /api/admin/stats
+2025-12-12 10:38:44 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:38:44 - Processed URI: /api/admin/notifications
+2025-12-12 10:38:46 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:38:46 - Processed URI: /admin/dashboard
+2025-12-12 10:38:46 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:38:46 - Processed URI: /api/admin/stats
+2025-12-12 10:38:50 - URI: /TDW_project/admin/equipes
+2025-12-12 10:38:50 - Processed URI: /admin/equipes
+2025-12-12 10:38:53 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:38:53 - Processed URI: /admin/dashboard
+2025-12-12 10:38:53 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:38:53 - Processed URI: /api/admin/stats
+2025-12-12 10:38:54 - URI: /TDW_project/admin/users
+2025-12-12 10:38:54 - Processed URI: /admin/users
+2025-12-12 10:39:02 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:39:02 - Processed URI: /admin/dashboard
+2025-12-12 10:39:02 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:39:02 - Processed URI: /api/admin/stats
+2025-12-12 10:39:03 - URI: /TDW_project/admin/projets
+2025-12-12 10:39:03 - Processed URI: /admin/projets
+2025-12-12 10:40:14 - URI: /TDW_project/admin/projets/export?format=csv
+2025-12-12 10:40:14 - Processed URI: /admin/projets/export
+2025-12-12 10:40:18 - URI: /TDW_project/
+2025-12-12 10:40:18 - Processed URI: /
+2025-12-12 10:40:18 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:40:18 - Processed URI: /admin/dashboard
+2025-12-12 10:40:18 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:40:18 - Processed URI: /api/admin/stats
+2025-12-12 10:40:29 - URI: /TDW_project/admin/users
+2025-12-12 10:40:29 - Processed URI: /admin/users
+2025-12-12 10:40:33 - URI: /TDW_project/admin/users/form/1
+2025-12-12 10:40:33 - Processed URI: /admin/users/form/1
+2025-12-12 10:41:00 - URI: /TDW_project/admin/users?search=admin
+2025-12-12 10:41:00 - Processed URI: /admin/users
+s?search=admin
+2025-12-12 10:41:00 - Processed URI: /admin/users
+2025-12-12 10:41:03 - URI: /TDW_project/admin/users/form
+2025-12-12 10:41:03 - Processed URI: /admin/users/form
+2025-12-12 10:41:21 - URI: /TDW_project/admin/users
+2025-12-12 10:41:21 - Processed URI: /admin/users
+2025-12-12 10:41:23 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:41:23 - Processed URI: /admin/dashboard
+2025-12-12 10:41:23 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:41:23 - Processed URI: /api/admin/stats
+2025-12-12 10:41:24 - URI: /TDW_project/admin/equipements
+2025-12-12 10:41:24 - Processed URI: /admin/equipements
+2025-12-12 10:41:29 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:41:29 - Processed URI: /admin/dashboard
+2025-12-12 10:41:29 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:41:29 - Processed URI: /api/admin/stats
+2025-12-12 10:41:30 - URI: /TDW_project/admin/publications
+2025-12-12 10:41:30 - Processed URI: /admin/publications
+2025-12-12 10:41:30 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 10:41:30 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 10:41:35 - URI: /TDW_project/admin/publications?type=Article
+2025-12-12 10:41:35 - Processed URI: /admin/publications
+2025-12-12 10:41:35 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 10:41:35 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 10:41:40 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:41:40 - Processed URI: /admin/dashboard
+2025-12-12 10:41:40 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:41:40 - Processed URI: /api/admin/stats
+2025-12-12 10:41:41 - URI: /TDW_project/admin/parametres
+2025-12-12 10:41:41 - Processed URI: /admin/parametres
+2025-12-12 10:42:20 - URI: /TDW_project/admin/parametres/save-theme
+2025-12-12 10:42:20 - Processed URI: /admin/parametres/save-theme
+2025-12-12 10:42:20 - URI: /TDW_project/admin/parametres
+2025-12-12 10:42:20 - Processed URI: /admin/parametres
+2025-12-12 10:43:55 - URI: /TDW_project/admin/parametres
+2025-12-12 10:43:55 - Processed URI: /admin/parametres
+2025-12-12 10:44:02 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:44:02 - Processed URI: /admin/dashboard
+2025-12-12 10:44:02 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:44:02 - Processed URI: /api/admin/stats
+2025-12-12 10:44:08 - URI: /TDW_project/admin/users
+2025-12-12 10:44:08 - Processed URI: /admin/users
+2025-12-12 10:44:11 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:44:11 - Processed URI: /admin/dashboard
+2025-12-12 10:44:11 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:44:11 - Processed URI: /api/admin/stats
+2025-12-12 10:44:14 - URI: /TDW_project/admin/equipes
+2025-12-12 10:44:14 - Processed URI: /admin/equipes
+2025-12-12 10:44:25 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:44:25 - Processed URI: /admin/dashboard
+2025-12-12 10:44:25 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:44:25 - Processed URI: /api/admin/stats
+2025-12-12 10:44:29 - URI: /TDW_project/admin/equipements
+2025-12-12 10:44:29 - Processed URI: /admin/equipements
+2025-12-12 10:44:32 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:44:32 - Processed URI: /admin/dashboard
+2025-12-12 10:44:32 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:44:32 - Processed URI: /api/admin/stats
+2025-12-12 10:44:34 - URI: /TDW_project/admin/publications
+2025-12-12 10:44:34 - Processed URI: /admin/publications
+2025-12-12 10:44:34 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 10:44:34 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 10:44:39 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:44:39 - Processed URI: /admin/dashboard
+2025-12-12 10:44:39 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:44:39 - Processed URI: /api/admin/stats
+2025-12-12 10:44:41 - URI: /TDW_project/admin/evenements
+2025-12-12 10:44:41 - Processed URI: /admin/evenements
+2025-12-12 10:44:44 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:44:44 - Processed URI: /admin/dashboard
+2025-12-12 10:44:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:44:44 - Processed URI: /api/admin/stats
+2025-12-12 10:45:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:45:14 - Processed URI: /api/admin/stats
+2025-12-12 10:45:44 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:45:44 - Processed URI: /api/admin/stats
+2025-12-12 10:45:44 - Processed URI: /api/admin/notifications
+2025-12-12 10:46:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:46:14 - Processed URI: /api/admin/stats
+2025-12-12 10:46:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:46:44 - Processed URI: /api/admin/stats
+2025-12-12 10:46:44 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:46:44 - Processed URI: /api/admin/notifications
+2025-12-12 10:47:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:47:14 - Processed URI: /api/admin/stats
+2025-12-12 10:47:25 - URI: /TDW_project/admin/users
+2025-12-12 10:47:25 - Processed URI: /admin/users
+2025-12-12 10:47:28 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:47:28 - Processed URI: /admin/dashboard
+2025-12-12 10:47:28 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:47:28 - Processed URI: /api/admin/stats
+2025-12-12 10:47:30 - URI: /TDW_project/admin/equipes
+2025-12-12 10:47:30 - Processed URI: /admin/equipes
+2025-12-12 10:47:33 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:47:33 - Processed URI: /admin/dashboard
+2025-12-12 10:47:33 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:47:33 - Processed URI: /api/admin/stats
+2025-12-12 10:47:34 - URI: /TDW_project/admin/projets
+2025-12-12 10:47:34 - Processed URI: /admin/projets
+2025-12-12 10:53:08 - URI: /TDW_project/admin/projets
+2025-12-12 10:53:08 - Processed URI: /admin/projets
+2025-12-12 10:53:15 - URI: /TDW_project/api/admin/projets/1
+2025-12-12 10:53:15 - Processed URI: /api/admin/projets/1
+2025-12-12 10:53:18 - URI: /TDW_project/api/admin/projets/2
+2025-12-12 10:53:18 - Processed URI: /api/admin/projets/2
+2025-12-12 10:53:19 - URI: /TDW_project/api/admin/projets/3
+2025-12-12 10:53:19 - Processed URI: /api/admin/projets/3
+2025-12-12 10:53:45 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:53:45 - Processed URI: /admin/dashboard
+2025-12-12 10:53:45 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:53:45 - Processed URI: /api/admin/stats
+2025-12-12 10:54:15 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:54:15 - Processed URI: /api/admin/stats
+2025-12-12 10:54:46 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:54:46 - Processed URI: /api/admin/notifications
+2025-12-12 10:54:46 - Processed URI: /api/admin/stats
+2025-12-12 10:55:16 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:55:16 - Processed URI: /api/admin/stats
+2025-12-12 10:55:46 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:55:46 - Processed URI: /api/admin/stats
+fications
+2025-12-12 10:55:46 - Processed URI: /api/admin/notifications
+2025-12-12 10:56:16 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:56:16 - Processed URI: /api/admin/stats
+2025-12-12 10:56:46 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:56:46 - Processed URI: /api/admin/stats
+2025-12-12 10:56:46 - Processed URI: /api/admin/notifications
+2025-12-12 10:57:16 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:57:16 - Processed URI: /api/admin/stats
+2025-12-12 10:57:46 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:57:46 - Processed URI: /api/admin/notifications
+2025-12-12 10:58:07 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:58:07 - Processed URI: /api/admin/stats
+2025-12-12 10:58:46 - URI: /TDW_project/api/admin/notifications
+2025-12-12 10:58:46 - Processed URI: /api/admin/notifications
+2025-12-12 10:58:51 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:58:51 - Processed URI: /api/admin/stats
+2025-12-12 10:58:53 - URI: /TDW_project/admin/dashboard
+2025-12-12 10:58:53 - Processed URI: /admin/dashboard
+2025-12-12 10:58:53 - URI: /TDW_project/api/admin/stats
+2025-12-12 10:58:53 - Processed URI: /api/admin/stats
+2025-12-12 10:58:55 - URI: /TDW_project/admin/users
+2025-12-12 10:58:55 - Processed URI: /admin/users
+2025-12-12 10:58:58 - URI: /TDW_project/admin/equipes
+2025-12-12 10:58:58 - Processed URI: /admin/equipes
+2025-12-12 10:59:03 - URI: /TDW_project/admin/projets
+2025-12-12 10:59:03 - Processed URI: /admin/projets
+2025-12-12 10:59:05 - URI: /TDW_project/admin/publications
+2025-12-12 10:59:05 - Processed URI: /admin/publications
+2025-12-12 10:59:05 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 10:59:05 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 10:59:06 - URI: /TDW_project/admin/equipements
+2025-12-12 10:59:06 - Processed URI: /admin/equipements
+2025-12-12 11:55:26 - URI: /TDW_project/admin/equipements
+2025-12-12 11:55:26 - Processed URI: /admin/equipements
+2025-12-12 11:55:26 - URI: /TDW_project/login?timeout=1
+2025-12-12 11:55:26 - Processed URI: /login
+2025-12-12 11:55:28 - URI: /TDW_project/auth/login
+2025-12-12 11:55:28 - Processed URI: /auth/login
+2025-12-12 11:55:29 - URI: /TDW_project/admin/dashboard
+2025-12-12 11:55:29 - Processed URI: /admin/dashboard
+2025-12-12 11:55:29 - URI: /TDW_project/api/admin/stats
+2025-12-12 11:55:29 - Processed URI: /api/admin/stats
+2025-12-12 11:55:34 - URI: /TDW_project/admin/projets
+2025-12-12 11:55:34 - Processed URI: /admin/projets
+2025-12-12 11:55:36 - URI: /TDW_project/admin/equipes
+2025-12-12 11:55:36 - Processed URI: /admin/equipes
+2025-12-12 11:55:38 - URI: /TDW_project/admin/equipements
+2025-12-12 11:55:38 - Processed URI: /admin/equipements
+2025-12-12 11:55:45 - URI: /TDW_project/admin/users
+2025-12-12 11:55:45 - Processed URI: /admin/users
+2025-12-12 11:55:47 - URI: /TDW_project/admin/evenements
+2025-12-12 11:55:47 - Processed URI: /admin/evenements
+2025-12-12 11:55:50 - URI: /TDW_project/admin/equipements
+2025-12-12 11:55:50 - Processed URI: /admin/equipements
+2025-12-12 11:55:52 - URI: /TDW_project/admin/evenements
+2025-12-12 11:55:52 - Processed URI: /admin/evenements
+2025-12-12 12:01:04 - URI: /TDW_project/admin/evenements
+2025-12-12 12:01:04 - Processed URI: /admin/evenements
+2025-12-12 12:01:07 - URI: /TDW_project/admin/equipements
+2025-12-12 12:01:07 - Processed URI: /admin/equipements
+2025-12-12 12:01:08 - URI: /TDW_project/admin/publications
+2025-12-12 12:01:08 - Processed URI: /admin/publications
+2025-12-12 12:01:08 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 12:01:08 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 12:01:09 - URI: /TDW_project/admin/projets
+2025-12-12 12:01:09 - Processed URI: /admin/projets
+2025-12-12 12:01:11 - URI: /TDW_project/admin/equipes
+2025-12-12 12:01:11 - Processed URI: /admin/equipes
+2025-12-12 12:01:12 - URI: /TDW_project/admin/users
+2025-12-12 12:01:12 - Processed URI: /admin/users
+2025-12-12 12:01:13 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:01:13 - Processed URI: /admin/dashboard
+2025-12-12 12:01:13 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:01:13 - Processed URI: /api/admin/stats
+2025-12-12 12:01:43 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:01:43 - Processed URI: /api/admin/stats
+2025-12-12 12:02:14 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 12:02:14 - Processed URI: /api/admin/notifications
+2025-12-12 12:02:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:02:44 - Processed URI: /api/admin/stats
+2025-12-12 12:03:14 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:03:14 - Processed URI: /api/admin/notifications
+2025-12-12 12:03:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:03:14 - Processed URI: /api/admin/stats
+2025-12-12 12:03:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:03:44 - Processed URI: /api/admin/stats
+2025-12-12 12:04:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:04:14 - Processed URI: /api/admin/stats
+fications
+2025-12-12 12:04:14 - Processed URI: /api/admin/notifications
+2025-12-12 12:04:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:04:44 - Processed URI: /api/admin/stats
+2025-12-12 12:05:14 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:05:14 - Processed URI: /api/admin/notifications
+2025-12-12 12:05:45 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:05:45 - Processed URI: /api/admin/stats
+2025-12-12 12:06:14 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:06:14 - Processed URI: /api/admin/notifications
+2025-12-12 12:06:17 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:06:17 - Processed URI: /api/admin/stats
+2025-12-12 12:06:19 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:06:19 - Processed URI: /admin/dashboard
+2025-12-12 12:06:19 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:06:19 - Processed URI: /api/admin/stats
+2025-12-12 12:06:49 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:06:49 - Processed URI: /api/admin/stats
+2025-12-12 12:07:18 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:07:18 - Processed URI: /admin/dashboard
+2025-12-12 12:07:18 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:07:18 - Processed URI: /api/admin/stats
+2025-12-12 12:07:19 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:07:19 - Processed URI: /admin/dashboard
+2025-12-12 12:07:19 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:07:19 - Processed URI: /api/admin/stats
+2025-12-12 12:07:50 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:07:50 - Processed URI: /api/admin/stats
+2025-12-12 12:08:18 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:08:18 - Processed URI: /admin/dashboard
+2025-12-12 12:08:18 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:08:18 - Processed URI: /api/admin/stats
+2025-12-12 12:08:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:08:48 - Processed URI: /api/admin/stats
+2025-12-12 12:09:18 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:09:18 - Processed URI: /api/admin/notifications
+2025-12-12 12:09:18 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:09:18 - Processed URI: /api/admin/stats
+2025-12-12 12:09:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:09:48 - Processed URI: /api/admin/stats
+2025-12-12 12:10:18 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 12:10:18 - Processed URI: /api/admin/notifications
+2025-12-12 12:10:18 - Processed URI: /api/admin/stats
+2025-12-12 12:10:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:10:48 - Processed URI: /api/admin/stats
+2025-12-12 12:11:18 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 12:11:18 - Processed URI: /api/admin/notifications
+2025-12-12 12:11:18 - Processed URI: /api/admin/stats
+2025-12-12 12:11:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:11:48 - Processed URI: /api/admin/stats
+2025-12-12 12:12:18 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:12:18 - Processed URI: /api/admin/notifications
+2025-12-12 12:12:49 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:12:49 - Processed URI: /api/admin/stats
+2025-12-12 12:13:18 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:13:18 - Processed URI: /api/admin/notifications
+2025-12-12 12:13:50 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:13:50 - Processed URI: /api/admin/stats
+2025-12-12 12:14:18 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:14:18 - Processed URI: /api/admin/notifications
+2025-12-12 12:14:51 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:14:51 - Processed URI: /api/admin/stats
+2025-12-12 12:15:52 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:15:52 - Processed URI: /api/admin/stats
+fications
+2025-12-12 12:15:52 - Processed URI: /api/admin/notifications
+2025-12-12 12:16:53 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:16:53 - URI: /TDW_project/api/admin/notifications
+2025-12-12 12:16:53 - Processed URI: /api/admin/stats
+2025-12-12 12:16:53 - Processed URI: /api/admin/notifications
+2025-12-12 12:17:04 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:17:04 - Processed URI: /admin/dashboard
+2025-12-12 12:17:04 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:04 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:04 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:17:04 - Processed URI: /api/admin/stats
+2025-12-12 12:17:09 - URI: /TDW_project/admin/users
+2025-12-12 12:17:09 - Processed URI: /admin/users
+2025-12-12 12:17:09 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:09 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:10 - URI: /TDW_project/admin/equipes
+2025-12-12 12:17:10 - Processed URI: /admin/equipes
+2025-12-12 12:17:10 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:10 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:11 - URI: /TDW_project/admin/projets
+2025-12-12 12:17:11 - Processed URI: /admin/projets
+2025-12-12 12:17:11 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:11 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:12 - URI: /TDW_project/admin/publications
+2025-12-12 12:17:12 - Processed URI: /admin/publications
+2025-12-12 12:17:12 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:12 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:12 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 12:17:12 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 12:17:14 - URI: /TDW_project/admin/equipements
+2025-12-12 12:17:14 - Processed URI: /admin/equipements
+2025-12-12 12:17:14 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:14 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:15 - URI: /TDW_project/admin/evenements
+2025-12-12 12:17:15 - Processed URI: /admin/evenements
+2025-12-12 12:17:15 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:15 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:22 - URI: /TDW_project/admin/equipements
+2025-12-12 12:17:22 - Processed URI: /admin/equipements
+2025-12-12 12:17:22 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:22 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:24 - URI: /TDW_project/admin/publications
+2025-12-12 12:17:24 - Processed URI: /admin/publications
+2025-12-12 12:17:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:24 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 12:17:24 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 12:17:33 - URI: /TDW_project/admin/projets
+2025-12-12 12:17:33 - Processed URI: /admin/projets
+2025-12-12 12:17:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:37 - URI: /TDW_project/admin/equipes
+2025-12-12 12:17:37 - Processed URI: /admin/equipes
+2025-12-12 12:17:37 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:37 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:43 - URI: /TDW_project/admin/users
+2025-12-12 12:17:43 - Processed URI: /admin/users
+2025-12-12 12:17:43 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:43 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:51 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:17:51 - Processed URI: /admin/dashboard
+2025-12-12 12:17:51 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:17:51 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:17:51 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:17:51 - Processed URI: /api/admin/stats
+2025-12-12 12:18:21 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:18:21 - Processed URI: /api/admin/stats
+2025-12-12 12:18:51 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 12:18:51 - Processed URI: /api/admin/notifications
+2025-12-12 12:18:51 - Processed URI: /api/admin/stats
+2025-12-12 12:19:21 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:19:21 - Processed URI: /api/admin/stats
+2025-12-12 12:19:51 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 12:19:51 - Processed URI: /api/admin/notifications
+2025-12-12 12:19:51 - Processed URI: /api/admin/stats
+2025-12-12 12:20:21 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:20:21 - Processed URI: /api/admin/stats
+2025-12-12 12:20:33 - URI: /TDW_project/admin/users
+2025-12-12 12:20:33 - Processed URI: /admin/users
+2025-12-12 12:20:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:41 - URI: /TDW_project/admin/users/form/1
+2025-12-12 12:20:41 - Processed URI: /admin/users/form/1
+2025-12-12 12:20:50 - URI: /TDW_project/admin/equipes
+2025-12-12 12:20:50 - Processed URI: /admin/equipes
+2025-12-12 12:20:50 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:50 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:52 - URI: /TDW_project/admin/projets
+2025-12-12 12:20:52 - Processed URI: /admin/projets
+2025-12-12 12:20:52 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:52 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:53 - URI: /TDW_project/admin/publications
+2025-12-12 12:20:53 - Processed URI: /admin/publications
+2025-12-12 12:20:53 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:53 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 12:20:53 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 12:20:53 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:54 - URI: /TDW_project/admin/equipements
+2025-12-12 12:20:54 - Processed URI: /admin/equipements
+2025-12-12 12:20:54 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:54 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:55 - URI: /TDW_project/admin/evenements
+2025-12-12 12:20:55 - Processed URI: /admin/evenements
+2025-12-12 12:20:55 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:55 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:56 - URI: /TDW_project/admin/equipements
+2025-12-12 12:20:56 - Processed URI: /admin/equipements
+2025-12-12 12:20:56 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:56 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:57 - URI: /TDW_project/admin/publications
+2025-12-12 12:20:57 - Processed URI: /admin/publications
+2025-12-12 12:20:57 - URI: /TDW_project/assets/js/modern-ui.js
+tions.js
+2025-12-12 12:20:57 - Processed URI: /assets/js/modern-ui.js
+tions.js
+2025-12-12 12:20:58 - URI: /TDW_project/admin/projets
+2025-12-12 12:20:58 - Processed URI: /admin/projets
+2025-12-12 12:20:58 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:58 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:20:59 - URI: /TDW_project/admin/equipes
+2025-12-12 12:20:59 - Processed URI: /admin/equipes
+2025-12-12 12:20:59 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:20:59 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:00 - URI: /TDW_project/admin/users
+2025-12-12 12:21:00 - Processed URI: /admin/users
+2025-12-12 12:21:00 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:00 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:01 - URI: /TDW_project/admin/dashboard
+2025-12-12 12:21:01 - Processed URI: /admin/dashboard
+2025-12-12 12:21:01 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:01 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:01 - URI: /TDW_project/api/admin/stats
+2025-12-12 12:21:01 - Processed URI: /api/admin/stats
+2025-12-12 12:21:05 - URI: /TDW_project/admin/users
+2025-12-12 12:21:05 - Processed URI: /admin/users
+2025-12-12 12:21:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:06 - URI: /TDW_project/admin/equipes
+2025-12-12 12:21:06 - Processed URI: /admin/equipes
+2025-12-12 12:21:06 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:06 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:07 - URI: /TDW_project/admin/projets
+2025-12-12 12:21:07 - Processed URI: /admin/projets
+2025-12-12 12:21:07 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:07 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:07 - URI: /TDW_project/admin/publications
+2025-12-12 12:21:07 - Processed URI: /admin/publications
+2025-12-12 12:21:08 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:08 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:08 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 12:21:08 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 12:21:09 - URI: /TDW_project/admin/equipements
+2025-12-12 12:21:09 - Processed URI: /admin/equipements
+2025-12-12 12:21:09 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:09 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:21:14 - URI: /TDW_project/admin/evenements
+2025-12-12 12:21:14 - Processed URI: /admin/evenements
+2025-12-12 12:21:14 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:21:14 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:23:23 - URI: /TDW_project/admin/evenements
+2025-12-12 12:23:23 - Processed URI: /admin/evenements
+2025-12-12 12:23:23 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 12:23:23 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 12:28:16 - URI: /TDW_project/
+2025-12-12 12:28:16 - Processed URI: /
+2025-12-12 13:04:22 - URI: /TDW_project/membre/dashboard
+2025-12-12 13:04:22 - Processed URI: /membre/dashboard
+2025-12-12 13:04:35 - URI: /TDW_project/
+2025-12-12 13:04:35 - Processed URI: /
+2025-12-12 13:04:46 - URI: /TDW_project/auth/login
+2025-12-12 13:04:46 - Processed URI: /auth/login
+2025-12-12 13:04:47 - URI: /TDW_project/admin/dashboard
+2025-12-12 13:04:47 - Processed URI: /admin/dashboard
+2025-12-12 13:04:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:04:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:04:47 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:04:47 - Processed URI: /api/admin/stats
+2025-12-12 13:05:14 - URI: /TDW_project/admin/users
+2025-12-12 13:05:14 - Processed URI: /admin/users
+2025-12-12 13:05:14 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:14 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:23 - URI: /TDW_project/admin/equipements
+2025-12-12 13:05:23 - Processed URI: /admin/equipements
+2025-12-12 13:05:23 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:23 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:24 - URI: /TDW_project/admin/publications
+2025-12-12 13:05:24 - Processed URI: /admin/publications
+2025-12-12 13:05:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:24 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:05:24 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:05:25 - URI: /TDW_project/admin/evenements
+2025-12-12 13:05:25 - Processed URI: /admin/evenements
+2025-12-12 13:05:25 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:25 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:27 - URI: /TDW_project/admin/equipements
+2025-12-12 13:05:27 - Processed URI: /admin/equipements
+2025-12-12 13:05:27 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:27 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:28 - URI: /TDW_project/admin/publications
+2025-12-12 13:05:28 - Processed URI: /admin/publications
+2025-12-12 13:05:28 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:05:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:28 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:05:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:34 - URI: /TDW_project/admin/dashboard
+2025-12-12 13:05:34 - Processed URI: /admin/dashboard
+2025-12-12 13:05:34 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:34 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:34 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:05:34 - Processed URI: /api/admin/stats
+2025-12-12 13:05:43 - URI: /TDW_project/admin/users
+2025-12-12 13:05:43 - Processed URI: /admin/users
+2025-12-12 13:05:43 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:43 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:46 - URI: /TDW_project/admin/equipes
+2025-12-12 13:05:46 - Processed URI: /admin/equipes
+2025-12-12 13:05:46 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:46 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:47 - URI: /TDW_project/admin/projets
+2025-12-12 13:05:47 - Processed URI: /admin/projets
+2025-12-12 13:05:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:49 - URI: /TDW_project/admin/evenements
+2025-12-12 13:05:49 - Processed URI: /admin/evenements
+2025-12-12 13:05:49 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:49 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:05:57 - URI: /TDW_project/admin/evenements?type_evenement=S%C3%A9minaire
+2025-12-12 13:05:57 - Processed URI: /admin/evenements
+2025-12-12 13:05:57 - URI: /TDW_project/admin/evenements?type_evenement=S%C3%A9minaire
+2025-12-12 13:05:57 - Processed URI: /admin/evenements
+2025-12-12 13:05:57 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:05:57 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:07:43 - URI: /TDW_project/admin/equipements
+2025-12-12 13:07:43 - Processed URI: /admin/equipements
+2025-12-12 13:07:43 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:07:43 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:07:44 - URI: /TDW_project/admin/publications
+2025-12-12 13:07:44 - Processed URI: /admin/publications
+2025-12-12 13:07:44 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:07:44 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:07:44 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:07:44 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:07:45 - URI: /TDW_project/admin/projets
+2025-12-12 13:07:45 - Processed URI: /admin/projets
+2025-12-12 13:07:45 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:07:45 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:07:47 - URI: /TDW_project/admin/equipes
+2025-12-12 13:07:47 - Processed URI: /admin/equipes
+2025-12-12 13:07:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:07:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:07:48 - URI: /TDW_project/admin/users
+2025-12-12 13:07:48 - Processed URI: /admin/users
+2025-12-12 13:07:48 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:07:48 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:07:49 - URI: /TDW_project/admin/dashboard
+2025-12-12 13:07:49 - Processed URI: /admin/dashboard
+2025-12-12 13:07:49 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:07:49 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:07:49 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:07:49 - Processed URI: /api/admin/stats
+2025-12-12 13:07:59 - URI: /TDW_project/admin/users
+2025-12-12 13:07:59 - Processed URI: /admin/users
+2025-12-12 13:07:59 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:07:59 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:08:09 - URI: /TDW_project/admin/equipes
+2025-12-12 13:08:09 - Processed URI: /admin/equipes
+2025-12-12 13:08:09 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:08:09 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:08:13 - URI: /TDW_project/admin/projets
+2025-12-12 13:08:13 - Processed URI: /admin/projets
+2025-12-12 13:08:13 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:08:13 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:08:14 - URI: /TDW_project/admin/publications
+2025-12-12 13:08:14 - Processed URI: /admin/publications
+2025-12-12 13:08:14 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:08:14 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:08:14 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:08:14 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:08:16 - URI: /TDW_project/admin/equipements
+2025-12-12 13:08:16 - Processed URI: /admin/equipements
+2025-12-12 13:08:16 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:08:16 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:08:17 - URI: /TDW_project/admin/evenements
+2025-12-12 13:08:17 - Processed URI: /admin/evenements
+2025-12-12 13:08:17 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:08:17 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:34 - URI: /TDW_project/admin/equipements
+2025-12-12 13:09:34 - Processed URI: /admin/equipements
+2025-12-12 13:09:34 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:09:34 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:35 - URI: /TDW_project/admin/publications
+2025-12-12 13:09:35 - Processed URI: /admin/publications
+2025-12-12 13:09:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:09:35 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:09:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:35 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:09:36 - URI: /TDW_project/admin/projets
+2025-12-12 13:09:36 - Processed URI: /admin/projets
+2025-12-12 13:09:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:09:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:37 - URI: /TDW_project/admin/equipes
+2025-12-12 13:09:37 - Processed URI: /admin/equipes
+2025-12-12 13:09:37 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:09:37 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:40 - URI: /TDW_project/admin/users
+2025-12-12 13:09:40 - Processed URI: /admin/users
+2025-12-12 13:09:40 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:09:40 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:41 - URI: /TDW_project/admin/users
+2025-12-12 13:09:41 - Processed URI: /admin/users
+2025-12-12 13:09:41 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:09:41 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:42 - URI: /TDW_project/admin/dashboard
+2025-12-12 13:09:42 - Processed URI: /admin/dashboard
+2025-12-12 13:09:42 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:09:42 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:09:42 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:09:42 - Processed URI: /api/admin/stats
+2025-12-12 13:10:12 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:10:12 - Processed URI: /api/admin/stats
+2025-12-12 13:10:42 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:10:42 - URI: /TDW_project/api/admin/notifications
+2025-12-12 13:10:42 - Processed URI: /api/admin/stats
+2025-12-12 13:10:42 - Processed URI: /api/admin/notifications
+2025-12-12 13:11:13 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:11:13 - Processed URI: /api/admin/stats
+2025-12-12 13:11:43 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:11:43 - URI: /TDW_project/api/admin/notifications
+2025-12-12 13:11:43 - Processed URI: /api/admin/stats
+2025-12-12 13:11:43 - Processed URI: /api/admin/notifications
+2025-12-12 13:12:13 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:12:13 - Processed URI: /api/admin/stats
+2025-12-12 13:12:33 - URI: /TDW_project/admin/projets
+2025-12-12 13:12:33 - Processed URI: /admin/projets
+2025-12-12 13:12:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:35 - URI: /TDW_project/admin/publications
+2025-12-12 13:12:35 - Processed URI: /admin/publications
+2025-12-12 13:12:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:35 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:12:35 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:12:36 - URI: /TDW_project/admin/equipements
+2025-12-12 13:12:36 - Processed URI: /admin/equipements
+2025-12-12 13:12:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:37 - URI: /TDW_project/admin/evenements
+2025-12-12 13:12:37 - Processed URI: /admin/evenements
+2025-12-12 13:12:37 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:37 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:39 - URI: /TDW_project/admin/equipements
+2025-12-12 13:12:39 - Processed URI: /admin/equipements
+2025-12-12 13:12:39 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:39 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:40 - URI: /TDW_project/admin/publications
+2025-12-12 13:12:40 - Processed URI: /admin/publications
+2025-12-12 13:12:40 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:40 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:40 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:12:40 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:12:41 - URI: /TDW_project/admin/projets
+2025-12-12 13:12:41 - Processed URI: /admin/projets
+2025-12-12 13:12:41 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:41 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:42 - URI: /TDW_project/admin/equipes
+2025-12-12 13:12:42 - Processed URI: /admin/equipes
+2025-12-12 13:12:42 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:42 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:43 - URI: /TDW_project/admin/users
+2025-12-12 13:12:43 - Processed URI: /admin/users
+2025-12-12 13:12:43 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:43 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:44 - URI: /TDW_project/admin/dashboard
+2025-12-12 13:12:44 - Processed URI: /admin/dashboard
+2025-12-12 13:12:44 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:44 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:12:44 - Processed URI: /api/admin/stats
+2025-12-12 13:12:54 - URI: /TDW_project/admin/evenements
+2025-12-12 13:12:54 - Processed URI: /admin/evenements
+2025-12-12 13:12:54 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:54 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:55 - URI: /TDW_project/admin/equipements
+2025-12-12 13:12:55 - Processed URI: /admin/equipements
+2025-12-12 13:12:55 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:55 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:56 - URI: /TDW_project/admin/publications
+2025-12-12 13:12:56 - Processed URI: /admin/publications
+2025-12-12 13:12:56 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:56 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:56 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:12:56 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:12:57 - URI: /TDW_project/admin/projets
+2025-12-12 13:12:57 - Processed URI: /admin/projets
+2025-12-12 13:12:57 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:57 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:58 - URI: /TDW_project/admin/equipes
+2025-12-12 13:12:58 - Processed URI: /admin/equipes
+2025-12-12 13:12:58 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:58 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:12:59 - URI: /TDW_project/admin/users
+2025-12-12 13:12:59 - Processed URI: /admin/users
+2025-12-12 13:12:59 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:12:59 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:13:00 - URI: /TDW_project/admin/dashboard
+2025-12-12 13:13:00 - Processed URI: /admin/dashboard
+2025-12-12 13:13:00 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:13:00 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:13:00 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:13:00 - Processed URI: /api/admin/stats
+2025-12-12 13:13:27 - URI: /TDW_project/admin/projets
+2025-12-12 13:13:27 - Processed URI: /admin/projets
+2025-12-12 13:13:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:13:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:13:34 - URI: /TDW_project/admin/projets/view/3
+2025-12-12 13:13:34 - Processed URI: /admin/projets/view/3
+2025-12-12 13:13:39 - URI: /TDW_project/api/admin/projets/2
+2025-12-12 13:13:39 - Processed URI: /api/admin/projets/2
+2025-12-12 13:13:48 - URI: /TDW_project/api/admin/projets/1
+2025-12-12 13:13:48 - Processed URI: /api/admin/projets/1
+2025-12-12 13:13:57 - URI: /TDW_project/admin/projets/form
+2025-12-12 13:13:57 - Processed URI: /admin/projets/form
+2025-12-12 13:14:04 - URI: /TDW_project/admin/projets/export?format=csv
+2025-12-12 13:14:04 - Processed URI: /admin/projets/export
+2025-12-12 13:14:06 - URI: /TDW_project/
+2025-12-12 13:14:06 - Processed URI: /
+2025-12-12 13:14:06 - URI: /TDW_project/admin/dashboard
+2025-12-12 13:14:06 - Processed URI: /admin/dashboard
+2025-12-12 13:14:06 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:14:06 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:14:06 - URI: /TDW_project/api/admin/stats
+2025-12-12 13:14:06 - Processed URI: /api/admin/stats
+2025-12-12 13:14:10 - URI: /TDW_project/admin/publications
+2025-12-12 13:14:10 - Processed URI: /admin/publications
+2025-12-12 13:14:10 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:14:10 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 13:14:10 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 13:14:10 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 13:14:11 - URI: /TDW_project/admin/equipements
+2025-12-12 13:14:11 - Processed URI: /admin/equipements
+2025-12-12 13:14:11 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 13:14:11 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:45:36 - URI: /TDW_project/
+2025-12-12 15:45:36 - Processed URI: /
+2025-12-12 15:45:46 - URI: /TDW_project/auth/login
+2025-12-12 15:45:46 - Processed URI: /auth/login
+2025-12-12 15:45:47 - URI: /TDW_project/admin/dashboard
+2025-12-12 15:45:47 - Processed URI: /admin/dashboard
+2025-12-12 15:45:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:45:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:45:47 - URI: /TDW_project/api/admin/stats
+2025-12-12 15:45:47 - Processed URI: /api/admin/stats
+2025-12-12 15:46:01 - URI: /TDW_project/admin/users
+2025-12-12 15:46:01 - Processed URI: /admin/users
+2025-12-12 15:46:02 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:02 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:05 - URI: /TDW_project/admin/equipes
+2025-12-12 15:46:05 - Processed URI: /admin/equipes
+2025-12-12 15:46:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:07 - URI: /TDW_project/admin/publications
+2025-12-12 15:46:07 - Processed URI: /admin/publications
+2025-12-12 15:46:07 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:07 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:07 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 15:46:07 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 15:46:08 - URI: /TDW_project/admin/equipements
+2025-12-12 15:46:08 - Processed URI: /admin/equipements
+2025-12-12 15:46:08 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:08 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:10 - URI: /TDW_project/admin/evenements
+2025-12-12 15:46:10 - Processed URI: /admin/evenements
+2025-12-12 15:46:10 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:10 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:26 - URI: /TDW_project/admin/users
+2025-12-12 15:46:26 - Processed URI: /admin/users
+2025-12-12 15:46:26 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:26 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:31 - URI: /TDW_project/admin/equipes
+2025-12-12 15:46:31 - Processed URI: /admin/equipes
+2025-12-12 15:46:31 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:31 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:32 - URI: /TDW_project/admin/projets
+2025-12-12 15:46:32 - Processed URI: /admin/projets
+2025-12-12 15:46:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:33 - URI: /TDW_project/admin/publications
+2025-12-12 15:46:33 - Processed URI: /admin/publications
+2025-12-12 15:46:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:33 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 15:46:33 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 15:46:35 - URI: /TDW_project/admin/equipements
+2025-12-12 15:46:35 - Processed URI: /admin/equipements
+2025-12-12 15:46:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:46:35 - URI: /TDW_project/admin/evenements
+2025-12-12 15:46:35 - Processed URI: /admin/evenements
+2025-12-12 15:46:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:46:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:26 - URI: /TDW_project/admin/evenements
+2025-12-12 15:52:26 - Processed URI: /admin/evenements
+2025-12-12 15:52:26 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:26 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:32 - URI: /TDW_project/admin/equipements
+2025-12-12 15:52:32 - Processed URI: /admin/equipements
+2025-12-12 15:52:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:33 - URI: /TDW_project/admin/publications
+2025-12-12 15:52:33 - Processed URI: /admin/publications
+2025-12-12 15:52:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:33 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 15:52:33 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 15:52:34 - URI: /TDW_project/admin/projets
+2025-12-12 15:52:34 - Processed URI: /admin/projets
+2025-12-12 15:52:34 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:34 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:35 - URI: /TDW_project/admin/equipes
+2025-12-12 15:52:35 - Processed URI: /admin/equipes
+2025-12-12 15:52:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:36 - URI: /TDW_project/admin/equipes
+2025-12-12 15:52:36 - Processed URI: /admin/equipes
+2025-12-12 15:52:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:41 - URI: /TDW_project/admin/projets
+2025-12-12 15:52:41 - Processed URI: /admin/projets
+2025-12-12 15:52:41 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:41 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:42 - URI: /TDW_project/admin/publications
+2025-12-12 15:52:42 - Processed URI: /admin/publications
+2025-12-12 15:52:42 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:42 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 15:52:42 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 15:52:44 - URI: /TDW_project/admin/equipements
+2025-12-12 15:52:44 - Processed URI: /admin/equipements
+2025-12-12 15:52:44 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:44 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:52:45 - URI: /TDW_project/admin/evenements
+2025-12-12 15:52:45 - Processed URI: /admin/evenements
+2025-12-12 15:52:45 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:52:45 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:14 - URI: /TDW_project/admin/evenements
+2025-12-12 15:58:14 - Processed URI: /admin/evenements
+2025-12-12 15:58:15 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:15 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:23 - URI: /TDW_project/admin/equipements
+2025-12-12 15:58:23 - Processed URI: /admin/equipements
+2025-12-12 15:58:23 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:23 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:24 - URI: /TDW_project/admin/publications
+2025-12-12 15:58:24 - Processed URI: /admin/publications
+2025-12-12 15:58:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:24 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 15:58:24 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 15:58:26 - URI: /TDW_project/admin/projets
+2025-12-12 15:58:26 - Processed URI: /admin/projets
+2025-12-12 15:58:26 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:26 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:27 - URI: /TDW_project/admin/equipes
+2025-12-12 15:58:27 - Processed URI: /admin/equipes
+2025-12-12 15:58:27 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:27 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:28 - URI: /TDW_project/admin/users
+2025-12-12 15:58:28 - Processed URI: /admin/users
+2025-12-12 15:58:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:40 - URI: /TDW_project/admin/equipes
+2025-12-12 15:58:40 - Processed URI: /admin/equipes
+2025-12-12 15:58:40 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:40 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:41 - URI: /TDW_project/admin/publications
+2025-12-12 15:58:41 - Processed URI: /admin/publications
+2025-12-12 15:58:41 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 15:58:41 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:41 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 15:58:42 - URI: /TDW_project/admin/evenements
+2025-12-12 15:58:42 - Processed URI: /admin/evenements
+2025-12-12 15:58:42 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:42 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:46 - URI: /TDW_project/admin/equipements
+2025-12-12 15:58:46 - Processed URI: /admin/equipements
+2025-12-12 15:58:46 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:46 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:58:46 - URI: /TDW_project/admin/publications
+2025-12-12 15:58:46 - Processed URI: /admin/publications
+2025-12-12 15:58:46 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 15:58:46 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 15:58:47 - URI: /TDW_project/admin/projets
+2025-12-12 15:58:47 - Processed URI: /admin/projets
+2025-12-12 15:58:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:58:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:59:30 - URI: /TDW_project/admin/dashboard
+2025-12-12 15:59:30 - Processed URI: /admin/dashboard
+2025-12-12 15:59:30 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:59:30 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:59:30 - URI: /TDW_project/api/admin/stats
+2025-12-12 15:59:30 - Processed URI: /api/admin/stats
+2025-12-12 15:59:35 - URI: /TDW_project/admin/dashboard
+2025-12-12 15:59:35 - Processed URI: /admin/dashboard
+2025-12-12 15:59:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:59:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:59:35 - URI: /TDW_project/api/admin/stats
+2025-12-12 15:59:35 - Processed URI: /api/admin/stats
+2025-12-12 15:59:40 - URI: /TDW_project/admin/users
+2025-12-12 15:59:40 - Processed URI: /admin/users
+2025-12-12 15:59:40 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:59:40 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:59:44 - URI: /TDW_project/admin/dashboard
+2025-12-12 15:59:44 - Processed URI: /admin/dashboard
+2025-12-12 15:59:44 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 15:59:44 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 15:59:44 - URI: /TDW_project/api/admin/stats
+2025-12-12 15:59:44 - Processed URI: /api/admin/stats
+2025-12-12 16:00:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:00:14 - Processed URI: /api/admin/stats
+2025-12-12 16:00:44 - URI: /TDW_project/api/admin/notifications
+2025-12-12 16:00:44 - Processed URI: /api/admin/stats
+2025-12-12 16:00:44 - Processed URI: /api/admin/notifications
+2025-12-12 16:01:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:01:14 - Processed URI: /api/admin/stats
+2025-12-12 16:01:44 - URI: /TDW_project/api/admin/notifications
+2025-12-12 16:01:44 - Processed URI: /api/admin/stats
+2025-12-12 16:01:44 - Processed URI: /api/admin/notifications
+2025-12-12 16:02:14 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:02:14 - Processed URI: /api/admin/stats
+2025-12-12 16:02:44 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-12 16:02:44 - Processed URI: /api/admin/notifications
+2025-12-12 16:02:44 - Processed URI: /api/admin/stats
+2025-12-12 16:03:11 - URI: /TDW_project/admin/dashboard
+2025-12-12 16:03:11 - Processed URI: /admin/dashboard
+2025-12-12 16:03:12 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:03:12 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:03:12 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:03:12 - Processed URI: /api/admin/stats
+2025-12-12 16:03:42 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:03:42 - Processed URI: /api/admin/stats
+2025-12-12 16:04:12 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:04:12 - URI: /TDW_project/api/admin/notifications
+2025-12-12 16:04:12 - Processed URI: /api/admin/stats
+2025-12-12 16:04:12 - Processed URI: /api/admin/notifications
+2025-12-12 16:04:43 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:04:43 - Processed URI: /api/admin/stats
+2025-12-12 16:05:12 - URI: /TDW_project/api/admin/notifications
+2025-12-12 16:05:12 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:05:12 - Processed URI: /api/admin/notifications
+2025-12-12 16:05:12 - Processed URI: /api/admin/stats
+2025-12-12 16:05:42 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:05:42 - Processed URI: /api/admin/stats
+2025-12-12 16:05:51 - URI: /TDW_project/admin/dashboard
+2025-12-12 16:05:51 - Processed URI: /admin/dashboard
+2025-12-12 16:05:52 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:05:52 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:05:52 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:05:52 - Processed URI: /api/admin/stats
+2025-12-12 16:06:10 - URI: /TDW_project/projets
+2025-12-12 16:06:10 - Processed URI: /projets
+2025-12-12 16:06:12 - URI: /TDW_project/
+2025-12-12 16:06:12 - Processed URI: /
+2025-12-12 16:06:12 - URI: /TDW_project/admin/dashboard
+2025-12-12 16:06:12 - Processed URI: /admin/dashboard
+2025-12-12 16:06:12 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:12 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:12 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:06:12 - Processed URI: /api/admin/stats
+2025-12-12 16:06:24 - URI: /TDW_project/admin/users
+2025-12-12 16:06:24 - Processed URI: /admin/users
+2025-12-12 16:06:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:33 - URI: /TDW_project/admin/equipes
+2025-12-12 16:06:33 - Processed URI: /admin/equipes
+2025-12-12 16:06:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:34 - URI: /TDW_project/admin/projets
+2025-12-12 16:06:34 - Processed URI: /admin/projets
+2025-12-12 16:06:34 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:34 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:35 - URI: /TDW_project/admin/publications
+2025-12-12 16:06:35 - Processed URI: /admin/publications
+2025-12-12 16:06:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:35 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:06:35 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:06:36 - URI: /TDW_project/admin/equipements
+2025-12-12 16:06:36 - Processed URI: /admin/equipements
+2025-12-12 16:06:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:37 - URI: /TDW_project/admin/evenements
+2025-12-12 16:06:37 - Processed URI: /admin/evenements
+2025-12-12 16:06:37 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:37 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:42 - URI: /TDW_project/admin/dashboard
+2025-12-12 16:06:42 - Processed URI: /admin/dashboard
+2025-12-12 16:06:42 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:06:42 - Processed URI: /api/admin/stats
+2025-12-12 16:06:48 - URI: /TDW_project/
+2025-12-12 16:06:48 - Processed URI: /
+2025-12-12 16:06:48 - URI: /TDW_project/admin/dashboard
+2025-12-12 16:06:48 - Processed URI: /admin/dashboard
+2025-12-12 16:06:48 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:06:48 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:06:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:06:48 - Processed URI: /api/admin/stats
+2025-12-12 16:07:18 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:07:18 - Processed URI: /api/admin/stats
+2025-12-12 16:07:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:07:48 - URI: /TDW_project/api/admin/notifications
+2025-12-12 16:07:48 - Processed URI: /api/admin/stats
+2025-12-12 16:07:48 - Processed URI: /api/admin/notifications
+2025-12-12 16:08:18 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:08:18 - Processed URI: /api/admin/stats
+2025-12-12 16:08:48 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:08:48 - URI: /TDW_project/api/admin/notifications
+2025-12-12 16:08:48 - Processed URI: /api/admin/stats
+2025-12-12 16:08:48 - Processed URI: /api/admin/notifications
+2025-12-12 16:09:18 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:09:18 - Processed URI: /api/admin/stats
+2025-12-12 16:09:35 - URI: /TDW_project/admin/users
+2025-12-12 16:09:35 - Processed URI: /admin/users
+2025-12-12 16:09:35 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:09:35 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:09:44 - URI: /TDW_project/admin/equipes
+2025-12-12 16:09:44 - Processed URI: /admin/equipes
+2025-12-12 16:09:44 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:09:44 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:09:45 - URI: /TDW_project/admin/projets
+2025-12-12 16:09:45 - Processed URI: /admin/projets
+2025-12-12 16:09:45 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:09:45 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:09:46 - URI: /TDW_project/admin/publications
+2025-12-12 16:09:46 - Processed URI: /admin/publications
+2025-12-12 16:09:46 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:09:46 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:09:46 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:09:46 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:09:47 - URI: /TDW_project/admin/equipements
+2025-12-12 16:09:47 - Processed URI: /admin/equipements
+2025-12-12 16:09:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:09:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:09:48 - URI: /TDW_project/admin/evenements
+2025-12-12 16:09:48 - Processed URI: /admin/evenements
+2025-12-12 16:09:48 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:09:48 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:09:50 - URI: /TDW_project/admin/dashboard
+2025-12-12 16:09:50 - Processed URI: /admin/dashboard
+2025-12-12 16:09:50 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:09:50 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:09:50 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:09:50 - Processed URI: /api/admin/stats
+2025-12-12 16:10:05 - URI: /TDW_project/admin/projets
+2025-12-12 16:10:05 - Processed URI: /admin/projets
+2025-12-12 16:10:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:10:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:10:18 - URI: /TDW_project/admin/projets/export?format=csv
+2025-12-12 16:10:18 - Processed URI: /admin/projets/export
+2025-12-12 16:10:20 - URI: /TDW_project/
+2025-12-12 16:10:20 - Processed URI: /
+2025-12-12 16:10:20 - URI: /TDW_project/admin/dashboard
+2025-12-12 16:10:20 - Processed URI: /admin/dashboard
+2025-12-12 16:10:20 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:10:20 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:10:20 - URI: /TDW_project/api/admin/stats
+2025-12-12 16:10:20 - Processed URI: /api/admin/stats
+2025-12-12 16:10:23 - URI: /TDW_project/admin/evenements
+2025-12-12 16:10:23 - Processed URI: /admin/evenements
+2025-12-12 16:10:23 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:10:23 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:10:26 - URI: /TDW_project/admin/evenements/form
+2025-12-12 16:10:26 - Processed URI: /admin/evenements/form
+2025-12-12 16:11:55 - URI: /TDW_project/admin/evenements?
+2025-12-12 16:11:55 - Processed URI: /admin/evenements
+2025-12-12 16:11:55 - URI: /TDW_project/admin/evenements?
+2025-12-12 16:11:55 - Processed URI: /admin/evenements
+2025-12-12 16:11:55 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:11:55 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:12:05 - URI: /TDW_project/admin/evenements?search=Co
+2025-12-12 16:12:05 - Processed URI: /admin/evenements
+2025-12-12 16:12:05 - URI: /TDW_project/admin/evenements?search=Co
+2025-12-12 16:12:05 - Processed URI: /admin/evenements
+2025-12-12 16:12:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:12:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:12:10 - URI: /TDW_project/admin/evenements?
+2025-12-12 16:12:10 - Processed URI: /admin/evenements
+2025-12-12 16:12:10 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:12:10 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:12:20 - URI: /TDW_project/admin/evenements?type_evenement=Conf%C3%A9rence
+2025-12-12 16:12:20 - Processed URI: /admin/evenements
+2025-12-12 16:12:20 - URI: /TDW_project/admin/evenements?type_evenement=Conf%C3%A9rence
+2025-12-12 16:12:20 - Processed URI: /admin/evenements
+2025-12-12 16:12:20 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:12:20 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:12:28 - URI: /TDW_project/admin/evenements?type_evenement=S%C3%A9minaire
+2025-12-12 16:12:28 - Processed URI: /admin/evenements
+2025-12-12 16:12:28 - URI: /TDW_project/admin/evenements?type_evenement=S%C3%A9minaire
+2025-12-12 16:12:28 - Processed URI: /admin/evenements
+2025-12-12 16:12:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:12:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:12:49 - URI: /TDW_project/admin/evenements?type_evenement=Soutenance
+2025-12-12 16:12:49 - Processed URI: /admin/evenements
+2025-12-12 16:12:49 - URI: /TDW_project/admin/evenements?type_evenement=Soutenance
+2025-12-12 16:12:49 - Processed URI: /admin/evenements
+2025-12-12 16:12:49 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:12:49 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:12:55 - URI: /TDW_project/admin/evenements?type_evenement=Soutenance
+2025-12-12 16:12:55 - Processed URI: /admin/evenements
+2025-12-12 16:12:55 - URI: /TDW_project/admin/evenements?type_evenement=Soutenance
+2025-12-12 16:12:55 - Processed URI: /admin/evenements
+2025-12-12 16:12:55 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:12:55 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:13:12 - URI: /TDW_project/admin/equipements
+2025-12-12 16:13:12 - Processed URI: /admin/equipements
+2025-12-12 16:13:12 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:13:12 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:13:13 - URI: /TDW_project/admin/publications
+2025-12-12 16:13:13 - Processed URI: /admin/publications
+2025-12-12 16:13:13 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:13:13 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:13:13 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:13:13 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:13:14 - URI: /TDW_project/admin/projets
+2025-12-12 16:13:14 - Processed URI: /admin/projets
+2025-12-12 16:13:14 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:13:14 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:13:15 - URI: /TDW_project/admin/equipes
+2025-12-12 16:13:15 - Processed URI: /admin/equipes
+2025-12-12 16:13:15 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:13:15 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:13:16 - URI: /TDW_project/admin/users
+2025-12-12 16:13:16 - Processed URI: /admin/users
+2025-12-12 16:13:16 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:13:16 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:13:19 - URI: /TDW_project/admin/users/form
+2025-12-12 16:13:19 - Processed URI: /admin/users/form
+2025-12-12 16:20:46 - URI: /TDW_project/admin/projets
+2025-12-12 16:20:46 - Processed URI: /admin/projets
+2025-12-12 16:20:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:20:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:18 - URI: /TDW_project/admin/publications
+2025-12-12 16:21:18 - Processed URI: /admin/publications
+2025-12-12 16:21:18 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:21:18 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:18 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:21:18 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:21:22 - URI: /TDW_project/admin/publications?type=Article
+2025-12-12 16:21:22 - Processed URI: /admin/publications
+2025-12-12 16:21:22 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:21:22 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:21:22 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:22 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:21:23 - URI: /TDW_project/admin/publications?type=Article?type=Article
+2025-12-12 16:21:23 - Processed URI: /admin/publications
+2025-12-12 16:21:23 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:21:23 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:23 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:21:23 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:21:28 - URI: /TDW_project/admin/publications?type=Article?type=Article?
+2025-12-12 16:21:28 - Processed URI: /admin/publications
+2025-12-12 16:21:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:21:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:28 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:21:28 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:21:32 - URI: /TDW_project/admin/publications?type=Article?type=Article??annee=2023
+2025-12-12 16:21:32 - Processed URI: /admin/publications
+2025-12-12 16:21:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:21:32 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:21:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:32 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:21:36 - URI: /TDW_project/admin/equipements
+2025-12-12 16:21:36 - Processed URI: /admin/equipements
+2025-12-12 16:21:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:21:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:46 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante
+2025-12-12 16:21:46 - Processed URI: /admin/equipements
+2025-12-12 16:21:46 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante
+2025-12-12 16:21:46 - Processed URI: /admin/equipements
+2025-12-12 16:21:46 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:21:46 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:21:55 - URI: /TDW_project/admin/equipements?statut=en_utilisation
+2025-12-12 16:21:55 - Processed URI: /admin/equipements
+2025-12-12 16:21:55 - URI: /TDW_project/admin/equipements?statut=en_utilisation
+2025-12-12 16:21:55 - Processed URI: /admin/equipements
+2025-12-12 16:22:08 - URI: /TDW_project/admin/evenements
+2025-12-12 16:22:08 - Processed URI: /admin/evenements
+2025-12-12 16:22:08 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:08 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:22:13 - URI: /TDW_project/admin/evenements?type_evenement=Atelier
+2025-12-12 16:22:13 - Processed URI: /admin/evenements
+2025-12-12 16:22:13 - URI: /TDW_project/admin/evenements?type_evenement=Atelier
+2025-12-12 16:22:13 - Processed URI: /admin/evenements
+2025-12-12 16:22:13 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:13 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:22:19 - URI: /TDW_project/admin/evenements?
+2025-12-12 16:22:19 - Processed URI: /admin/evenements
+2025-12-12 16:22:19 - URI: /TDW_project/admin/evenements?
+2025-12-12 16:22:19 - Processed URI: /admin/evenements
+2025-12-12 16:22:19 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:19 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:22:24 - URI: /TDW_project/admin/evenements?type_evenement=Conf%C3%A9rence
+2025-12-12 16:22:24 - Processed URI: /admin/evenements
+2025-12-12 16:22:24 - URI: /TDW_project/admin/evenements?type_evenement=Conf%C3%A9rence
+2025-12-12 16:22:24 - Processed URI: /admin/evenements
+2025-12-12 16:22:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:22:27 - URI: /TDW_project/admin/evenements?type_evenement=Soutenance
+2025-12-12 16:22:27 - Processed URI: /admin/evenements
+2025-12-12 16:22:27 - URI: /TDW_project/admin/evenements?type_evenement=Soutenance
+2025-12-12 16:22:27 - Processed URI: /admin/evenements
+2025-12-12 16:22:27 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:27 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:22:31 - URI: /TDW_project/admin/equipes
+2025-12-12 16:22:31 - Processed URI: /admin/equipes
+2025-12-12 16:22:31 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:31 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:22:31 - URI: /TDW_project/admin/users
+2025-12-12 16:22:31 - Processed URI: /admin/users
+2025-12-12 16:22:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:22:40 - URI: /TDW_project/admin/projets
+2025-12-12 16:22:40 - Processed URI: /admin/projets
+2025-12-12 16:22:40 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:22:40 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:27:27 - URI: /TDW_project/admin/projets/view/1
+2025-12-12 16:27:27 - Processed URI: /admin/projets/view/1
+2025-12-12 16:34:36 - URI: /TDW_project/admin/projets
+2025-12-12 16:34:36 - Processed URI: /admin/projets
+2025-12-12 16:34:37 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:34:37 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:34:43 - URI: /TDW_project/admin/users
+2025-12-12 16:34:43 - Processed URI: /admin/users
+2025-12-12 16:34:44 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:34:44 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:34:47 - URI: /TDW_project/admin/equipes
+2025-12-12 16:34:47 - Processed URI: /admin/equipes
+2025-12-12 16:34:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:34:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:34:48 - URI: /TDW_project/admin/projets
+2025-12-12 16:34:48 - Processed URI: /admin/projets
+2025-12-12 16:34:48 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:34:48 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:03 - URI: /TDW_project/admin/projets
+2025-12-12 16:35:03 - Processed URI: /admin/projets
+2025-12-12 16:35:03 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:03 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:18 - URI: /TDW_project/admin/projets
+2025-12-12 16:35:18 - Processed URI: /admin/projets
+2025-12-12 16:35:18 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:18 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:31 - URI: /TDW_project/admin/users
+2025-12-12 16:35:31 - Processed URI: /admin/users
+2025-12-12 16:35:31 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:31 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:32 - URI: /TDW_project/admin/equipements
+2025-12-12 16:35:32 - Processed URI: /admin/equipements
+2025-12-12 16:35:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:39 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante
+2025-12-12 16:35:39 - Processed URI: /admin/equipements
+2025-12-12 16:35:39 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante
+2025-12-12 16:35:39 - Processed URI: /admin/equipements
+2025-12-12 16:35:39 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:39 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:42 - URI: /TDW_project/admin/publications
+2025-12-12 16:35:42 - Processed URI: /admin/publications
+2025-12-12 16:35:42 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:42 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:42 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:35:42 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:35:43 - URI: /TDW_project/admin/users
+2025-12-12 16:35:43 - Processed URI: /admin/users
+2025-12-12 16:35:43 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:43 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:52 - URI: /TDW_project/admin/users?role=admin
+2025-12-12 16:35:52 - Processed URI: /admin/users
+2025-12-12 16:35:52 - URI: /TDW_project/admin/users?role=admin
+2025-12-12 16:35:52 - Processed URI: /admin/users
+2025-12-12 16:35:52 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:52 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:35:57 - URI: /TDW_project/admin/users?role=admin&statut=actif
+2025-12-12 16:35:57 - Processed URI: /admin/users
+2025-12-12 16:35:57 - URI: /TDW_project/admin/users?role=admin&statut=actif
+2025-12-12 16:35:57 - Processed URI: /admin/users
+2025-12-12 16:35:57 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:35:57 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:04 - URI: /TDW_project/admin/users?role=admin&statut=suspendu
+2025-12-12 16:36:04 - Processed URI: /admin/users
+2025-12-12 16:36:04 - URI: /TDW_project/admin/users?role=admin&statut=suspendu
+2025-12-12 16:36:04 - Processed URI: /admin/users
+2025-12-12 16:36:04 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:04 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:13 - URI: /TDW_project/admin/projets
+2025-12-12 16:36:13 - Processed URI: /admin/projets
+2025-12-12 16:36:13 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:13 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:16 - URI: /TDW_project/admin/publications
+2025-12-12 16:36:16 - Processed URI: /admin/publications
+2025-12-12 16:36:16 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:16 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:16 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:36:16 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:36:20 - URI: /TDW_project/admin/equipes
+2025-12-12 16:36:20 - Processed URI: /admin/equipes
+2025-12-12 16:36:20 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:20 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:28 - URI: /TDW_project/admin/equipes?statut=active
+2025-12-12 16:36:28 - Processed URI: /admin/equipes
+2025-12-12 16:36:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:32 - URI: /TDW_project/admin/projets
+2025-12-12 16:36:32 - Processed URI: /admin/projets
+2025-12-12 16:36:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:39 - URI: /TDW_project/admin/equipements
+2025-12-12 16:36:39 - Processed URI: /admin/equipements
+2025-12-12 16:36:39 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:39 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:41 - URI: /TDW_project/admin/evenements
+2025-12-12 16:36:41 - Processed URI: /admin/evenements
+2025-12-12 16:36:41 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:41 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:45 - URI: /TDW_project/admin/publications
+2025-12-12 16:36:45 - Processed URI: /admin/publications
+2025-12-12 16:36:45 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:45 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:45 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:36:45 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:36:46 - URI: /TDW_project/admin/equipements
+2025-12-12 16:36:46 - Processed URI: /admin/equipements
+2025-12-12 16:36:46 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:46 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:47 - URI: /TDW_project/admin/publications
+2025-12-12 16:36:47 - Processed URI: /admin/publications
+2025-12-12 16:36:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:36:47 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:36:47 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:36:56 - URI: /TDW_project/admin/evenements
+2025-12-12 16:36:56 - Processed URI: /admin/evenements
+2025-12-12 16:36:56 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:36:56 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:00 - URI: /TDW_project/admin/evenements?type_evenement=Journ%C3%A9e+d%27%C3%A9tude
+2025-12-12 16:37:00 - Processed URI: /admin/evenements
+2025-12-12 16:37:00 - URI: /TDW_project/admin/evenements?type_evenement=Journ%C3%A9e+d%27%C3%A9tude
+2025-12-12 16:37:00 - Processed URI: /admin/evenements
+2025-12-12 16:37:00 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:00 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:06 - URI: /TDW_project/admin/evenements?
+2025-12-12 16:37:06 - Processed URI: /admin/evenements
+2025-12-12 16:37:06 - URI: /TDW_project/admin/evenements?
+2025-12-12 16:37:06 - Processed URI: /admin/evenements
+2025-12-12 16:37:06 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:06 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:11 - URI: /TDW_project/admin/evenements?search=cy
+2025-12-12 16:37:11 - Processed URI: /admin/evenements
+2025-12-12 16:37:11 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:11 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:20 - URI: /TDW_project/admin/evenements?statut=termin%C3%A9
+2025-12-12 16:37:20 - Processed URI: /admin/evenements
+2025-12-12 16:37:20 - URI: /TDW_project/admin/evenements?statut=termin%C3%A9
+2025-12-12 16:37:20 - Processed URI: /admin/evenements
+2025-12-12 16:37:20 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:20 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:24 - URI: /TDW_project/admin/evenements?statut=%C3%A0+venir
+2025-12-12 16:37:24 - Processed URI: /admin/evenements
+2025-12-12 16:37:24 - URI: /TDW_project/admin/evenements?statut=%C3%A0+venir
+2025-12-12 16:37:24 - Processed URI: /admin/evenements
+2025-12-12 16:37:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:26 - URI: /TDW_project/admin/equipements
+2025-12-12 16:37:26 - Processed URI: /admin/equipements
+2025-12-12 16:37:26 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:26 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:30 - URI: /TDW_project/admin/publications
+2025-12-12 16:37:30 - Processed URI: /admin/publications
+2025-12-12 16:37:30 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:30 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:37:30 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:37:36 - URI: /TDW_project/admin/publications?type=Article
+2025-12-12 16:37:36 - Processed URI: /admin/publications
+2025-12-12 16:37:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:36 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 16:37:36 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 16:37:39 - URI: /TDW_project/admin/projets
+2025-12-12 16:37:39 - Processed URI: /admin/projets
+2025-12-12 16:37:39 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:39 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:37:58 - URI: /TDW_project/admin/equipes
+2025-12-12 16:37:58 - Processed URI: /admin/equipes
+2025-12-12 16:37:58 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:37:58 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:38:03 - URI: /TDW_project/admin/equipes?statut=active
+2025-12-12 16:38:03 - Processed URI: /admin/equipes
+2025-12-12 16:38:03 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:38:03 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:38:05 - URI: /TDW_project/admin/users
+2025-12-12 16:38:05 - Processed URI: /admin/users
+2025-12-12 16:38:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:38:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:38:08 - URI: /TDW_project/admin/users?role=membre
+2025-12-12 16:38:08 - Processed URI: /admin/users
+2025-12-12 16:38:08 - URI: /TDW_project/admin/users?role=membre
+2025-12-12 16:38:08 - Processed URI: /admin/users
+2025-12-12 16:38:08 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:38:08 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:38:09 - URI: /TDW_project/admin/users?role=membre
+2025-12-12 16:38:09 - Processed URI: /admin/users
+2025-12-12 16:38:09 - URI: /TDW_project/admin/users?role=membre
+2025-12-12 16:38:10 - Processed URI: /admin/users
+2025-12-12 16:38:10 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:38:10 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:43:45 - URI: /TDW_project/admin/equipements
+2025-12-12 16:43:45 - Processed URI: /admin/equipements
+2025-12-12 16:43:45 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:43:45 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:43:52 - URI: /TDW_project/admin/equipements?statut=disponible
+2025-12-12 16:43:52 - Processed URI: /admin/equipements
+2025-12-12 16:43:52 - URI: /TDW_project/admin/equipements?statut=disponible
+2025-12-12 16:43:52 - Processed URI: /admin/equipements
+2025-12-12 16:45:12 - URI: /TDW_project/admin/equipements
+2025-12-12 16:45:12 - Processed URI: /admin/equipements
+2025-12-12 16:45:12 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:45:12 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:45:17 - URI: /TDW_project/admin/equipements?etat=disponible
+2025-12-12 16:45:17 - Processed URI: /admin/equipements
+2025-12-12 16:45:17 - URI: /TDW_project/admin/equipements?etat=disponible
+2025-12-12 16:45:17 - Processed URI: /admin/equipements
+2025-12-12 16:45:17 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:45:17 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:45:20 - URI: /TDW_project/admin/equipements?etat=disponible
+2025-12-12 16:45:20 - Processed URI: /admin/equipements
+2025-12-12 16:45:20 - URI: /TDW_project/admin/equipements?etat=disponible
+2025-12-12 16:45:20 - Processed URI: /admin/equipements
+2025-12-12 16:45:20 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:45:20 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:47:04 - URI: /TDW_project/admin/equipements?etat=disponible
+2025-12-12 16:47:04 - Processed URI: /admin/equipements
+2025-12-12 16:47:04 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:47:04 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:47:19 - URI: /TDW_project/admin/equipements?etat=disponible
+2025-12-12 16:47:19 - Processed URI: /admin/equipements
+2025-12-12 16:47:19 - URI: /TDW_project/admin/equipements?etat=disponible
+2025-12-12 16:47:19 - Processed URI: /admin/equipements
+2025-12-12 16:47:19 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:47:19 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:47:24 - URI: /TDW_project/admin/equipements?etat=en_utilisation
+2025-12-12 16:47:24 - Processed URI: /admin/equipements
+2025-12-12 16:47:24 - URI: /TDW_project/admin/equipements?etat=en_utilisation
+2025-12-12 16:47:24 - Processed URI: /admin/equipements
+2025-12-12 16:47:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:47:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:47:28 - URI: /TDW_project/admin/equipements?etat=maintenance
+2025-12-12 16:47:28 - Processed URI: /admin/equipements
+2025-12-12 16:47:28 - URI: /TDW_project/admin/equipements?etat=maintenance
+2025-12-12 16:47:28 - Processed URI: /admin/equipements
+2025-12-12 16:47:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:47:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:55:45 - URI: /TDW_project/admin/equipements?etat=maintenance
+2025-12-12 16:55:45 - Processed URI: /admin/equipements
+2025-12-12 16:55:46 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:55:46 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:55:56 - URI: /TDW_project/admin/equipements?etat=reserve
+2025-12-12 16:55:56 - Processed URI: /admin/equipements
+2025-12-12 16:55:56 - URI: /TDW_project/admin/equipements?etat=reserve
+2025-12-12 16:55:56 - Processed URI: /admin/equipements
+2025-12-12 16:55:56 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:55:56 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:55:58 - URI: /TDW_project/admin/equipements?etat=reserve
+2025-12-12 16:55:58 - Processed URI: /admin/equipements
+2025-12-12 16:55:58 - URI: /TDW_project/admin/equipements?etat=reserve
+2025-12-12 16:55:58 - Processed URI: /admin/equipements
+2025-12-12 16:55:58 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:55:58 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:56:01 - URI: /TDW_project/admin/equipements?type_equipement=Ordinateur&etat=reserve
+2025-12-12 16:56:01 - Processed URI: /admin/equipements
+2025-12-12 16:56:01 - URI: /TDW_project/admin/equipements?type_equipement=Ordinateur&etat=reserve
+2025-12-12 16:56:01 - Processed URI: /admin/equipements
+2025-12-12 16:56:01 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:56:01 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:56:05 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve
+2025-12-12 16:56:05 - Processed URI: /admin/equipements
+2025-12-12 16:56:05 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve
+2025-12-12 16:56:05 - Processed URI: /admin/equipements
+2025-12-12 16:56:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:56:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:56:09 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve&localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:56:09 - Processed URI: /admin/equipements
+2025-12-12 16:56:09 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve&localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:56:09 - Processed URI: /admin/equipements
+2025-12-12 16:56:09 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:56:09 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:56:13 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve&localisation=Salle+serveurs
+2025-12-12 16:56:13 - Processed URI: /admin/equipements
+2025-12-12 16:56:13 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve&localisation=Salle+serveurs
+2025-12-12 16:56:13 - Processed URI: /admin/equipements
+2025-12-12 16:56:13 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:56:13 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:56:17 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve
+2025-12-12 16:56:17 - Processed URI: /admin/equipements
+2025-12-12 16:56:17 - URI: /TDW_project/admin/equipements?type_equipement=Imprimante&etat=reserve
+2025-12-12 16:56:17 - Processed URI: /admin/equipements
+2025-12-12 16:56:17 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:56:17 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:56:24 - URI: /TDW_project/admin/equipements?
+2025-12-12 16:56:24 - Processed URI: /admin/equipements
+2025-12-12 16:56:24 - URI: /TDW_project/admin/equipements?
+2025-12-12 16:56:24 - Processed URI: /admin/equipements
+2025-12-12 16:56:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:56:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:56:27 - URI: /TDW_project/admin/equipements?localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:56:27 - Processed URI: /admin/equipements
+2025-12-12 16:56:27 - URI: /TDW_project/admin/equipements?localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:56:27 - Processed URI: /admin/equipements
+2025-12-12 16:56:27 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:56:27 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:59:04 - URI: /TDW_project/admin/equipements?etat=libre&localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:59:04 - URI: /TDW_project/admin/equipements?etat=libre&localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:59:04 - Processed URI: /admin/equipements
+2025-12-12 16:59:04 - Processed URI: /admin/equipements
+2025-12-12 16:59:04 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:59:04 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:59:08 - URI: /TDW_project/admin/equipements?etat=libre&localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:59:08 - Processed URI: /admin/equipements
+2025-12-12 16:59:08 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:59:08 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:59:13 - URI: /TDW_project/admin/equipements?localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:59:13 - Processed URI: /admin/equipements
+2025-12-12 16:59:13 - URI: /TDW_project/admin/equipements?localisation=B%C3%A2timent+A%2C+1er+%C3%A9tage
+2025-12-12 16:59:13 - Processed URI: /admin/equipements
+2025-12-12 16:59:13 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:59:13 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:59:18 - URI: /TDW_project/admin/equipements?
+2025-12-12 16:59:18 - Processed URI: /admin/equipements
+2025-12-12 16:59:18 - URI: /TDW_project/admin/equipements?
+2025-12-12 16:59:18 - Processed URI: /admin/equipements
+2025-12-12 16:59:18 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:59:18 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:59:21 - URI: /TDW_project/admin/equipements?etat=libre
+2025-12-12 16:59:21 - Processed URI: /admin/equipements
+2025-12-12 16:59:21 - URI: /TDW_project/admin/equipements?etat=libre
+2025-12-12 16:59:21 - Processed URI: /admin/equipements
+2025-12-12 16:59:21 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:59:21 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:59:31 - URI: /TDW_project/admin/equipements?type_equipement=Serveur&etat=libre
+2025-12-12 16:59:31 - Processed URI: /admin/equipements
+2025-12-12 16:59:31 - URI: /TDW_project/admin/equipements?type_equipement=Serveur&etat=libre
+2025-12-12 16:59:31 - Processed URI: /admin/equipements
+2025-12-12 16:59:31 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:59:31 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 16:59:36 - URI: /TDW_project/admin/equipements?etat=libre
+2025-12-12 16:59:36 - Processed URI: /admin/equipements
+2025-12-12 16:59:36 - URI: /TDW_project/admin/equipements?etat=libre
+2025-12-12 16:59:36 - Processed URI: /admin/equipements
+2025-12-12 16:59:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 16:59:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:07:38 - URI: /TDW_project/admin/equipes
+2025-12-12 17:07:38 - Processed URI: /admin/equipes
+2025-12-12 17:07:39 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:07:39 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:12:33 - URI: /TDW_project/admin/equipes
+2025-12-12 17:12:33 - Processed URI: /admin/equipes
+2025-12-12 17:13:00 - URI: /TDW_project/admin/equipes
+2025-12-12 17:13:00 - Processed URI: /admin/equipes
+2025-12-12 17:14:00 - URI: /TDW_project/admin/equipes
+2025-12-12 17:14:00 - Processed URI: /admin/equipes
+2025-12-12 17:14:00 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:14:00 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:14:14 - URI: /TDW_project/admin/equipes?statut=active
+2025-12-12 17:14:14 - Processed URI: /admin/equipes
+2025-12-12 17:14:14 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:14:14 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:17:46 - URI: /TDW_project/admin/equipes?statut=active
+2025-12-12 17:17:46 - Processed URI: /admin/equipes
+2025-12-12 17:17:46 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:17:46 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:29:40 - URI: /TDW_project/admin/equipes?statut=active
+2025-12-12 17:29:40 - Processed URI: /admin/equipes
+2025-12-12 17:29:41 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:29:41 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:29:56 - URI: /TDW_project/admin/equipes?domaine=Intelligence+Artificielle
+2025-12-12 17:29:56 - Processed URI: /admin/equipes
+2025-12-12 17:29:56 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:29:56 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:30:03 - URI: /TDW_project/admin/equipes?
+2025-12-12 17:30:03 - Processed URI: /admin/equipes
+2025-12-12 17:30:03 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:30:03 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:30:11 - URI: /TDW_project/admin/equipes?search=equi
+2025-12-12 17:30:11 - Processed URI: /admin/equipes
+2025-12-12 17:32:27 - URI: /TDW_project/admin/equipes?search=equi
+2025-12-12 17:32:27 - Processed URI: /admin/equipes
+2025-12-12 17:32:27 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:32:27 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:32:36 - URI: /TDW_project/admin/equipes?search=karim
+2025-12-12 17:32:36 - Processed URI: /admin/equipes
+2025-12-12 17:32:36 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:32:36 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:35:25 - URI: /TDW_project/admin/equipes?domaine=Intelligence+Artificielle
+2025-12-12 17:35:25 - Processed URI: /admin/equipes
+2025-12-12 17:35:25 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:35:25 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:35:32 - URI: /TDW_project/admin/equipes?search=po&domaine=Intelligence+Artificielle
+2025-12-12 17:35:32 - Processed URI: /admin/equipes
+2025-12-12 17:35:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:35:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:48:52 - URI: /TDW_project/admin/equipes?search=po&domaine=Intelligence+Artificielle
+2025-12-12 17:48:52 - Processed URI: /admin/equipes
+2025-12-12 17:48:53 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:48:53 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:05 - URI: /TDW_project/admin/equipes?domaine=Intelligence+Artificielle
+2025-12-12 17:49:05 - Processed URI: /admin/equipes
+2025-12-12 17:49:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:09 - URI: /TDW_project/admin/equipes?
+2025-12-12 17:49:09 - Processed URI: /admin/equipes
+2025-12-12 17:49:09 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:09 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:14 - URI: /TDW_project/admin/projets
+2025-12-12 17:49:14 - Processed URI: /admin/projets
+2025-12-12 17:49:14 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:14 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:18 - URI: /TDW_project/admin/publications
+2025-12-12 17:49:18 - Processed URI: /admin/publications
+2025-12-12 17:49:18 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:18 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:18 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 17:49:18 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 17:49:20 - URI: /TDW_project/admin/equipements
+2025-12-12 17:49:20 - Processed URI: /admin/equipements
+2025-12-12 17:49:20 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:20 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:25 - URI: /TDW_project/admin/evenements
+2025-12-12 17:49:25 - Processed URI: /admin/evenements
+2025-12-12 17:49:25 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:25 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:31 - URI: /TDW_project/admin/users
+2025-12-12 17:49:31 - Processed URI: /admin/users
+2025-12-12 17:49:31 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:31 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:47 - URI: /TDW_project/admin/equipes
+2025-12-12 17:49:47 - Processed URI: /admin/equipes
+2025-12-12 17:49:47 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:47 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:49 - URI: /TDW_project/admin/projets
+2025-12-12 17:49:49 - Processed URI: /admin/projets
+2025-12-12 17:49:49 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:49 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:49 - URI: /TDW_project/admin/projets
+2025-12-12 17:49:49 - Processed URI: /admin/projets
+2025-12-12 17:49:50 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:50 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:50 - URI: /TDW_project/admin/publications
+2025-12-12 17:49:50 - Processed URI: /admin/publications
+2025-12-12 17:49:50 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:50 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:50 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 17:49:50 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 17:49:51 - URI: /TDW_project/admin/equipements
+2025-12-12 17:49:51 - Processed URI: /admin/equipements
+2025-12-12 17:49:51 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:51 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:52 - URI: /TDW_project/admin/evenements
+2025-12-12 17:49:52 - Processed URI: /admin/evenements
+2025-12-12 17:49:52 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:52 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:54 - URI: /TDW_project/admin/users
+2025-12-12 17:49:54 - Processed URI: /admin/users
+2025-12-12 17:49:54 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:54 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:49:57 - URI: /TDW_project/admin/equipes
+2025-12-12 17:49:57 - Processed URI: /admin/equipes
+2025-12-12 17:49:57 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:49:57 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:50:22 - URI: /TDW_project/admin/projets
+2025-12-12 17:50:22 - Processed URI: /admin/projets
+2025-12-12 17:50:22 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:50:22 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:50:24 - URI: /TDW_project/admin/publications
+2025-12-12 17:50:24 - Processed URI: /admin/publications
+2025-12-12 17:50:24 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:50:24 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:50:24 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 17:50:24 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 17:50:25 - URI: /TDW_project/admin/projets
+2025-12-12 17:50:25 - Processed URI: /admin/projets
+2025-12-12 17:50:25 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:50:25 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:50:53 - URI: /TDW_project/admin/users
+2025-12-12 17:50:53 - Processed URI: /admin/users
+2025-12-12 17:50:54 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:50:54 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:51:07 - URI: /TDW_project/admin/users/view/1
+2025-12-12 17:51:07 - Processed URI: /admin/users/view/1
+2025-12-12 17:51:09 - URI: /TDW_project/
+2025-12-12 17:51:09 - Processed URI: /
+2025-12-12 17:51:09 - URI: /TDW_project/admin/dashboard
+2025-12-12 17:51:09 - Processed URI: /admin/dashboard
+2025-12-12 17:51:09 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:51:09 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:51:09 - URI: /TDW_project/api/admin/stats
+2025-12-12 17:51:09 - Processed URI: /api/admin/stats
+2025-12-12 17:51:39 - URI: /TDW_project/api/admin/stats
+2025-12-12 17:51:39 - Processed URI: /api/admin/stats
+2025-12-12 17:51:44 - URI: /TDW_project/admin/projets
+2025-12-12 17:51:44 - Processed URI: /admin/projets
+2025-12-12 17:51:44 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:51:44 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:51:50 - URI: /TDW_project/admin/publications
+2025-12-12 17:51:50 - Processed URI: /admin/publications
+2025-12-12 17:51:50 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:51:50 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:51:50 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 17:51:50 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 17:51:51 - URI: /TDW_project/admin/equipements
+2025-12-12 17:51:51 - Processed URI: /admin/equipements
+2025-12-12 17:51:51 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:51:51 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:51:52 - URI: /TDW_project/admin/evenements
+2025-12-12 17:51:52 - Processed URI: /admin/evenements
+2025-12-12 17:51:52 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:51:52 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:51:54 - URI: /TDW_project/admin/equipes
+2025-12-12 17:51:54 - Processed URI: /admin/equipes
+2025-12-12 17:51:54 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:51:54 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:51:56 - URI: /TDW_project/admin/users
+2025-12-12 17:51:56 - Processed URI: /admin/users
+2025-12-12 17:51:56 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:51:56 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:53:29 - URI: /TDW_project/admin/users?export=csv
+2025-12-12 17:53:29 - Processed URI: /admin/users
+2025-12-12 17:53:29 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:53:29 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 17:53:31 - URI: /TDW_project/admin/users?export=csv
+2025-12-12 17:53:31 - Processed URI: /admin/users
+2025-12-12 17:53:31 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 17:53:31 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:04:37 - URI: /TDW_project/admin/equipes
+2025-12-12 18:04:37 - Processed URI: /admin/equipes
+2025-12-12 18:04:37 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:04:37 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:04:38 - URI: /TDW_project/admin/projets
+2025-12-12 18:04:38 - Processed URI: /admin/projets
+2025-12-12 18:04:38 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:04:38 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:04:40 - URI: /TDW_project/admin/publications
+2025-12-12 18:04:40 - Processed URI: /admin/publications
+2025-12-12 18:04:40 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:04:40 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:04:40 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-12 18:04:40 - Processed URI: /assets/js/admin-publications.js
+2025-12-12 18:04:41 - URI: /TDW_project/admin/equipements
+2025-12-12 18:04:41 - Processed URI: /admin/equipements
+2025-12-12 18:04:41 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:04:41 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:04:42 - URI: /TDW_project/admin/evenements
+2025-12-12 18:04:42 - Processed URI: /admin/evenements
+2025-12-12 18:04:42 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:04:42 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:04:50 - URI: /TDW_project/admin/equipements
+2025-12-12 18:04:50 - Processed URI: /admin/equipements
+2025-12-12 18:04:50 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:04:50 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:05:38 - URI: /TDW_project/admin/projets
+2025-12-12 18:05:38 - Processed URI: /admin/projets
+2025-12-12 18:05:39 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:05:39 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:07:42 - URI: /TDW_project/admin/projets
+2025-12-12 18:07:42 - Processed URI: /admin/projets
+2025-12-12 18:07:43 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:07:43 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:20:48 - URI: /TDW_project/admin/projets
+2025-12-12 18:20:48 - Processed URI: /admin/projets
+2025-12-12 18:20:48 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:20:48 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:21:04 - URI: /TDW_project/admin/projets
+2025-12-12 18:21:04 - Processed URI: /admin/projets
+2025-12-12 18:21:04 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:21:04 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:21:05 - URI: /TDW_project/admin/projets
+2025-12-12 18:21:05 - Processed URI: /admin/projets
+2025-12-12 18:21:05 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:21:05 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:21:08 - URI: /TDW_project/admin/equipes
+2025-12-12 18:21:08 - Processed URI: /admin/equipes
+2025-12-12 18:21:08 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:21:08 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:21:10 - URI: /TDW_project/admin/users
+2025-12-12 18:21:10 - Processed URI: /admin/users
+2025-12-12 18:21:10 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:21:10 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:21:16 - URI: /TDW_project/admin/users?role=admin
+2025-12-12 18:21:16 - Processed URI: /admin/users
+2025-12-12 18:21:16 - URI: /TDW_project/admin/users?role=admin
+2025-12-12 18:21:16 - Processed URI: /admin/users
+2025-12-12 18:21:16 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:21:16 - Processed URI: /assets/js/modern-ui.js
+2025-12-12 18:21:21 - URI: /TDW_project/admin/users?role=membre
+2025-12-12 18:21:21 - Processed URI: /admin/users
+2025-12-12 18:21:21 - URI: /TDW_project/admin/users?role=membre
+2025-12-12 18:21:21 - Processed URI: /admin/users
+2025-12-12 18:21:21 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-12 18:21:21 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 09:03:24 - URI: /TDW_project/admin/users?role=membre
+2025-12-13 09:03:24 - Processed URI: /admin/users
+2025-12-13 09:03:24 - URI: /TDW_project/login?timeout=1
+2025-12-13 09:03:24 - Processed URI: /login
+2025-12-13 09:03:32 - URI: /TDW_project/auth/login
+2025-12-13 09:03:32 - Processed URI: /auth/login
+2025-12-13 09:03:33 - URI: /TDW_project/admin/dashboard
+2025-12-13 09:03:33 - Processed URI: /admin/dashboard
+2025-12-13 09:03:33 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 09:03:33 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 09:03:33 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:03:33 - Processed URI: /api/admin/stats
+2025-12-13 09:04:03 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:04:03 - Processed URI: /api/admin/stats
+2025-12-13 09:04:33 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:04:33 - Processed URI: /api/admin/stats
+2025-12-13 09:04:33 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:04:33 - Processed URI: /api/admin/notifications
+2025-12-13 09:05:03 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:05:03 - Processed URI: /api/admin/stats
+2025-12-13 09:05:33 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:05:33 - Processed URI: /api/admin/stats
+fications
+2025-12-13 09:05:33 - Processed URI: /api/admin/notifications
+2025-12-13 09:06:03 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:06:03 - Processed URI: /api/admin/stats
+2025-12-13 09:06:33 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:06:33 - Processed URI: /api/admin/stats
+2025-12-13 09:06:33 - Processed URI: /api/admin/notifications
+2025-12-13 09:07:03 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:07:03 - Processed URI: /api/admin/stats
+2025-12-13 09:07:33 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 09:07:33 - Processed URI: /api/admin/stats
+2025-12-13 09:07:33 - Processed URI: /api/admin/notifications
+2025-12-13 09:08:03 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:08:03 - Processed URI: /api/admin/stats
+2025-12-13 09:08:33 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:08:33 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:08:33 - Processed URI: /api/admin/notifications
+2025-12-13 09:08:33 - Processed URI: /api/admin/stats
+2025-12-13 09:09:04 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:09:04 - Processed URI: /api/admin/stats
+2025-12-13 09:09:34 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:09:34 - Processed URI: /api/admin/stats
+2025-12-13 09:09:34 - Processed URI: /api/admin/notifications
+2025-12-13 09:10:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:10:25 - Processed URI: /api/admin/stats
+2025-12-13 09:11:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:11:25 - Processed URI: /api/admin/stats
+2025-12-13 09:11:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:11:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:12:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:12:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:12:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:12:25 - Processed URI: /api/admin/stats
+2025-12-13 09:13:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:13:25 - Processed URI: /api/admin/stats
+2025-12-13 09:13:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:14:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:14:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:14:25 - Processed URI: /api/admin/stats
+2025-12-13 09:15:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:15:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:15:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:16:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:16:25 - Processed URI: /api/admin/stats
+2025-12-13 09:16:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:16:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:17:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:17:25 - Processed URI: /api/admin/stats
+2025-12-13 09:17:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:17:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:18:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:18:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:18:25 - Processed URI: /api/admin/stats
+2025-12-13 09:18:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:19:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:19:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:19:25 - Processed URI: /api/admin/stats
+2025-12-13 09:19:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:20:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:20:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:20:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:20:25 - Processed URI: /api/admin/stats
+2025-12-13 09:21:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:21:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:21:25 - Processed URI: /api/admin/stats
+2025-12-13 09:21:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:22:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:22:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:23:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:23:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:23:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:23:25 - Processed URI: /api/admin/stats
+2025-12-13 09:24:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:24:25 - URI: /TDW_project/api/admin/stats
+tions
+2025-12-13 09:24:25 - Processed URI: /api/admin/stats
+2025-12-13 09:25:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:25:25 - Processed URI: /api/admin/stats
+2025-12-13 09:25:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:25:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:26:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:26:25 - Processed URI: /api/admin/stats
+2025-12-13 09:26:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:26:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:27:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:27:25 - Processed URI: /api/admin/stats
+2025-12-13 09:27:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:27:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:28:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:28:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:28:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:28:25 - Processed URI: /api/admin/stats
+2025-12-13 09:29:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:29:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:29:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:29:25 - Processed URI: /api/admin/stats
+2025-12-13 09:30:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:30:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:30:25 - Processed URI: /api/admin/stats
+2025-12-13 09:30:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:31:25 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 09:31:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:31:25 - Processed URI: /api/admin/stats
+2025-12-13 09:32:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:32:25 - Processed URI: /api/admin/stats
+2025-12-13 09:32:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:32:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:33:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:33:25 - Processed URI: /api/admin/stats
+2025-12-13 09:33:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:33:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:34:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:34:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:34:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:34:25 - Processed URI: /api/admin/stats
+2025-12-13 09:35:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:35:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:35:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:36:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:36:25 - Processed URI: /api/admin/stats
+2025-12-13 09:36:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:36:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:37:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:37:25 - Processed URI: /api/admin/stats
+2025-12-13 09:37:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:38:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:38:25 - Processed URI: /api/admin/stats
+2025-12-13 09:38:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:38:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:39:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:39:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:39:25 - Processed URI: /api/admin/stats
+cations
+2025-12-13 09:40:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:40:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:40:25 - Processed URI: /api/admin/stats
+2025-12-13 09:40:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:41:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:41:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:41:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:41:25 - Processed URI: /api/admin/stats
+2025-12-13 09:42:25 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 09:42:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:42:25 - Processed URI: /api/admin/stats
+2025-12-13 09:43:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:43:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:43:25 - Processed URI: /api/admin/stats
+2025-12-13 09:43:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:44:25 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 09:44:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:45:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:45:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:45:25 - Processed URI: /api/admin/stats
+2025-12-13 09:45:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:46:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:46:25 - Processed URI: /api/admin/stats
+2025-12-13 09:46:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:47:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:47:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:47:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:48:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:48:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:48:25 - Processed URI: /api/admin/stats
+2025-12-13 09:48:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:49:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:49:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:49:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:49:25 - Processed URI: /api/admin/stats
+2025-12-13 09:50:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:50:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:50:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:51:25 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 09:51:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:51:25 - Processed URI: /api/admin/stats
+2025-12-13 09:52:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:52:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:52:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:52:25 - Processed URI: /api/admin/stats
+2025-12-13 09:53:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:53:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:53:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:53:25 - Processed URI: /api/admin/stats
+2025-12-13 09:54:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:54:25 - Processed URI: /api/admin/stats
+2025-12-13 09:54:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:54:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:55:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:55:25 - Processed URI: /api/admin/stats
+2025-12-13 09:55:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:56:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:56:25 - Processed URI: /api/admin/stats
+2025-12-13 09:56:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:57:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 09:57:25 - Processed URI: /api/admin/stats
+2025-12-13 09:57:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:57:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:58:25 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 09:58:25 - Processed URI: /api/admin/notifications
+2025-12-13 09:58:25 - Processed URI: /api/admin/stats
+2025-12-13 09:59:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 09:59:25 - Processed URI: /api/admin/stats
+2025-12-13 09:59:25 - Processed URI: /api/admin/notifications
+2025-12-13 10:00:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 10:00:25 - Processed URI: /api/admin/stats
+2025-12-13 10:00:25 - Processed URI: /api/admin/notifications
+2025-12-13 10:01:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 10:01:25 - Processed URI: /api/admin/stats
+2025-12-13 10:01:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 10:01:25 - Processed URI: /api/admin/notifications
+2025-12-13 10:02:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 10:02:25 - Processed URI: /api/admin/notifications
+2025-12-13 10:03:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 10:03:25 - Processed URI: /api/admin/stats
+2025-12-13 10:03:25 - Processed URI: /api/admin/notifications
+2025-12-13 10:04:25 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 10:04:25 - Processed URI: /api/admin/notifications
+2025-12-13 10:04:25 - Processed URI: /api/admin/stats
+2025-12-13 10:05:14 - URI: /TDW_project/api/admin/stats
+2025-12-13 10:05:14 - URI: /TDW_project/api/admin/notifications
+2025-12-13 10:05:14 - Processed URI: /api/admin/notifications
+2025-12-13 10:05:15 - URI: /TDW_project/admin/dashboard
+2025-12-13 10:05:15 - Processed URI: /admin/dashboard
+2025-12-13 10:05:15 - URI: /TDW_project/login?timeout=1
+2025-12-13 10:05:15 - Processed URI: /login
+2025-12-13 10:05:25 - URI: /TDW_project/auth/login
+2025-12-13 10:05:25 - Processed URI: /auth/login
+2025-12-13 10:05:26 - URI: /TDW_project/admin/dashboard
+2025-12-13 10:05:26 - Processed URI: /admin/dashboard
+2025-12-13 10:05:26 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:05:26 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:05:26 - URI: /TDW_project/api/admin/stats
+2025-12-13 10:05:26 - Processed URI: /api/admin/stats
+2025-12-13 10:05:30 - URI: /TDW_project/admin/equipes
+2025-12-13 10:05:30 - Processed URI: /admin/equipes
+2025-12-13 10:08:01 - URI: /TDW_project/admin/equipes
+2025-12-13 10:08:01 - Processed URI: /admin/equipes
+2025-12-13 10:08:01 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:08:01 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:08:01 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:08:01 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:08:25 - URI: /TDW_project/admin/equipes
+2025-12-13 10:08:25 - Processed URI: /admin/equipes
+2025-12-13 10:08:25 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:08:25 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:08:25 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:08:25 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:15:01 - URI: /TDW_project/admin/equipes
+2025-12-13 10:15:01 - Processed URI: /admin/equipes
+2025-12-13 10:15:01 - URI: /TDW_project/assets/js/modern-ui.js
+er.js
+2025-12-13 10:15:01 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:15:01 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:15:28 - URI: /TDW_project/admin/equipes
+2025-12-13 10:15:28 - Processed URI: /admin/equipes
+2025-12-13 10:15:28 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:15:28 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:15:28 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:15:28 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:15:58 - URI: /TDW_project/admin/equipes
+2025-12-13 10:15:58 - Processed URI: /admin/equipes
+2025-12-13 10:15:58 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:15:58 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:15:58 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:15:58 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:15:59 - URI: /TDW_project/admin/equipes
+2025-12-13 10:15:59 - Processed URI: /admin/equipes
+2025-12-13 10:15:59 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:15:59 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:15:59 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:15:59 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:16:25 - URI: /TDW_project/admin/equipes
+2025-12-13 10:16:25 - Processed URI: /admin/equipes
+2025-12-13 10:16:25 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:16:25 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:16:25 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:16:25 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:17:12 - URI: /TDW_project/admin/equipes
+2025-12-13 10:17:12 - Processed URI: /admin/equipes
+2025-12-13 10:17:12 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:17:12 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:17:12 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:17:12 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:17:18 - URI: /TDW_project/admin/equipes
+2025-12-13 10:17:18 - Processed URI: /admin/equipes
+2025-12-13 10:17:18 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:17:18 - URI: /TDW_project/assets/js/equipes-handler.js
+2025-12-13 10:17:18 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:17:18 - Processed URI: /assets/js/equipes-handler.js
+2025-12-13 10:49:31 - URI: /TDW_project/admin/equipes
+2025-12-13 10:49:31 - Processed URI: /admin/equipes
+2025-12-13 10:49:31 - URI: /TDW_project/login?timeout=1
+2025-12-13 10:49:31 - Processed URI: /login
+2025-12-13 10:49:40 - URI: /TDW_project/auth/login
+2025-12-13 10:49:40 - Processed URI: /auth/login
+2025-12-13 10:49:41 - URI: /TDW_project/admin/dashboard
+2025-12-13 10:49:41 - Processed URI: /admin/dashboard
+2025-12-13 10:49:42 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:49:42 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:49:42 - URI: /TDW_project/api/admin/stats
+2025-12-13 10:49:42 - Processed URI: /api/admin/stats
+2025-12-13 10:49:45 - URI: /TDW_project/admin/equipes
+2025-12-13 10:49:45 - Processed URI: /admin/equipes
+2025-12-13 10:49:45 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:49:45 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:50:32 - URI: /TDW_project/admin/equipes
+2025-12-13 10:50:32 - Processed URI: /admin/equipes
+2025-12-13 10:50:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:50:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:50:32 - URI: /TDW_project/admin/equipes
+2025-12-13 10:50:32 - Processed URI: /admin/equipes
+2025-12-13 10:50:32 - URI: /TDW_project/assets/js/modern-ui.js
+2025-12-13 10:50:32 - Processed URI: /assets/js/modern-ui.js
+2025-12-13 10:56:39 - URI: /TDW_project/admin/equipes
+2025-12-13 10:56:39 - Processed URI: /admin/equipes
+2025-12-13 10:57:07 - URI: /TDW_project/admin/equipes
+2025-12-13 10:57:07 - Processed URI: /admin/equipes
+2025-12-13 10:57:33 - URI: /TDW_project/admin/equipes
+2025-12-13 10:57:33 - Processed URI: /admin/equipes
+2025-12-13 10:58:19 - URI: /TDW_project/admin/equipes
+2025-12-13 10:58:19 - Processed URI: /admin/equipes
+2025-12-13 10:58:23 - URI: /TDW_project/admin/projets
+2025-12-13 10:58:23 - Processed URI: /admin/projets
+2025-12-13 10:58:24 - URI: /TDW_project/admin/publications
+2025-12-13 10:58:24 - Processed URI: /admin/publications
+2025-12-13 10:58:24 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 10:58:24 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 10:58:25 - URI: /TDW_project/admin/equipements
+2025-12-13 10:58:25 - Processed URI: /admin/equipements
+2025-12-13 10:58:26 - URI: /TDW_project/admin/evenements
+2025-12-13 10:58:26 - Processed URI: /admin/evenements
+2025-12-13 10:58:28 - URI: /TDW_project/admin/equipes
+2025-12-13 10:58:28 - Processed URI: /admin/equipes
+2025-12-13 11:00:52 - URI: /TDW_project/admin/equipes
+2025-12-13 11:00:52 - Processed URI: /admin/equipes
+2025-12-13 11:00:55 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 11:00:55 - Processed URI: /admin/equipes/equipes
+2025-12-13 11:00:59 - URI: /TDW_project/admin/equipes/equipes?domaine=S%C3%A9curit%C3%A9+Informatique
+2025-12-13 11:00:59 - Processed URI: /admin/equipes/equipes
+2025-12-13 11:01:03 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 11:01:03 - Processed URI: /admin/equipes/equipes
+2025-12-13 11:01:09 - URI: /TDW_project/admin/equipes/equipes?domaine=Intelligence+Artificielle
+2025-12-13 11:01:09 - Processed URI: /admin/equipes/equipes
+2025-12-13 11:01:13 - URI: /TDW_project/admin/equipes/equipes?domaine=Cloud+Computing
+2025-12-13 11:01:13 - Processed URI: /admin/equipes/equipes
+2025-12-13 11:01:16 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 11:01:16 - Processed URI: /admin/equipes/equipes
+2025-12-13 11:01:21 - URI: /TDW_project/admin/equipes/equipes/form
+2025-12-13 11:01:21 - Processed URI: /admin/equipes/equipes/form
+2025-12-13 11:01:29 - URI: /TDW_project/admin/equipes/equipes/view/1
+2025-12-13 11:01:29 - Processed URI: /admin/equipes/equipes/view/1
+2025-12-13 11:01:50 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 11:01:50 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:26:15 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 14:26:15 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:26:15 - URI: /TDW_project/login?timeout=1
+2025-12-13 14:26:15 - Processed URI: /login
+2025-12-13 14:26:23 - URI: /TDW_project/auth/login
+2025-12-13 14:26:23 - Processed URI: /auth/login
+2025-12-13 14:26:24 - URI: /TDW_project/admin/dashboard
+2025-12-13 14:26:24 - Processed URI: /admin/dashboard
+2025-12-13 14:26:24 - URI: /TDW_project/api/admin/stats
+2025-12-13 14:26:24 - Processed URI: /api/admin/stats
+2025-12-13 14:26:50 - URI: /TDW_project/admin/equipes/equipes
+2025-12-13 14:26:50 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:27:10 - URI: /TDW_project/admin/equipes/equipes?domaine=Intelligence+Artificielle
+2025-12-13 14:27:10 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:27:15 - URI: /TDW_project/admin/equipes/equipes?domaine=Big+Data
+2025-12-13 14:27:15 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:27:21 - URI: /TDW_project/admin/equipes/equipes?domaine=S%C3%A9curit%C3%A9+Informatique
+2025-12-13 14:27:21 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:27:24 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 14:27:24 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:27:28 - URI: /TDW_project/admin/equipes/equipes/view/1
+2025-12-13 14:27:28 - Processed URI: /admin/equipes/equipes/view/1
+2025-12-13 14:27:58 - URI: /TDW_project/admin/equipes/equipes/form
+2025-12-13 14:27:58 - Processed URI: /admin/equipes/equipes/form
+2025-12-13 14:28:30 - URI: /TDW_project/admin/equipes/equipes/save
+2025-12-13 14:28:30 - Processed URI: /admin/equipes/equipes/save
+2025-12-13 14:28:30 - URI: /TDW_project/admin/equipes/equipes
+2025-12-13 14:28:30 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:28:35 - URI: /TDW_project/admin/equipes/equipes/view/4
+2025-12-13 14:28:35 - Processed URI: /admin/equipes/equipes/view/4
+2025-12-13 14:28:40 - URI: /TDW_project/admin/equipes/equipes/form/4
+2025-12-13 14:28:40 - Processed URI: /admin/equipes/equipes/form/4
+2025-12-13 14:28:45 - URI: /TDW_project/admin/equipes/equipes/save
+2025-12-13 14:28:45 - Processed URI: /admin/equipes/equipes/save
+2025-12-13 14:28:45 - URI: /TDW_project/admin/equipes/equipes
+2025-12-13 14:28:45 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:29:03 - URI: /TDW_project/api/admin/equipes/4
+2025-12-13 14:29:03 - Processed URI: /api/admin/equipes/4
+2025-12-13 14:29:04 - URI: /TDW_project/admin/equipes/equipes
+2025-12-13 14:29:04 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:37:35 - URI: /TDW_project/admin/equipes/equipes
+2025-12-13 14:37:35 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:37:46 - URI: /TDW_project/admin/equipes/equipes?domaine=S%C3%A9curit%C3%A9+Informatique
+2025-12-13 14:37:46 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:38:19 - URI: /TDW_project/admin/equipes/equipes?domaine=S%C3%A9curit%C3%A9+Informatique
+2025-12-13 14:38:19 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:38:22 - URI: /TDW_project/admin/equipes/equipes?domaine=S%C3%A9curit%C3%A9+Informatique
+2025-12-13 14:38:22 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:38:28 - URI: /TDW_project/admin/equipes/equipes?domaine=S%C3%A9curit%C3%A9
+2025-12-13 14:38:28 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:38:42 - URI: /TDW_project/admin/equipes/equipes/view/2
+2025-12-13 14:38:42 - Processed URI: /admin/equipes/equipes/view/2
+2025-12-13 14:38:56 - URI: /TDW_project/admin/equipes/equipes/view/2
+2025-12-13 14:38:56 - Processed URI: /admin/equipes/equipes/view/2
+2025-12-13 14:52:24 - URI: /TDW_project/admin/equipes/equipes/view/2
+2025-12-13 14:52:24 - Processed URI: /admin/equipes/equipes/view/2
+2025-12-13 14:53:17 - URI: /TDW_project/admin/equipes/equipes/view/2
+2025-12-13 14:53:17 - Processed URI: /admin/equipes/equipes/view/2
+2025-12-13 14:54:18 - URI: /TDW_project/admin/equipes/equipes/view/2
+2025-12-13 14:54:18 - Processed URI: /admin/equipes/equipes/view/2
+2025-12-13 14:56:06 - URI: /TDW_project/admin/equipes/equipes/form/2
+2025-12-13 14:56:06 - Processed URI: /admin/equipes/equipes/form/2
+2025-12-13 14:56:28 - URI: /TDW_project/admin/publications/view/2
+2025-12-13 14:56:28 - Processed URI: /admin/publications/view/2
+2025-12-13 14:56:30 - URI: /TDW_project/admin/equipes/equipes/view/2
+2025-12-13 14:56:30 - Processed URI: /admin/equipes/equipes/view/2
+2025-12-13 14:58:00 - URI: /TDW_project/admin/equipes/equipes/view/2
+2025-12-13 14:58:00 - Processed URI: /admin/equipes/equipes/view/2
+2025-12-13 14:58:18 - URI: /TDW_project/api/admin/equipes/2/membres-disponibles
+2025-12-13 14:58:18 - Processed URI: /api/admin/equipes/2/membres-disponibles
+2025-12-13 14:58:38 - URI: /TDW_project/admin/equipes/equipes?domaine=S%C3%A9curit%C3%A9
+2025-12-13 14:58:38 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:58:46 - URI: /TDW_project/admin/equipes/equipes?domaine=Intelligence+Artificielle
+2025-12-13 14:58:46 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:58:50 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 14:58:50 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:58:56 - URI: /TDW_project/admin/equipes/equipes?export=csv
+2025-12-13 14:58:56 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:59:40 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 14:59:40 - Processed URI: /admin/equipes/equipes
+2025-12-13 14:59:50 - URI: /TDW_project/admin/equipes/equipes?
+2025-12-13 14:59:50 - Processed URI: /admin/equipes/equipes
+2025-12-13 15:00:24 - URI: /TDW_project/admin/equipes/equipes/view/1
+2025-12-13 15:00:24 - Processed URI: /admin/equipes/equipes/view/1
+2025-12-13 15:00:42 - URI: /TDW_project/admin/publications/view/1
+2025-12-13 15:00:42 - Processed URI: /admin/publications/view/1
+2025-12-13 15:00:47 - URI: /TDW_project/api/admin/equipes/1/membres-disponibles
+2025-12-13 15:00:47 - Processed URI: /api/admin/equipes/1/membres-disponibles
+2025-12-13 15:01:00 - URI: /TDW_project/admin/equipes/equipes/form/1
+2025-12-13 15:01:00 - Processed URI: /admin/equipes/equipes/form/1
+2025-12-13 15:01:33 - URI: /TDW_project/admin/equipes
+2025-12-13 15:01:33 - Processed URI: /admin/equipes
+2025-12-13 15:01:40 - URI: /TDW_project/admin/publications
+2025-12-13 15:01:40 - Processed URI: /admin/publications
+2025-12-13 15:01:40 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:01:40 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:01:44 - URI: /TDW_project/admin/publications?type=Article
+2025-12-13 15:01:44 - Processed URI: /admin/publications
+2025-12-13 15:01:44 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:01:44 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:01:48 - URI: /TDW_project/admin/publications?type=Article?type=Article&annee=2024
+2025-12-13 15:01:48 - Processed URI: /admin/publications
+2025-12-13 15:01:48 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:01:48 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:01:54 - URI: /TDW_project/admin/publications?type=Article?type=Article&annee=2024?annee=2024
+2025-12-13 15:01:54 - Processed URI: /admin/publications
+2025-12-13 15:01:54 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:01:54 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:01:58 - URI: /TDW_project/admin/publications?type=Article?type=Article&annee=2024?annee=2024?domaine=IA
+2025-12-13 15:01:58 - Processed URI: /admin/publications
+2025-12-13 15:01:58 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:01:58 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:02:02 - URI: /TDW_project/admin/publications?type=Article?type=Article&annee=2024?annee=2024?domaine=IA?domaine=IA
+2025-12-13 15:02:02 - Processed URI: /admin/publications
+2025-12-13 15:02:02 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:02:02 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:02:12 - URI: /TDW_project/admin/publications?type=Article?type=Article&annee=2024?annee=2024?domaine=IA?domaine=IA
+2025-12-13 15:02:12 - Processed URI: /admin/publications
+2025-12-13 15:02:12 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:02:12 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:02:13 - URI: /TDW_project/admin/publications?type=Article?type=Article&annee=2024?annee=2024?domaine=IA?domaine=IA
+2025-12-13 15:02:13 - Processed URI: /admin/publications
+2025-12-13 15:02:13 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:02:13 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:02:21 - URI: /TDW_project/admin/publications?type=Article?type=Article&annee=2024?annee=2024?domaine=IA?domaine=IA?annee=2023
+2025-12-13 15:02:21 - Processed URI: /admin/publications
+2025-12-13 15:02:21 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:02:21 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:02:34 - URI: /TDW_project/admin/publications/export?format=csv
+2025-12-13 15:02:34 - Processed URI: /admin/publications/export
+2025-12-13 15:02:36 - URI: /TDW_project/
+2025-12-13 15:02:36 - Processed URI: /
+2025-12-13 15:02:36 - URI: /TDW_project/admin/dashboard
+2025-12-13 15:02:36 - Processed URI: /admin/dashboard
+2025-12-13 15:02:36 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:02:36 - Processed URI: /api/admin/stats
+2025-12-13 15:02:40 - URI: /TDW_project/admin/publications
+2025-12-13 15:02:40 - Processed URI: /admin/publications
+2025-12-13 15:02:40 - URI: /TDW_project/assets/js/admin-publications.js
+2025-12-13 15:02:40 - Processed URI: /assets/js/admin-publications.js
+2025-12-13 15:10:16 - URI: /TDW_project/admin/users
+2025-12-13 15:10:16 - Processed URI: /admin/users
+2025-12-13 15:10:19 - URI: /TDW_project/admin/dashboard
+2025-12-13 15:10:19 - Processed URI: /admin/dashboard
+2025-12-13 15:10:19 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:10:19 - Processed URI: /api/admin/stats
+2025-12-13 15:10:22 - URI: /TDW_project/admin/equipes/equipes
+2025-12-13 15:10:22 - Processed URI: /admin/equipes/equipes
+2025-12-13 15:10:43 - URI: /TDW_project/admin/projets
+2025-12-13 15:10:43 - Processed URI: /admin/projets
+2025-12-13 15:10:46 - URI: /TDW_project/admin/publications
+2025-12-13 15:10:46 - Processed URI: /admin/publications
+2025-12-13 15:10:48 - URI: /TDW_project/
+2025-12-13 15:10:48 - Processed URI: /
+2025-12-13 15:10:48 - URI: /TDW_project/admin/dashboard
+2025-12-13 15:10:48 - Processed URI: /admin/dashboard
+2025-12-13 15:10:48 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:10:48 - Processed URI: /api/admin/stats
+2025-12-13 15:11:19 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:11:19 - Processed URI: /api/admin/stats
+2025-12-13 15:11:49 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:11:49 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:11:49 - Processed URI: /api/admin/notifications
+2025-12-13 15:11:49 - Processed URI: /api/admin/stats
+2025-12-13 15:12:19 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:12:19 - Processed URI: /api/admin/stats
+2025-12-13 15:12:49 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:12:49 - Processed URI: /api/admin/stats
+2025-12-13 15:12:49 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:12:49 - Processed URI: /api/admin/notifications
+2025-12-13 15:13:19 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:13:19 - Processed URI: /api/admin/stats
+2025-12-13 15:13:49 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:13:49 - Processed URI: /api/admin/stats
+2025-12-13 15:13:49 - Processed URI: /api/admin/notifications
+2025-12-13 15:14:19 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:14:19 - Processed URI: /api/admin/stats
+2025-12-13 15:14:49 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:14:49 - Processed URI: /api/admin/notifications
+2025-12-13 15:15:20 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:15:20 - Processed URI: /api/admin/stats
+2025-12-13 15:15:49 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:15:49 - Processed URI: /api/admin/notifications
+2025-12-13 15:16:21 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:16:21 - Processed URI: /api/admin/stats
+2025-12-13 15:16:49 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:16:49 - Processed URI: /api/admin/notifications
+2025-12-13 15:17:22 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:17:22 - Processed URI: /api/admin/stats
+2025-12-13 15:18:23 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:18:23 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:18:23 - Processed URI: /api/admin/stats
+2025-12-13 15:18:23 - Processed URI: /api/admin/notifications
+2025-12-13 15:19:24 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:19:24 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:19:24 - Processed URI: /api/admin/stats
+2025-12-13 15:19:24 - Processed URI: /api/admin/notifications
+2025-12-13 15:20:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:20:25 - Processed URI: /api/admin/notifications
+2025-12-13 15:20:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:20:25 - Processed URI: /api/admin/stats
+2025-12-13 15:21:25 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:21:25 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:21:25 - Processed URI: /api/admin/stats
+2025-12-13 15:21:25 - Processed URI: /api/admin/notifications
+2025-12-13 15:22:25 - URI: /TDW_project/api/admin/stats
+cations
+2025-12-13 15:22:25 - Processed URI: /api/admin/notifications
+2025-12-13 15:22:25 - Processed URI: /api/admin/stats
+2025-12-13 15:22:54 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:22:54 - Processed URI: /api/admin/stats
+2025-12-13 15:22:54 - URI: /TDW_project/api/admin/notifications
+2025-12-13 15:22:54 - Processed URI: /api/admin/notifications
+2025-12-13 15:23:19 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:23:19 - Processed URI: /api/admin/stats
+2025-12-13 15:23:49 - URI: /TDW_project/api/admin/stats
+2025-12-13 15:23:49 - Processed URI: /api/admin/stats
+fications
+2025-12-13 15:23:49 - Processed URI: /api/admin/notifications

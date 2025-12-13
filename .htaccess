@@ -1,0 +1,16 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /TDW_project/
+    
+    # Skip rewriting for existing files and directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Skip rewriting if already requesting index.php
+    RewriteCond %{REQUEST_URI} !^/TDW_project/index\.php
+    
+    # Route to index.php
+    RewriteRule . index.php [L]
+</IfModule>
