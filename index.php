@@ -37,7 +37,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = str_replace('/TDW_project', '', $uri);
 $method = $_SERVER['REQUEST_METHOD'];
 
-file_put_contents($logFile, date('Y-m-d H:i:s') . " - Processed URI: $uri\n", FILE_APPEND);
+file_put_contents($logFile, date('Y-m-d H:i:s') . " - Processed URI: $uri - Method: $method\n", FILE_APPEND);
 
 // ============================================================
 // ROUTES D'AUTHENTIFICATION
@@ -62,28 +62,46 @@ if ($uri === '/logout') {
 }
 
 // ============================================================
-// ROUTES API - AVANT LES ROUTES ADMIN
+// ROUTES API - AVANT TOUTES LES ROUTES ADMIN
 // ============================================================
 
 if (strpos($uri, '/api/admin') === 0) {
     AuthController::requireAdmin();
     
+    // ===== API PUBLICATIONS (le plus spécifique en premier) =====
+    if (strpos($uri, '/api/admin/publications/publications/') === 0) {
+        require_once __DIR__ . '/controllers/admin/PublicationsController.php';
+        $publicationsController = new PublicationsController();
+        
+        // POST /api/admin/publications/publications/:id/valider
+        if (preg_match('#^/api/admin/publications/publications/(\d+)/valider$#', $uri, $matches) && $method === 'POST') {
+            $publicationsController->valider($matches[1]);
+            exit;
+        }
+        
+        // POST /api/admin/publications/publications/:id/rejeter
+        if (preg_match('#^/api/admin/publications/publications/(\d+)/rejeter$#', $uri, $matches) && $method === 'POST') {
+            $publicationsController->rejeter($matches[1]);
+            exit;
+        }
+        
+        // DELETE /api/admin/publications/publications/:id
+        if (preg_match('#^/api/admin/publications/publications/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
+            $publicationsController->delete($matches[1]);
+            exit;
+        }
+        
+        // GET /api/admin/publications/publications/:id
+        if (preg_match('#^/api/admin/publications/publications/(\d+)$#', $uri, $matches) && $method === 'GET') {
+            $publicationsController->get($matches[1]);
+            exit;
+        }
+    }
+    
     // ===== API ÉQUIPES =====
     if (strpos($uri, '/api/admin/equipes') === 0) {
         require_once __DIR__ . '/controllers/admin/EquipesController.php';
         $equipesController = new EquipesController();
-        
-        // GET /api/admin/equipes/:id
-        if (preg_match('#^/api/admin/equipes/(\d+)$#', $uri, $matches) && $method === 'GET') {
-            $equipesController->get($matches[1]);
-            exit;
-        }
-        
-        // DELETE /api/admin/equipes/:id
-        if (preg_match('#^/api/admin/equipes/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
-            $equipesController->delete($matches[1]);
-            exit;
-        }
         
         // GET /api/admin/equipes/:id/membres-disponibles
         if (preg_match('#^/api/admin/equipes/(\d+)/membres-disponibles$#', $uri, $matches) && $method === 'GET') {
@@ -110,9 +128,35 @@ if (strpos($uri, '/api/admin') === 0) {
             $equipesController->removeMembre();
             exit;
         }
+        
+        // GET /api/admin/equipes/:id
+        if (preg_match('#^/api/admin/equipes/(\d+)$#', $uri, $matches) && $method === 'GET') {
+            $equipesController->get($matches[1]);
+            exit;
+        }
+        
+        // DELETE /api/admin/equipes/:id
+        if (preg_match('#^/api/admin/equipes/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
+            $equipesController->delete($matches[1]);
+            exit;
+        }
     }
     
-    // API générale
+    // ===== API MEMBRES =====
+    if ($uri === '/api/admin/membres' && $method === 'GET') {
+        require_once __DIR__ . '/models/MembreModel.php';
+        $membreModel = new MembreModel();
+        $membres = $membreModel->getAllMembresWithUser();
+        
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'membres' => $membres
+        ]);
+        exit;
+    }
+    
+    // ===== API GÉNÉRALE =====
     require_once __DIR__ . '/controllers/admin/AdminApiController.php';
     $apiController = new AdminApiController();
     
@@ -131,9 +175,10 @@ if (strpos($uri, '/api/admin') === 0) {
         exit;
     }
     
+    // Si aucune route API ne correspond
     http_response_code(404);
     header('Content-Type: application/json');
-    echo json_encode(['success' => false, 'error' => 'API endpoint not found']);
+    echo json_encode(['success' => false, 'error' => 'API endpoint not found', 'uri' => $uri]);
     exit;
 }
 
@@ -153,51 +198,151 @@ if (strpos($uri, '/admin') === 0) {
         exit;
     }
     
-    // ===== UTILISATEURS =====
-    if ($uri === '/admin/users') {
-        $adminController->users();
+   
+// ===== API USERS =====
+if (strpos($uri, '/api/admin/users') === 0) {
+    require_once __DIR__ . '/controllers/admin/UsersController.php';
+    $usersController = new UsersController();
+    
+    // POST /api/admin/users/change-role
+    if ($uri === '/api/admin/users/change-role' && $method === 'POST') {
+        $usersController->changeRole();
         exit;
     }
     
-    // ===== ÉQUIPES - ORDRE IMPORTANT: routes spécifiques avant génériques =====
+    // POST /api/admin/users/change-status
+    if ($uri === '/api/admin/users/change-status' && $method === 'POST') {
+        $usersController->changeStatus();
+        exit;
+    }
+    
+    // GET /api/admin/users/:id
+    if (preg_match('#^/api/admin/users/(\d+)$#', $uri, $matches) && $method === 'GET') {
+        $usersController->get($matches[1]);
+        exit;
+    }
+    
+    // DELETE /api/admin/users/:id
+    if (preg_match('#^/api/admin/users/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
+        $usersController->delete($matches[1]);
+        exit;
+    }
+}
+
+// ===== À AJOUTER DANS LA SECTION ADMIN (après équipes) =====
+
+// ===== UTILISATEURS =====
+if (strpos($uri, '/admin/users') === 0) {
+    require_once __DIR__ . '/controllers/admin/UsersController.php';
+    $usersController = new UsersController();
+    
+    // Export
+    if ($uri === '/admin/users/users' && isset($_GET['export'])) {
+        $usersController->export();
+        exit;
+    }
+    
+    // Formulaire (AJAX)
+    if (preg_match('#^/admin/users/users/form(/(\d+))?$#', $uri, $matches)) {
+        $id = $matches[2] ?? null;
+        $usersController->form($id);
+        exit;
+    }
+    
+    // Sauvegarder
+    if ($uri === '/admin/users/users/save' && $method === 'POST') {
+        $usersController->save();
+        exit;
+    }
+    
+    // Vue détaillée
+    if (preg_match('#^/admin/users/users/view/(\d+)$#', $uri, $matches)) {
+        $usersController->view($matches[1]);
+        exit;
+    }
+    
+    // Liste
+    if ($uri === '/admin/users' || $uri === '/admin/users/users') {
+        $usersController->index();
+        exit;
+    }
+}
+    // ===== ÉQUIPES =====
     if (strpos($uri, '/admin/equipes') === 0) {
         require_once __DIR__ . '/controllers/admin/EquipesController.php';
         $equipesController = new EquipesController();
         
-        // Export (avant /admin/equipes pour éviter conflit)
+        // Export
         if ($uri === '/admin/equipes/equipes' && isset($_GET['export'])) {
             $equipesController->export();
             exit;
         }
         
-        // Formulaire d'équipe (AJAX)
+        // Formulaire (AJAX)
         if (preg_match('#^/admin/equipes/equipes/form(/(\d+))?$#', $uri, $matches)) {
             $id = $matches[2] ?? null;
             $equipesController->form($id);
             exit;
         }
         
-        // Sauvegarder une équipe
+        // Sauvegarder
         if ($uri === '/admin/equipes/equipes/save' && $method === 'POST') {
             $equipesController->save();
             exit;
         }
         
-        // Vue détaillée d'une équipe
+        // Vue détaillée
         if (preg_match('#^/admin/equipes/equipes/view/(\d+)$#', $uri, $matches)) {
             $equipesController->view($matches[1]);
             exit;
         }
         
-        // Supprimer une équipe (API style)
-        if (preg_match('#^/admin/equipes/equipes/delete/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
-            $equipesController->delete($matches[1]);
+        // Liste
+        if ($uri === '/admin/equipes' || $uri === '/admin/equipes/equipes') {
+            $equipesController->index();
+            exit;
+        }
+    }
+    
+    // ===== PUBLICATIONS =====
+    if (strpos($uri, '/admin/publications') === 0) {
+        require_once __DIR__ . '/controllers/admin/PublicationsController.php';
+        $publicationsController = new PublicationsController();
+        
+        // Export
+        if ($uri === '/admin/publications/publications' && isset($_GET['export'])) {
+            $publicationsController->export();
             exit;
         }
         
-        // Liste des équipes (par défaut)
-        if ($uri === '/admin/equipes' || $uri === '/admin/equipes/equipes') {
-            $equipesController->index();
+        // Rapport bibliographique
+        if ($uri === '/admin/publications/publications/rapport') {
+            $publicationsController->rapport();
+            exit;
+        }
+        
+        // Formulaire (AJAX)
+        if (preg_match('#^/admin/publications/publications/form(/(\d+))?$#', $uri, $matches)) {
+            $id = $matches[2] ?? null;
+            $publicationsController->form($id);
+            exit;
+        }
+        
+        // Sauvegarder
+        if ($uri === '/admin/publications/publications/save' && $method === 'POST') {
+            $publicationsController->save();
+            exit;
+        }
+        
+        // Vue détaillée
+        if (preg_match('#^/admin/publications/publications/view/(\d+)$#', $uri, $matches)) {
+            $publicationsController->view($matches[1]);
+            exit;
+        }
+        
+        // Liste
+        if ($uri === '/admin/publications/publications') {
+            $publicationsController->index();
             exit;
         }
     }
@@ -223,21 +368,6 @@ if (strpos($uri, '/admin') === 0) {
         exit;
     }
     
-    // ===== PUBLICATIONS =====
-    if ($uri === '/admin/publications/publications') {
-        if (isset($_GET['export'])) {
-            $adminController->exportPublications();
-            exit;
-        }
-        $adminController->publications();
-        exit;
-    }
-    
-    if (preg_match('#^/admin/publications/view/(\d+)$#', $uri, $matches)) {
-        echo "Vue détaillée de la publication #" . $matches[1];
-        exit;
-    }
-    
     // ===== ÉVÉNEMENTS =====
     if ($uri === '/admin/evenements') {
         $adminController->evenements();
@@ -258,6 +388,7 @@ if (strpos($uri, '/admin') === 0) {
     if ($uri === '/admin/parametres/save-general' && $method === 'POST') {
         $_SESSION['success'] = 'Paramètres généraux enregistrés';
         redirect(base_url('admin/parametres'));
+        exit;
     }
 }
 
@@ -365,7 +496,7 @@ http_response_code(404);
             <strong>Méthode:</strong> <?= htmlspecialchars($method) ?>
         </div>
         
-        <a href="/TDW_project/">← Retour à l'accueil</a>
+        <a href="/TDW_project/">Retour à l'accueil</a>
     </div>
 </body>
 </html>

@@ -65,6 +65,28 @@ class ProjetModel extends Model {
     }
     
     /**
+     * Récupérer les projets d'un membre (responsable + participant)
+     */
+    public function getByMembre($membreId) {
+        $stmt = $this->db->prepare("
+            SELECT DISTINCT p.*, 
+                   u.username as responsable_nom,
+                   CASE 
+                       WHEN p.responsable_id = ? THEN 'Responsable'
+                       ELSE pm.role_projet
+                   END as role_dans_projet
+            FROM Projet p
+            JOIN Membre m ON p.responsable_id = m.id
+            JOIN User u ON m.user_id = u.id
+            LEFT JOIN Projet_Membre pm ON p.id = pm.projet_id
+            WHERE p.responsable_id = ? OR pm.membre_id = ?
+            ORDER BY p.date_debut DESC
+        ");
+        $stmt->execute([$membreId, $membreId, $membreId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    /**
      * Récupérer par thématique
      */
     public function getByThematique($thematique) {
@@ -117,6 +139,42 @@ class ProjetModel extends Model {
     public function getStatuts() {
         $stmt = $this->db->query("SELECT DISTINCT statut FROM Projet ORDER BY statut");
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+    
+    /**
+     * Vérifier si un membre participe à un projet
+     */
+    public function membreParticipe($projetId, $membreId) {
+        $stmt = $this->db->prepare("
+            SELECT COUNT(*) 
+            FROM Projet p
+            LEFT JOIN Projet_Membre pm ON p.id = pm.projet_id
+            WHERE p.id = ? AND (p.responsable_id = ? OR pm.membre_id = ?)
+        ");
+        $stmt->execute([$projetId, $membreId, $membreId]);
+        return $stmt->fetchColumn() > 0;
+    }
+    
+    /**
+     * Ajouter un membre à un projet
+     */
+    public function addMembre($projetId, $membreId, $role = 'Participant') {
+        $stmt = $this->db->prepare("
+            INSERT INTO Projet_Membre (projet_id, membre_id, role_projet)
+            VALUES (?, ?, ?)
+        ");
+        return $stmt->execute([$projetId, $membreId, $role]);
+    }
+    
+    /**
+     * Retirer un membre d'un projet
+     */
+    public function removeMembre($projetId, $membreId) {
+        $stmt = $this->db->prepare("
+            DELETE FROM Projet_Membre 
+            WHERE projet_id = ? AND membre_id = ?
+        ");
+        return $stmt->execute([$projetId, $membreId]);
     }
 }
 ?>

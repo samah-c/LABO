@@ -1,6 +1,6 @@
 <?php
 // ========================================
-// Model.php - CLASSE DE BASE
+// Model.php - CLASSE DE BASE MISE À JOUR
 // ========================================
 require_once __DIR__ . '/../config/database.php';
 
@@ -10,6 +10,14 @@ abstract class Model {
     
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
+    }
+    
+    /**
+     * Obtenir la connexion PDO
+     * Permet d'accéder à $db depuis les contrôleurs
+     */
+    public function getConnection() {
+        return $this->db;
     }
     
     public function getAll() {

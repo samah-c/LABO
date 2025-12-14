@@ -1,13 +1,13 @@
 /**
- * equipes-handler.js - Gestionnaire complet pour les équipes
- * Gère toutes les opérations CRUD + ajout/retrait de membres
+ * publications-handler.js - Gestionnaire complet pour les publications
+ * Gère CRUD + validation + rapports bibliographiques
  */
 
-class EquipesHandler {
+class PublicationsHandler {
     constructor() {
-        this.baseUrl = '/TDW_project/admin/equipes/equipes';
-        this.apiUrl = '/TDW_project/api/admin/equipes';
-        this.currentEquipeId = null;
+        this.baseUrl = '/TDW_project/admin/publications/publications';
+        this.apiUrl = '/TDW_project/api/admin/publications/publications';
+        this.currentPublicationId = null;
         this.init();
     }
     
@@ -22,7 +22,7 @@ class EquipesHandler {
     // ========================================
     
     attachEventListeners() {
-        // Bouton ajouter équipe
+        // Bouton ajouter publication
         const addBtn = document.querySelector('[onclick*="openAddModal"]');
         if (addBtn) {
             addBtn.onclick = () => this.openAddModal();
@@ -34,6 +34,12 @@ class EquipesHandler {
             exportBtn.onclick = () => this.export();
         }
         
+        // Bouton rapport
+        const rapportBtn = document.querySelector('[onclick*="genererRapport"]');
+        if (rapportBtn) {
+            rapportBtn.onclick = () => this.ouvrirModalRapport();
+        }
+        
         // Fermeture modale
         const closeBtn = document.querySelector('.modal-close');
         if (closeBtn) {
@@ -41,7 +47,7 @@ class EquipesHandler {
         }
         
         // Clic en dehors de la modale
-        const modal = document.getElementById('equipe-modal');
+        const modal = document.getElementById('publication-modal');
         if (modal) {
             modal.onclick = (e) => {
                 if (e.target === modal) {
@@ -63,7 +69,7 @@ class EquipesHandler {
     // ========================================
     
     /**
-     * Voir les détails d'une équipe
+     * Voir les détails d'une publication
      */
     view(id) {
         window.location.href = `${this.baseUrl}/view/${id}`;
@@ -77,20 +83,19 @@ class EquipesHandler {
     }
     
     /**
-     * Modifier une équipe
+     * Modifier une publication
      */
     edit(id) {
         this.loadForm(id);
     }
     
     /**
-     * Supprimer une équipe
+     * Supprimer une publication
      */
     async delete(id) {
-        // Confirmation personnalisée
         const confirmed = await this.showConfirmDialog(
-            'Supprimer l\'équipe',
-            'Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action est irréversible.',
+            'Supprimer la publication',
+            'Êtes-vous sûr de vouloir supprimer cette publication ? Cette action est irréversible.',
             'Supprimer',
             'danger'
         );
@@ -109,7 +114,7 @@ class EquipesHandler {
             const data = await response.json();
             
             if (data.success) {
-                this.showNotification(data.message || 'Équipe supprimée avec succès', 'success');
+                this.showNotification(data.message || 'Publication supprimée avec succès', 'success');
                 
                 // Supprimer visuellement la ligne
                 const row = document.querySelector(`tr[data-id="${id}"]`);
@@ -136,7 +141,7 @@ class EquipesHandler {
      * Charger le formulaire dans la modale
      */
     async loadForm(id = null) {
-        const modal = document.getElementById('equipe-modal');
+        const modal = document.getElementById('publication-modal');
         const container = document.getElementById('modal-form-container');
         
         if (!modal || !container) {
@@ -147,7 +152,7 @@ class EquipesHandler {
         // Mettre à jour le titre
         const modalTitle = modal.querySelector('.modal-header h2');
         if (modalTitle) {
-            modalTitle.textContent = id ? 'Modifier l\'équipe' : 'Ajouter une équipe';
+            modalTitle.textContent = id ? 'Modifier la publication' : 'Ajouter une publication';
         }
         
         // Afficher loader
@@ -176,16 +181,96 @@ class EquipesHandler {
             const html = await response.text();
             container.innerHTML = html;
             
-            this.currentEquipeId = id;
+            this.currentPublicationId = id;
+            setTimeout(() => {
+            const form = document.getElementById('publication-form');
+            if (form) {
+                console.log('Formulaire trouvé, attachement de l\'event listener');
+            } else {
+                console.error('Formulaire non trouvé après chargement');
+            }
+        }, 100);
             
         } catch (error) {
             console.error('Erreur:', error);
             container.innerHTML = `
                 <div class="error-message">
-                    <p>❌ Erreur lors du chargement du formulaire</p>
-                    <button class="btn-secondary" onclick="equipes.closeModal()">Fermer</button>
+                    <p> Erreur lors du chargement du formulaire</p>
+                    <button class="btn-secondary" onclick="publications.closeModal()">Fermer</button>
                 </div>
             `;
+        }
+    }
+    
+    /**
+     * Soumettre le formulaire
+     */
+    async submitForm(form) {
+        const formData = new FormData(form);
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        // Désactiver le bouton
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-small"></span> Enregistrement...';
+        }
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Publication enregistrée avec succès', 'success');
+                this.closeModal();
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                if (data.errors) {
+                    this.displayErrors(form, data.errors);
+                }
+                this.showNotification(data.message || 'Erreur lors de l\'enregistrement', 'error');
+                
+                // Réactiver le bouton
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Enregistrer';
+                }
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+            
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = ' Enregistrer';
+            }
+        }
+    }
+    
+    /**
+     * Afficher les erreurs de validation
+     */
+    displayErrors(form, errors) {
+        // Supprimer les anciennes erreurs
+        form.querySelectorAll('.field-error').forEach(el => el.remove());
+        form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        
+        // Afficher les nouvelles erreurs
+        for (const [field, message] of Object.entries(errors)) {
+            const input = form.querySelector(`[name="${field}"]`);
+            if (input) {
+                input.classList.add('error');
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error';
+                errorDiv.textContent = message;
+                input.parentElement.appendChild(errorDiv);
+            }
         }
     }
     
@@ -193,9 +278,8 @@ class EquipesHandler {
      * Fermer la modale
      */
     closeModal() {
-        const modal = document.getElementById('equipe-modal');
+        const modal = document.getElementById('publication-modal');
         if (modal) {
-            // Animation de fermeture
             const content = modal.querySelector('.modal-content');
             if (content) {
                 content.style.transform = 'scale(0.9)';
@@ -208,9 +292,8 @@ class EquipesHandler {
                 if (container) {
                     container.innerHTML = '';
                 }
-                this.currentEquipeId = null;
+                this.currentPublicationId = null;
                 
-                // Reset animation
                 if (content) {
                     content.style.transform = '';
                     content.style.opacity = '';
@@ -220,18 +303,192 @@ class EquipesHandler {
     }
     
     // ========================================
-    // GESTION DES MEMBRES
+    // VALIDATION DES PUBLICATIONS
     // ========================================
     
     /**
-     * Ouvrir la modale d'ajout de membre
+     * Valider une publication
      */
-    async openAddMembreModal(equipeId) {
-        this.currentEquipeId = equipeId;
+    async valider(id) {
+        const confirmed = await this.showConfirmDialog(
+            'Valider la publication',
+            'Confirmer la validation de cette publication ? Elle sera visible publiquement.',
+            'Valider',
+            'success'
+        );
+        
+        if (!confirmed) return;
         
         try {
-            // Récupérer la liste des membres disponibles (sans équipe)
-            const response = await fetch(`${this.apiUrl}/${equipeId}/membres-disponibles`, {
+            const response = await fetch(`${this.apiUrl}/${id}/valider`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Publication validée', 'success');
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                this.showNotification(data.message || 'Erreur lors de la validation', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+        }
+    }
+    
+    /**
+     * Rejeter une publication
+     */
+    async rejeter(id) {
+        const confirmed = await this.showConfirmDialog(
+            'Rejeter la publication',
+            'Confirmer le rejet de cette publication ?',
+            'Rejeter',
+            'warning'
+        );
+        
+        if (!confirmed) return;
+        
+        try {
+            const response = await fetch(`${this.apiUrl}/${id}/rejeter`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Publication rejetée', 'warning');
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                this.showNotification(data.message || 'Erreur lors du rejet', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+        }
+    }
+    
+    // ========================================
+    // RAPPORTS BIBLIOGRAPHIQUES
+    // ========================================
+    
+    /**
+     * Ouvrir la modale de génération de rapport
+     */
+    ouvrirModalRapport() {
+        const modal = document.getElementById('publication-modal');
+        const container = document.getElementById('modal-form-container');
+        
+        if (!modal || !container) return;
+        
+        const modalTitle = modal.querySelector('.modal-header h2');
+        if (modalTitle) {
+            modalTitle.textContent = 'Générer un rapport bibliographique';
+        }
+        
+        container.innerHTML = `
+            <form id="rapport-form">
+                <div class="form-group">
+                    <label>Type de rapport *</label>
+                    <select id="rapport-type" name="type" required>
+                        <option value="annee">Par année</option>
+                        <option value="auteur">Par auteur</option>
+                        <option value="complet">Rapport complet</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="annee-group">
+                    <label>Année</label>
+                    <select name="annee">
+                        <option value="">Année en cours</option>
+                        ${this.generateYearOptions()}
+                    </select>
+                </div>
+                
+                <div class="form-group" id="auteur-group" style="display: none;">
+                    <label>Auteur</label>
+                    <select name="auteur" id="auteur-select">
+                        <option value="">-- Sélectionner --</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Format</label>
+                    <select name="format">
+                        <option value="html">Afficher à l'écran (HTML)</option>
+                        <option value="pdf">Télécharger PDF</option>
+                        <option value="csv">Télécharger CSV</option>
+                    </select>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="publications.closeModal()">
+                        Annuler
+                    </button>
+                    <button type="submit" class="btn-primary">
+                         Générer le rapport
+                    </button>
+                </div>
+            </form>
+        `;
+        
+        modal.style.display = 'flex';
+        
+        // Charger les auteurs
+        this.loadAuteurs();
+        
+        // Gestion du type de rapport
+        document.getElementById('rapport-type').addEventListener('change', (e) => {
+            const anneeGroup = document.getElementById('annee-group');
+            const auteurGroup = document.getElementById('auteur-group');
+            
+            if (e.target.value === 'auteur') {
+                anneeGroup.style.display = 'none';
+                auteurGroup.style.display = 'block';
+            } else if (e.target.value === 'annee') {
+                anneeGroup.style.display = 'block';
+                auteurGroup.style.display = 'none';
+            } else {
+                anneeGroup.style.display = 'none';
+                auteurGroup.style.display = 'none';
+            }
+        });
+        
+        // Soumission du formulaire
+        document.getElementById('rapport-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.genererRapport(new FormData(e.target));
+        });
+    }
+    
+    /**
+     * Générer les options d'années
+     */
+    generateYearOptions() {
+        const currentYear = new Date().getFullYear();
+        let options = '';
+        for (let year = currentYear; year >= currentYear - 10; year--) {
+            options += `<option value="${year}">${year}</option>`;
+        }
+        return options;
+    }
+    
+    /**
+     * Charger la liste des auteurs
+     */
+    async loadAuteurs() {
+        try {
+            const response = await fetch('/TDW_project/api/admin/membres', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
@@ -239,156 +496,29 @@ class EquipesHandler {
             
             const data = await response.json();
             
-            if (data.success) {
-                this.showMembreSelectionModal(data.membres);
-            } else {
-                this.showNotification('Erreur lors du chargement des membres', 'error');
+            if (data.success && data.membres) {
+                const select = document.getElementById('auteur-select');
+                if (select) {
+                    data.membres.forEach(membre => {
+                        const option = document.createElement('option');
+                        option.value = membre.id;
+                        option.textContent = `${membre.username} ${membre.grade ? '- ' + membre.grade : ''}`;
+                        select.appendChild(option);
+                    });
+                }
             }
         } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
+            console.error('Erreur chargement auteurs:', error);
         }
     }
     
     /**
-     * Afficher la modale de sélection de membre
+     * Générer le rapport
      */
-    showMembreSelectionModal(membres) {
-        const modal = document.getElementById('equipe-modal');
-        const container = document.getElementById('modal-form-container');
-        
-        if (!modal || !container) return;
-        
-        // Mettre à jour le titre
-        const modalTitle = modal.querySelector('.modal-header h2');
-        if (modalTitle) {
-            modalTitle.textContent = 'Ajouter un membre';
-        }
-        
-        // Créer le formulaire
-        let html = `
-            <form id="add-membre-form">
-                <div class="form-group">
-                    <label for="membre-select">Sélectionner un membre *</label>
-                    <select id="membre-select" name="membre_id" required>
-                        <option value="">-- Choisir un membre --</option>
-        `;
-        
-        if (membres.length === 0) {
-            html += `<option value="" disabled>Aucun membre disponible</option>`;
-        } else {
-            membres.forEach(membre => {
-                html += `
-                    <option value="${membre.id}">
-                        ${this.escapeHtml(membre.username)}
-                        ${membre.grade ? ' - ' + this.escapeHtml(membre.grade) : ''}
-                    </option>
-                `;
-            });
-        }
-        
-        html += `
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-secondary" onclick="equipes.closeModal()">
-                        Annuler
-                    </button>
-                    <button type="submit" class="btn-primary" ${membres.length === 0 ? 'disabled' : ''}>
-                        Ajouter à l'équipe
-                    </button>
-                </div>
-            </form>
-        `;
-        
-        container.innerHTML = html;
-        modal.style.display = 'flex';
-        
-        // Attacher le gestionnaire
-        if (membres.length > 0) {
-            document.getElementById('add-membre-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.addMembre();
-            });
-        }
-    }
-    
-    /**
-     * Ajouter un membre à une équipe
-     */
-    async addMembre() {
-        const membreId = document.getElementById('membre-select').value;
-        
-        if (!membreId) {
-            this.showNotification('Veuillez sélectionner un membre', 'warning');
-            return;
-        }
-        
-        try {
-            const response = await fetch(`${this.apiUrl}/add-membre`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    equipe_id: this.currentEquipeId,
-                    membre_id: membreId
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showNotification(data.message || 'Membre ajouté avec succès', 'success');
-                this.closeModal();
-                setTimeout(() => location.reload(), 1000);
-            } else {
-                this.showNotification(data.message || 'Erreur lors de l\'ajout', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    /**
-     * Retirer un membre d'une équipe
-     */
-    async removeMembre(membreId, membreName) {
-        const confirmed = await this.showConfirmDialog(
-            'Retirer le membre',
-            `Êtes-vous sûr de vouloir retirer ${membreName} de cette équipe ?`,
-            'Retirer',
-            'warning'
-        );
-        
-        if (!confirmed) return;
-        
-        try {
-            const response = await fetch(`${this.apiUrl}/remove-membre`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    membre_id: membreId
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showNotification(data.message || 'Membre retiré avec succès', 'success');
-                setTimeout(() => location.reload(), 1000);
-            } else {
-                this.showNotification(data.message || 'Erreur lors du retrait', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
+    genererRapport(formData) {
+        const params = new URLSearchParams(formData);
+        window.open(`${this.baseUrl}/rapport?${params.toString()}`, '_blank');
+        this.closeModal();
     }
     
     // ========================================
@@ -398,14 +528,12 @@ class EquipesHandler {
     initFilters() {
         const applyBtn = document.getElementById('apply-filters');
         const searchInput = document.getElementById('search-input');
-        const filterSelects = document.querySelectorAll('.filter-select');
         
         if (applyBtn) {
             applyBtn.addEventListener('click', () => this.applyFilters());
         }
         
         if (searchInput) {
-            // Recherche en temps réel avec debounce
             let timeout;
             searchInput.addEventListener('input', (e) => {
                 clearTimeout(timeout);
@@ -414,21 +542,12 @@ class EquipesHandler {
                 }, 300);
             });
             
-            // Recherche sur Enter
             searchInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     this.applyFilters();
                 }
             });
         }
-        
-        // Changement de filtre
-        filterSelects.forEach(select => {
-            select.addEventListener('change', () => {
-                // Option: appliquer automatiquement les filtres
-                // this.applyFilters();
-            });
-        });
     }
     
     /**
@@ -437,25 +556,22 @@ class EquipesHandler {
     applyFilters() {
         const params = new URLSearchParams();
         
-        // Recherche
         const searchInput = document.getElementById('search-input');
         if (searchInput && searchInput.value) {
             params.append('search', searchInput.value);
         }
         
-        // Filtres
         document.querySelectorAll('.filter-select').forEach(select => {
             if (select.value) {
                 params.append(select.name, select.value);
             }
         });
         
-        // Redirection avec paramètres
         window.location.href = `${this.baseUrl}?${params.toString()}`;
     }
     
     /**
-     * Recherche en temps réel dans le tableau
+     * Recherche en temps réel
      */
     liveSearch(query) {
         const rows = document.querySelectorAll('.table tbody tr, .data-table tbody tr');
@@ -463,10 +579,8 @@ class EquipesHandler {
         let visibleCount = 0;
         
         rows.forEach(row => {
-            // Ignorer les lignes vides ou messages
             if (row.classList.contains('empty-row') || 
-                row.querySelector('.empty-cell') ||
-                row.querySelector('.empty-message')) {
+                row.querySelector('.empty-cell')) {
                 return;
             }
             
@@ -477,7 +591,6 @@ class EquipesHandler {
             if (matches) visibleCount++;
         });
         
-        // Afficher message si aucun résultat
         this.updateEmptyState(visibleCount === 0 && query);
     }
     
@@ -495,9 +608,6 @@ class EquipesHandler {
     // UTILITAIRES UI
     // ========================================
     
-    /**
-     * Vérifier si le tableau est vide
-     */
     checkEmptyTable() {
         const tbody = document.querySelector('.table tbody, .data-table tbody');
         if (!tbody) return;
@@ -512,9 +622,6 @@ class EquipesHandler {
         }
     }
     
-    /**
-     * Mettre à jour l'état vide du tableau
-     */
     updateEmptyState(isEmpty) {
         const tbody = document.querySelector('.table tbody, .data-table tbody');
         if (!tbody) return;
@@ -527,7 +634,7 @@ class EquipesHandler {
                 row.className = 'no-results-row';
                 row.innerHTML = `
                     <td colspan="100" class="empty-message" style="text-align: center; padding: 40px; color: #9CA3AF;">
-                        🔍 Aucun résultat trouvé
+                         Aucun résultat trouvé
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -537,17 +644,12 @@ class EquipesHandler {
         }
     }
     
-    /**
-     * Afficher une notification
-     */
     showNotification(message, type = 'info') {
-        // Utiliser le système de toast global si disponible
         if (window.toast) {
             window.toast.show(message, type);
             return;
         }
         
-        // Sinon créer une notification simple
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -569,7 +671,6 @@ class EquipesHandler {
             animation: slideIn 0.3s ease;
         `;
         
-        // Couleurs selon le type
         const colors = {
             success: '#10B981',
             error: '#EF4444',
@@ -582,16 +683,12 @@ class EquipesHandler {
         
         document.body.appendChild(notification);
         
-        // Supprimer après 5 secondes
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => notification.remove(), 300);
         }, 5000);
     }
     
-    /**
-     * Dialogue de confirmation personnalisé
-     */
     showConfirmDialog(title, message, confirmText = 'Confirmer', type = 'primary') {
         return new Promise((resolve) => {
             const dialog = document.createElement('div');
@@ -608,9 +705,6 @@ class EquipesHandler {
                 </div>
             `;
             
-            document.body.appendChild(dialog);
-            
-            // Styles inline
             dialog.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -644,6 +738,8 @@ class EquipesHandler {
                 z-index: 1;
             `;
             
+            document.body.appendChild(dialog);
+            
             document.getElementById('confirm-ok').addEventListener('click', () => {
                 dialog.remove();
                 resolve(true);
@@ -661,9 +757,6 @@ class EquipesHandler {
         });
     }
     
-    /**
-     * Échapper HTML
-     */
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -672,142 +765,146 @@ class EquipesHandler {
 }
 
 // ========================================
-// INITIALISATION GLOBALE
+// INITIALISATION
 // ========================================
 
-let equipes;
+let publications;
 
 document.addEventListener('DOMContentLoaded', () => {
-    equipes = new EquipesHandler();
-    console.log(' Gestionnaire d\'équipes initialisé');
+    publications = new PublicationsHandler();
+    window.publications = publications;
+    console.log(' Gestionnaire de publications initialisé');
 });
 
 // ========================================
-// FONCTIONS GLOBALES (pour compatibilité avec le HTML)
+// FONCTIONS GLOBALES
 // ========================================
 
 function viewItem(id) {
-    if (equipes) {
-        equipes.view(id);
-    }
+    if (publications) publications.view(id);
 }
 
 function editItem(id) {
-    if (equipes) {
-        equipes.edit(id);
-    }
+    if (publications) publications.edit(id);
 }
 
 function deleteItem(id) {
-    if (equipes) {
-        equipes.delete(id);
-    }
+    if (publications) publications.delete(id);
 }
 
 function openAddModal() {
-    if (equipes) {
-        equipes.openAddModal();
-    }
+    if (publications) publications.openAddModal();
 }
 
 function closeModal() {
-    if (equipes) {
-        equipes.closeModal();
-    }
+    if (publications) publications.closeModal();
 }
 
 function exportData() {
-    if (equipes) {
-        equipes.export();
-    }
+    if (publications) publications.export();
+}
+
+function validerPublication(id) {
+    if (publications) publications.valider(id);
+}
+
+function rejeterPublication(id) {
+    if (publications) publications.rejeter(id);
+}
+
+function genererRapport() {
+    if (publications) publications.ouvrirModalRapport();
 }
 
 // ========================================
-// ANIMATIONS CSS
+// STYLES CSS
 // ========================================
 
-if (!document.getElementById('equipes-handler-styles')) {
-    const equipesStyle = document.createElement('style');
-    equipesStyle.id = 'equipes-handler-styles';
-    equipesStyle.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
+if (!document.getElementById('publications-handler-styles')) {
+    const style = document.createElement('style');
+    style.id = 'publications-handler-styles';
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-        to {
-            transform: translateX(0);
-            opacity: 1;
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
         }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
+        
+        .loader {
+            text-align: center;
+            padding: 40px;
         }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #5B7FFF;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
         }
-    }
-    
-    .loader {
-        text-align: center;
-        padding: 40px;
-    }
-    
-    .spinner {
-        border: 3px solid #f3f3f3;
-        border-top: 3px solid #5B7FFF;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 15px;
-    }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-    
-    .error-message {
-        text-align: center;
-        padding: 30px;
-        color: #EF4444;
-    }
-    
-    .confirm-dialog-buttons {
-        display: flex;
-        gap: 10px;
-        justify-content: flex-end;
-        margin-top: 20px;
-    }
-    
-    .confirm-dialog-content h3 {
-        margin: 0 0 15px;
-        color: #1F2937;
-    }
-    
-    .confirm-dialog-content p {
-        margin: 0 0 20px;
-        color: #6B7280;
-        line-height: 1.5;
-    }
-    
-    .btn-danger {
-        background: #EF4444;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-    }
-    
-    .btn-danger:hover {
-        background: #DC2626;
-    }
-`;
-    document.head.appendChild(equipesStyle);
+        
+        .spinner-small {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .field-error {
+            color: #EF4444;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        input.error,
+        select.error,
+        textarea.error {
+            border-color: #EF4444 !important;
+            background: rgba(239, 68, 68, 0.05);
+        }
+        
+        .confirm-dialog-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .btn-success {
+            background: #10B981;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        .btn-danger {
+            background: #EF4444;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #DC2626;
+        }
+    `;
+    document.head.appendChild(style);
 }

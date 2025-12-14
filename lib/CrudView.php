@@ -1,17 +1,14 @@
 <?php
 /**
  * CrudView.php - Classe de base pour les vues CRUD
- * 
- * Cette classe permet de générer automatiquement des vues CRUD
- * pour n'importe quelle entité (projets, publications, équipements, etc.)
  */
 
 require_once __DIR__ . '/ViewComponents.php';
 require_once __DIR__ . '/helpers.php';
 
 abstract class CrudView {
-    protected $entityName;        // 'projet', 'publication', etc.
-    protected $entityNamePlural;  // 'projets', 'publications', etc.
+    protected $entityName;        
+    protected $entityNamePlural;  
     protected $baseUrl;           // 'admin/projets'
     
     /**

@@ -1,13 +1,13 @@
 /**
- * equipes-handler.js - Gestionnaire complet pour les équipes
- * Gère toutes les opérations CRUD + ajout/retrait de membres
+ * users-handler.js - Gestionnaire complet pour les utilisateurs
+ * Gère toutes les opérations CRUD + gestion des rôles et statuts
  */
 
-class EquipesHandler {
+class UsersHandler {
     constructor() {
-        this.baseUrl = '/TDW_project/admin/equipes/equipes';
-        this.apiUrl = '/TDW_project/api/admin/equipes';
-        this.currentEquipeId = null;
+        this.baseUrl = '/TDW_project/admin/users/users';
+        this.apiUrl = '/TDW_project/api/admin/users';
+        this.currentUserId = null;
         this.init();
     }
     
@@ -22,7 +22,7 @@ class EquipesHandler {
     // ========================================
     
     attachEventListeners() {
-        // Bouton ajouter équipe
+        // Bouton ajouter utilisateur
         const addBtn = document.querySelector('[onclick*="openAddModal"]');
         if (addBtn) {
             addBtn.onclick = () => this.openAddModal();
@@ -41,7 +41,7 @@ class EquipesHandler {
         }
         
         // Clic en dehors de la modale
-        const modal = document.getElementById('equipe-modal');
+        const modal = document.getElementById('user-modal');
         if (modal) {
             modal.onclick = (e) => {
                 if (e.target === modal) {
@@ -63,7 +63,7 @@ class EquipesHandler {
     // ========================================
     
     /**
-     * Voir les détails d'une équipe
+     * Voir les détails d'un utilisateur
      */
     view(id) {
         window.location.href = `${this.baseUrl}/view/${id}`;
@@ -77,20 +77,19 @@ class EquipesHandler {
     }
     
     /**
-     * Modifier une équipe
+     * Modifier un utilisateur
      */
     edit(id) {
         this.loadForm(id);
     }
     
     /**
-     * Supprimer une équipe
+     * Supprimer un utilisateur
      */
     async delete(id) {
-        // Confirmation personnalisée
         const confirmed = await this.showConfirmDialog(
-            'Supprimer l\'équipe',
-            'Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action est irréversible.',
+            'Supprimer l\'utilisateur',
+            'Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.',
             'Supprimer',
             'danger'
         );
@@ -109,7 +108,7 @@ class EquipesHandler {
             const data = await response.json();
             
             if (data.success) {
-                this.showNotification(data.message || 'Équipe supprimée avec succès', 'success');
+                this.showNotification(data.message || 'Utilisateur supprimé avec succès', 'success');
                 
                 // Supprimer visuellement la ligne
                 const row = document.querySelector(`tr[data-id="${id}"]`);
@@ -136,7 +135,7 @@ class EquipesHandler {
      * Charger le formulaire dans la modale
      */
     async loadForm(id = null) {
-        const modal = document.getElementById('equipe-modal');
+        const modal = document.getElementById('user-modal');
         const container = document.getElementById('modal-form-container');
         
         if (!modal || !container) {
@@ -147,7 +146,7 @@ class EquipesHandler {
         // Mettre à jour le titre
         const modalTitle = modal.querySelector('.modal-header h2');
         if (modalTitle) {
-            modalTitle.textContent = id ? 'Modifier l\'équipe' : 'Ajouter une équipe';
+            modalTitle.textContent = id ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur';
         }
         
         // Afficher loader
@@ -176,14 +175,14 @@ class EquipesHandler {
             const html = await response.text();
             container.innerHTML = html;
             
-            this.currentEquipeId = id;
+            this.currentUserId = id;
             
         } catch (error) {
             console.error('Erreur:', error);
             container.innerHTML = `
                 <div class="error-message">
                     <p>❌ Erreur lors du chargement du formulaire</p>
-                    <button class="btn-secondary" onclick="equipes.closeModal()">Fermer</button>
+                    <button class="btn-secondary" onclick="users.closeModal()">Fermer</button>
                 </div>
             `;
         }
@@ -193,9 +192,8 @@ class EquipesHandler {
      * Fermer la modale
      */
     closeModal() {
-        const modal = document.getElementById('equipe-modal');
+        const modal = document.getElementById('user-modal');
         if (modal) {
-            // Animation de fermeture
             const content = modal.querySelector('.modal-content');
             if (content) {
                 content.style.transform = 'scale(0.9)';
@@ -208,9 +206,8 @@ class EquipesHandler {
                 if (container) {
                     container.innerHTML = '';
                 }
-                this.currentEquipeId = null;
+                this.currentUserId = null;
                 
-                // Reset animation
                 if (content) {
                     content.style.transform = '';
                     content.style.opacity = '';
@@ -220,170 +217,88 @@ class EquipesHandler {
     }
     
     // ========================================
-    // GESTION DES MEMBRES
+    // GESTION DES RÔLES ET STATUTS
     // ========================================
     
     /**
-     * Ouvrir la modale d'ajout de membre
+     * Changer le rôle d'un utilisateur
      */
-    async openAddMembreModal(equipeId) {
-        this.currentEquipeId = equipeId;
-        
-        try {
-            // Récupérer la liste des membres disponibles (sans équipe)
-            const response = await fetch(`${this.apiUrl}/${equipeId}/membres-disponibles`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showMembreSelectionModal(data.membres);
-            } else {
-                this.showNotification('Erreur lors du chargement des membres', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    /**
-     * Afficher la modale de sélection de membre
-     */
-    showMembreSelectionModal(membres) {
-        const modal = document.getElementById('equipe-modal');
-        const container = document.getElementById('modal-form-container');
-        
-        if (!modal || !container) return;
-        
-        // Mettre à jour le titre
-        const modalTitle = modal.querySelector('.modal-header h2');
-        if (modalTitle) {
-            modalTitle.textContent = 'Ajouter un membre';
-        }
-        
-        // Créer le formulaire
-        let html = `
-            <form id="add-membre-form">
-                <div class="form-group">
-                    <label for="membre-select">Sélectionner un membre *</label>
-                    <select id="membre-select" name="membre_id" required>
-                        <option value="">-- Choisir un membre --</option>
-        `;
-        
-        if (membres.length === 0) {
-            html += `<option value="" disabled>Aucun membre disponible</option>`;
-        } else {
-            membres.forEach(membre => {
-                html += `
-                    <option value="${membre.id}">
-                        ${this.escapeHtml(membre.username)}
-                        ${membre.grade ? ' - ' + this.escapeHtml(membre.grade) : ''}
-                    </option>
-                `;
-            });
-        }
-        
-        html += `
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-secondary" onclick="equipes.closeModal()">
-                        Annuler
-                    </button>
-                    <button type="submit" class="btn-primary" ${membres.length === 0 ? 'disabled' : ''}>
-                        Ajouter à l'équipe
-                    </button>
-                </div>
-            </form>
-        `;
-        
-        container.innerHTML = html;
-        modal.style.display = 'flex';
-        
-        // Attacher le gestionnaire
-        if (membres.length > 0) {
-            document.getElementById('add-membre-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.addMembre();
-            });
-        }
-    }
-    
-    /**
-     * Ajouter un membre à une équipe
-     */
-    async addMembre() {
-        const membreId = document.getElementById('membre-select').value;
-        
-        if (!membreId) {
-            this.showNotification('Veuillez sélectionner un membre', 'warning');
-            return;
-        }
-        
-        try {
-            const response = await fetch(`${this.apiUrl}/add-membre`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    equipe_id: this.currentEquipeId,
-                    membre_id: membreId
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showNotification(data.message || 'Membre ajouté avec succès', 'success');
-                this.closeModal();
-                setTimeout(() => location.reload(), 1000);
-            } else {
-                this.showNotification(data.message || 'Erreur lors de l\'ajout', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    /**
-     * Retirer un membre d'une équipe
-     */
-    async removeMembre(membreId, membreName) {
+    async changeRole(userId, newRole) {
         const confirmed = await this.showConfirmDialog(
-            'Retirer le membre',
-            `Êtes-vous sûr de vouloir retirer ${membreName} de cette équipe ?`,
-            'Retirer',
+            'Changer le rôle',
+            `Êtes-vous sûr de vouloir changer le rôle de cet utilisateur en "${newRole}" ?`,
+            'Confirmer',
             'warning'
         );
         
         if (!confirmed) return;
         
         try {
-            const response = await fetch(`${this.apiUrl}/remove-membre`, {
+            const response = await fetch(`${this.apiUrl}/change-role`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({
-                    membre_id: membreId
+                    user_id: userId,
+                    role: newRole
                 })
             });
             
             const data = await response.json();
             
             if (data.success) {
-                this.showNotification(data.message || 'Membre retiré avec succès', 'success');
+                this.showNotification(data.message || 'Rôle modifié avec succès', 'success');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                this.showNotification(data.message || 'Erreur lors du retrait', 'error');
+                this.showNotification(data.message || 'Erreur lors de la modification', 'error');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+        }
+    }
+    
+    /**
+     * Changer le statut d'un utilisateur
+     */
+    async changeStatus(userId, newStatus) {
+        const statusLabels = {
+            'actif': 'activer',
+            'suspendu': 'suspendre',
+            'inactif': 'désactiver'
+        };
+        
+        const confirmed = await this.showConfirmDialog(
+            'Changer le statut',
+            `Êtes-vous sûr de vouloir ${statusLabels[newStatus]} cet utilisateur ?`,
+            'Confirmer',
+            'warning'
+        );
+        
+        if (!confirmed) return;
+        
+        try {
+            const response = await fetch(`${this.apiUrl}/change-status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    user_id: userId,
+                    statut: newStatus
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Statut modifié avec succès', 'success');
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                this.showNotification(data.message || 'Erreur lors de la modification', 'error');
             }
         } catch (error) {
             console.error('Erreur:', error);
@@ -405,7 +320,6 @@ class EquipesHandler {
         }
         
         if (searchInput) {
-            // Recherche en temps réel avec debounce
             let timeout;
             searchInput.addEventListener('input', (e) => {
                 clearTimeout(timeout);
@@ -414,7 +328,6 @@ class EquipesHandler {
                 }, 300);
             });
             
-            // Recherche sur Enter
             searchInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     this.applyFilters();
@@ -422,7 +335,6 @@ class EquipesHandler {
             });
         }
         
-        // Changement de filtre
         filterSelects.forEach(select => {
             select.addEventListener('change', () => {
                 // Option: appliquer automatiquement les filtres
@@ -431,39 +343,29 @@ class EquipesHandler {
         });
     }
     
-    /**
-     * Appliquer les filtres
-     */
     applyFilters() {
         const params = new URLSearchParams();
         
-        // Recherche
         const searchInput = document.getElementById('search-input');
         if (searchInput && searchInput.value) {
             params.append('search', searchInput.value);
         }
         
-        // Filtres
         document.querySelectorAll('.filter-select').forEach(select => {
             if (select.value) {
                 params.append(select.name, select.value);
             }
         });
         
-        // Redirection avec paramètres
         window.location.href = `${this.baseUrl}?${params.toString()}`;
     }
     
-    /**
-     * Recherche en temps réel dans le tableau
-     */
     liveSearch(query) {
         const rows = document.querySelectorAll('.table tbody tr, .data-table tbody tr');
         const lowerQuery = query.toLowerCase();
         let visibleCount = 0;
         
         rows.forEach(row => {
-            // Ignorer les lignes vides ou messages
             if (row.classList.contains('empty-row') || 
                 row.querySelector('.empty-cell') ||
                 row.querySelector('.empty-message')) {
@@ -477,7 +379,6 @@ class EquipesHandler {
             if (matches) visibleCount++;
         });
         
-        // Afficher message si aucun résultat
         this.updateEmptyState(visibleCount === 0 && query);
     }
     
@@ -495,9 +396,6 @@ class EquipesHandler {
     // UTILITAIRES UI
     // ========================================
     
-    /**
-     * Vérifier si le tableau est vide
-     */
     checkEmptyTable() {
         const tbody = document.querySelector('.table tbody, .data-table tbody');
         if (!tbody) return;
@@ -512,9 +410,6 @@ class EquipesHandler {
         }
     }
     
-    /**
-     * Mettre à jour l'état vide du tableau
-     */
     updateEmptyState(isEmpty) {
         const tbody = document.querySelector('.table tbody, .data-table tbody');
         if (!tbody) return;
@@ -527,7 +422,7 @@ class EquipesHandler {
                 row.className = 'no-results-row';
                 row.innerHTML = `
                     <td colspan="100" class="empty-message" style="text-align: center; padding: 40px; color: #9CA3AF;">
-                        🔍 Aucun résultat trouvé
+                         Aucun résultat trouvé
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -537,17 +432,12 @@ class EquipesHandler {
         }
     }
     
-    /**
-     * Afficher une notification
-     */
     showNotification(message, type = 'info') {
-        // Utiliser le système de toast global si disponible
         if (window.toast) {
             window.toast.show(message, type);
             return;
         }
         
-        // Sinon créer une notification simple
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -569,7 +459,6 @@ class EquipesHandler {
             animation: slideIn 0.3s ease;
         `;
         
-        // Couleurs selon le type
         const colors = {
             success: '#10B981',
             error: '#EF4444',
@@ -582,16 +471,12 @@ class EquipesHandler {
         
         document.body.appendChild(notification);
         
-        // Supprimer après 5 secondes
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => notification.remove(), 300);
         }, 5000);
     }
     
-    /**
-     * Dialogue de confirmation personnalisé
-     */
     showConfirmDialog(title, message, confirmText = 'Confirmer', type = 'primary') {
         return new Promise((resolve) => {
             const dialog = document.createElement('div');
@@ -610,7 +495,6 @@ class EquipesHandler {
             
             document.body.appendChild(dialog);
             
-            // Styles inline
             dialog.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -661,9 +545,6 @@ class EquipesHandler {
         });
     }
     
-    /**
-     * Échapper HTML
-     */
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -675,139 +556,135 @@ class EquipesHandler {
 // INITIALISATION GLOBALE
 // ========================================
 
-let equipes;
+let users;
 
 document.addEventListener('DOMContentLoaded', () => {
-    equipes = new EquipesHandler();
-    console.log(' Gestionnaire d\'équipes initialisé');
+    users = new UsersHandler();
+    console.log(' Gestionnaire d\'utilisateurs initialisé');
 });
 
 // ========================================
-// FONCTIONS GLOBALES (pour compatibilité avec le HTML)
+// FONCTIONS GLOBALES
 // ========================================
 
 function viewItem(id) {
-    if (equipes) {
-        equipes.view(id);
-    }
+    if (users) users.view(id);
 }
 
 function editItem(id) {
-    if (equipes) {
-        equipes.edit(id);
-    }
+    if (users) users.edit(id);
 }
 
 function deleteItem(id) {
-    if (equipes) {
-        equipes.delete(id);
-    }
+    if (users) users.delete(id);
 }
 
 function openAddModal() {
-    if (equipes) {
-        equipes.openAddModal();
-    }
+    if (users) users.openAddModal();
 }
 
 function closeModal() {
-    if (equipes) {
-        equipes.closeModal();
-    }
+    if (users) users.closeModal();
 }
 
 function exportData() {
-    if (equipes) {
-        equipes.export();
-    }
+    if (users) users.export();
 }
 
 // ========================================
 // ANIMATIONS CSS
 // ========================================
 
-if (!document.getElementById('equipes-handler-styles')) {
-    const equipesStyle = document.createElement('style');
-    equipesStyle.id = 'equipes-handler-styles';
-    equipesStyle.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(400px);
-            opacity: 0;
+if (!document.getElementById('users-handler-styles')) {
+    const usersStyle = document.createElement('style');
+    usersStyle.id = 'users-handler-styles';
+    usersStyle.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        to {
-            transform: translateX(0);
-            opacity: 1;
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
         }
-    }
-    
-    @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
+        
+        .loader {
+            text-align: center;
+            padding: 40px;
         }
-        to {
-            transform: translateX(400px);
-            opacity: 0;
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #5B7FFF;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
         }
-    }
-    
-    .loader {
-        text-align: center;
-        padding: 40px;
-    }
-    
-    .spinner {
-        border: 3px solid #f3f3f3;
-        border-top: 3px solid #5B7FFF;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 15px;
-    }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-    
-    .error-message {
-        text-align: center;
-        padding: 30px;
-        color: #EF4444;
-    }
-    
-    .confirm-dialog-buttons {
-        display: flex;
-        gap: 10px;
-        justify-content: flex-end;
-        margin-top: 20px;
-    }
-    
-    .confirm-dialog-content h3 {
-        margin: 0 0 15px;
-        color: #1F2937;
-    }
-    
-    .confirm-dialog-content p {
-        margin: 0 0 20px;
-        color: #6B7280;
-        line-height: 1.5;
-    }
-    
-    .btn-danger {
-        background: #EF4444;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-    }
-    
-    .btn-danger:hover {
-        background: #DC2626;
-    }
-`;
-    document.head.appendChild(equipesStyle);
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 30px;
+            color: #EF4444;
+        }
+        
+        .form-hint {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+        
+        .confirm-dialog-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .confirm-dialog-content h3 {
+            margin: 0 0 15px;
+            color: #1F2937;
+        }
+        
+        .confirm-dialog-content p {
+            margin: 0 0 20px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+        
+        .btn-danger {
+            background: #EF4444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn-danger:hover {
+            background: #DC2626;
+        }
+    `;
+    document.head.appendChild(usersStyle);
 }

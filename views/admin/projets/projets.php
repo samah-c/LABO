@@ -3,8 +3,8 @@
  * Vue générique pour Projets (admin)
  */
 
-require_once __DIR__ . '/../../lib/helpers.php';
-require_once __DIR__ . '/../../lib/ViewComponents.php';
+require_once __DIR__ . '/../../../lib/helpers.php';
+require_once __DIR__ . '/../../../lib/ViewComponents.php';
 
 ViewComponents::renderHeader([
     'title' => 'Gestion des Projets',

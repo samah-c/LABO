@@ -107,9 +107,9 @@ class ViewComponents {
             'admin' => [
                 ['url' => 'admin/dashboard', 'label' => 'Dashboard', 'icon' => ''],
                 ['url' => 'admin/users', 'label' => 'Utilisateurs', 'icon' => ''],
-                ['url' => 'admin/equipes', 'label' => 'Équipes', 'icon' => ''],
+                ['url' => 'admin/equipes/equipes', 'label' => 'Équipes', 'icon' => ''],
                 ['url' => 'admin/projets', 'label' => 'Projets', 'icon' => ''],
-                ['url' => 'admin/publications', 'label' => 'Publications', 'icon' => ''],
+                ['url' => 'admin/publications/publications', 'label' => 'Publications', 'icon' => ''],
                 ['url' => 'admin/equipements', 'label' => 'Équipements', 'icon' => ''],
                 ['url' => 'admin/evenements', 'label' => 'Événements', 'icon' => '']
             ],

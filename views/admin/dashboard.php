@@ -104,7 +104,7 @@ class Dashboard {
             [
                 'titre' => 'Publications',
                 'description' => 'Document database',
-                'url' => base_url('admin/publications')
+                'url' => base_url('admin/publications/publications')
             ],
             [
                 'titre' => 'Events',

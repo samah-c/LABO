@@ -44,24 +44,7 @@ class AdminController {
         $dashboardView->render();
     }
     
-    // ============================================
-    // GESTION DES UTILISATEURS
-    // ============================================
-    
-    public function users() {
-        $users = $this->userModel->getAll();
-        
-        // Pagination
-        $page = (int) get('page', 1);
-        $perPage = 10;
-        $pagination = Utils::paginate(count($users), $perPage, $page);
-        $users = array_slice($users, $pagination['offset'], $perPage);
-        
-        // Charger la vue
-        require_once __DIR__ . '/../../views/admin/users.php';
-    }
-    
-   
+
     
     // ============================================
     // GESTION DES PROJETS
@@ -137,64 +120,6 @@ public function projets() {
         require __DIR__ . '/../../views/admin/equipements.php';
     }
     
-    // ============================================
-    // GESTION DES PUBLICATIONS
-    // ============================================
-    
-    public function publications() {
-    // Récupérer les filtres depuis l'URL
-    $filters = [
-        'type_publication' => get('type_publication'),
-        'domaine' => get('domaine'),
-        'annee' => get('annee'),
-        'search' => get('search')
-    ];
-    
-    // Utiliser la nouvelle méthode du modèle
-    $publications = $this->publicationModel->getAllFiltered($filters);
-    
-    // Pagination
-    $page = (int) get('page', 1);
-    $perPage = 10;
-    $pagination = Utils::paginate(count($publications), $perPage, $page);
-    $publications = array_slice($publications, $pagination['offset'], $perPage);
-    
-    // Charger la vue
-    require_once __DIR__ . '/../../views/admin/publications.php';
-}
-
-/**
- * Exporter les publications en CSV
- */
-public function exportPublications() {
-    if (get('export') === 'csv') {
-        // Appliquer les mêmes filtres que la page
-        $filters = [
-            'type_publication' => get('type_publication'),
-            'domaine' => get('domaine'),
-            'annee' => get('annee'),
-            'search' => get('search')
-        ];
-        
-        $publications = $this->publicationModel->getAllFiltered($filters);
-        
-        $data = [];
-        $data[] = ['Titre', 'Type', 'Auteur', 'Date', 'DOI', 'Nb Auteurs'];
-        
-        foreach ($publications as $pub) {
-            $data[] = [
-                $pub['titre'],
-                $pub['type_publication'],
-                $pub['auteur_nom'] ?? '',
-                format_date($pub['date_publication']),
-                $pub['doi'] ?? '',
-                $pub['nb_auteurs'] ?? 0
-            ];
-        }
-        
-        LabHelpers::exportToCsv($data, 'publications_' . date('Y-m-d') . '.csv');
-    }
-}
     
     // ============================================
     // GESTION DES ÉVÉNEMENTS
