@@ -84,7 +84,7 @@ class Dashboard {
             [
                 'titre' => 'Users',
                 'description' => 'Manage accounts and permissions',
-                'url' => base_url('admin/users')
+                'url' => base_url('admin/users/users')
             ],
             [
                 'titre' => 'Teams',
@@ -94,12 +94,12 @@ class Dashboard {
             [
                 'titre' => 'Projects',
                 'description' => 'Research projects',
-                'url' => base_url('admin/projets')
+                'url' => base_url('admin/projets/projets')
             ],
             [
                 'titre' => 'Equipment',
                 'description' => 'Material resources',
-                'url' => base_url('admin/equipements')
+                'url' => base_url('admin/equipements/dashboard')
             ],
             [
                 'titre' => 'Publications',

@@ -90,6 +90,12 @@ class PublicationModel extends Model {
             $params['projet_id'] = $filters['projet_id'];
         }
         
+        // Filtre par statut
+        if (!empty($filters['status'])) {
+            $sql .= " AND p.status = :status";
+            $params['status'] = $filters['status'];
+        }
+        
         // Filtre de recherche
         if (!empty($filters['search'])) {
             $sql .= " AND (p.titre LIKE :search 
@@ -109,6 +115,30 @@ class PublicationModel extends Model {
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
         
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    /**
+     * Récupérer les publications par statut
+     * @param string $status Le statut recherché (ex: 'publiée', 'en_cours', 'soumise', 'acceptée', 'rejetée')
+     * @return array Tableau des publications avec le statut donné
+     */
+    public function getPublicationByStatus($status) {
+        $stmt = $this->db->prepare("
+            SELECT p.*, 
+                   u.username as auteur_nom,
+                   pr.titre as projet_titre,
+                   (SELECT COUNT(*) FROM Publication_Auteur WHERE publication_id = p.id) as nb_auteurs
+            FROM Publication p
+            LEFT JOIN Projet pr ON p.projet_id = pr.id
+            LEFT JOIN Publication_Auteur pa ON p.id = pa.publication_id
+            LEFT JOIN Membre m ON pa.membre_id = m.id
+            LEFT JOIN User u ON m.user_id = u.id
+            WHERE p.status = ?
+            GROUP BY p.id
+            ORDER BY p.date_publication DESC
+        ");
+        $stmt->execute([$status]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
@@ -215,6 +245,19 @@ class PublicationModel extends Model {
     }
     
     /**
+     * Récupérer les statuts disponibles
+     */
+    public function getStatuts() {
+        $stmt = $this->db->query("
+            SELECT DISTINCT status 
+            FROM Publication 
+            WHERE status IS NOT NULL 
+            ORDER BY status
+        ");
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+    
+    /**
      * Récupérer les projets disponibles (pour les filtres)
      */
     public function getProjets() {
@@ -251,6 +294,18 @@ class PublicationModel extends Model {
     }
     
     /**
+     * Mettre à jour le statut d'une publication
+     */
+    public function updateStatus($publicationId, $status) {
+        $stmt = $this->db->prepare("
+            UPDATE Publication 
+            SET status = ?, updated_at = NOW() 
+            WHERE id = ?
+        ");
+        return $stmt->execute([$status, $publicationId]);
+    }
+    
+    /**
      * Statistiques des publications
      */
     public function getStats() {
@@ -283,6 +338,16 @@ class PublicationModel extends Model {
             ORDER BY count DESC
         ");
         $stats['par_domaine'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Nombre par statut
+        $stmt = $this->db->query("
+            SELECT status, COUNT(*) as count 
+            FROM Publication 
+            WHERE status IS NOT NULL
+            GROUP BY status
+            ORDER BY count DESC
+        ");
+        $stats['par_statut'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         return $stats;
     }

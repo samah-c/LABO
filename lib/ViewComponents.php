@@ -15,89 +15,130 @@ class ViewComponents {
     /**
      * Générer un header universel
      */
-    public static function renderHeader($config = []) {
-        $title = $config['title'] ?? 'Laboratoire TDW';
-        $username = $config['username'] ?? null;
-        $role = $config['role'] ?? 'visiteur';
-        $showLogout = $config['showLogout'] ?? true;
-        $additionalCss = $config['additionalCss'] ?? [];
-        $additionalJs = $config['additionalJs'] ?? [];
+   public static function renderHeader($config = []) {
+    $title = $config['title'] ?? 'Laboratoire TDW';
+    $username = $config['username'] ?? null;
+    $role = $config['role'] ?? 'visiteur';
+    $showLogout = $config['showLogout'] ?? true;
+    $additionalCss = $config['additionalCss'] ?? [];
+    $additionalJs = $config['additionalJs'] ?? [];
+    ?>
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?= htmlspecialchars($title) ?></title>
+        
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <!-- 1. BASE : Variables et reset -->
+        <link rel="stylesheet" href="<?= base_url('assets/css/base.css') ?>">
+
+        <!-- 2. LAYOUT : Structure de la page -->
+       <link rel="stylesheet" href="<?= base_url('assets/css/layout.css') ?>">
+
+       <!-- 3. MODULES : Composants -->
+       <link rel="stylesheet" href="<?= base_url('assets/css/modules.css') ?>">
+
+       <!-- 4. STATE : États -->
+       <link rel="stylesheet" href="<?= base_url('assets/css/state.css') ?>">
+
+       <!-- 5. THEME : Apparence -->
+       <link rel="stylesheet" href="<?= base_url('assets/css/theme.css') ?>">
+        <script src="/TDW_project/assets/js/table-enhancements.js" defer></script>
+        
+        <!-- CSS additionnels -->
+        <?php foreach ($additionalCss as $css): ?>
+            <link rel="stylesheet" href="<?= htmlspecialchars($css) ?>">
+        <?php endforeach; ?>
+        
+        <!-- JavaScript additionnels -->
+        <?php foreach ($additionalJs as $js): ?>
+            <script src="<?= htmlspecialchars($js) ?>" defer></script>
+        <?php endforeach; ?>
+    </head>
+    <body class="<?= htmlspecialchars($role) ?>-layout">
+        
+        <?php 
+        // Afficher la navigation SIDEBAR en premier pour admin/membre
+        if (in_array($role, ['admin', 'membre'])) {
+            self::renderNavigation($role);
+        }
         ?>
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title><?= htmlspecialchars($title) ?></title>
-            
-            <!-- Fonts -->
-            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-            
-            <!-- CSS de base -->
-            <link rel="stylesheet" href="/TDW_project/assets/css/styles.css">
-            <link rel="stylesheet" href="/TDW_project/assets/css/components.css">
-            <script src="/TDW_project/assets/js/table-enhancements.js" defer></script>
-            <!-- CSS additionnels -->
-            <?php foreach ($additionalCss as $css): ?>
-                <link rel="stylesheet" href="<?= htmlspecialchars($css) ?>">
-            <?php endforeach; ?>
-            
-            <!-- JavaScript additionnels -->
-            <?php foreach ($additionalJs as $js): ?>
-                <script src="<?= htmlspecialchars($js) ?>" defer></script>
-            <?php endforeach; ?>
-        </head>
-        <body class="<?= htmlspecialchars($role) ?>-layout">
-            <div class="header">
-                <div class="header-left">
-                    <h1><?= htmlspecialchars($title) ?></h1>
-                </div>
-                
-                <?php if ($username): ?>
-                <div class="user-info">
-                    <span class="user-greeting">
-                        Bonjour, <strong><?= htmlspecialchars($username) ?></strong>
-                        <?= LabHelpers::getGradeBadge($role) ?>
-                    </span>
-                    
-                    <?php if ($showLogout): ?>
-                        <a href="/TDW_project/logout" class="logout-btn">Déconnexion</a>
-                    <?php endif; ?>
-                </div>
-                <?php endif; ?>
+        
+        <!-- Header après la sidebar -->
+        <div class="header">
+            <div class="header-left">
+                <h1><?= htmlspecialchars($title) ?></h1>
             </div>
             
-            <?php 
-            // Afficher la navigation selon le rôle
-            self::renderNavigation($role);
-            ?>
-        <?php
-    }
-    
-    /**
-     * Navigation dynamique selon le rôle
-     */
-    public static function renderNavigation($role = 'visiteur') {
-        $menuItems = self::getMenuItemsByRole($role);
+            <?php if ($username): ?>
+            <div class="user-info">
+                <span class="user-greeting">
+                    Bonjour, <strong><?= htmlspecialchars($username) ?></strong>
+                    <?= LabHelpers::getGradeBadge($role) ?>
+                </span>
+                
+                <?php if ($showLogout): ?>
+                    <a href="/TDW_project/logout" class="logout-btn">Déconnexion</a>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
+        </div>
         
-        if (empty($menuItems)) return;
+        <?php 
+        // Navigation horizontale pour visiteur
+        if ($role === 'visiteur') {
+            self::renderNavigation($role);
+        }
         ?>
-        <nav class="main-nav">
-            <ul>
-                <?php foreach ($menuItems as $item): ?>
-                    <li class="<?= active_link($item['url']) ?>">
-                        <a href="<?= base_url($item['url']) ?>">
-                            <?php if (isset($item['icon'])): ?>
-                                <span class="nav-icon"><?= $item['icon'] ?></span>
-                            <?php endif; ?>
-                            <?= htmlspecialchars($item['label']) ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </nav>
-        <?php
-    }
+    <?php
+}
+
+/**
+ * Navigation dynamique selon le rôle
+ */
+public static function renderNavigation($role = 'visiteur') {
+    $menuItems = self::getMenuItemsByRole($role);
+    
+    if (empty($menuItems)) return;
+    
+    // Sidebar pour admin/membre
+    if (in_array($role, ['admin', 'membre'])):
+    ?>
+    <nav class="main-nav">
+        <ul>
+            <?php foreach ($menuItems as $item): ?>
+                <li class="<?= active_link($item['url']) ?>">
+                    <a href="<?= base_url($item['url']) ?>">
+                        <?php if (isset($item['icon'])): ?>
+                            <span class="nav-icon"><?= $item['icon'] ?></span>
+                        <?php endif; ?>
+                        <?= htmlspecialchars($item['label']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+    <?php
+    // Navigation horizontale pour visiteur
+    else:
+    ?>
+    <nav class="main-nav horizontal">
+        <ul>
+            <?php foreach ($menuItems as $item): ?>
+                <li class="<?= active_link($item['url']) ?>">
+                    <a href="<?= base_url($item['url']) ?>">
+                        <?= htmlspecialchars($item['label']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+    <?php
+    endif;
+}
     
     /**
      * Obtenir les items de menu selon le rôle
@@ -150,9 +191,9 @@ class ViewComponents {
                     <div class="footer-section">
                         <h4>Liens rapides</h4>
                         <ul>
-                            <li><a href="<?= base_url('projets') ?>">Projets</a></li>
-                            <li><a href="<?= base_url('publications') ?>">Publications</a></li>
-                            <li><a href="<?= base_url('equipes') ?>">Équipes</a></li>
+                            <li><a href="<?= base_url('admin/projets/projets') ?>">Projets</a></li>
+                            <li><a href="<?= base_url('admin/publications/publications') ?>">Publications</a></li>
+                            <li><a href="<?= base_url('admin/equipes/equipes') ?>">Équipes</a></li>
                         </ul>
                     </div>
                     

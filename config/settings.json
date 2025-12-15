@@ -1,0 +1,17 @@
+{
+    "lab_name": "Laboratoire TDW",
+    "lab_description": "École Supérieure d'Informatique",
+    "lab_email": "contact@lab-tdw.dz",
+    "lab_phone": "+213 (0)21 XX XX XX",
+    "lab_address": "Alger, Algérie",
+    "lab_logo": null,
+    "facebook_url": "",
+    "twitter_url": "",
+    "linkedin_url": "",
+    "website_url": "",
+    "primary_color": "#000000",
+    "secondary_color": "#2563eb",
+    "theme_mode": "light",
+    "maintenance_mode": false,
+    "maintenance_message": "Site en maintenance, revenez bientôt."
+}

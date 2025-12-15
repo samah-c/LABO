@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/Model.php';
 // ========================================
-// EquipementModel.php - VERSION AVEC equipe_id
+// EquipementModel.php - VERSION CORRIGÉE
 // ========================================
 class EquipementModel extends Model {
     protected $table = 'Equipement';
@@ -181,7 +181,7 @@ class EquipementModel extends Model {
             SELECT c.*, 
                    u.username,
                    m.poste,
-                   CONCAT(u.username) as membre_nom,
+                   u.username as membre_nom,
                    e.nom as equipement_nom
             FROM Creneau c
             JOIN Membre m ON c.membre_id = m.id
@@ -304,17 +304,18 @@ class EquipementModel extends Model {
     }
     
     /**
-     * Récupérer un équipement avec toutes ses informations
+     * Récupérer un équipement avec toutes ses informations - CORRIGÉ
      */
     public function getWithDetails($equipementId) {
         $stmt = $this->db->prepare("
             SELECT e.*, 
                    eq.nom as equipe_nom,
                    eq.domaine as equipe_domaine,
-                   m.username as chef_nom
+                   u.username as chef_nom
             FROM Equipement e
             LEFT JOIN Equipe eq ON e.equipe_id = eq.id
-            LEFT JOIN Membre m ON eq.chef_id = m.id
+            LEFT JOIN Membre m_chef ON eq.chef_id = m_chef.id
+            LEFT JOIN User u ON m_chef.user_id = u.id
             WHERE e.id = ?
         ");
         $stmt->execute([$equipementId]);

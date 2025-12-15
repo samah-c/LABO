@@ -260,10 +260,18 @@ textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     box-shadow: var(--shadow-xs);
+}
+
+/* Header offset for layouts with sidebar */
+.admin-layout .header,
+.membre-layout .header {
+    margin-left: 0px;
 }
 
 .header-left h1 {
@@ -312,18 +320,19 @@ textarea {
 }
 
 /* ========================================
-   NAVIGATION - Sidebar 
+   NAVIGATION - Sidebar Fixed Below Header
    ======================================== */
 
 .main-nav {
     background: var(--bg-sidebar);
     width: 240px;
-    height: 100vh;
+    height: calc(100vh - 57px);
     position: fixed;
     left: 0;
-    top: 0;
+    top: 57px;
     padding: 24px 16px;
     box-shadow: var(--shadow-sm);
+    overflow-y: auto;
 }
 
 .main-nav ul {
@@ -361,11 +370,6 @@ textarea {
     font-size: 18px;
 }
 
-/* Layout avec sidebar */
-.admin-layout .container {
-    margin-left: 240px;
-}
-
 /* ========================================
    CONTAINER
    ======================================== */
@@ -374,6 +378,18 @@ textarea {
     max-width: 1400px;
     margin: 0 auto;
     padding: 32px;
+}
+
+/* Layout adjustments for different roles */
+.admin-layout .container,
+.membre-layout .container {
+    margin-left: 240px;
+    padding-top: 89px; /* Header height (57px) + spacing (32px) */
+}
+
+.visiteur-layout .container {
+    margin-left: 0;
+    padding-top: 89px;
 }
 
 /* ========================================
@@ -450,7 +466,7 @@ textarea {
 .table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto; /* Permet aux colonnes de s'ajuster */
+    table-layout: auto;
 }
 
 /* En-tête du tableau */
@@ -460,14 +476,14 @@ textarea {
 }
 
 .table th {
-    padding: 16px 20px; /* Plus d'espace */
+    padding: 16px 20px;
     text-align: left;
     font-size: 13px;
     font-weight: 600;
     color: var(--gray-700);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    white-space: nowrap; /* Empêche le texte de se couper */
+    white-space: nowrap;
     vertical-align: middle;
 }
 
@@ -483,7 +499,7 @@ textarea {
 
 /* Corps du tableau */
 .table td {
-    padding: 18px 20px; /* Plus d'espace vertical */
+    padding: 18px 20px;
     border-bottom: 1px solid var(--border-color);
     font-size: 14px;
     color: var(--gray-900);
@@ -493,7 +509,7 @@ textarea {
 
 .table td:first-child {
     padding-left: 24px;
-    font-weight: 600; /* Nom en gras */
+    font-weight: 600;
     color: var(--gray-900);
 }
 
@@ -581,14 +597,14 @@ textarea {
 
 .actions-cell {
     display: flex;
-    gap: 10px; /* Plus d'espace entre les boutons */
+    gap: 10px;
     justify-content: center;
     align-items: center;
     padding: 12px 16px !important;
 }
 
 .btn-action {
-    padding: 8px 14px; /* Boutons plus grands */
+    padding: 8px 14px;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-sm);
     font-size: 14px;
@@ -636,7 +652,7 @@ textarea {
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 6px 14px; /* Plus d'espace */
+    padding: 6px 14px;
     border-radius: 12px;
     font-size: 12px;
     font-weight: 600;
@@ -699,18 +715,60 @@ textarea {
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+    }
+    
+    .page-header h1 {
+        font-size: 24px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .table-container {
         overflow-x: auto;
     }
     
     .table {
-        min-width: 800px; /* Force le scroll horizontal sur mobile */
+        min-width: 800px;
     }
     
     .table th,
     .table td {
         padding: 12px 14px;
         font-size: 13px;
+    }
+    
+    .header {
+        padding: 16px 20px;
+        margin-left: 0 !important;
+    }
+    
+    .user-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .welcome-banner {
+        padding: 32px 24px;
+    }
+    
+    .welcome-banner h2 {
+        font-size: 28px;
     }
     
     .actions-cell {
@@ -722,5 +780,85 @@ textarea {
         min-width: 32px;
         height: 32px;
         font-size: 13px;
+    }
+    
+    /* Sidebar mobile */
+    .main-nav {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 200;
+        top: 0;
+        height: 100vh;
+    }
+    
+    .main-nav.open {
+        transform: translateX(0);
+    }
+    
+    .admin-layout .container,
+    .membre-layout .container {
+        margin-left: 0;
+        padding-top: 89px;
+    }
+    
+    /* Hamburger menu */
+    .hamburger-menu {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 300;
+        width: 36px;
+        height: 36px;
+        background: var(--primary);
+        border: none;
+        border-radius: var(--border-radius-sm);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    .hamburger-menu span {
+        width: 20px;
+        height: 2px;
+        background: white;
+        border-radius: 2px;
+        transition: var(--transition);
+    }
+    
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    
+    .main-footer {
+        margin-left: 0;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        padding: 32px 20px;
+        gap: 24px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 20px;
+    }
+}
+
+@media (min-width: 769px) {
+    .hamburger-menu {
+        display: none;
     }
 }

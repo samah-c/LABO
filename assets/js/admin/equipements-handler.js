@@ -1,13 +1,13 @@
 /**
- * projets-handler.js - Gestionnaire complet pour les projets
- * Gère toutes les opérations CRUD + gestion des membres
+ * equipements-handler.js - Gestionnaire pour les équipements
+ * VERSION CORRIGÉE avec les bonnes routes
  */
 
-class ProjetsHandler {
+class EquipementsHandler {
     constructor() {
-        this.baseUrl = '/TDW_project/admin/projets/projets';
-        this.apiUrl = '/TDW_project/api/admin/projets';
-        this.currentProjetId = null;
+        this.baseUrl = '/TDW_project/admin/equipements/equipements';
+        this.apiUrl = '/TDW_project/api/admin/equipements';
+        this.currentEquipementId = null;
         this.init();
     }
     
@@ -17,27 +17,13 @@ class ProjetsHandler {
         this.checkEmptyTable();
     }
     
-    // ========================================
-    // GESTION DES ÉVÉNEMENTS
-    // ========================================
-    
     attachEventListeners() {
-        const addBtn = document.querySelector('[onclick*="openAddModal"]');
-        if (addBtn) {
-            addBtn.onclick = () => this.openAddModal();
-        }
-        
-        const exportBtn = document.querySelector('[onclick*="exportData"]');
-        if (exportBtn) {
-            exportBtn.onclick = () => this.export();
-        }
-        
         const closeBtn = document.querySelector('.modal-close');
         if (closeBtn) {
             closeBtn.onclick = () => this.closeModal();
         }
         
-        const modal = document.getElementById('projet-modal');
+        const modal = document.getElementById('equipement-modal');
         if (modal) {
             modal.onclick = (e) => {
                 if (e.target === modal) {
@@ -53,14 +39,27 @@ class ProjetsHandler {
         });
     }
     
-    // ========================================
-    // OPÉRATIONS CRUD
-    // ========================================
-    
+    // NAVIGATION
     view(id) {
         window.location.href = `${this.baseUrl}/view/${id}`;
     }
     
+    voirDashboard() {
+        window.location.href = `${this.baseUrl}/dashboard`;
+    }
+    
+    voirHistorique(equipementId = null) {
+        const url = equipementId 
+            ? `${this.baseUrl}/historique/${equipementId}`
+            : `${this.baseUrl}/historique`;
+        window.location.href = url;
+    }
+    
+    voirRapport() {
+        window.location.href = `${this.baseUrl}/rapport`;
+    }
+    
+    // CRUD OPERATIONS
     openAddModal() {
         this.loadForm(null);
     }
@@ -71,8 +70,8 @@ class ProjetsHandler {
     
     async delete(id) {
         const confirmed = await this.showConfirmDialog(
-            'Supprimer le projet',
-            'Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.',
+            'Supprimer l\'équipement',
+            'Êtes-vous sûr de vouloir supprimer cet équipement ? Cette action est irréversible.',
             'Supprimer',
             'danger'
         );
@@ -91,7 +90,7 @@ class ProjetsHandler {
             const data = await response.json();
             
             if (data.success) {
-                this.showNotification(data.message || 'Projet supprimé avec succès', 'success');
+                this.showNotification(data.message || 'Équipement supprimé avec succès', 'success');
                 
                 const row = document.querySelector(`tr[data-id="${id}"]`);
                 if (row) {
@@ -114,7 +113,7 @@ class ProjetsHandler {
     }
     
     async loadForm(id = null) {
-        const modal = document.getElementById('projet-modal');
+        const modal = document.getElementById('equipement-modal');
         const container = document.getElementById('modal-form-container');
         
         if (!modal || !container) {
@@ -124,7 +123,7 @@ class ProjetsHandler {
         
         const modalTitle = modal.querySelector('.modal-header h2');
         if (modalTitle) {
-            modalTitle.textContent = id ? 'Modifier le projet' : 'Ajouter un projet';
+            modalTitle.textContent = id ? 'Modifier l\'équipement' : 'Ajouter un équipement';
         }
         
         container.innerHTML = `
@@ -152,21 +151,64 @@ class ProjetsHandler {
             const html = await response.text();
             container.innerHTML = html;
             
-            this.currentProjetId = id;
+            this.currentEquipementId = id;
+            this.attachFormSubmit();
             
         } catch (error) {
             console.error('Erreur:', error);
             container.innerHTML = `
                 <div class="error-message">
-                    <p>❌ Erreur lors du chargement du formulaire</p>
-                    <button class="btn-secondary" onclick="projets.closeModal()">Fermer</button>
+                    <p>Erreur lors du chargement du formulaire</p>
+                    <button class="btn-secondary" onclick="equipements.closeModal()">Fermer</button>
                 </div>
             `;
         }
     }
     
+    attachFormSubmit() {
+        const form = document.getElementById('equipement-form');
+        if (!form) return;
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enregistrement...';
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.showNotification(data.message || 'Enregistrement réussi', 'success');
+                    this.closeModal();
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    this.showNotification(data.message || 'Erreur d\'enregistrement', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = this.currentEquipementId ? 'Mettre à jour' : 'Créer l\'équipement';
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                this.showNotification('Erreur de connexion', 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = this.currentEquipementId ? 'Mettre à jour' : 'Créer l\'équipement';
+            }
+        });
+    }
+    
     closeModal() {
-        const modal = document.getElementById('projet-modal');
+        const modal = document.getElementById('equipement-modal');
         if (modal) {
             const content = modal.querySelector('.modal-content');
             if (content) {
@@ -180,7 +222,7 @@ class ProjetsHandler {
                 if (container) {
                     container.innerHTML = '';
                 }
-                this.currentProjetId = null;
+                this.currentEquipementId = null;
                 
                 if (content) {
                     content.style.transform = '';
@@ -190,83 +232,50 @@ class ProjetsHandler {
         }
     }
     
-    // ========================================
-    // GESTION DES MEMBRES
-    // ========================================
-    
-    async openAddMembreModal(projetId) {
-        this.currentProjetId = projetId;
+    // MAINTENANCE
+    async openMaintenanceModal(equipementId) {
+        this.currentEquipementId = equipementId;
         
-        try {
-            const response = await fetch(`${this.apiUrl}/${projetId}/membres-disponibles`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showMembreSelectionModal(data.membres);
-            } else {
-                this.showNotification('Erreur lors du chargement des membres', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    showMembreSelectionModal(membres) {
-        const modal = document.getElementById('projet-modal');
+        const modal = document.getElementById('equipement-modal');
         const container = document.getElementById('modal-form-container');
         
         if (!modal || !container) return;
         
         const modalTitle = modal.querySelector('.modal-header h2');
         if (modalTitle) {
-            modalTitle.textContent = 'Ajouter un membre';
+            modalTitle.textContent = 'Planifier une maintenance';
         }
         
-        let html = `
-            <form id="add-membre-form">
+        const html = `
+            <form id="maintenance-form" onsubmit="equipements.planifierMaintenance(event)">
                 <div class="form-group">
-                    <label for="membre-select">Sélectionner un membre *</label>
-                    <select id="membre-select" name="membre_id" required>
-                        <option value="">-- Choisir un membre --</option>
-        `;
-        
-        if (membres.length === 0) {
-            html += `<option value="" disabled>Aucun membre disponible</option>`;
-        } else {
-            membres.forEach(membre => {
-                html += `
-                    <option value="${membre.id}">
-                        ${this.escapeHtml(membre.username)}
-                        ${membre.grade ? ' - ' + this.escapeHtml(membre.grade) : ''}
-                    </option>
-                `;
-            });
-        }
-        
-        html += `
+                    <label for="type_maintenance">Type de maintenance *</label>
+                    <select id="type_maintenance" name="type_maintenance" required>
+                        <option value="">-- Sélectionner --</option>
+                        <option value="preventive">Préventive</option>
+                        <option value="corrective">Corrective</option>
+                        <option value="calibration">Calibration</option>
+                        <option value="nettoyage">Nettoyage</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="role-select">Rôle dans le projet</label>
-                    <select id="role-select" name="role">
-                        <option value="Participant">Participant</option>
-                        <option value="Co-responsable">Co-responsable</option>
-                        <option value="Chercheur">Chercheur</option>
-                        <option value="Doctorant">Doctorant</option>
-                    </select>
+                    <label for="date_prevue">Date prévue *</label>
+                    <input type="date" id="date_prevue" name="date_prevue" required>
+                </div>
+                <div class="form-group">
+                    <label for="technicien">Technicien</label>
+                    <input type="text" id="technicien" name="technicien" placeholder="Nom du technicien">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Détails de la maintenance"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn-secondary" onclick="projets.closeModal()">
+                    <button type="button" class="btn-secondary" onclick="equipements.closeModal()">
                         Annuler
                     </button>
-                    <button type="submit" class="btn-primary" ${membres.length === 0 ? 'disabled' : ''}>
-                        Ajouter au projet
+                    <button type="submit" class="btn-primary">
+                        Planifier
                     </button>
                 </div>
             </form>
@@ -274,46 +283,40 @@ class ProjetsHandler {
         
         container.innerHTML = html;
         modal.style.display = 'flex';
-        
-        if (membres.length > 0) {
-            document.getElementById('add-membre-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.addMembre();
-            });
-        }
     }
     
-    async addMembre() {
-        const membreId = document.getElementById('membre-select').value;
-        const role = document.getElementById('role-select').value;
+    async planifierMaintenance(event) {
+        event.preventDefault();
         
-        if (!membreId) {
-            this.showNotification('Veuillez sélectionner un membre', 'warning');
-            return;
-        }
+        const form = document.getElementById('maintenance-form');
+        const formData = new FormData(form);
+        
+        const data = {
+            equipement_id: this.currentEquipementId,
+            type_maintenance: formData.get('type_maintenance'),
+            date_prevue: formData.get('date_prevue'),
+            technicien: formData.get('technicien'),
+            description: formData.get('description')
+        };
         
         try {
-            const response = await fetch(`${this.apiUrl}/add-membre`, {
+            const response = await fetch(`${this.apiUrl}/planifier-maintenance`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest'
                 },
-                body: JSON.stringify({
-                    projet_id: this.currentProjetId,
-                    membre_id: membreId,
-                    role: role
-                })
+                body: JSON.stringify(data)
             });
             
-            const data = await response.json();
+            const result = await response.json();
             
-            if (data.success) {
-                this.showNotification(data.message || 'Membre ajouté avec succès', 'success');
+            if (result.success) {
+                this.showNotification('Maintenance planifiée avec succès', 'success');
                 this.closeModal();
                 setTimeout(() => location.reload(), 1000);
             } else {
-                this.showNotification(data.message || 'Erreur lors de l\'ajout', 'error');
+                this.showNotification(result.message || 'Erreur', 'error');
             }
         } catch (error) {
             console.error('Erreur:', error);
@@ -321,47 +324,7 @@ class ProjetsHandler {
         }
     }
     
-    async removeMembre(projetId, membreId, membreName) {
-        const confirmed = await this.showConfirmDialog(
-            'Retirer le membre',
-            `Êtes-vous sûr de vouloir retirer ${membreName} de ce projet ?`,
-            'Retirer',
-            'warning'
-        );
-        
-        if (!confirmed) return;
-        
-        try {
-            const response = await fetch(`${this.apiUrl}/remove-membre`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    projet_id: projetId,
-                    membre_id: membreId
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showNotification(data.message || 'Membre retiré avec succès', 'success');
-                setTimeout(() => location.reload(), 1000);
-            } else {
-                this.showNotification(data.message || 'Erreur lors du retrait', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    // ========================================
-    // FILTRES ET RECHERCHE
-    // ========================================
-    
+    // FILTRES
     initFilters() {
         const applyBtn = document.getElementById('apply-filters');
         const searchInput = document.getElementById('search-input');
@@ -426,24 +389,14 @@ class ProjetsHandler {
         this.updateEmptyState(visibleCount === 0 && query);
     }
     
-    // ========================================
-    // EXPORT & RAPPORT
-    // ========================================
-    
+    // EXPORT
     export() {
         const params = new URLSearchParams(window.location.search);
         params.set('export', 'csv');
         window.location.href = `${this.baseUrl}?${params.toString()}`;
     }
     
-    genererRapport(id) {
-        window.open(`${this.baseUrl}/rapport/${id}`, '_blank');
-    }
-    
-    // ========================================
     // UTILITAIRES UI
-    // ========================================
-    
     checkEmptyTable() {
         const tbody = document.querySelector('.table tbody, .data-table tbody');
         if (!tbody) return;
@@ -470,7 +423,7 @@ class ProjetsHandler {
                 row.className = 'no-results-row';
                 row.innerHTML = `
                     <td colspan="100" class="empty-message" style="text-align: center; padding: 40px; color: #9CA3AF;">
-                        🔍 Aucun résultat trouvé
+                         Aucun résultat trouvé
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -600,53 +553,44 @@ class ProjetsHandler {
     }
 }
 
-// ========================================
-// INITIALISATION GLOBALE
-// ========================================
-
-let projets;
+// INITIALISATION
+let equipements;
 
 document.addEventListener('DOMContentLoaded', () => {
-    projets = new ProjetsHandler();
-    console.log('✅ Gestionnaire de projets initialisé');
+    equipements = new EquipementsHandler();
+    console.log('✅ Gestionnaire d\'équipements initialisé');
 });
 
-// ========================================
 // FONCTIONS GLOBALES
-// ========================================
-
 function viewItem(id) {
-    if (projets) projets.view(id);
+    if (equipements) equipements.view(id);
 }
 
 function editItem(id) {
-    if (projets) projets.edit(id);
+    if (equipements) equipements.edit(id);
 }
 
 function deleteItem(id) {
-    if (projets) projets.delete(id);
+    if (equipements) equipements.delete(id);
 }
 
 function openAddModal() {
-    if (projets) projets.openAddModal();
+    if (equipements) equipements.openAddModal();
 }
 
 function closeModal() {
-    if (projets) projets.closeModal();
+    if (equipements) equipements.closeModal();
 }
 
 function exportData() {
-    if (projets) projets.export();
+    if (equipements) equipements.export();
 }
 
-// ========================================
 // ANIMATIONS CSS
-// ========================================
-
-if (!document.getElementById('projets-handler-styles')) {
-    const projetsStyle = document.createElement('style');
-    projetsStyle.id = 'projets-handler-styles';
-    projetsStyle.textContent = `
+if (!document.getElementById('equipements-handler-styles')) {
+    const style = document.createElement('style');
+    style.id = 'equipements-handler-styles';
+    style.textContent = `
         @keyframes slideIn {
             from { transform: translateX(400px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
@@ -714,5 +658,5 @@ if (!document.getElementById('projets-handler-styles')) {
             background: #DC2626;
         }
     `;
-    document.head.appendChild(projetsStyle);
+    document.head.appendChild(style);
 }

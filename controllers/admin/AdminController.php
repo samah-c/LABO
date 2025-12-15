@@ -45,82 +45,7 @@ class AdminController {
     }
     
 
-    
-    // ============================================
-    // GESTION DES PROJETS
-    // ============================================
-    
-public function projets() {
-    // Récupérer les filtres depuis l'URL
-    $filters = [
-        'thematique' => get('thematique'),
-        'statut' => get('statut'),
-        'search' => get('search')
-    ];
-    
-    // Utiliser la nouvelle méthode du modèle
-    $projets = $this->projetModel->getAllFiltered($filters);
-    
-    // Pagination
-    $page = (int) get('page', 1);
-    $perPage = 10;
-    $pagination = Utils::paginate(count($projets), $perPage, $page);
-    $projets = array_slice($projets, $pagination['offset'], $perPage);
-    
-    // Charger la vue
-    require_once __DIR__ . '/../../views/admin/projets.php';
-}
-
-    
-    public function exportProjets() {
-        if (get('export') === 'csv') {
-            $projets = $this->projetModel->getAllWithResponsables();
-            
-            $data = [];
-            $data[] = ['Titre', 'Thématique', 'Responsable', 'Statut', 'Date début'];
-            
-            foreach ($projets as $projet) {
-                $data[] = [
-                    $projet['titre'],
-                    $projet['thematique'],
-                    $projet['responsable_nom'] ?? '',
-                    $projet['statut'],
-                    format_date($projet['date_debut'])
-                ];
-            }
-            
-            LabHelpers::exportToCsv($data, 'projets_' . date('Y-m-d') . '.csv');
-        }
-    }
-    
-    // ============================================
-    // GESTION DES ÉQUIPEMENTS
-    // ============================================
-    
-    public function equipements() {
-        require_once __DIR__ . '/../../models/EquipementModel.php';
-        $equipementModel = new EquipementModel();
-
-        // Récupérer les équipements selon filtres
-        $filters = [
-            'type_equipement' => get('type_equipement'),
-            'etat' => get('etat'),
-            'localisation' => get('localisation'),
-            'search' => get('search')
-        ];
-
-        $equipements = $equipementModel->getAllFiltered($filters);
-
-        // Pagination
-        $page = (int) get('page', 1);
-        $perPage = 10;
-        $pagination = Utils::paginate(count($equipements), $perPage, $page);
-        $equipements = array_slice($equipements, $pagination['offset'], $perPage);
-
-        require __DIR__ . '/../../views/admin/equipements.php';
-    }
-    
-    
+   
     // ============================================
     // GESTION DES ÉVÉNEMENTS
     // ============================================
@@ -188,7 +113,7 @@ public function projets() {
         $backups = [];
         
         // Charger la vue
-        require_once __DIR__ . '/../../views/admin/parametres.php';
+        require_once __DIR__ . '/../../views/admin/parametres/parametres.php';
     }
 }
 ?>

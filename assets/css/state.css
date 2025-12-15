@@ -1,0 +1,384 @@
+/**
+ * STATE.CSS - Architecture SMACSS
+ * États des composants et animations
+ */
+
+/* ========================================
+   ÉTATS ACTIFS
+   ======================================== */
+
+/* Navigation active */
+.main-nav li.active a {
+    color: white !important;
+    background: var(--primary) !important;
+    box-shadow: var(--shadow-xs);
+}
+
+/* Page link active */
+.page-link.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* ========================================
+   ÉTATS DÉSACTIVÉS
+   ======================================== */
+
+.page-link.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+button:disabled,
+.btn-login:disabled,
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   ÉTATS D'ERREUR (Formulaires)
+   ======================================== */
+
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+    border-color: var(--danger);
+    animation: shake 0.3s;
+}
+
+.field-error {
+    display: none;
+    color: var(--danger);
+    font-size: 0.85em;
+    margin-top: 5px;
+    animation: slideDown 0.3s ease;
+}
+
+.form-group.has-error .field-error {
+    display: block;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+/* ========================================
+   ÉTATS DE SUCCÈS
+   ======================================== */
+
+.login-success {
+    animation: successPulse 0.5s ease;
+}
+
+@keyframes successPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+/* ========================================
+   ALERTES AVEC ANIMATIONS
+   ======================================== */
+
+.alert {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.alert.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   ÉTATS DE CHARGEMENT
+   ======================================== */
+
+button[type="submit"]:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.loading-overlay .spinner {
+    width: 50px;
+    height: 50px;
+    border-width: 4px;
+}
+
+/* ========================================
+   MODAL - ÉTATS D'OUVERTURE
+   ======================================== */
+
+.modal.is-open {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal.is-open .modal-content {
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   SIDEBAR MOBILE - ÉTAT OUVERT
+   ======================================== */
+
+.main-nav.open {
+    transform: translateX(0);
+}
+
+/* ========================================
+   TABLE - ÉTAT VIDE
+   ======================================== */
+
+.table-container.empty .table thead {
+    display: none;
+}
+
+/* ========================================
+   PASSWORD TOGGLE
+   ======================================== */
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 8px;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.password-toggle:hover {
+    opacity: 1;
+}
+
+.form-group:has(.password-toggle) input[type="password"],
+.form-group:has(.password-toggle) input[type="text"] {
+    padding-right: 45px;
+}
+
+/* ========================================
+   PASSWORD STRENGTH INDICATOR
+   ======================================== */
+
+.password-strength {
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    transition: width 0.3s, background 0.3s;
+    width: 0;
+}
+
+.password-strength-bar.weak {
+    width: 33%;
+    background: var(--danger);
+}
+
+.password-strength-bar.medium {
+    width: 66%;
+    background: var(--warning);
+}
+
+.password-strength-bar.strong {
+    width: 100%;
+    background: var(--success);
+}
+
+/* ========================================
+   ÉTATS GÉNÉRIQUES (à utiliser avec JS)
+   ======================================== */
+
+.is-hidden {
+    display: none !important;
+}
+
+.is-visible {
+    display: block !important;
+}
+
+.is-active {
+    color: white !important;
+    background: var(--primary) !important;
+}
+
+.is-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.is-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(91, 127, 255, 0.3);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+.is-disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+.has-error {
+    border-color: var(--danger) !important;
+}
+
+.has-success {
+    border-color: var(--success) !important;
+}
+
+/* ========================================
+   ÉTATS HOVER (pour JS)
+   ======================================== */
+
+.is-hoverable:hover {
+    background: var(--gray-50);
+    cursor: pointer;
+}
+
+/* ========================================
+   ANIMATIONS UTILITAIRES
+   ======================================== */
+
+.fade-in {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ========================================
+   ÉTATS RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .is-hidden-mobile {
+        display: none !important;
+    }
+    
+    .is-visible-mobile {
+        display: block !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .is-hidden-desktop {
+        display: none !important;
+    }
+    
+    .is-visible-desktop {
+        display: block !important;
+    }
+}

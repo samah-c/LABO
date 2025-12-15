@@ -38,3 +38,23 @@
 [2025-12-13 19:09:29] SUCCESS - User: 1 - IP: ::1
 [2025-12-13 22:11:38] SUCCESS - User: 1 - IP: ::1
 [2025-12-14 08:47:24] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 09:44:57] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 12:35:12] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 14:23:45] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 14:30:27] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-14 14:30:36] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 14:31:24] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-14 14:34:56] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 14:34:59] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-14 14:35:27] FAILED - User: gfhgf - IP: ::1
+[2025-12-14 14:35:41] FAILED - User: ghfhfghgf - IP: ::1
+[2025-12-14 14:36:31] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 15:49:42] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 15:50:54] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-14 15:51:03] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 17:34:14] FAILED - User: admin - IP: ::1
+[2025-12-14 17:34:21] SUCCESS - User: 1 - IP: ::1
+[2025-12-14 18:41:59] SUCCESS - User: 1 - IP: ::1
+[2025-12-15 10:48:23] SUCCESS - User: 1 - IP: ::1
+[2025-12-15 11:29:28] LOGOUT - User ID: 1 - IP: ::1
+[2025-12-15 11:29:34] SUCCESS - User: 1 - IP: ::1

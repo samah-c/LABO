@@ -180,7 +180,7 @@ ViewComponents::renderHeader([
                                     • <?= format_date($pub['date_publication']) ?>
                                 </small>
                             </div>
-                            <a href="<?= base_url('admin/publications/view/' . $pub['id']) ?>" 
+                            <a href="<?= base_url('admin/publications/publications/view/' . $pub['id']) ?>" 
                                class="btn-secondary btn-sm">
                                  Voir
                             </a>

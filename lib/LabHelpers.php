@@ -69,18 +69,18 @@ class LabHelpers {
     // ========================================
     
     /**
-     * Obtenir le badge de statut de projet
+     * Obtenir le badge de status de projet
      */
-    public static function getProjetStatusBadge($statut) {
-        $badges = [
-            'en cours' => '<span class="badge badge-success">En cours</span>',
-            'terminé' => '<span class="badge badge-secondary">Terminé</span>',
-            'soumis' => '<span class="badge badge-warning">Soumis</span>',
-            'approuvé' => '<span class="badge badge-info">Approuvé</span>',
-            'rejeté' => '<span class="badge badge-danger">Rejeté</span>'
-        ];
+    public static function getProjetStatusBadge($status) {
+    $badges = [
+    'en_cours' => '<span class="badge badge-success">En cours</span>',
+    'termine' => '<span class="badge badge-secondary">Terminé</span>',
+    'soumis' => '<span class="badge badge-warning">Soumis</span>',
+    'approuvé' => '<span class="badge badge-info">Approuvé</span>',
+    'rejeté' => '<span class="badge badge-danger">Rejeté</span>'
+];
         
-        return $badges[$statut] ?? '<span class="badge badge-gray">' . htmlspecialchars($statut) . '</span>';
+        return $badges[$status] ?? '<span class="badge badge-gray">' . htmlspecialchars($status) . '</span>';
     }
     
     /**
@@ -115,24 +115,6 @@ class LabHelpers {
     return max(0, min(100, round($progress)));
 }
 
-    
-    /**
-     * Obtenir l'icône de thématique
-     */
-    public static function getThematiqueIcon($thematique) {
-        $icons = [
-            'Intelligence Artificielle' => '🤖',
-            'Sécurité Informatique' => '🔒',
-            'Cloud Computing' => '☁️',
-            'Réseaux' => '🌐',
-            'Systèmes Embarqués' => '💾',
-            'Big Data' => '📊',
-            'IoT' => '📡',
-            'Blockchain' => '⛓️'
-        ];
-        
-        return $icons[$thematique] ?? '💡';
-    }
     
     // ========================================
     // GESTION DES PUBLICATIONS

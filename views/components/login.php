@@ -42,8 +42,11 @@ public function renderHead() {
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         
         <!-- CSS -->
-        <link rel="stylesheet" href="/TDW_project/assets/css/styles.css">
-        <link rel="stylesheet" href="/TDW_project/assets/css/login-ajax.css">
+        <link rel="stylesheet" href="<?= base_url('assets/css/base.css') ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/layout.css') ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/modules.css') ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/state.css') ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/theme.css') ?>">
         <script src="/TDW_project/assets/js/ajax-login.js" defer></script>
         <style>
             /* Styles inline pour compatibilité immédiate */
@@ -126,15 +129,7 @@ public function renderHead() {
             unset($_SESSION['info']);
         }
         
-        // Timeout de session
-        if (isset($_GET['timeout'])) {
-            $this->renderAlert('Session expirée. Veuillez vous reconnecter.', 'info');
-        }
         
-        // Déconnexion réussie
-        if (isset($_GET['logout'])) {
-            $this->renderAlert('Vous avez été déconnecté avec succès.', 'info');
-        }
     }
     
 
@@ -181,20 +176,6 @@ public function renderHead() {
         <?php
     }
     
-    /**
-     * Générer le lien de retour
-     */
-    public function renderBackLink($text = null, $url = null) {
-        $linkText = $text ?? '← Retour à l\'accueil';
-        $linkUrl = $url ?? $this->backLink;
-        ?>
-        <div class="back-link">
-            <a href="<?php echo htmlspecialchars($linkUrl); ?>">
-                <?php echo htmlspecialchars($linkText); ?>
-            </a>
-        </div>
-        <?php
-    }
     
     /**
      * Générer le formulaire complet de connexion
@@ -258,7 +239,6 @@ public function renderHead() {
                 $this->renderLogo();
                 $this->renderSessionAlerts();
                 $this->renderLoginForm($options);
-                $this->renderBackLink();
                 ?>
             </div>
         </body>
@@ -276,7 +256,6 @@ public function renderHead() {
             $this->renderLogo();
             $this->renderSessionAlerts();
             $this->renderLoginForm($options);
-            $this->renderBackLink();
             ?>
         </div>
         <?php

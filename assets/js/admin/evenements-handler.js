@@ -1,13 +1,12 @@
 /**
- * projets-handler.js - Gestionnaire complet pour les projets
- * Gère toutes les opérations CRUD + gestion des membres
+ * evenements-handler.js - Gestionnaire complet pour les événements
  */
 
-class ProjetsHandler {
+class EvenementsHandler {
     constructor() {
-        this.baseUrl = '/TDW_project/admin/projets/projets';
-        this.apiUrl = '/TDW_project/api/admin/projets';
-        this.currentProjetId = null;
+        this.baseUrl = '/TDW_project/admin/evenements/evenements';
+        this.apiUrl = '/TDW_project/api/admin/evenements/evenements';
+        this.currentEvenementId = null;
         this.init();
     }
     
@@ -16,10 +15,6 @@ class ProjetsHandler {
         this.initFilters();
         this.checkEmptyTable();
     }
-    
-    // ========================================
-    // GESTION DES ÉVÉNEMENTS
-    // ========================================
     
     attachEventListeners() {
         const addBtn = document.querySelector('[onclick*="openAddModal"]');
@@ -37,7 +32,7 @@ class ProjetsHandler {
             closeBtn.onclick = () => this.closeModal();
         }
         
-        const modal = document.getElementById('projet-modal');
+        const modal = document.getElementById('evenement-modal');
         if (modal) {
             modal.onclick = (e) => {
                 if (e.target === modal) {
@@ -53,10 +48,6 @@ class ProjetsHandler {
         });
     }
     
-    // ========================================
-    // OPÉRATIONS CRUD
-    // ========================================
-    
     view(id) {
         window.location.href = `${this.baseUrl}/view/${id}`;
     }
@@ -71,8 +62,8 @@ class ProjetsHandler {
     
     async delete(id) {
         const confirmed = await this.showConfirmDialog(
-            'Supprimer le projet',
-            'Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.',
+            'Supprimer l\'événement',
+            'Êtes-vous sûr de vouloir supprimer cet événement ?',
             'Supprimer',
             'danger'
         );
@@ -91,7 +82,7 @@ class ProjetsHandler {
             const data = await response.json();
             
             if (data.success) {
-                this.showNotification(data.message || 'Projet supprimé avec succès', 'success');
+                this.showNotification(data.message || 'Événement supprimé avec succès', 'success');
                 
                 const row = document.querySelector(`tr[data-id="${id}"]`);
                 if (row) {
@@ -114,7 +105,7 @@ class ProjetsHandler {
     }
     
     async loadForm(id = null) {
-        const modal = document.getElementById('projet-modal');
+        const modal = document.getElementById('evenement-modal');
         const container = document.getElementById('modal-form-container');
         
         if (!modal || !container) {
@@ -124,7 +115,7 @@ class ProjetsHandler {
         
         const modalTitle = modal.querySelector('.modal-header h2');
         if (modalTitle) {
-            modalTitle.textContent = id ? 'Modifier le projet' : 'Ajouter un projet';
+            modalTitle.textContent = id ? 'Modifier l\'événement' : 'Ajouter un événement';
         }
         
         container.innerHTML = `
@@ -152,21 +143,83 @@ class ProjetsHandler {
             const html = await response.text();
             container.innerHTML = html;
             
-            this.currentProjetId = id;
+            this.currentEvenementId = id;
             
         } catch (error) {
             console.error('Erreur:', error);
             container.innerHTML = `
                 <div class="error-message">
-                    <p>❌ Erreur lors du chargement du formulaire</p>
-                    <button class="btn-secondary" onclick="projets.closeModal()">Fermer</button>
+                    <p>Erreur lors du chargement du formulaire</p>
+                    <button class="btn-secondary" onclick="evenements.closeModal()">Fermer</button>
                 </div>
             `;
         }
     }
     
+    async submitForm(form) {
+        const formData = new FormData(form);
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-small"></span> Enregistrement...';
+        }
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                this.showNotification(data.message || 'Événement enregistré avec succès', 'success');
+                this.closeModal();
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                if (data.errors) {
+                    this.displayErrors(form, data.errors);
+                }
+                this.showNotification(data.message || 'Erreur lors de l\'enregistrement', 'error');
+                
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Enregistrer';
+                }
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            this.showNotification('Erreur de connexion', 'error');
+            
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Enregistrer';
+            }
+        }
+    }
+    
+    displayErrors(form, errors) {
+        form.querySelectorAll('.field-error').forEach(el => el.remove());
+        form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        
+        for (const [field, message] of Object.entries(errors)) {
+            const input = form.querySelector(`[name="${field}"]`);
+            if (input) {
+                input.classList.add('error');
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error';
+                errorDiv.textContent = message;
+                input.parentElement.appendChild(errorDiv);
+            }
+        }
+    }
+    
     closeModal() {
-        const modal = document.getElementById('projet-modal');
+        const modal = document.getElementById('evenement-modal');
         if (modal) {
             const content = modal.querySelector('.modal-content');
             if (content) {
@@ -180,7 +233,7 @@ class ProjetsHandler {
                 if (container) {
                     container.innerHTML = '';
                 }
-                this.currentProjetId = null;
+                this.currentEvenementId = null;
                 
                 if (content) {
                     content.style.transform = '';
@@ -189,178 +242,6 @@ class ProjetsHandler {
             }, 200);
         }
     }
-    
-    // ========================================
-    // GESTION DES MEMBRES
-    // ========================================
-    
-    async openAddMembreModal(projetId) {
-        this.currentProjetId = projetId;
-        
-        try {
-            const response = await fetch(`${this.apiUrl}/${projetId}/membres-disponibles`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showMembreSelectionModal(data.membres);
-            } else {
-                this.showNotification('Erreur lors du chargement des membres', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    showMembreSelectionModal(membres) {
-        const modal = document.getElementById('projet-modal');
-        const container = document.getElementById('modal-form-container');
-        
-        if (!modal || !container) return;
-        
-        const modalTitle = modal.querySelector('.modal-header h2');
-        if (modalTitle) {
-            modalTitle.textContent = 'Ajouter un membre';
-        }
-        
-        let html = `
-            <form id="add-membre-form">
-                <div class="form-group">
-                    <label for="membre-select">Sélectionner un membre *</label>
-                    <select id="membre-select" name="membre_id" required>
-                        <option value="">-- Choisir un membre --</option>
-        `;
-        
-        if (membres.length === 0) {
-            html += `<option value="" disabled>Aucun membre disponible</option>`;
-        } else {
-            membres.forEach(membre => {
-                html += `
-                    <option value="${membre.id}">
-                        ${this.escapeHtml(membre.username)}
-                        ${membre.grade ? ' - ' + this.escapeHtml(membre.grade) : ''}
-                    </option>
-                `;
-            });
-        }
-        
-        html += `
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="role-select">Rôle dans le projet</label>
-                    <select id="role-select" name="role">
-                        <option value="Participant">Participant</option>
-                        <option value="Co-responsable">Co-responsable</option>
-                        <option value="Chercheur">Chercheur</option>
-                        <option value="Doctorant">Doctorant</option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-secondary" onclick="projets.closeModal()">
-                        Annuler
-                    </button>
-                    <button type="submit" class="btn-primary" ${membres.length === 0 ? 'disabled' : ''}>
-                        Ajouter au projet
-                    </button>
-                </div>
-            </form>
-        `;
-        
-        container.innerHTML = html;
-        modal.style.display = 'flex';
-        
-        if (membres.length > 0) {
-            document.getElementById('add-membre-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.addMembre();
-            });
-        }
-    }
-    
-    async addMembre() {
-        const membreId = document.getElementById('membre-select').value;
-        const role = document.getElementById('role-select').value;
-        
-        if (!membreId) {
-            this.showNotification('Veuillez sélectionner un membre', 'warning');
-            return;
-        }
-        
-        try {
-            const response = await fetch(`${this.apiUrl}/add-membre`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    projet_id: this.currentProjetId,
-                    membre_id: membreId,
-                    role: role
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showNotification(data.message || 'Membre ajouté avec succès', 'success');
-                this.closeModal();
-                setTimeout(() => location.reload(), 1000);
-            } else {
-                this.showNotification(data.message || 'Erreur lors de l\'ajout', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    async removeMembre(projetId, membreId, membreName) {
-        const confirmed = await this.showConfirmDialog(
-            'Retirer le membre',
-            `Êtes-vous sûr de vouloir retirer ${membreName} de ce projet ?`,
-            'Retirer',
-            'warning'
-        );
-        
-        if (!confirmed) return;
-        
-        try {
-            const response = await fetch(`${this.apiUrl}/remove-membre`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    projet_id: projetId,
-                    membre_id: membreId
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.showNotification(data.message || 'Membre retiré avec succès', 'success');
-                setTimeout(() => location.reload(), 1000);
-            } else {
-                this.showNotification(data.message || 'Erreur lors du retrait', 'error');
-            }
-        } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
-        }
-    }
-    
-    // ========================================
-    // FILTRES ET RECHERCHE
-    // ========================================
     
     initFilters() {
         const applyBtn = document.getElementById('apply-filters');
@@ -411,8 +292,7 @@ class ProjetsHandler {
         
         rows.forEach(row => {
             if (row.classList.contains('empty-row') || 
-                row.querySelector('.empty-cell') ||
-                row.querySelector('.empty-message')) {
+                row.querySelector('.empty-cell')) {
                 return;
             }
             
@@ -426,23 +306,11 @@ class ProjetsHandler {
         this.updateEmptyState(visibleCount === 0 && query);
     }
     
-    // ========================================
-    // EXPORT & RAPPORT
-    // ========================================
-    
     export() {
         const params = new URLSearchParams(window.location.search);
         params.set('export', 'csv');
         window.location.href = `${this.baseUrl}?${params.toString()}`;
     }
-    
-    genererRapport(id) {
-        window.open(`${this.baseUrl}/rapport/${id}`, '_blank');
-    }
-    
-    // ========================================
-    // UTILITAIRES UI
-    // ========================================
     
     checkEmptyTable() {
         const tbody = document.querySelector('.table tbody, .data-table tbody');
@@ -470,7 +338,7 @@ class ProjetsHandler {
                 row.className = 'no-results-row';
                 row.innerHTML = `
                     <td colspan="100" class="empty-message" style="text-align: center; padding: 40px; color: #9CA3AF;">
-                        🔍 Aucun résultat trouvé
+                        Aucun résultat trouvé
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -490,7 +358,7 @@ class ProjetsHandler {
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
             <span>${this.escapeHtml(message)}</span>
-            <button onclick="this.parentElement.remove()">✕</button>
+            <button onclick="this.parentElement.remove()">X</button>
         `;
         
         notification.style.cssText = `
@@ -541,8 +409,6 @@ class ProjetsHandler {
                 </div>
             `;
             
-            document.body.appendChild(dialog);
-            
             dialog.style.cssText = `
                 position: fixed;
                 top: 0;
@@ -576,6 +442,8 @@ class ProjetsHandler {
                 z-index: 1;
             `;
             
+            document.body.appendChild(dialog);
+            
             document.getElementById('confirm-ok').addEventListener('click', () => {
                 dialog.remove();
                 resolve(true);
@@ -600,119 +468,106 @@ class ProjetsHandler {
     }
 }
 
-// ========================================
-// INITIALISATION GLOBALE
-// ========================================
-
-let projets;
+let evenements;
 
 document.addEventListener('DOMContentLoaded', () => {
-    projets = new ProjetsHandler();
-    console.log('✅ Gestionnaire de projets initialisé');
-});
-
-// ========================================
-// FONCTIONS GLOBALES
-// ========================================
-
+    evenements = new EvenementsHandler();
+    window.evenements = evenements;
+    console.log('Gestionnaire d\'evenements initialise');
+    });
 function viewItem(id) {
-    if (projets) projets.view(id);
+if (evenements) evenements.view(id);
 }
-
 function editItem(id) {
-    if (projets) projets.edit(id);
+if (evenements) evenements.edit(id);
 }
-
 function deleteItem(id) {
-    if (projets) projets.delete(id);
+if (evenements) evenements.delete(id);
 }
-
 function openAddModal() {
-    if (projets) projets.openAddModal();
+if (evenements) evenements.openAddModal();
 }
-
 function closeModal() {
-    if (projets) projets.closeModal();
+if (evenements) evenements.closeModal();
 }
-
 function exportData() {
-    if (projets) projets.export();
+if (evenements) evenements.export();
 }
-
-// ========================================
-// ANIMATIONS CSS
-// ========================================
-
-if (!document.getElementById('projets-handler-styles')) {
-    const projetsStyle = document.createElement('style');
-    projetsStyle.id = 'projets-handler-styles';
-    projetsStyle.textContent = `
-        @keyframes slideIn {
-            from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(400px); opacity: 0; }
-        }
-        
-        .loader {
-            text-align: center;
-            padding: 40px;
-        }
-        
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #5B7FFF;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .error-message {
-            text-align: center;
-            padding: 30px;
-            color: #EF4444;
-        }
-        
-        .confirm-dialog-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-        
-        .confirm-dialog-content h3 {
-            margin: 0 0 15px;
-            color: #1F2937;
-        }
-        
-        .confirm-dialog-content p {
-            margin: 0 0 20px;
-            color: #6B7280;
-            line-height: 1.5;
-        }
-        
-        .btn-danger {
-            background: #EF4444;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        
-        .btn-danger:hover {
-            background: #DC2626;
-        }
-    `;
-    document.head.appendChild(projetsStyle);
+if (!document.getElementById('evenements-handler-styles')) {
+const style = document.createElement('style');
+style.id = 'evenements-handler-styles';
+style.textContent = `
+@keyframes slideIn {
+from { transform: translateX(400px); opacity: 0; }
+to { transform: translateX(0); opacity: 1; }
+}
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(400px); opacity: 0; }
+    }
+    
+    .loader {
+        text-align: center;
+        padding: 40px;
+    }
+    
+    .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #5B7FFF;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+    }
+    
+    .spinner-small {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .field-error {
+        color: #EF4444;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+    
+    input.error,
+    select.error,
+    textarea.error {
+        border-color: #EF4444 !important;
+        background: rgba(239, 68, 68, 0.05);
+    }
+    
+    .confirm-dialog-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+    
+    .btn-danger {
+        background: #EF4444;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    
+    .btn-danger:hover {
+        background: #DC2626;
+    }
+`;
+document.head.appendChild(style);
 }

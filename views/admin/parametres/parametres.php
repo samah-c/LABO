@@ -3,13 +3,14 @@
  * Vue paramètres généraux (admin)
  */
 
-require_once __DIR__ . '/../../lib/helpers.php';
-require_once __DIR__ . '/../../lib/ViewComponents.php';
+require_once __DIR__ . '/../../../lib/helpers.php';
+require_once __DIR__ . '/../../../lib/ViewComponents.php';
 
 ViewComponents::renderHeader([
     'title' => 'Paramètres',
     'username' => session('username'),
-    'role' => 'admin'
+    'role' => 'admin',
+    'additionalJs' => [base_url('assets/js/parametres.js')]
 ]);
 ?>
 
@@ -75,7 +76,7 @@ ViewComponents::renderHeader([
         
         <!-- Réseaux sociaux -->
         <div class="settings-section">
-            <h2>🌐 Réseaux Sociaux</h2>
+            <h2>Réseaux Sociaux</h2>
             <form action="<?= base_url('admin/parametres/save-social') ?>" method="POST">
                 <?= csrf_field() ?>
                 
@@ -113,7 +114,7 @@ ViewComponents::renderHeader([
         
         <!-- Thème et apparence -->
         <div class="settings-section">
-            <h2>🎨 Apparence</h2>
+            <h2>Apparence</h2>
             <form action="<?= base_url('admin/parametres/save-theme') ?>" method="POST">
                 <?= csrf_field() ?>
                 
@@ -185,7 +186,7 @@ ViewComponents::renderHeader([
         
         <!-- Maintenance -->
         <div class="settings-section">
-            <h2>🔧 Maintenance</h2>
+            <h2>Maintenance</h2>
             
             <div class="form-group">
                 <label>

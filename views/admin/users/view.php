@@ -28,7 +28,7 @@ ViewComponents::renderHeader([
     <!-- En-tête utilisateur -->
     <div class="page-header">
         <div>
-            <h1>👤 <?= e($user['username']) ?></h1>
+            <h1><?= e($user['username']) ?></h1>
             <p style="color: #6B7280; margin-top: 8px;">
                 <?= e($user['email']) ?> • 
                 <?php 

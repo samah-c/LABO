@@ -97,6 +97,50 @@ if (strpos($uri, '/api/admin') === 0) {
             exit;
         }
     }
+
+    // ===== API PROJETS =====
+    if (strpos($uri, '/api/admin/projets') === 0) {
+        require_once __DIR__ . '/controllers/admin/ProjetsController.php';
+        $projetsController = new ProjetsController();
+        
+        // POST /api/admin/projets/add-membre
+        if ($uri === '/api/admin/projets/add-membre' && $method === 'POST') {
+            $projetsController->addMembre();
+            exit;
+        }
+        
+        // POST /api/admin/projets/remove-membre
+        if ($uri === '/api/admin/projets/remove-membre' && $method === 'POST') {
+            $projetsController->removeMembre();
+            exit;
+        }
+        
+        // GET /api/admin/projets/:id/membres-disponibles
+        if (preg_match('#^/api/admin/projets/(\d+)/membres-disponibles$#', $uri, $matches) && $method === 'GET') {
+            require_once __DIR__ . '/models/MembreModel.php';
+            $membreModel = new MembreModel();
+            $membres = $membreModel->getMembresDisponibles();
+            
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => true,
+                'membres' => $membres
+            ]);
+            exit;
+        }
+        
+        // GET /api/admin/projets/:id
+        if (preg_match('#^/api/admin/projets/(\d+)$#', $uri, $matches) && $method === 'GET') {
+            $projetsController->get($matches[1]);
+            exit;
+        }
+        
+        // DELETE /api/admin/projets/:id
+        if (preg_match('#^/api/admin/projets/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
+            $projetsController->delete($matches[1]);
+            exit;
+        }
+    }
     
     // ===== API ÉQUIPES =====
     if (strpos($uri, '/api/admin/equipes') === 0) {
@@ -142,6 +186,48 @@ if (strpos($uri, '/api/admin') === 0) {
         }
     }
     
+    // ===== API ÉQUIPEMENTS =====
+    if (strpos($uri, '/api/admin/equipements') === 0) {
+        require_once __DIR__ . '/controllers/admin/EquipementsController.php';
+        $equipementsController = new EquipementsController();
+        
+        // POST /api/admin/equipements/planifier-maintenance
+        if ($uri === '/api/admin/equipements/planifier-maintenance' && $method === 'POST') {
+            $equipementsController->planifierMaintenance();
+            exit;
+        }
+        
+        // GET /api/admin/equipements/:id
+        if (preg_match('#^/api/admin/equipements/(\d+)$#', $uri, $matches) && $method === 'GET') {
+            $equipementsController->get($matches[1]);
+            exit;
+        }
+        
+        // DELETE /api/admin/equipements/:id
+        if (preg_match('#^/api/admin/equipements/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
+            $equipementsController->delete($matches[1]);
+            exit;
+        }
+    }
+    
+    // ===== API ÉVÉNEMENTS =====
+    if (strpos($uri, '/api/admin/evenements/evenements/') === 0) {
+        require_once __DIR__ . '/controllers/admin/EvenementsController.php';
+        $evenementsController = new EvenementsController();
+        
+        // DELETE /api/admin/evenements/evenements/:id
+        if (preg_match('#^/api/admin/evenements/evenements/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
+            $evenementsController->delete($matches[1]);
+            exit;
+        }
+        
+        // GET /api/admin/evenements/evenements/:id
+        if (preg_match('#^/api/admin/evenements/evenements/(\d+)$#', $uri, $matches) && $method === 'GET') {
+            $evenementsController->get($matches[1]);
+            exit;
+        }
+    }
+    
     // ===== API MEMBRES =====
     if ($uri === '/api/admin/membres' && $method === 'GET') {
         require_once __DIR__ . '/models/MembreModel.php';
@@ -153,6 +239,70 @@ if (strpos($uri, '/api/admin') === 0) {
             'success' => true,
             'membres' => $membres
         ]);
+        exit;
+    }
+    
+    // ===== API USERS =====
+    if (strpos($uri, '/api/admin/users') === 0) {
+        require_once __DIR__ . '/controllers/admin/UsersController.php';
+        $usersController = new UsersController();
+        
+        // POST /api/admin/users/change-role
+        if ($uri === '/api/admin/users/change-role' && $method === 'POST') {
+            $usersController->changeRole();
+            exit;
+        }
+        
+        // POST /api/admin/users/change-status
+        if ($uri === '/api/admin/users/change-status' && $method === 'POST') {
+            $usersController->changeStatus();
+            exit;
+        }
+        
+        // GET /api/admin/users/:id
+        if (preg_match('#^/api/admin/users/(\d+)$#', $uri, $matches) && $method === 'GET') {
+            $usersController->get($matches[1]);
+            exit;
+        }
+        
+        // DELETE /api/admin/users/:id
+        if (preg_match('#^/api/admin/users/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
+            $usersController->delete($matches[1]);
+            exit;
+        }
+    }
+
+    // ===== API PARAMÈTRES (Base de données) =====
+    if (strpos($uri, '/api/admin/database') === 0) {
+        require_once __DIR__ . '/controllers/admin/ParametresController.php';
+        $parametresController = new ParametresController();
+        
+        // POST /api/admin/database/backup
+        if ($uri === '/api/admin/database/backup' && $method === 'POST') {
+            $parametresController->backupDatabase();
+            exit;
+        }
+        
+        // POST /api/admin/database/restore
+        if ($uri === '/api/admin/database/restore' && $method === 'POST') {
+            $parametresController->restoreDatabase();
+            exit;
+        }
+    }
+
+    // ===== API PARAMÈTRES (Cache) =====
+    if ($uri === '/api/admin/cache/clear' && $method === 'POST') {
+        require_once __DIR__ . '/controllers/admin/ParametresController.php';
+        $parametresController = new ParametresController();
+        $parametresController->clearCache();
+        exit;
+    }
+
+    // ===== API PARAMÈTRES (Maintenance) =====
+    if ($uri === '/api/admin/maintenance/save' && $method === 'POST') {
+        require_once __DIR__ . '/controllers/admin/ParametresController.php';
+        $parametresController = new ParametresController();
+        $parametresController->saveMaintenance();
         exit;
     }
     
@@ -197,76 +347,87 @@ if (strpos($uri, '/admin') === 0) {
         $adminController->dashboard();
         exit;
     }
-    
-   
-// ===== API USERS =====
-if (strpos($uri, '/api/admin/users') === 0) {
-    require_once __DIR__ . '/controllers/admin/UsersController.php';
-    $usersController = new UsersController();
-    
-    // POST /api/admin/users/change-role
-    if ($uri === '/api/admin/users/change-role' && $method === 'POST') {
-        $usersController->changeRole();
-        exit;
-    }
-    
-    // POST /api/admin/users/change-status
-    if ($uri === '/api/admin/users/change-status' && $method === 'POST') {
-        $usersController->changeStatus();
-        exit;
-    }
-    
-    // GET /api/admin/users/:id
-    if (preg_match('#^/api/admin/users/(\d+)$#', $uri, $matches) && $method === 'GET') {
-        $usersController->get($matches[1]);
-        exit;
-    }
-    
-    // DELETE /api/admin/users/:id
-    if (preg_match('#^/api/admin/users/(\d+)$#', $uri, $matches) && $method === 'DELETE') {
-        $usersController->delete($matches[1]);
-        exit;
-    }
-}
 
-// ===== À AJOUTER DANS LA SECTION ADMIN (après équipes) =====
+    // ===== UTILISATEURS =====
+    if (strpos($uri, '/admin/users') === 0) {
+        require_once __DIR__ . '/controllers/admin/UsersController.php';
+        $usersController = new UsersController();
+        
+        // Export
+        if ($uri === '/admin/users/users' && isset($_GET['export'])) {
+            $usersController->export();
+            exit;
+        }
+        
+        // Formulaire (AJAX)
+        if (preg_match('#^/admin/users/users/form(/(\d+))?$#', $uri, $matches)) {
+            $id = $matches[2] ?? null;
+            $usersController->form($id);
+            exit;
+        }
+        
+        // Sauvegarder
+        if ($uri === '/admin/users/users/save' && $method === 'POST') {
+            $usersController->save();
+            exit;
+        }
+        
+        // Vue détaillée
+        if (preg_match('#^/admin/users/users/view/(\d+)$#', $uri, $matches)) {
+            $usersController->view($matches[1]);
+            exit;
+        }
+        
+        // Liste
+        if ($uri === '/admin/users' || $uri === '/admin/users/users') {
+            $usersController->index();
+            exit;
+        }
+    }
 
-// ===== UTILISATEURS =====
-if (strpos($uri, '/admin/users') === 0) {
-    require_once __DIR__ . '/controllers/admin/UsersController.php';
-    $usersController = new UsersController();
-    
-    // Export
-    if ($uri === '/admin/users/users' && isset($_GET['export'])) {
-        $usersController->export();
-        exit;
+    // ===== PROJETS =====
+    if (strpos($uri, '/admin/projets') === 0) {
+        require_once __DIR__ . '/controllers/admin/ProjetsController.php';
+        $projetsController = new ProjetsController();
+        
+        // Export
+        if ($uri === '/admin/projets/projets' && isset($_GET['export'])) {
+            $projetsController->export();
+            exit;
+        }
+        
+        // Rapport
+        if (preg_match('#^/admin/projets/projets/rapport/(\d+)$#', $uri, $matches)) {
+            $projetsController->genererRapport($matches[1]);
+            exit;
+        }
+        
+        // Formulaire (AJAX)
+        if (preg_match('#^/admin/projets/projets/form(/(\d+))?$#', $uri, $matches)) {
+            $id = $matches[2] ?? null;
+            $projetsController->form($id);
+            exit;
+        }
+        
+        // Sauvegarder
+        if ($uri === '/admin/projets/projets/save' && $method === 'POST') {
+            $projetsController->save();
+            exit;
+        }
+        
+        // Vue détaillée
+        if (preg_match('#^/admin/projets/projets/view/(\d+)$#', $uri, $matches)) {
+            $projetsController->view($matches[1]);
+            exit;
+        }
+        
+        // Liste
+        if ($uri === '/admin/projets' || $uri === '/admin/projets/projets') {
+            $projetsController->index();
+            exit;
+        }
     }
     
-    // Formulaire (AJAX)
-    if (preg_match('#^/admin/users/users/form(/(\d+))?$#', $uri, $matches)) {
-        $id = $matches[2] ?? null;
-        $usersController->form($id);
-        exit;
-    }
-    
-    // Sauvegarder
-    if ($uri === '/admin/users/users/save' && $method === 'POST') {
-        $usersController->save();
-        exit;
-    }
-    
-    // Vue détaillée
-    if (preg_match('#^/admin/users/users/view/(\d+)$#', $uri, $matches)) {
-        $usersController->view($matches[1]);
-        exit;
-    }
-    
-    // Liste
-    if ($uri === '/admin/users' || $uri === '/admin/users/users') {
-        $usersController->index();
-        exit;
-    }
-}
     // ===== ÉQUIPES =====
     if (strpos($uri, '/admin/equipes') === 0) {
         require_once __DIR__ . '/controllers/admin/EquipesController.php';
@@ -347,48 +508,162 @@ if (strpos($uri, '/admin/users') === 0) {
         }
     }
     
-    // ===== PROJETS =====
-    if ($uri === '/admin/projets') {
-        if (isset($_GET['export'])) {
-            $adminController->exportProjets();
+    // ===== ÉQUIPEMENTS =====
+    if (strpos($uri, '/admin/equipements') === 0) {
+        require_once __DIR__ . '/controllers/admin/EquipementsController.php';
+        $equipementsController = new EquipementsController();
+        
+        // Export
+        if ($uri === '/admin/equipements/equipements' && isset($_GET['export'])) {
+            $equipementsController->export();
             exit;
         }
-        $adminController->projets();
-        exit;
-    }
-    
-    if (preg_match('#^/admin/projets/view/(\d+)$#', $uri, $matches)) {
-        echo "Vue détaillée du projet #" . $matches[1];
-        exit;
-    }
-    
-    // ===== ÉQUIPEMENTS =====
-    if ($uri === '/admin/equipements') {
-        $adminController->equipements();
-        exit;
+        
+        // Tableau de bord
+        if ($uri === '/admin/equipements/equipements/dashboard') {
+            $equipementsController->dashboard();
+            exit;
+        }
+        
+        // Historique global
+        if ($uri === '/admin/equipements/equipements/historique') {
+            $equipementsController->historique();
+            exit;
+        }
+        
+        // Historique d'un équipement spécifique
+        if (preg_match('#^/admin/equipements/equipements/historique/(\d+)$#', $uri, $matches)) {
+            $equipementsController->historique($matches[1]);
+            exit;
+        }
+        
+        // Rapport d'utilisation
+        if ($uri === '/admin/equipements/equipements/rapport') {
+            $equipementsController->rapport();
+            exit;
+        }
+        
+        // Formulaire (AJAX)
+        if (preg_match('#^/admin/equipements/equipements/form(/(\d+))?$#', $uri, $matches)) {
+            $id = $matches[2] ?? null;
+            $equipementsController->form($id);
+            exit;
+        }
+        
+        // Sauvegarder
+        if ($uri === '/admin/equipements/equipements/save' && $method === 'POST') {
+            $equipementsController->save();
+            exit;
+        }
+        
+        // Vue détaillée
+        if (preg_match('#^/admin/equipements/equipements/view/(\d+)$#', $uri, $matches)) {
+            $equipementsController->view($matches[1]);
+            exit;
+        }
+        
+        // Liste
+        if ($uri === '/admin/equipements' || $uri === '/admin/equipements/equipements') {
+            $equipementsController->index();
+            exit;
+        }
     }
     
     // ===== ÉVÉNEMENTS =====
-    if ($uri === '/admin/evenements') {
-        $adminController->evenements();
-        exit;
-    }
-    
-    if (preg_match('#^/admin/evenements/view/(\d+)$#', $uri, $matches)) {
-        echo "Vue détaillée de l'événement #" . $matches[1];
-        exit;
+    if (strpos($uri, '/admin/evenements') === 0) {
+        require_once __DIR__ . '/controllers/admin/EvenementsController.php';
+        $evenementsController = new EvenementsController();
+        
+        // Export
+        if ($uri === '/admin/evenements/evenements' && isset($_GET['export'])) {
+            $evenementsController->export();
+            exit;
+        }
+        
+        // Formulaire (AJAX)
+        if (preg_match('#^/admin/evenements/evenements/form(/(\d+))?$#', $uri, $matches)) {
+            $id = $matches[2] ?? null;
+            $evenementsController->form($id);
+            exit;
+        }
+        
+        // Sauvegarder
+        if ($uri === '/admin/evenements/evenements/save' && $method === 'POST') {
+            $evenementsController->save();
+            exit;
+        }
+        
+        // Vue détaillée
+        if (preg_match('#^/admin/evenements/evenements/view/(\d+)$#', $uri, $matches)) {
+            $evenementsController->view($matches[1]);
+            exit;
+        }
+        
+        // Liste
+        if ($uri === '/admin/evenements' || $uri === '/admin/evenements/evenements') {
+            $evenementsController->index();
+            exit;
+        }
     }
     
     // ===== PARAMÈTRES =====
-    if ($uri === '/admin/parametres') {
-        $adminController->parametres();
-        exit;
-    }
-    
-    if ($uri === '/admin/parametres/save-general' && $method === 'POST') {
-        $_SESSION['success'] = 'Paramètres généraux enregistrés';
-        redirect(base_url('admin/parametres'));
-        exit;
+    if (strpos($uri, '/admin/parametres') === 0) {
+        require_once __DIR__ . '/controllers/admin/ParametresController.php';
+        $parametresController = new ParametresController();
+        
+        // Télécharger un backup (plus spécifique d'abord)
+        if (preg_match('#^/admin/parametres/download-backup/(.+)$#', $uri, $matches)) {
+            $parametresController->downloadBackup($matches[1]);
+            exit;
+        }
+        
+        // Backup database
+        if ($uri === '/admin/parametres/backup-database' && $method === 'POST') {
+            $parametresController->backupDatabase();
+            exit;
+        }
+        
+        // Restore database
+        if ($uri === '/admin/parametres/restore-database' && $method === 'POST') {
+            $parametresController->restoreDatabase();
+            exit;
+        }
+        
+        // Clear cache
+        if ($uri === '/admin/parametres/clear-cache' && $method === 'POST') {
+            $parametresController->clearCache();
+            exit;
+        }
+        
+        // Save maintenance
+        if ($uri === '/admin/parametres/save-maintenance' && $method === 'POST') {
+            $parametresController->saveMaintenance();
+            exit;
+        }
+        
+        // Sauvegarder paramètres généraux
+        if ($uri === '/admin/parametres/save-general' && $method === 'POST') {
+            $parametresController->saveGeneral();
+            exit;
+        }
+        
+        // Sauvegarder réseaux sociaux
+        if ($uri === '/admin/parametres/save-social' && $method === 'POST') {
+            $parametresController->saveSocial();
+            exit;
+        }
+        
+        // Sauvegarder thème
+        if ($uri === '/admin/parametres/save-theme' && $method === 'POST') {
+            $parametresController->saveTheme();
+            exit;
+        }
+        
+        // Page principale des paramètres
+        if ($uri === '/admin/parametres') {
+            $parametresController->index();
+            exit;
+        }
     }
 }
 
