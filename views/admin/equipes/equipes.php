@@ -136,4 +136,4 @@ ViewComponents::renderHeader([
     'content' => '<div id="modal-form-container"></div>'
 ]); ?>
 
-<?php ViewComponents::renderFooter(); ?>
+<?php ViewComponents::renderFooter(['role' => 'admin']); ?>

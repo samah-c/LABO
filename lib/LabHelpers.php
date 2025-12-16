@@ -416,5 +416,23 @@ class LabHelpers {
         $encoded = urlencode($data);
         return "https://api.qrserver.com/v1/create-qr-code/?size={$size}x{$size}&data={$encoded}";
     }
+
+    public static function getStatusBadge($status) {
+        $badges = [
+            'en_cours' => '<span class="badge badge-success">En cours</span>',
+            'terminé' => '<span class="badge badge-secondary">Terminé</span>',
+            'termine' => '<span class="badge badge-secondary">Terminé</span>',
+            'soumis' => '<span class="badge badge-warning">Soumis</span>',
+            'approuvé' => '<span class="badge badge-info">Approuvé</span>',
+            'rejeté' => '<span class="badge badge-danger">Rejeté</span>',
+            'en_attente' => '<span class="badge badge-warning">En attente</span>',
+            'validé' => '<span class="badge badge-success">Validé</span>',
+            'confirmée' => '<span class="badge badge-success">Confirmée</span>',
+            'annulée' => '<span class="badge badge-danger">Annulée</span>'
+        ];
+        
+        return $badges[$status] ?? '<span class="badge badge-gray">' . htmlspecialchars($status) . '</span>';
+    }
 }
+
 ?>

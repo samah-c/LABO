@@ -1,40 +1,177 @@
 <?php
 require_once __DIR__ . '/Model.php';
-// ========================================
-// ActualiteModel.php
-// ========================================
+
 class ActualiteModel extends Model {
-    
+
+    /* ==============================
+       ACTUALITÉS SCIENTIFIQUES
+    ============================== */
+
     public function getAllScientifiques($limit = null) {
         $sql = "
-            SELECT a.*, u.username as auteur_nom
-            FROM Actualite_Scientifique a
-            LEFT JOIN Membre m ON a.auteur_id = m.id
-            LEFT JOIN User u ON m.user_id = u.id
+            SELECT 
+                a.id,
+                a.titre,
+                a.contenu AS description,
+                a.image,
+                a.date_publication,
+                'scientifique' AS source,
+                u.username AS auteur_nom
+            FROM actualite_scientifique a
+            LEFT JOIN membre m ON a.auteur_id = m.id
+            LEFT JOIN user u ON m.user_id = u.id
             ORDER BY a.date_publication DESC
         ";
-        if ($limit) $sql .= " LIMIT $limit";
+        if ($limit) $sql .= " LIMIT " . intval($limit);
         return $this->db->query($sql)->fetchAll();
     }
-    
-    public function getAllLaboratoire($limit = null) {
-        $sql = "SELECT * FROM Actualite_Laboratoire ORDER BY date_publication DESC";
-        if ($limit) $sql .= " LIMIT $limit";
-        return $this->db->query($sql)->fetchAll();
-    }
-    
-    //Fusionne actualités scientifiques + labo (pour carrousel accueil)
-    public function getDiaporama($limit = 5) {
-        $stmt = $this->db->query("
-            (SELECT 'scientifique' as source, id, titre, 
-                    LEFT(contenu, 200) as description, image, date_publication
-             FROM Actualite_Scientifique ORDER BY date_publication DESC LIMIT $limit)
-            UNION ALL
-            (SELECT 'laboratoire' as source, id, titre, 
-                    LEFT(descriptif, 200) as description, image, date_publication
-             FROM Actualite_Laboratoire ORDER BY date_publication DESC LIMIT $limit)
-            ORDER BY date_publication DESC LIMIT $limit
+
+    public function createScientifique($data) {
+        $stmt = $this->db->prepare("
+            INSERT INTO actualite_scientifique 
+            (type_actualite, titre, contenu, image, auteur_id)
+            VALUES (?, ?, ?, ?, ?)
         ");
+        return $stmt->execute([
+            $data['type_actualite'],
+            $data['titre'],
+            $data['contenu'],
+            $data['image'] ?? null,
+            $data['auteur_id'] ?? null
+        ]);
+    }
+
+    /* ==============================
+       ACTUALITÉS LABORATOIRE
+    ============================== */
+
+    public function getAllLaboratoire($limit = null) {
+        $sql = "
+            SELECT 
+                id,
+                titre,
+                descriptif AS description,
+                image,
+                date_publication,
+                'laboratoire' AS source
+            FROM actualite_laboratoire
+            ORDER BY date_publication DESC
+        ";
+        if ($limit) $sql .= " LIMIT " . intval($limit);
+        return $this->db->query($sql)->fetchAll();
+    }
+
+    public function createLaboratoire($data) {
+        $stmt = $this->db->prepare("
+            INSERT INTO actualite_laboratoire
+            (type_actualite, titre, descriptif, image, lien_detail)
+            VALUES (?, ?, ?, ?, ?)
+        ");
+        return $stmt->execute([
+            $data['type_actualite'],
+            $data['titre'],
+            $data['descriptif'],
+            $data['image'] ?? null,
+            $data['lien_detail'] ?? null
+        ]);
+    }
+
+    /* ==============================
+       FUSION DES DEUX TABLES
+    ============================== */
+
+    public function getRecent($limit = 10) {
+        $stmt = $this->db->prepare("
+            SELECT *
+            FROM (
+                SELECT 
+                    id,
+                    titre,
+                    contenu AS description,
+                    image,
+                    date_publication,
+                    'scientifique' AS source
+                FROM actualite_scientifique
+
+                UNION ALL
+
+                SELECT 
+                    id,
+                    titre,
+                    descriptif AS description,
+                    image,
+                    date_publication,
+                    'laboratoire' AS source
+                FROM actualite_laboratoire
+            ) AS actualites
+            ORDER BY date_publication DESC
+            LIMIT ?
+        ");
+        $stmt->execute([intval($limit)]);
+        return $stmt->fetchAll();
+    }
+
+ 
+    public function getAll() {
+        return $this->db->query("
+            SELECT *
+            FROM (
+                SELECT 
+                    id,
+                    titre,
+                    contenu AS description,
+                    image,
+                    date_publication,
+                    'scientifique' AS source
+                FROM actualite_scientifique
+
+                UNION ALL
+
+                SELECT 
+                    id,
+                    titre,
+                    descriptif AS description,
+                    image,
+                    date_publication,
+                    'laboratoire' AS source
+                FROM actualite_laboratoire
+            ) AS actualites
+            ORDER BY date_publication DESC
+        ")->fetchAll();
+    }
+
+    /* ==============================
+       DIAPORAMA (ACCUEIL)
+    ============================== */
+
+    public function getDiaporama($limit = 5) {
+        $stmt = $this->db->prepare("
+            SELECT *
+            FROM (
+                SELECT 
+                    id,
+                    titre,
+                    LEFT(contenu, 200) AS description,
+                    image,
+                    date_publication,
+                    'scientifique' AS source
+                FROM actualite_scientifique
+
+                UNION ALL
+
+                SELECT 
+                    id,
+                    titre,
+                    LEFT(descriptif, 200) AS description,
+                    image,
+                    date_publication,
+                    'laboratoire' AS source
+                FROM actualite_laboratoire
+            ) AS actualites
+            ORDER BY date_publication DESC
+            LIMIT ?
+        ");
+        $stmt->execute([intval($limit)]);
         return $stmt->fetchAll();
     }
 }

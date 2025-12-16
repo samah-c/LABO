@@ -40,4 +40,31 @@ class EvenementModel extends Model {
         $stmt->execute([$type]);
         return $stmt->fetchAll();
     }
+
+    public function countUpcoming() {
+    $stmt = $this->db->prepare("
+        SELECT COUNT(*) as total
+        FROM Evenement
+        WHERE date_evenement >= CURDATE()
+    ");
+    $stmt->execute();
+    return $stmt->fetch()['total'];
+}
+
+/**
+ * Récupérer les événements récents
+ */
+public function getRecent($limit = 5) {
+    $stmt = $this->db->prepare("
+        SELECT e.*, u.username AS organisateur_nom
+        FROM Evenement e
+        LEFT JOIN Membre m ON e.organisateur_id = m.id
+        LEFT JOIN User u ON m.user_id = u.id
+        ORDER BY e.date_evenement DESC
+        LIMIT ?
+    ");
+    $stmt->execute([intval($limit)]);
+    return $stmt->fetchAll();
+}
+
 }

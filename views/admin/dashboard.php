@@ -38,7 +38,7 @@ class Dashboard {
         
         echo '</div>';
         
-        ViewComponents::renderFooter(['showAdmin' => false]);
+        ViewComponents::renderFooter(['role' => 'admin']);
     }
     
     private function renderWelcomeBanner() {

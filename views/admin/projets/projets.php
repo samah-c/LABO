@@ -540,4 +540,4 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 </style>
 
-<?php ViewComponents::renderFooter(); ?>
+<?php ViewComponents::renderFooter(['role' => 'admin']); ?>

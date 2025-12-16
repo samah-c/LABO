@@ -1,6 +1,14 @@
+
+
 <?php
 require_once __DIR__ . '/controllers/auth/AuthController.php';
 require_once __DIR__ . '/lib/helpers.php';
+
+
+// Désactiver le cache pour le développement
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -43,7 +51,8 @@ file_put_contents($logFile, date('Y-m-d H:i:s') . " - Processed URI: $uri - Meth
 // ROUTES D'AUTHENTIFICATION
 // ============================================================
 
-if ($uri === '/login' || $uri === '/' || $uri === '') {
+// Page de login uniquement sur /login
+if ($uri === '/login') {
     $authController = new AuthController();
     $authController->showLogin();
     exit;
@@ -674,15 +683,161 @@ if (strpos($uri, '/admin') === 0) {
 if (strpos($uri, '/membre') === 0) {
     AuthController::requireMembre();
     
+    require_once __DIR__ . '/controllers/member/MembreController.php';
+    $membreController = new MembreController();
+    
+    // ===== DASHBOARD =====
     if ($uri === '/membre' || $uri === '/membre/dashboard') {
-        echo "Dashboard Membre - À implémenter";
+        $membreController->dashboard();
         exit;
     }
     
+    // ===== PROFIL =====
     if ($uri === '/membre/profil') {
-        echo "Profil Membre - À implémenter";
+        $membreController->profil();
         exit;
     }
+    
+    if ($uri === '/membre/profil/update' && $method === 'POST') {
+        $membreController->updateProfil();
+        exit;
+    }
+    
+    // ===== PROJETS =====
+    if ($uri === '/membre/projets') {
+        $membreController->projets();
+        exit;
+    }
+    
+    if (preg_match('#^/membre/projets/(\d+)$#', $uri, $matches)) {
+        $membreController->projetDetail($matches[1]);
+        exit;
+    }
+    
+    // ===== PUBLICATIONS =====
+    if ($uri === '/membre/publications') {
+        $membreController->publications();
+        exit;
+    }
+    
+    if ($uri === '/membre/publications/nouveau' && $method === 'POST') {
+        $membreController->soumettrePublication();
+        exit;
+    }
+    
+    // ===== RÉSERVATIONS =====
+    if ($uri === '/membre/reservations') {
+        $membreController->reservations();
+        exit;
+    }
+    
+    if ($uri === '/membre/reservations/creer' && $method === 'POST') {
+        $membreController->creerReservation();
+        exit;
+    }
+    
+    if (preg_match('#^/membre/reservations/annuler/(\d+)$#', $uri, $matches) && $method === 'POST') {
+        $membreController->annulerReservation($matches[1]);
+        exit;
+    }
+    
+    // ===== ÉVÉNEMENTS =====
+    if ($uri === '/membre/evenements') {
+        $membreController->evenements();
+        exit;
+    }
+}
+
+// ============================================================
+// ROUTES VISITEUR (PUBLIC)
+// ============================================================
+
+// Ces routes ne nécessitent pas d'authentification
+require_once __DIR__ . '/controllers/visitor/VisiteurController.php';
+$visiteurController = new VisiteurController();
+
+// ===== PAGE D'ACCUEIL =====
+if ($uri === '/' || $uri === '' || $uri === '/accueil') {
+    $visiteurController->index();
+    exit;
+}
+
+// ===== À PROPOS =====
+if ($uri === '/apropos') {
+    $visiteurController->apropos();
+    exit;
+}
+
+// ===== PROJETS =====
+if ($uri === '/projets') {
+    $visiteurController->projets();
+    exit;
+}
+
+if (preg_match('#^/projets/(\d+)$#', $uri, $matches)) {
+    $visiteurController->projetDetail($matches[1]);
+    exit;
+}
+
+// ===== PUBLICATIONS =====
+if ($uri === '/publications') {
+    $visiteurController->publications();
+    exit;
+}
+
+if (preg_match('#^/publications/(\d+)$#', $uri, $matches)) {
+    $visiteurController->publicationDetail($matches[1]);
+    exit;
+}
+
+// ===== ÉQUIPES =====
+if ($uri === '/equipes') {
+    $visiteurController->equipes();
+    exit;
+}
+
+if (preg_match('#^/equipes/(\d+)$#', $uri, $matches)) {
+    $visiteurController->equipeDetail($matches[1]);
+    exit;
+}
+
+// ===== MEMBRES =====
+if ($uri === '/membres') {
+    $visiteurController->membres();
+    exit;
+}
+
+if (preg_match('#^/membres/(\d+)$#', $uri, $matches)) {
+    $visiteurController->membreDetail($matches[1]);
+    exit;
+}
+
+// ===== ÉVÉNEMENTS =====
+if ($uri === '/evenements') {
+    $visiteurController->evenements();
+    exit;
+}
+
+if (preg_match('#^/evenements/(\d+)$#', $uri, $matches)) {
+    $visiteurController->evenementDetail($matches[1]);
+    exit;
+}
+
+// ===== ACTUALITÉS =====
+if ($uri === '/actualites') {
+    $visiteurController->actualites();
+    exit;
+}
+
+// ===== CONTACT =====
+if ($uri === '/contact') {
+    $visiteurController->contact();
+    exit;
+}
+
+if ($uri === '/contact/envoyer' && $method === 'POST') {
+    $visiteurController->envoyerContact();
+    exit;
 }
 
 // ============================================================
@@ -773,6 +928,7 @@ http_response_code(404);
         
         <a href="/TDW_project/">Retour à l'accueil</a>
     </div>
+
 </body>
 </html>
 <?php exit; ?>

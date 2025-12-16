@@ -374,4 +374,4 @@ function voirDetails(creneauId) {
 }
 </script>
 
-<?php ViewComponents::renderFooter(); ?>
+<?php ViewComponents::renderFooter(['role' => 'admin']); ?>

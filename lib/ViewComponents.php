@@ -5,9 +5,9 @@
  */
 
 require_once __DIR__ . '/LabHelpers.php';
-
+  
 class ViewComponents {
-    
+
     // ========================================
     // HEADERS ET NAVIGATION
     // ========================================
@@ -15,13 +15,18 @@ class ViewComponents {
     /**
      * Générer un header universel
      */
-   public static function renderHeader($config = []) {
+     public static function renderHeader($config = []) {
     $title = $config['title'] ?? 'Laboratoire TDW';
-    $username = $config['username'] ?? null;
+    $username = $config['username'] ?? session('username');
     $role = $config['role'] ?? 'visiteur';
+    $showLoginButton = $config['showLoginButton'] ?? false;
     $showLogout = $config['showLogout'] ?? true;
     $additionalCss = $config['additionalCss'] ?? [];
     $additionalJs = $config['additionalJs'] ?? [];
+
+
+     $cssVersion = '1.0.5';
+     
     ?>
     <!DOCTYPE html>
     <html lang="fr">
@@ -32,21 +37,15 @@ class ViewComponents {
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <!-- 1. BASE : Variables et reset -->
-        <link rel="stylesheet" href="<?= base_url('assets/css/base.css') ?>">
-
-        <!-- 2. LAYOUT : Structure de la page -->
-       <link rel="stylesheet" href="<?= base_url('assets/css/layout.css') ?>">
-
-       <!-- 3. MODULES : Composants -->
-       <link rel="stylesheet" href="<?= base_url('assets/css/modules.css') ?>">
-
-       <!-- 4. STATE : États -->
-       <link rel="stylesheet" href="<?= base_url('assets/css/state.css') ?>">
-
-       <!-- 5. THEME : Apparence -->
-       <link rel="stylesheet" href="<?= base_url('assets/css/theme.css') ?>">
-        <script src="/TDW_project/assets/js/table-enhancements.js" defer></script>
+        
+        <!-- CSS Architecture SMACSS -->
+        <link rel="stylesheet" href="<?= base_url('assets/css/base.css')  ?>?v=<?= $cssVersion ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/layout.css')  ?>?v=<?= $cssVersion ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/modules.css')  ?>?v=<?= $cssVersion ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/state.css')  ?>?v=<?= $cssVersion ?>">
+        <link rel="stylesheet" href="<?= base_url('assets/css/theme.css')  ?>?v=<?= $cssVersion ?>">
+        
+        <script src="<?= base_url('assets/js/table-enhancements.js') ?>" defer></script>
         
         <!-- CSS additionnels -->
         <?php foreach ($additionalCss as $css): ?>
@@ -67,32 +66,47 @@ class ViewComponents {
         }
         ?>
         
-        <!-- Header après la sidebar -->
+        <!-- Header -->
         <div class="header">
             <div class="header-left">
-                <h1><?= htmlspecialchars($title) ?></h1>
-            </div>
-            
-            <?php if ($username): ?>
-            <div class="user-info">
-                <span class="user-greeting">
-                    Bonjour, <strong><?= htmlspecialchars($username) ?></strong>
-                    <?= LabHelpers::getGradeBadge($role) ?>
-                </span>
-                
-                <?php if ($showLogout): ?>
-                    <a href="/TDW_project/logout" class="logout-btn">Déconnexion</a>
-                <?php endif; ?>
-            </div>
-            <?php endif; ?>
+    <!-- Logo (pour tous les rôles) -->
+    <img src="<?= base_url('assets/images/logo/laboratory.png') ?>" alt="Logo Laboratoire" class="header-logo">
+    <h1><?= htmlspecialchars($title) ?></h1>
+</div>
+<div class="user-info">
+   <?php if ($role === 'visiteur'): ?>
+    <!-- Liens réseaux sociaux pour visiteurs -->
+    <div class="header-social-links">
+        <a href="https://facebook.com" target="_blank" title="Facebook">
+            <img src="<?= base_url('assets/images/icons/facebook.png') ?>" alt="Facebook" width="20" height="20">
+        </a>
+        <a href="https://twitter.com" target="_blank" title="Twitter">
+            <img src="<?= base_url('assets/images/icons/twitter.png') ?>" alt="Twitter" width="20" height="20">
+        </a>
+        <a href="https://linkedin.com" target="_blank" title="LinkedIn">
+            <img src="<?= base_url('assets/images/icons/linkedin.png') ?>" alt="LinkedIn" width="20" height="20">
+        </a>
+        <a href="https://www.esi.dz" target="_blank" title="Site de l'esi">
+            <img src="<?= base_url('assets/images/icons/esi.png') ?>" alt="ESI" width="20" height="20">
+        </a>
+    </div>
+   <?php endif; ?>
+   
+   <?php if ($showLoginButton): ?>
+       <!-- Bouton de connexion pour visiteurs -->
+       <a href="<?= base_url('/login') ?>" class="btn-login-header">
+           Connexion
+       </a>
+   <?php endif; ?>
+  </div>
+  <?php if ($username && $showLogout): ?>
+        <!-- Info utilisateur et déconnexion pour membres/admin -->
+        <span class="user-greeting">
+            Bonjour, <strong><?= htmlspecialchars($username) ?></strong>
+        </span>
+        <a href="<?= base_url('logout') ?>" class="logout-btn">Déconnexion</a>
+    <?php endif; ?>
         </div>
-        
-        <?php 
-        // Navigation horizontale pour visiteur
-        if ($role === 'visiteur') {
-            self::renderNavigation($role);
-        }
-        ?>
     <?php
 }
 
@@ -174,48 +188,56 @@ public static function renderNavigation($role = 'visiteur') {
     }
     
     /**
-     * Footer universel
-     */
-    public static function renderFooter($config = []) {
-        $year = date('Y');
-        $showAdmin = $config['showAdmin'] ?? false;
-        ?>
-            <footer class="main-footer">
-                <div class="footer-content">
-                    <div class="footer-section">
-                        <h4>Laboratoire TDW</h4>
-                        <p>École Supérieure d'Informatique (ESI)</p>
-                        <p>Alger, Algérie</p>
-                    </div>
-                    
-                    <div class="footer-section">
-                        <h4>Liens rapides</h4>
-                        <ul>
-                            <li><a href="<?= base_url('admin/projets/projets') ?>">Projets</a></li>
-                            <li><a href="<?= base_url('admin/publications/publications') ?>">Publications</a></li>
-                            <li><a href="<?= base_url('admin/equipes/equipes') ?>">Équipes</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-section">
-                        <h4>Contact</h4>
-                        <p>📧 contact@lab-tdw.dz</p>
-                        <p>📞 +213 (0)21 XX XX XX</p>
-                    </div>
+ * Footer universel
+ */
+public static function renderFooter($config = []) {
+    $year = date('Y');
+    $showAdmin = $config['showAdmin'] ?? false;
+    $role = $config['role'] ?? 'visiteur'; // AJOUTEZ CETTE LIGNE
+    ?>
+        <footer class="main-footer <?= $role === 'visiteur' ? 'footer-full-width' : '' ?>">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Laboratoire TDW</h4>
+                    <p>École Supérieure d'Informatique (ESI)</p>
+                    <p>Alger, Algérie</p>
                 </div>
                 
-                <div class="footer-bottom">
-                    <p>&copy; <?= $year ?> Laboratoire TDW - Tous droits réservés</p>
-                    <?php if ($showAdmin): ?>
-                        <a href="<?= base_url('admin/dashboard') ?>">Administration</a>
-                    <?php endif; ?>
+                <div class="footer-section">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="<?= base_url('projets') ?>">Projets</a></li>
+                        <li><a href="<?= base_url('publications') ?>">Publications</a></li>
+                        <li><a href="<?= base_url('equipes') ?>">Équipes</a></li>
+                    </ul>
                 </div>
-            </footer>
-        </body>
-        </html>
-        <?php
-    }
-    
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📧 contact@lab-tdw.dz</p>
+                    <p>📞 +213 (0)21 XX XX XX</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <?= $year ?> Laboratoire TDW - Tous droits réservés</p>
+                <?php if ($showAdmin): ?>
+                    <a href="<?= base_url('admin/dashboard') ?>">Administration</a>
+                <?php endif; ?>
+            </div>
+        </footer>
+        
+        <style>
+            /* Footer pour visiteurs - pleine largeur */
+            .footer-full-width {
+                margin-left: 0 !important;
+                width: 100% !important;
+            }
+        </style>
+    </body>
+    </html>
+    <?php
+}
     // ========================================
     // TABLES DYNAMIQUES
     // ========================================

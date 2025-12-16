@@ -24,50 +24,86 @@ class Login {
     /**
      * Générer l'en-tête HTML
      */
-   /**
- * Méthode renderHead() mise à jour avec JavaScript et CSS
- * Remplace la méthode existante dans views/components/Login.php
- */
-
-public function renderHead() {
-    ?>
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Connexion - <?php echo htmlspecialchars($this->title); ?></title>
-        
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        
-        <!-- CSS -->
-        <link rel="stylesheet" href="<?= base_url('assets/css/base.css') ?>">
-        <link rel="stylesheet" href="<?= base_url('assets/css/layout.css') ?>">
-        <link rel="stylesheet" href="<?= base_url('assets/css/modules.css') ?>">
-        <link rel="stylesheet" href="<?= base_url('assets/css/state.css') ?>">
-        <link rel="stylesheet" href="<?= base_url('assets/css/theme.css') ?>">
-        <script src="/TDW_project/assets/js/ajax-login.js" defer></script>
-        <style>
-            /* Styles inline pour compatibilité immédiate */
-            .form-group { position: relative; }
-            .field-error { 
-                color: #e74c3c; 
-                font-size: 0.85em; 
-                margin-top: 5px; 
-                display: none; 
-            }
-            .has-error input { border-color: #e74c3c; }
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-10px); }
-                75% { transform: translateX(10px); }
-            }
-            .shake { animation: shake 0.5s; }
-        </style>
-    </head>
-    <?php
-}
+    public function renderHead() {
+        ?>
+        <!DOCTYPE html>
+        <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Connexion - <?php echo htmlspecialchars($this->title); ?></title>
+            
+            <!-- Fonts -->
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+            
+            <!-- CSS -->
+            <link rel="stylesheet" href="<?= base_url('assets/css/base.css') ?>">
+            <link rel="stylesheet" href="<?= base_url('assets/css/layout.css') ?>">
+            <link rel="stylesheet" href="<?= base_url('assets/css/modules.css') ?>">
+            <link rel="stylesheet" href="<?= base_url('assets/css/state.css') ?>">
+            <link rel="stylesheet" href="<?= base_url('assets/css/theme.css') ?>">
+            <script src="/TDW_project/assets/js/ajax-login.js" defer></script>
+            <style>
+                /* Styles inline pour compatibilité immédiate */
+                .form-group { position: relative; }
+                .field-error { 
+                    color: #e74c3c; 
+                    font-size: 0.85em; 
+                    margin-top: 5px; 
+                    display: none; 
+                }
+                .has-error input { border-color: #e74c3c; }
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-10px); }
+                    75% { transform: translateX(10px); }
+                }
+                .shake { animation: shake 0.5s; }
+                
+                /* Styles pour le lien retour */
+                .back-to-home {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    color: var(--gray-600, #6b7280);
+                    text-decoration: none;
+                    font-size: 14px;
+                    font-weight: 500;
+                    border-radius: 8px;
+                    transition: all 0.3s ease;
+                    border: 1px solid var(--border-color, #e5e7eb);
+                    background: white;
+                }
+                
+                .back-to-home:hover {
+                    color: var(--primary, #5b7fff);
+                    border-color: var(--primary, #5b7fff);
+                    background: var(--gray-50, #f9fafb);
+                    transform: translateX(-4px);
+                }
+                
+                .back-to-home svg {
+                    width: 16px;
+                    height: 16px;
+                    transition: transform 0.3s ease;
+                }
+                
+                .back-to-home:hover svg {
+                    transform: translateX(-2px);
+                }
+                
+                .login-footer {
+                    margin-top: 24px;
+                    text-align: center;
+                    padding-top: 20px;
+                    border-top: 1px solid var(--border-color, #e5e7eb);
+                }
+            </style>
+        </head>
+        <?php
+    }
     
     /**
      * Générer le logo/titre
@@ -128,11 +164,8 @@ public function renderHead() {
             $this->renderAlert($_SESSION['info'], 'info');
             unset($_SESSION['info']);
         }
-        
-        
     }
     
-
     /**
      * Générer un champ de formulaire
      */
@@ -176,6 +209,21 @@ public function renderHead() {
         <?php
     }
     
+    /**
+     * Générer le lien de retour vers la page d'accueil
+     */
+    public function renderBackLink() {
+        ?>
+        <div class="login-footer">
+            <a href="<?php echo htmlspecialchars($this->backLink); ?>" class="back-to-home">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Retour à l'accueil
+            </a>
+        </div>
+        <?php
+    }
     
     /**
      * Générer le formulaire complet de connexion
@@ -185,6 +233,7 @@ public function renderHead() {
         $showPassword = $options['showPassword'] ?? true;
         $showEmail = $options['showEmail'] ?? false;
         $submitText = $options['submitText'] ?? 'Se connecter';
+        $showBackLink = $options['showBackLink'] ?? true;
         $credentials = $options['credentials'] ?? [];
         ?>
         <form action="<?php echo htmlspecialchars($this->action); ?>" method="<?php echo htmlspecialchars($this->method); ?>">
@@ -221,10 +270,13 @@ public function renderHead() {
             }
             
             $this->renderSubmitButton($submitText);
+            
+            if ($showBackLink) {
+                $this->renderBackLink();
+            }
             ?>
         </form>
         <?php
-        
     }
     
     /**

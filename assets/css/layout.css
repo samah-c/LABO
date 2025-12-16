@@ -49,17 +49,32 @@
     margin-left: 0px;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .header-left h1 {
     font-size: 20px;
     font-weight: 600;
     color: var(--gray-900);
     letter-spacing: -0.3px;
+    margin: 0;
+    line-height: 1;
+}
+
+.header-logo {
+    height: 36px;
+    width: auto;
+    display: block;
 }
 
 .user-info {
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-wrap: nowrap;
 }
 
 .user-greeting {
@@ -327,9 +342,6 @@
         margin-left: 0 !important;
     }
     
-    .header-left h1 {
-        font-size: 18px;
-    }
     
     .user-info {
         flex-direction: column;
@@ -406,4 +418,161 @@
     .hamburger-menu {
         display: none;
     }
+
+ /* Bouton de connexion dans le header */
+.btn-login-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow-xs);
+    cursor: pointer;
+}
+
+.btn-login-header:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+    color: white;
+}
+
+.btn-login-header:active {
+    transform: translateY(0);
+}
+
+/* Header pour visiteurs */
+.visiteur-layout .header {
+    margin-left: 0;
+}
+
+.visiteur-layout .container {
+    margin-left: 0;
+}
+
+/* ========================================
+   BOUTON DE CONNEXION DANS LE HEADER
+   ======================================== */
+
+.btn-login-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow-xs);
+    cursor: pointer;
+}
+
+.btn-login-header:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+    color: white;
+}
+
+.btn-login-header:active {
+    transform: translateY(0);
+}
+
+/* Header spécifique pour visiteurs */
+.visiteur-layout .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: 0 !important;
+    z-index: 100;
+}
+
+.visiteur-layout .container {
+    margin-left: 0 !important;
+}
+
+
+/* Liens réseaux sociaux dans le header (visiteurs uniquement) */
+.header-social-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-right: 24px;
+}
+
+.header-social-links a {
+    display: inline-flex;
+    line-height: 0;
+    transition: var(--transition);
+    opacity: 0.8;
+}
+
+.header-social-links a:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.header-social-links a img {
+    max-width: 20px;
+    max-height: 20px;
+    display: block;
+}
+
+/* Bouton de connexion spécifique pour visiteurs */
+.visiteur-layout .btn-login-header {
+    color: white !important;
+}
+
+.visiteur-layout .btn-login-header:hover {
+    background: var(--primary-dark);
+    color: white !important;
+}
+} /* ← C'EST CE CURLY BRACKET QUI POSAIT PROBLÈME - il fermait le @media trop tôt */
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 24px;
+    }
+    
+    .header-social-links {
+        gap: 10px;
+        margin-right: 20px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* ... le reste de votre code mobile existant ... */
+    
+    /* Ajustement pour les réseaux sociaux sur mobile */
+    .header-social-links {
+        gap: 8px;
+        margin-right: 16px;
+    }
+    
+    .header-social-links a img {
+        max-width: 18px;
+        max-height: 18px;
+    }
+
+    
 }

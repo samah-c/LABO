@@ -98,7 +98,6 @@ class EquipementModel extends Model {
             $params['search'] = '%' . $filters['search'] . '%';
         }
 
-        // Tri par défaut
         $sql .= " ORDER BY e.nom";
 
         $stmt = $this->db->prepare($sql);
@@ -240,7 +239,7 @@ class EquipementModel extends Model {
     }
     
     /**
-     * Récupérer les équipes disponibles (pour les filtres)
+     * Récupérer les équipes disponibles
      */
     public function getEquipes() {
         $stmt = $this->db->query("
@@ -259,19 +258,15 @@ class EquipementModel extends Model {
     public function getStats() {
         $stats = [];
         
-        // Nombre total d'équipements
         $stmt = $this->db->query("SELECT COUNT(*) as total FROM Equipement");
         $stats['total'] = $stmt->fetch()['total'];
         
-        // Nombre par type
         $stmt = $this->db->query("SELECT type_equipement, COUNT(*) as count FROM Equipement GROUP BY type_equipement");
         $stats['par_type'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Nombre par état
         $stmt = $this->db->query("SELECT etat, COUNT(*) as count FROM Equipement GROUP BY etat");
         $stats['par_etat'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Nombre par équipe
         $stmt = $this->db->query("
             SELECT eq.nom, COUNT(e.id) as count 
             FROM Equipement e
@@ -280,7 +275,6 @@ class EquipementModel extends Model {
         ");
         $stats['par_equipe'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Nombre par localisation
         $stmt = $this->db->query("SELECT localisation, COUNT(*) as count FROM Equipement WHERE localisation IS NOT NULL GROUP BY localisation");
         $stats['par_localisation'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
@@ -304,7 +298,7 @@ class EquipementModel extends Model {
     }
     
     /**
-     * Récupérer un équipement avec toutes ses informations - CORRIGÉ
+     * Récupérer un équipement avec toutes ses informations
      */
     public function getWithDetails($equipementId) {
         $stmt = $this->db->prepare("
@@ -334,6 +328,109 @@ class EquipementModel extends Model {
         ");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Compter les réservations d'un membre
+     */
+    public function countReservationsByMembre($membreId) {
+        $stmt = $this->db->prepare("
+            SELECT COUNT(*) as total
+            FROM Creneau
+            WHERE membre_id = ? AND statut IN ('confirme', 'en_attente')
+        ");
+        $stmt->execute([$membreId]);
+        return $stmt->fetch()['total'];
+    }
+
+    /**
+     * Récupérer les réservations d'un membre
+     */
+    public function getReservationsByMembre($membreId) {
+        $stmt = $this->db->prepare("
+            SELECT c.*, e.nom as equipement_nom, e.type_equipement
+            FROM Creneau c
+            JOIN Equipement e ON c.equipement_id = e.id
+            WHERE c.membre_id = ?
+            ORDER BY c.date_debut DESC
+        ");
+        $stmt->execute([$membreId]);
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Récupérer une réservation par ID
+     */
+    public function getReservationById($id) {
+        $stmt = $this->db->prepare("
+            SELECT c.*, e.nom as equipement_nom
+            FROM Creneau c
+            JOIN Equipement e ON c.equipement_id = e.id
+            WHERE c.id = ?
+        ");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    /**
+     * Vérifier la disponibilité (alias)
+     */
+    public function isAvailable($equipementId, $dateDebut, $dateFin) {
+        return $this->checkDisponibilite($equipementId, $dateDebut, $dateFin);
+    }
+
+    /**
+     * Créer une réservation
+     */
+    public function createReservation($data) {
+        $stmt = $this->db->prepare("
+            INSERT INTO Creneau 
+            (equipement_id, membre_id, date_debut, date_fin, motif, statut)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ");
+        
+        return $stmt->execute([
+            $data['equipement_id'],
+            $data['membre_id'],
+            $data['date_debut'],
+            $data['date_fin'],
+            $data['motif'] ?? null,
+            $data['statut'] ?? 'en_attente'
+        ]);
+    }
+
+    /**
+     * Mettre à jour une réservation
+     */
+    public function updateReservation($id, $data) {
+        $fields = [];
+        $values = [];
+        
+        foreach ($data as $key => $value) {
+            $fields[] = "$key = ?";
+            $values[] = $value;
+        }
+        
+        $values[] = $id;
+        
+        $sql = "UPDATE Creneau SET " . implode(', ', $fields) . " WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        
+        return $stmt->execute($values);
+    }
+
+    /**
+     * Récupérer par statut (etat pour Equipement)
+     */
+    public function getByStatus($status) {
+        $stmt = $this->db->prepare("
+            SELECT *
+            FROM Equipement
+            WHERE etat = ?
+            ORDER BY nom
+        ");
+        $stmt->execute([$status]);
+        return $stmt->fetchAll();
     }
 }
 ?>

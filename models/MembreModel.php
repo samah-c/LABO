@@ -50,10 +50,15 @@ class MembreModel extends Model {
     }
     
     public function getByUserId($userId) {
-        $stmt = $this->db->prepare("SELECT * FROM Membre WHERE user_id = ?");
-        $stmt->execute([$userId]);
-        return $stmt->fetch();
-    }
+    $stmt = $this->db->prepare("
+        SELECT m.*, u.username, u.email 
+        FROM Membre m
+        JOIN User u ON m.user_id = u.id
+        WHERE m.user_id = ?
+    ");
+    $stmt->execute([$userId]);
+    return $stmt->fetch();
+}
     
     /**
      * Récupérer un membre avec ses informations complètes
@@ -69,4 +74,27 @@ class MembreModel extends Model {
         $stmt->execute([$membreId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    /**
+ * Compter le nombre total de membres
+ */
+public function count() {
+    $stmt = $this->db->query("
+        SELECT COUNT(*) AS total
+        FROM Membre
+    ");
+    return $stmt->fetch()['total'];
+}
+
+public function getAllPublic() {
+    $stmt = $this->db->query("
+        SELECT *
+        FROM Projet
+        WHERE status = 'en_cours'
+        ORDER BY date_debut DESC
+    ");
+    return $stmt->fetchAll();
+}
+
+
 }

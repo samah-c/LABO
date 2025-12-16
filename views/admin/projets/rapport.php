@@ -341,4 +341,4 @@ ViewComponents::renderHeader([
 </body>
 </html>
 
-<?php ViewComponents::renderFooter(); ?>
+<?php ViewComponents::renderFooter(['role' => 'admin']); ?>
