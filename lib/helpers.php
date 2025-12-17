@@ -337,4 +337,43 @@ function save_old_input() {
 function clear_old_input() {
     unset($_SESSION['old_input']);
 }
+
+/**
+ * Vérifier si un message flash existe
+ * @param string $key Clé du message
+ * @return bool
+ */
+function has_flash($key) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    return isset($_SESSION['flash'][$key]);
+}
+
+/**
+ * Récupérer tous les messages flash
+ * @return array
+ */
+function get_all_flash() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    $messages = $_SESSION['flash'] ?? [];
+    unset($_SESSION['flash']);
+    
+    return $messages;
+}
+
+/**
+ * Effacer tous les messages flash
+ */
+function clear_flash() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    unset($_SESSION['flash']);
+}
 ?>

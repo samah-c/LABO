@@ -23,7 +23,6 @@ class MembreController {
     private $membre;
     
     public function __construct() {
-        AuthController::requireMembre();
         AuthController::checkSessionTimeout();
         
         $this->membreModel = new MembreModel();
@@ -53,6 +52,7 @@ class MembreController {
      * Dashboard membre
      */
     public function dashboard() {
+        AuthController::requireMembre();
         // Statistiques personnelles
         $stats = [
             'mes_projets' => $this->projetModel->countByMembre($this->membreId),
@@ -80,64 +80,12 @@ class MembreController {
         require_once __DIR__ . '/../../views/member/dashboard.php';
     }
     
-    /**
-     * Profil du membre
-     */
-    public function profil() {
-        $membre = $this->membreModel->getById($this->membreId);
-        
-        if (!$membre) {
-            redirect('membre/dashboard');
-        }
-        
-        // Statistiques complètes
-        $stats = [
-            'total_projets' => $this->projetModel->countByMembre($this->membreId),
-            'total_publications' => $this->publicationModel->countByMembre($this->membreId),
-            'projets_en_cours' => $this->projetModel->countByMembreAndStatus($this->membreId, 'en_cours'),
-            'publications_validees' => $this->publicationModel->countByMembreAndStatus($this->membreId, 'validé')
-        ];
-        
-        require_once __DIR__ . '/../../views/member/profil.php';
-    }
-    
-    /**
-     * Mettre à jour le profil
-     */
-    public function updateProfil() {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            redirect('membre/profil');
-        }
-        
-        $data = [
-            'nom' => post('nom'),
-            'prenom' => post('prenom'),
-            'email' => post('email'),
-            'specialite' => post('specialite'),
-            'telephone' => post('telephone'),
-            'adresse' => post('adresse')
-        ];
-        
-        // Validation
-        if (empty($data['nom']) || empty($data['prenom']) || empty($data['email'])) {
-            flash('error', 'Veuillez remplir tous les champs obligatoires');
-            redirect('membre/profil');
-        }
-        
-        // Mise à jour
-        if ($this->membreModel->update($this->membreId, $data)) {
-            flash('success', 'Profil mis à jour avec succès');
-        } else {
-            flash('error', 'Erreur lors de la mise à jour du profil');
-        }
-        
-        redirect('membre/profil');
-    }
-    
+
     /**
      * Mes projets
      */
     public function projets() {
+        AuthController::requireMembre();
         // Filtres
         $filters = [
             'statut' => get('statut'),
@@ -173,6 +121,7 @@ class MembreController {
      * Détail d'un projet
      */
     public function projetDetail($id) {
+        AuthController::requireMembre();
         $projet = $this->projetModel->getById($id);
         
         if (!$projet) {
@@ -202,6 +151,7 @@ class MembreController {
      * Mes publications
      */
     public function publications() {
+        AuthController::requireMembre();
         // Filtres
         $filters = [
             'statut' => get('statut'),
@@ -244,6 +194,7 @@ class MembreController {
      * Soumettre une nouvelle publication
      */
     public function soumettrePublication() {
+        AuthController::requireMembre();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             redirect('membre/publications');
         }
@@ -281,6 +232,7 @@ class MembreController {
      * Réservations d'équipements
      */
     public function reservations() {
+        AuthController::requireMembre();
         // Récupérer les réservations
         $reservations = $this->equipementModel->getReservationsByMembre($this->membreId);
         
@@ -303,6 +255,7 @@ class MembreController {
      * Créer une réservation
      */
     public function creerReservation() {
+        AuthController::requireMembre();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             redirect('membre/reservations');
         }
@@ -342,6 +295,7 @@ class MembreController {
      * Annuler une réservation
      */
     public function annulerReservation($id) {
+        AuthController::requireMembre();
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             redirect('membre/reservations');
         }
@@ -368,6 +322,7 @@ class MembreController {
      * Événements
      */
     public function evenements() {
+        AuthController::requireMembre();
         // Récupérer tous les événements à venir
         $evenements = $this->evenementModel->getUpcoming();
         
@@ -381,5 +336,237 @@ class MembreController {
         
         require_once __DIR__ . '/../../views/member/evenements.php';
     }
+
+    public function profil() {
+    AuthController::requireMembre();
+    
+    // Récupérer le membre avec toutes ses informations
+    $membre = $this->membreModel->getWithDetails($this->membreId);
+    
+    if (!$membre) {
+        // Si le membre n'existe pas, utiliser les données de base de la session
+        $membre = [
+            'id' => $this->membreId,
+            'nom' => '',
+            'prenom' => '',
+            'poste' => 'enseignant',
+            'grade' => '',
+            'specialite' => '',
+            'telephone' => '',
+            'adresse' => '',
+            'biographie' => '',
+            'photo' => ''
+        ];
+    }
+    
+    // Statistiques complètes
+    $stats = [
+        'total_projets' => $this->projetModel->countByMembre($this->membreId),
+        'total_publications' => $this->publicationModel->countByMembre($this->membreId),
+        'projets_en_cours' => $this->projetModel->countByMembreAndStatus($this->membreId, 'en_cours'),
+        'publications_validees' => $this->publicationModel->countByMembreAndStatus($this->membreId, 'valide')
+    ];
+    
+    require_once __DIR__ . '/../../views/member/profil.php';
+}
+
+/**
+ * Mettre à jour le profil 
+ */
+public function updateProfil() {
+    AuthController::requireMembre();
+    
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ' . base_url('membre/profil'));
+        exit;
+    }
+    
+    try {
+        $data = [
+            'nom' => trim(post('nom', '')),
+            'prenom' => trim(post('prenom', '')),
+            'poste' => post('poste', 'enseignant'),
+            'grade' => post('grade', ''),
+            'specialite' => trim(post('specialite', '')),
+            'telephone' => trim(post('telephone', '')),
+            'adresse' => trim(post('adresse', '')),
+            'biographie' => trim(post('biographie', ''))
+        ];
+        
+        // Validation des champs obligatoires
+        if (empty($data['nom']) || empty($data['prenom'])) {
+            flash('error', 'Le nom et le prénom sont obligatoires');
+            header('Location: ' . base_url('membre/profil'));
+            exit;
+        }
+        
+        // Gestion de la photo
+        if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+            $uploadResult = $this->handlePhotoUpload($_FILES['photo']);
+            
+            if ($uploadResult['success']) {
+                $data['photo'] = $uploadResult['filename'];
+                
+                // Supprimer l'ancienne photo si elle existe
+                $oldMembre = $this->membreModel->getById($this->membreId);
+                if (!empty($oldMembre['photo']) && file_exists(__DIR__ . '/../../uploads/photos/' . $oldMembre['photo'])) {
+                    unlink(__DIR__ . '/../../uploads/photos/' . $oldMembre['photo']);
+                }
+            } else {
+                flash('error', $uploadResult['message']);
+                header('Location: ' . base_url('membre/profil'));
+                exit;
+            }
+        }
+        
+        // Mettre à jour l'email dans la table User
+        $email = trim(post('email', ''));
+        if (!empty($email)) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                flash('error', 'Adresse email invalide');
+                header('Location: ' . base_url('membre/profil'));
+                exit;
+            }
+            
+            // Mettre à jour l'email dans User
+            $userId = session('user_id');
+            $db = Database::getInstance()->getConnection();
+            $stmt = $db->prepare("UPDATE User SET email = ? WHERE id = ?");
+            $stmt->execute([$email, $userId]);
+            
+            // Mettre à jour la session
+            $_SESSION['email'] = $email;
+        }
+        
+        // Mise à jour du membre
+        if ($this->membreModel->update($this->membreId, $data)) {
+            flash('success', 'Profil mis à jour avec succès');
+        } else {
+            flash('error', 'Erreur lors de la mise à jour du profil');
+        }
+        
+    } catch (Exception $e) {
+        error_log("Erreur updateProfil: " . $e->getMessage());
+        flash('error', 'Une erreur est survenue lors de la mise à jour');
+    }
+    
+    header('Location: ' . base_url('membre/profil'));
+    exit;
+}
+
+/**
+ * Changer le mot de passe 
+ */
+public function changePassword() {
+    AuthController::requireMembre();
+    
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ' . base_url('membre/profil'));
+        exit;
+    }
+    
+    try {
+        $currentPassword = post('current_password', '');
+        $newPassword = post('new_password', '');
+        $confirmPassword = post('confirm_password', '');
+        
+        // Validation
+        if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+            flash('error', 'Tous les champs sont obligatoires');
+            header('Location: ' . base_url('membre/profil'));
+            exit;
+        }
+        
+        if (strlen($newPassword) < 6) {
+            flash('error', 'Le mot de passe doit contenir au moins 6 caractères');
+            header('Location: ' . base_url('membre/profil'));
+            exit;
+        }
+        
+        if ($newPassword !== $confirmPassword) {
+            flash('error', 'Les mots de passe ne correspondent pas');
+            header('Location: ' . base_url('membre/profil'));
+            exit;
+        }
+        
+        // Vérifier le mot de passe actuel
+        $userId = session('user_id');
+        $db = Database::getInstance()->getConnection();
+        
+        $stmt = $db->prepare("SELECT password FROM User WHERE id = ?");
+        $stmt->execute([$userId]);
+        $user = $stmt->fetch();
+        
+        if (!$user || !password_verify($currentPassword, $user['password'])) {
+            flash('error', 'Mot de passe actuel incorrect');
+            header('Location: ' . base_url('membre/profil'));
+            exit;
+        }
+        
+        // Mettre à jour le mot de passe
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt = $db->prepare("UPDATE User SET password = ? WHERE id = ?");
+        
+        if ($stmt->execute([$hashedPassword, $userId])) {
+            flash('success', 'Mot de passe modifié avec succès');
+        } else {
+            flash('error', 'Erreur lors de la modification du mot de passe');
+        }
+        
+    } catch (Exception $e) {
+        error_log("Erreur changePassword: " . $e->getMessage());
+        flash('error', 'Une erreur est survenue');
+    }
+    
+    header('Location: ' . base_url('membre/profil'));
+    exit;
+}
+/**
+ * Gérer l'upload de photo
+ */
+private function handlePhotoUpload($file) {
+    // Vérifier le type de fichier
+    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    $fileType = $file['type'];
+    
+    if (!in_array($fileType, $allowedTypes)) {
+        return [
+            'success' => false,
+            'message' => 'Type de fichier non autorisé. Utilisez JPG, PNG ou GIF.'
+        ];
+    }
+    
+    // Vérifier la taille (max 5MB)
+    if ($file['size'] > 5 * 1024 * 1024) {
+        return [
+            'success' => false,
+            'message' => 'Le fichier ne doit pas dépasser 5 MB'
+        ];
+    }
+    
+    // Créer le dossier si nécessaire
+    $uploadDir = __DIR__ . '/../../uploads/photos/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+    
+    // Générer un nom unique
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $filename = 'membre_' . $this->membreId . '_' . time() . '.' . $extension;
+    $filepath = $uploadDir . $filename;
+    
+    // Déplacer le fichier
+    if (move_uploaded_file($file['tmp_name'], $filepath)) {
+        return [
+            'success' => true,
+            'filename' => $filename
+        ];
+    }
+    
+    return [
+        'success' => false,
+        'message' => 'Erreur lors de l\'upload du fichier'
+    ];
+}
 }
 ?>

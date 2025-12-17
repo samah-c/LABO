@@ -71,6 +71,98 @@ if ($uri === '/logout') {
 }
 
 // ============================================================
+// ROUTES VISITEUR (PUBLIC)
+// ============================================================
+
+// Ces routes ne nécessitent pas d'authentification
+require_once __DIR__ . '/controllers/visitor/VisiteurController.php';
+$visiteurController = new VisiteurController();
+
+// ===== PAGE D'ACCUEIL =====
+if ($uri === '/' || $uri === '' || $uri === '/accueil') {
+    $visiteurController->index();
+    exit;
+}
+
+
+// ===== MEMBRES (PUBLIC) =====
+if ($uri === '/membres') {
+    $visiteurController->membres();
+    exit;
+}
+
+if (preg_match('#^/membres/(\d+)$#', $uri, $matches)) {
+    $visiteurController->membreDetail($matches[1]);
+    exit;
+}
+
+// ===== PROJETS =====
+if ($uri === '/projets') {
+    $visiteurController->projets();
+    exit;
+}
+
+if (preg_match('#^/projets/(\d+)$#', $uri, $matches)) {
+    $visiteurController->projetDetail($matches[1]);
+    exit;
+}
+
+// ===== PUBLICATIONS =====
+if ($uri === '/publications') {
+    $visiteurController->publications();
+    exit;
+}
+
+
+if (preg_match('#^/publications/(\d+)$#', $uri, $matches)) {
+    $visiteurController->publicationDetail($matches[1]);
+    exit;
+}
+
+// ===== ÉQUIPEMENTS =====
+if ($uri === '/equipements') {
+    $visiteurController->equipements();
+    exit;
+}
+
+if (preg_match('#^/equipements/(\d+)$#', $uri, $matches)) {
+    $visiteurController->equipementDetail($matches[1]);
+    exit;
+}
+
+// ===== ÉVÉNEMENTS =====
+if ($uri === '/evenements') {
+    $visiteurController->evenements();
+    exit;
+}
+
+if (preg_match('#^/evenements/(\d+)$#', $uri, $matches)) {
+    $visiteurController->evenementDetail($matches[1]);
+    exit;
+}
+
+// ===== ACTUALITÉS =====
+if ($uri === '/actualites') {
+    $visiteurController->actualites();
+    exit;
+}
+
+// ===== CONTACT =====
+if ($uri === '/contact') {
+    $visiteurController->contact();
+    exit;
+}
+
+if ($uri === '/contact/envoyer' && $method === 'POST') {
+    $visiteurController->envoyerContact();
+    exit;
+}
+// ===== ORGANIGRAMME =====
+if ($uri === '/organigramme') {
+    $visiteurController->organigramme();
+    exit;
+}
+// ============================================================
 // ROUTES API - AVANT TOUTES LES ROUTES ADMIN
 // ============================================================
 
@@ -340,6 +432,7 @@ if (strpos($uri, '/api/admin') === 0) {
     echo json_encode(['success' => false, 'error' => 'API endpoint not found', 'uri' => $uri]);
     exit;
 }
+
 
 // ============================================================
 // ROUTES ADMIN
@@ -702,6 +795,11 @@ if (strpos($uri, '/membre') === 0) {
         $membreController->updateProfil();
         exit;
     }
+
+    if ($uri === '/membre/profil/change-password' && $method === 'POST') {
+    $membreController->changePassword();
+    exit;
+}
     
     // ===== PROJETS =====
     if ($uri === '/membre/projets') {
@@ -746,98 +844,6 @@ if (strpos($uri, '/membre') === 0) {
         $membreController->evenements();
         exit;
     }
-}
-
-// ============================================================
-// ROUTES VISITEUR (PUBLIC)
-// ============================================================
-
-// Ces routes ne nécessitent pas d'authentification
-require_once __DIR__ . '/controllers/visitor/VisiteurController.php';
-$visiteurController = new VisiteurController();
-
-// ===== PAGE D'ACCUEIL =====
-if ($uri === '/' || $uri === '' || $uri === '/accueil') {
-    $visiteurController->index();
-    exit;
-}
-
-// ===== À PROPOS =====
-if ($uri === '/apropos') {
-    $visiteurController->apropos();
-    exit;
-}
-
-// ===== PROJETS =====
-if ($uri === '/projets') {
-    $visiteurController->projets();
-    exit;
-}
-
-if (preg_match('#^/projets/(\d+)$#', $uri, $matches)) {
-    $visiteurController->projetDetail($matches[1]);
-    exit;
-}
-
-// ===== PUBLICATIONS =====
-if ($uri === '/publications') {
-    $visiteurController->publications();
-    exit;
-}
-
-if (preg_match('#^/publications/(\d+)$#', $uri, $matches)) {
-    $visiteurController->publicationDetail($matches[1]);
-    exit;
-}
-
-// ===== ÉQUIPES =====
-if ($uri === '/equipes') {
-    $visiteurController->equipes();
-    exit;
-}
-
-if (preg_match('#^/equipes/(\d+)$#', $uri, $matches)) {
-    $visiteurController->equipeDetail($matches[1]);
-    exit;
-}
-
-// ===== MEMBRES =====
-if ($uri === '/membres') {
-    $visiteurController->membres();
-    exit;
-}
-
-if (preg_match('#^/membres/(\d+)$#', $uri, $matches)) {
-    $visiteurController->membreDetail($matches[1]);
-    exit;
-}
-
-// ===== ÉVÉNEMENTS =====
-if ($uri === '/evenements') {
-    $visiteurController->evenements();
-    exit;
-}
-
-if (preg_match('#^/evenements/(\d+)$#', $uri, $matches)) {
-    $visiteurController->evenementDetail($matches[1]);
-    exit;
-}
-
-// ===== ACTUALITÉS =====
-if ($uri === '/actualites') {
-    $visiteurController->actualites();
-    exit;
-}
-
-// ===== CONTACT =====
-if ($uri === '/contact') {
-    $visiteurController->contact();
-    exit;
-}
-
-if ($uri === '/contact/envoyer' && $method === 'POST') {
-    $visiteurController->envoyerContact();
-    exit;
 }
 
 // ============================================================
@@ -913,6 +919,8 @@ http_response_code(404);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
         }
+        
+        
     </style>
 </head>
 <body>

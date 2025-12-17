@@ -23,12 +23,12 @@ $loginComponent = new Login([
 $demoCredentials = [
     [
         'username' => 'admin',
-        'password' => 'admin123',
+        'password' => 'admin',
         'role' => 'Administrateur'
     ],
     [
-        'username' => 'membre',
-        'password' => 'membre123',
+        'username' => 'user',
+        'password' => 'user',
         'role' => 'Membre'
     ]
 ];

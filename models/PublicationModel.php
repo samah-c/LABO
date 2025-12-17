@@ -394,7 +394,7 @@ class PublicationModel extends Model {
             LEFT JOIN Publication_Auteur pa ON p.id = pa.publication_id
             LEFT JOIN Membre m ON pa.membre_id = m.id
             LEFT JOIN User u ON m.user_id = u.id
-            WHERE p.statut_validation = 'en_attente'
+            WHERE p.statut_validation = 'valide'
             GROUP BY p.id
             ORDER BY p.date_publication DESC
         ");

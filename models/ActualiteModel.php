@@ -8,37 +8,53 @@ class ActualiteModel extends Model {
     ============================== */
 
     public function getAllScientifiques($limit = null) {
-        $sql = "
-            SELECT 
-                a.id,
-                a.titre,
-                a.contenu AS description,
-                a.image,
-                a.date_publication,
-                'scientifique' AS source,
-                u.username AS auteur_nom
-            FROM actualite_scientifique a
-            LEFT JOIN membre m ON a.auteur_id = m.id
-            LEFT JOIN user u ON m.user_id = u.id
-            ORDER BY a.date_publication DESC
-        ";
-        if ($limit) $sql .= " LIMIT " . intval($limit);
-        return $this->db->query($sql)->fetchAll();
+        try {
+            $sql = "
+                SELECT 
+                    a.id,
+                    a.titre,
+                    a.contenu AS description,
+                    a.image,
+                    a.date_publication,
+                    'scientifique' AS source,
+                    u.username AS auteur_nom
+                FROM actualite_scientifique a
+                LEFT JOIN membre m ON a.auteur_id = m.id
+                LEFT JOIN user u ON m.user_id = u.id
+                ORDER BY a.date_publication DESC
+            ";
+            
+            if ($limit) {
+                $sql .= " LIMIT " . intval($limit);
+            }
+            
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+        } catch (Exception $e) {
+            error_log("Erreur getAllScientifiques(): " . $e->getMessage());
+            return [];
+        }
     }
 
     public function createScientifique($data) {
-        $stmt = $this->db->prepare("
-            INSERT INTO actualite_scientifique 
-            (type_actualite, titre, contenu, image, auteur_id)
-            VALUES (?, ?, ?, ?, ?)
-        ");
-        return $stmt->execute([
-            $data['type_actualite'],
-            $data['titre'],
-            $data['contenu'],
-            $data['image'] ?? null,
-            $data['auteur_id'] ?? null
-        ]);
+        try {
+            $stmt = $this->db->prepare("
+                INSERT INTO actualite_scientifique 
+                (type_actualite, titre, contenu, image, auteur_id)
+                VALUES (?, ?, ?, ?, ?)
+            ");
+            return $stmt->execute([
+                $data['type_actualite'],
+                $data['titre'],
+                $data['contenu'],
+                $data['image'] ?? null,
+                $data['auteur_id'] ?? null
+            ]);
+        } catch (Exception $e) {
+            error_log("Erreur createScientifique(): " . $e->getMessage());
+            return false;
+        }
     }
 
     /* ==============================
@@ -46,34 +62,50 @@ class ActualiteModel extends Model {
     ============================== */
 
     public function getAllLaboratoire($limit = null) {
-        $sql = "
-            SELECT 
-                id,
-                titre,
-                descriptif AS description,
-                image,
-                date_publication,
-                'laboratoire' AS source
-            FROM actualite_laboratoire
-            ORDER BY date_publication DESC
-        ";
-        if ($limit) $sql .= " LIMIT " . intval($limit);
-        return $this->db->query($sql)->fetchAll();
+        try {
+            $sql = "
+                SELECT 
+                    id,
+                    titre,
+                    descriptif AS description,
+                    image,
+                    date_publication,
+                    'laboratoire' AS source
+                FROM actualite_laboratoire
+                ORDER BY date_publication DESC
+            ";
+            
+            if ($limit) {
+                $sql .= " LIMIT " . intval($limit);
+            }
+            
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+        } catch (Exception $e) {
+            error_log("Erreur getAllLaboratoire(): " . $e->getMessage());
+            return [];
+        }
     }
 
     public function createLaboratoire($data) {
-        $stmt = $this->db->prepare("
-            INSERT INTO actualite_laboratoire
-            (type_actualite, titre, descriptif, image, lien_detail)
-            VALUES (?, ?, ?, ?, ?)
-        ");
-        return $stmt->execute([
-            $data['type_actualite'],
-            $data['titre'],
-            $data['descriptif'],
-            $data['image'] ?? null,
-            $data['lien_detail'] ?? null
-        ]);
+        try {
+            $stmt = $this->db->prepare("
+                INSERT INTO actualite_laboratoire
+                (type_actualite, titre, descriptif, image, lien_detail)
+                VALUES (?, ?, ?, ?, ?)
+            ");
+            return $stmt->execute([
+                $data['type_actualite'],
+                $data['titre'],
+                $data['descriptif'],
+                $data['image'] ?? null,
+                $data['lien_detail'] ?? null
+            ]);
+        } catch (Exception $e) {
+            error_log("Erreur createLaboratoire(): " . $e->getMessage());
+            return false;
+        }
     }
 
     /* ==============================
@@ -81,97 +113,80 @@ class ActualiteModel extends Model {
     ============================== */
 
     public function getRecent($limit = 10) {
-        $stmt = $this->db->prepare("
-            SELECT *
-            FROM (
-                SELECT 
-                    id,
-                    titre,
-                    contenu AS description,
-                    image,
-                    date_publication,
-                    'scientifique' AS source
-                FROM actualite_scientifique
+        try {
+            $stmt = $this->db->prepare("
+                SELECT *
+                FROM (
+                    SELECT 
+                        id,
+                        titre,
+                        contenu AS description,
+                        image,
+                        date_publication,
+                        'scientifique' AS source
+                    FROM actualite_scientifique
 
-                UNION ALL
+                    UNION ALL
 
-                SELECT 
-                    id,
-                    titre,
-                    descriptif AS description,
-                    image,
-                    date_publication,
-                    'laboratoire' AS source
-                FROM actualite_laboratoire
-            ) AS actualites
-            ORDER BY date_publication DESC
-            LIMIT ?
-        ");
-        $stmt->execute([intval($limit)]);
-        return $stmt->fetchAll();
+                    SELECT 
+                        id,
+                        titre,
+                        descriptif AS description,
+                        image,
+                        date_publication,
+                        'laboratoire' AS source
+                    FROM actualite_laboratoire
+                ) AS actualites
+                ORDER BY date_publication DESC
+                LIMIT ?
+            ");
+            $stmt->execute([intval($limit)]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+        } catch (Exception $e) {
+            error_log("Erreur getRecent(): " . $e->getMessage());
+            return [];
+        }
     }
 
- 
     public function getAll() {
-        return $this->db->query("
-            SELECT *
-            FROM (
-                SELECT 
-                    id,
-                    titre,
-                    contenu AS description,
-                    image,
-                    date_publication,
-                    'scientifique' AS source
-                FROM actualite_scientifique
+        try {
+            $stmt = $this->db->query("
+                SELECT *
+                FROM (
+                    SELECT 
+                        id,
+                        titre,
+                        contenu AS description,
+                        image,
+                        date_publication,
+                        'scientifique' AS source
+                    FROM actualite_scientifique
 
-                UNION ALL
+                    UNION ALL
 
-                SELECT 
-                    id,
-                    titre,
-                    descriptif AS description,
-                    image,
-                    date_publication,
-                    'laboratoire' AS source
-                FROM actualite_laboratoire
-            ) AS actualites
-            ORDER BY date_publication DESC
-        ")->fetchAll();
+                    SELECT 
+                        id,
+                        titre,
+                        descriptif AS description,
+                        image,
+                        date_publication,
+                        'laboratoire' AS source
+                    FROM actualite_laboratoire
+                ) AS actualites
+                ORDER BY date_publication DESC
+            ");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+        } catch (Exception $e) {
+            error_log("Erreur getAll(): " . $e->getMessage());
+            return [];
+        }
     }
 
     /* ==============================
        DIAPORAMA (ACCUEIL)
     ============================== */
 
-    public function getDiaporama($limit = 5) {
-        $stmt = $this->db->prepare("
-            SELECT *
-            FROM (
-                SELECT 
-                    id,
-                    titre,
-                    LEFT(contenu, 200) AS description,
-                    image,
-                    date_publication,
-                    'scientifique' AS source
-                FROM actualite_scientifique
-
-                UNION ALL
-
-                SELECT 
-                    id,
-                    titre,
-                    LEFT(descriptif, 200) AS description,
-                    image,
-                    date_publication,
-                    'laboratoire' AS source
-                FROM actualite_laboratoire
-            ) AS actualites
-            ORDER BY date_publication DESC
-            LIMIT ?
-        ");
-        $stmt->execute([intval($limit)]);
-        return $stmt->fetchAll();
+    
     }
-}

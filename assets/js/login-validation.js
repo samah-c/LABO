@@ -107,7 +107,6 @@ class LoginValidator {
         const toggleBtn = document.createElement('button');
         toggleBtn.type = 'button';
         toggleBtn.className = 'password-toggle';
-        toggleBtn.innerHTML = '👁️';
         toggleBtn.setAttribute('aria-label', 'Afficher le mot de passe');
         
         const passwordGroup = this.passwordInput.closest('.form-group');
@@ -117,7 +116,7 @@ class LoginValidator {
         toggleBtn.addEventListener('click', () => {
             const type = this.passwordInput.type === 'password' ? 'text' : 'password';
             this.passwordInput.type = type;
-            toggleBtn.innerHTML = type === 'password' ? '👁️' : '🔒';
+            toggleBtn.innerHTML = type === 'password'? 'text' : 'password';
         });
     }
 }

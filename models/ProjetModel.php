@@ -285,5 +285,6 @@ class ProjetModel extends Model {
         $stmt = $this->db->query("SELECT COUNT(*) as total FROM Projet");
         return $stmt->fetch()['total'];
     }
+
 }
 ?>

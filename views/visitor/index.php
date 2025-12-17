@@ -1,7 +1,6 @@
 <?php
 /**
  * Page d'accueil publique
- * À créer dans : views/visitor/index.php
  */
 
 ViewComponents::renderHeader([
@@ -99,23 +98,24 @@ ViewComponents::renderHeader([
 
         <!-- Actualités scientifiques -->
         <section class="content-section">
-            <h2 class="section-title">Actualités scientifiques</h2>
-            <?php if (!empty($actualitesScientifiques)): ?>
-                <div class="actualites-grid">
-                    <?php foreach ($actualitesScientifiques as $actu): ?>
-                        <article class="actualite-card">
-                            <h3><?= e($actu['titre']) ?></h3>
-                            <p><?= truncate($actu['contenu'], 150) ?></p>
-                            <div class="actualite-meta">
-                                <span><?= date('d/m/Y', strtotime($actu['date_publication'])) ?></span>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <p class="empty-message">Aucune actualité disponible</p>
-            <?php endif; ?>
-        </section>
+    <h2 class="section-title">Actualités scientifiques</h2>
+    <?php if (!empty($actualitesScientifiques)): ?>
+        <div class="actualites-grid">
+            <?php foreach ($actualitesScientifiques as $actu): ?>
+                <article class="actualite-card">
+                    <h3><?= e($actu['titre']) ?></h3>
+                    <!-- CORRECTION: Utiliser 'description' au lieu de 'contenu' -->
+                    <p><?= truncate($actu['description'] ?? '', 150) ?></p>
+                    <div class="actualite-meta">
+                        <span><?= date('d/m/Y', strtotime($actu['date_publication'])) ?></span>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p class="empty-message">Aucune actualité disponible</p>
+    <?php endif; ?>
+</section>
 
         <!-- Présentation du laboratoire -->
         <section class="content-section presentation-section">
@@ -123,7 +123,7 @@ ViewComponents::renderHeader([
                 <div class="presentation-text">
                     <h2 class="section-title">À propos du laboratoire</h2>
                     <p><?= nl2br(e($presentation['description'] ?? 'Le Laboratoire TDW est un centre de recherche spécialisé dans les technologies du web et le développement logiciel.')) ?></p>
-                    <a href="<?= base_url('apropos') ?>" class="btn-secondary">Découvrir l'organigramme</a>
+                    <a href="<?= base_url('organigramme') ?>" class="btn-secondary">Découvrir l'organigramme</a>
                 </div>
                 <div class="presentation-organigramme">
                     <h3>Organigramme</h3>
@@ -132,7 +132,6 @@ ViewComponents::renderHeader([
                             <strong>Directeur :</strong> <?= e($directeur['nom'] . ' ' . $directeur['prenom']) ?>
                         </div>
                     <?php endif; ?>
-                    <a href="<?= base_url('equipes') ?>" class="see-all">Voir toutes les équipes</a>
                 </div>
             </div>
         </section>
@@ -198,7 +197,7 @@ ViewComponents::renderHeader([
                         <div class="project-card">
                             <div class="project-header">
                                 <h3>
-                                    <a href="<?= base_url('projets/' . $projet['id']) ?>">
+                                    <a href="<?= base_url('projets/projets/' . $projet['id']) ?>">
                                         <?= e($projet['titre']) ?>
                                     </a>
                                 </h3>
@@ -261,6 +260,9 @@ ViewComponents::renderHeader([
 
 
 <style>
+/* ============================================
+   LAYOUT GÉNÉRAL VISITEUR
+   ============================================ */
 
 .visiteur-layout .main-nav {
     display: none !important;
@@ -291,7 +293,10 @@ ViewComponents::renderHeader([
     padding-top: 108px;
 }
 
-/* Navigation horizontale */
+/* ============================================
+   NAVIGATION HORIZONTALE
+   ============================================ */
+
 .horizontal-nav {
     background: var(--bg-sidebar);
     box-shadow: var(--shadow-sm);
@@ -329,7 +334,10 @@ ViewComponents::renderHeader([
     color: white;
 }
 
-/* Diaporama */
+/* ============================================
+   DIAPORAMA
+   ============================================ */
+
 .slideshow-section {
     background: var(--gray-100);
     padding: 0;
@@ -341,6 +349,7 @@ ViewComponents::renderHeader([
     position: relative;
     height: 500px;
     overflow: hidden;
+    background: var(--gray-900);
 }
 
 .slide {
@@ -350,16 +359,26 @@ ViewComponents::renderHeader([
     position: absolute;
     top: 0;
     left: 0;
-    animation: fadeSlide 0.5s;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
 }
 
 .slide.active {
     display: block;
+    opacity: 1;
+    z-index: 1;
+    animation: fadeSlide 0.8s ease-in-out;
 }
 
 @keyframes fadeSlide {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    0% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .slide-content {
@@ -434,28 +453,36 @@ ViewComponents::renderHeader([
     box-shadow: var(--shadow-xl);
 }
 
-/* Navigation du diaporama */
+/* Boutons de navigation */
 .slide-prev,
 .slide-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     color: white;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     padding: 16px 20px;
     cursor: pointer;
     font-size: 24px;
     font-weight: bold;
-    transition: var(--transition);
+    transition: all 0.3s ease;
     border-radius: var(--border-radius-sm);
     backdrop-filter: blur(10px);
     z-index: 10;
+    user-select: none;
 }
 
 .slide-prev:hover,
 .slide-next:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slide-prev:active,
+.slide-next:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 .slide-prev {
@@ -473,7 +500,7 @@ ViewComponents::renderHeader([
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: 12px;
     z-index: 10;
 }
 
@@ -481,25 +508,52 @@ ViewComponents::renderHeader([
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
-.indicator.active,
 .indicator:hover {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
     transform: scale(1.2);
 }
 
-/* Content Wrapper */
+.indicator.active {
+    background: white;
+    transform: scale(1.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(1.4);
+    }
+}
+
+.slideshow-container:hover .indicator.active {
+    animation: none;
+}
+
+/* ============================================
+   ZONE DE CONTENU
+   ============================================ */
+
 .content-wrapper {
     max-width: 1400px;
     margin: 0 auto;
     padding: 40px 32px;
 }
 
-/* Stats Grid */
+/* ============================================
+   STATISTIQUES
+   ============================================ */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -539,7 +593,10 @@ ViewComponents::renderHeader([
     line-height: 1;
 }
 
-/* Content Sections */
+/* ============================================
+   SECTIONS DE CONTENU
+   ============================================ */
+
 .content-section {
     margin-bottom: 48px;
 }
@@ -571,7 +628,10 @@ ViewComponents::renderHeader([
     color: var(--primary-dark);
 }
 
-/* Actualités Grid */
+/* ============================================
+   ACTUALITÉS SCIENTIFIQUES
+   ============================================ */
+
 .actualites-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -613,7 +673,10 @@ ViewComponents::renderHeader([
     font-weight: 500;
 }
 
-/* Présentation Section */
+/* ============================================
+   PRÉSENTATION DU LABORATOIRE
+   ============================================ */
+
 .presentation-section {
     background: var(--gray-50);
     padding: 40px;
@@ -655,7 +718,10 @@ ViewComponents::renderHeader([
     font-size: 14px;
 }
 
-/* Events Grid */
+/* ============================================
+   ÉVÉNEMENTS
+   ============================================ */
+
 .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -733,7 +799,10 @@ ViewComponents::renderHeader([
     margin: 0;
 }
 
-/* Partenaires Grid */
+/* ============================================
+   PARTENAIRES
+   ============================================ */
+
 .partenaires-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -776,7 +845,10 @@ ViewComponents::renderHeader([
     margin: 0;
 }
 
-/* Projects Grid */
+/* ============================================
+   PROJETS
+   ============================================ */
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -838,7 +910,10 @@ ViewComponents::renderHeader([
     font-weight: 500;
 }
 
-/* Publications List */
+/* ============================================
+   PUBLICATIONS
+   ============================================ */
+
 .publications-list {
     display: flex;
     flex-direction: column;
@@ -902,7 +977,10 @@ ViewComponents::renderHeader([
     margin: 0 8px;
 }
 
-/* Empty Message */
+/* ============================================
+   MESSAGE VIDE
+   ============================================ */
+
 .empty-message {
     text-align: center;
     padding: 60px 24px;
@@ -912,7 +990,10 @@ ViewComponents::renderHeader([
     border-radius: var(--border-radius-lg);
 }
 
-/* Responsive */
+/* ============================================
+   RESPONSIVE - TABLETTE
+   ============================================ */
+
 @media (max-width: 1024px) {
     .content-wrapper {
         padding: 32px 24px;
@@ -925,7 +1006,21 @@ ViewComponents::renderHeader([
     .presentation-grid {
         grid-template-columns: 1fr;
     }
+    
+    .slideshow-container {
+        height: 450px;
+    }
+    
+    .slide-prev,
+    .slide-next {
+        padding: 14px 18px;
+        font-size: 20px;
+    }
 }
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
 
 @media (max-width: 768px) {
     .horizontal-nav ul {
@@ -961,6 +1056,17 @@ ViewComponents::renderHeader([
     .slide-next {
         padding: 12px 16px;
         font-size: 18px;
+        background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .slide-indicators {
+        bottom: 20px;
+        gap: 10px;
+    }
+    
+    .indicator {
+        width: 10px;
+        height: 10px;
     }
     
     .content-wrapper {
@@ -1004,8 +1110,21 @@ ViewComponents::renderHeader([
     .stat-card .number {
         font-size: 36px;
     }
+    
+    .slide-prev {
+        left: 10px;
+    }
+    
+    .slide-next {
+        right: 10px;
+    }
+    
+    .slide-prev,
+    .slide-next {
+        padding: 10px 14px;
+        font-size: 16px;
+    }
 }
-
 </style>
 
 <?php ViewComponents::renderFooter(['role' => 'visiteur']); ?>

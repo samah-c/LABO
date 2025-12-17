@@ -5,22 +5,50 @@
 
 let currentSlide = 0;
 let slideInterval;
+let isAutoplayActive = true;
 
 // Démarrer le diaporama automatique au chargement
 document.addEventListener('DOMContentLoaded', function() {
-    startSlideshow();
+    const slides = document.querySelectorAll('.slide');
+    
+    // Ne démarrer que s'il y a plus d'une slide
+    if (slides.length > 1) {
+        startSlideshow();
+        
+        // Ajouter les gestionnaires d'événements pour pause au survol
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        if (slideshowContainer) {
+            slideshowContainer.addEventListener('mouseenter', function() {
+                stopSlideshow();
+                isAutoplayActive = false;
+            });
+            
+            slideshowContainer.addEventListener('mouseleave', function() {
+                isAutoplayActive = true;
+                startSlideshow();
+            });
+        }
+    }
 });
 
 // Démarrer le diaporama automatique (toutes les 5 secondes)
 function startSlideshow() {
+    // Nettoyer l'intervalle existant pour éviter les doublons
+    if (slideInterval) {
+        clearInterval(slideInterval);
+    }
+    
     slideInterval = setInterval(function() {
         changeSlide(1);
-    }, 5000);
+    }, 5000); // 5000ms = 5 secondes
 }
 
 // Arrêter le diaporama automatique
 function stopSlideshow() {
-    clearInterval(slideInterval);
+    if (slideInterval) {
+        clearInterval(slideInterval);
+        slideInterval = null;
+    }
 }
 
 // Changer de slide
@@ -28,11 +56,18 @@ function changeSlide(direction) {
     const slides = document.querySelectorAll('.slide');
     const indicators = document.querySelectorAll('.indicator');
     
-    if (slides.length === 0) return;
+    // Vérifier qu'il y a des slides
+    if (slides.length === 0) {
+        return;
+    }
     
     // Retirer la classe active de la slide actuelle
-    slides[currentSlide].classList.remove('active');
-    indicators[currentSlide].classList.remove('active');
+    if (slides[currentSlide]) {
+        slides[currentSlide].classList.remove('active');
+    }
+    if (indicators[currentSlide]) {
+        indicators[currentSlide].classList.remove('active');
+    }
     
     // Calculer le nouvel index
     currentSlide = currentSlide + direction;
@@ -45,12 +80,18 @@ function changeSlide(direction) {
     }
     
     // Ajouter la classe active à la nouvelle slide
-    slides[currentSlide].classList.add('active');
-    indicators[currentSlide].classList.add('active');
+    if (slides[currentSlide]) {
+        slides[currentSlide].classList.add('active');
+    }
+    if (indicators[currentSlide]) {
+        indicators[currentSlide].classList.add('active');
+    }
     
-    // Redémarrer le timer
-    stopSlideshow();
-    startSlideshow();
+    // Redémarrer le timer seulement si l'autoplay est actif
+    if (isAutoplayActive) {
+        stopSlideshow();
+        startSlideshow();
+    }
 }
 
 // Aller à une slide spécifique
@@ -58,29 +99,37 @@ function goToSlide(index) {
     const slides = document.querySelectorAll('.slide');
     const indicators = document.querySelectorAll('.indicator');
     
-    if (index < 0 || index >= slides.length) return;
+    // Vérifier que l'index est valide
+    if (index < 0 || index >= slides.length) {
+        return;
+    }
     
     // Retirer la classe active de la slide actuelle
-    slides[currentSlide].classList.remove('active');
-    indicators[currentSlide].classList.remove('active');
+    if (slides[currentSlide]) {
+        slides[currentSlide].classList.remove('active');
+    }
+    if (indicators[currentSlide]) {
+        indicators[currentSlide].classList.remove('active');
+    }
     
     // Aller à la slide demandée
     currentSlide = index;
     
     // Ajouter la classe active
-    slides[currentSlide].classList.add('active');
-    indicators[currentSlide].classList.add('active');
+    if (slides[currentSlide]) {
+        slides[currentSlide].classList.add('active');
+    }
+    if (indicators[currentSlide]) {
+        indicators[currentSlide].classList.add('active');
+    }
     
-    // Redémarrer le timer
-    stopSlideshow();
-    startSlideshow();
+    // Redémarrer le timer seulement si l'autoplay est actif
+    if (isAutoplayActive) {
+        stopSlideshow();
+        startSlideshow();
+    }
 }
 
-// Arrêter le diaporama quand on survole avec la souris
-document.addEventListener('DOMContentLoaded', function() {
-    const slideshow = document.querySelector('.slideshow-container');
-    if (slideshow) {
-        slideshow.addEventListener('mouseenter', stopSlideshow);
-        slideshow.addEventListener('mouseleave', startSlideshow);
-    }
-});
+// Rendre les fonctions accessibles globalement pour les attributs onclick
+window.changeSlide = changeSlide;
+window.goToSlide = goToSlide;
