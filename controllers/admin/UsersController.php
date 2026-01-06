@@ -9,6 +9,9 @@ require_once __DIR__ . '/../../models/MembreModel.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../auth/AuthController.php';
 
+require_once __DIR__ . '/../../views/admin/users/UsersListView.php';
+require_once __DIR__ . '/../../views/admin/users/UserDetailView.php';
+
 class UsersController {
     private $userModel;
     private $membreModel;
@@ -40,7 +43,8 @@ class UsersController {
         $users = array_slice($users, $pagination['offset'], $perPage);
         
         // Charger la vue
-        require_once __DIR__ . '/../../views/admin/users/users.php';
+        $view = new UsersListView($users, $pagination);
+        $view->render();
     }
     
     /**
@@ -81,7 +85,8 @@ class UsersController {
         }
         
         // Charger la vue détaillée
-        require_once __DIR__ . '/../../views/admin/users/view.php';
+        $view = new UserDetailView($user, $membre, $stats);
+        $view->render();
     }
     
     /**

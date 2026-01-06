@@ -14,3 +14,12 @@ Options -Indexes
     # Route to index.php
     RewriteRule . index.php [L]
 </IfModule>
+
+# Désactiver l'output buffering pour les PDF
+<FilesMatch "\.php$">
+    php_flag output_buffering Off
+</FilesMatch>
+
+# Configuration PHP pour les PDF
+php_value max_execution_time 300
+php_value memory_limit 256M

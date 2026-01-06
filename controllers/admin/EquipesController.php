@@ -10,6 +10,9 @@ require_once __DIR__ . '/../../models/PublicationModel.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../auth/AuthController.php';
 
+require_once __DIR__ . '/../../views/admin/equipes/EquipesListView.php';
+require_once __DIR__ . '/../../views/admin/equipes/EquipeDetailView.php';
+
 class EquipesController {
     private $equipeModel;
     private $membreModel;
@@ -41,8 +44,10 @@ class EquipesController {
         $pagination = Utils::paginate(count($equipes), $perPage, $page);
         $equipes = array_slice($equipes, $pagination['offset'], $perPage);
         
-        // Charger la vue
-        require_once __DIR__ . '/../../views/admin/equipes/equipes.php';
+      
+       // Vue liste des équipes
+       $view = new EquipesListView($equipes, $pagination);
+       $view->render();
     }
     
     /**
@@ -65,8 +70,9 @@ class EquipesController {
         $equipementModel = new EquipementModel();
         $ressources = $equipementModel->getByEquipe($id);
         
-        // Charger la vue détaillée
-        require_once __DIR__ . '/../../views/admin/equipes/view.php';
+         // Vue détaillée d'une équipe
+       $view = new EquipeDetailView($equipe, $publications, $ressources);
+       $view->render();
     }
     
     /**

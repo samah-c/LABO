@@ -183,19 +183,19 @@ class PublicationsHandler {
             
             this.currentPublicationId = id;
             setTimeout(() => {
-            const form = document.getElementById('publication-form');
-            if (form) {
-                console.log('Formulaire trouvé, attachement de l\'event listener');
-            } else {
-                console.error('Formulaire non trouvé après chargement');
-            }
-        }, 100);
+                const form = document.getElementById('publication-form');
+                if (form) {
+                    console.log('Formulaire trouvé, attachement de l\'event listener');
+                } else {
+                    console.error('Formulaire non trouvé après chargement');
+                }
+            }, 100);
             
         } catch (error) {
             console.error('Erreur:', error);
             container.innerHTML = `
                 <div class="error-message">
-                    <p> Erreur lors du chargement du formulaire</p>
+                    <p>❌ Erreur lors du chargement du formulaire</p>
                     <button class="btn-secondary" onclick="publications.closeModal()">Fermer</button>
                 </div>
             `;
@@ -239,7 +239,7 @@ class PublicationsHandler {
                 // Réactiver le bouton
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = 'Enregistrer';
+                    submitBtn.innerHTML = '💾 Enregistrer';
                 }
             }
         } catch (error) {
@@ -248,7 +248,7 @@ class PublicationsHandler {
             
             if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = ' Enregistrer';
+                submitBtn.innerHTML = '💾 Enregistrer';
             }
         }
     }
@@ -303,11 +303,11 @@ class PublicationsHandler {
     }
     
     // ========================================
-    // VALIDATION DES PUBLICATIONS
+    // VALIDATION DES PUBLICATIONS - CORRIGÉ POUR AJAX
     // ========================================
     
     /**
-     * Valider une publication
+     * Valider une publication - VERSION AJAX CORRIGÉE
      */
     async valider(id) {
         const confirmed = await this.showConfirmDialog(
@@ -320,6 +320,7 @@ class PublicationsHandler {
         if (!confirmed) return;
         
         try {
+            // IMPORTANT : Utiliser fetch avec POST pour éviter la redirection
             const response = await fetch(`${this.apiUrl}/${id}/valider`, {
                 method: 'POST',
                 headers: {
@@ -331,19 +332,21 @@ class PublicationsHandler {
             const data = await response.json();
             
             if (data.success) {
-                this.showNotification(data.message || 'Publication validée', 'success');
+                this.showNotification(data.message || 'Publication validée avec succès', 'success');
+                
+                // Recharger la page après un court délai
                 setTimeout(() => location.reload(), 1000);
             } else {
                 this.showNotification(data.message || 'Erreur lors de la validation', 'error');
             }
         } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
+            console.error('Erreur validation:', error);
+            this.showNotification('Erreur de connexion au serveur', 'error');
         }
     }
     
     /**
-     * Rejeter une publication
+     * Rejeter une publication - VERSION AJAX CORRIGÉE
      */
     async rejeter(id) {
         const confirmed = await this.showConfirmDialog(
@@ -356,6 +359,7 @@ class PublicationsHandler {
         if (!confirmed) return;
         
         try {
+            // IMPORTANT : Utiliser fetch avec POST pour éviter la redirection
             const response = await fetch(`${this.apiUrl}/${id}/rejeter`, {
                 method: 'POST',
                 headers: {
@@ -368,13 +372,15 @@ class PublicationsHandler {
             
             if (data.success) {
                 this.showNotification(data.message || 'Publication rejetée', 'warning');
+                
+                // Recharger la page après un court délai
                 setTimeout(() => location.reload(), 1000);
             } else {
                 this.showNotification(data.message || 'Erreur lors du rejet', 'error');
             }
         } catch (error) {
-            console.error('Erreur:', error);
-            this.showNotification('Erreur de connexion', 'error');
+            console.error('Erreur rejet:', error);
+            this.showNotification('Erreur de connexion au serveur', 'error');
         }
     }
     
@@ -436,7 +442,7 @@ class PublicationsHandler {
                         Annuler
                     </button>
                     <button type="submit" class="btn-primary">
-                         Générer le rapport
+                        📊 Générer le rapport
                     </button>
                 </div>
             </form>
@@ -634,7 +640,7 @@ class PublicationsHandler {
                 row.className = 'no-results-row';
                 row.innerHTML = `
                     <td colspan="100" class="empty-message" style="text-align: center; padding: 40px; color: #9CA3AF;">
-                         Aucun résultat trouvé
+                        🔍 Aucun résultat trouvé
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -773,7 +779,7 @@ let publications;
 document.addEventListener('DOMContentLoaded', () => {
     publications = new PublicationsHandler();
     window.publications = publications;
-    console.log(' Gestionnaire de publications initialisé');
+    console.log('✅ Gestionnaire de publications initialisé');
 });
 
 // ========================================

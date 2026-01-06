@@ -1,5 +1,4 @@
 <?php
-// views/auth/login.php
 
 // Start session if not started
 if (session_status() === PHP_SESSION_NONE) {
@@ -39,6 +38,6 @@ $loginComponent->render([
     'showPassword' => true,
     'showEmail' => false,
     'submitText' => 'Se connecter',
-    'credentials' => $demoCredentials  // Remove in production
+    'credentials' => $demoCredentials  
 ]);
 ?>

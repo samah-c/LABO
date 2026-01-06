@@ -9,6 +9,9 @@ require_once __DIR__ . '/../../models/MembreModel.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../../lib/ViewComponents.php';
 
+require_once __DIR__ . '/../../views/admin/evenements/EvenementsListView.php';
+require_once __DIR__ . '/../../views/admin/evenements/EvenementDetailView.php';
+
 class EvenementsController {
     private $evenementModel;
     private $membreModel;
@@ -30,6 +33,7 @@ class EvenementsController {
         ];
         
         $evenements = $this->evenementModel->getAllWithOrganisateurs();
+        $pagination = Utils::paginate(count($evenements), 10, 1);
         
         // Filtrer les événements
         if (!empty($filters['type_evenement'])) {
@@ -55,7 +59,8 @@ class EvenementsController {
             });
         }
         
-        require_once __DIR__ . '/../../views/admin/evenements/evenements.php';
+       $view = new EvenementsListView($evenements, $pagination);
+       $view->render();
     }
     
     // ========================================
@@ -333,7 +338,8 @@ class EvenementsController {
             }
         }
         
-        require_once __DIR__ . '/../../views/admin/evenements/evenement-detail.php';
+         $view = new EvenementDetailView($evenement, $organisateur);
+         $view->render();
     }
     
     // ========================================

@@ -432,5 +432,53 @@ class EquipementModel extends Model {
         $stmt->execute([$status]);
         return $stmt->fetchAll();
     }
+
+    /**
+     * Statistiques par type
+     */
+    public function getStatsByType() {
+        $stmt = $this->db->query("
+            SELECT 
+                type_equipement,
+                COUNT(*) as nombre,
+                SUM(CASE WHEN etat = 'libre' THEN 1 ELSE 0 END) as disponibles,
+                SUM(CASE WHEN etat = 'reserve' THEN 1 ELSE 0 END) as reserves,
+                SUM(CASE WHEN etat = 'en_maintenance' THEN 1 ELSE 0 END) as en_maintenance
+            FROM Equipement
+            GROUP BY type_equipement
+            ORDER BY nombre DESC
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Obtenir les équipements les plus réservés sur une période
+     * FIXED: Cast $limit to int and use it directly in SQL instead of prepared statement
+     */
+    public function getTopEquipements($dateDebut, $dateFin, $limit = 10) {
+        // Ensure $limit is an integer for security
+        $limit = (int) $limit;
+        
+        // Use the limit directly in the SQL query, not as a prepared statement parameter
+        $sql = "
+            SELECT 
+                e.id,
+                e.nom,
+                e.type_equipement,
+                COUNT(c.id) as nb_reservations,
+                COALESCE(SUM(TIMESTAMPDIFF(HOUR, c.date_debut, c.date_fin)), 0) as heures_totales
+            FROM Equipement e
+            LEFT JOIN Creneau c ON e.id = c.equipement_id
+                AND c.statut = 'confirme'
+                AND c.date_debut >= ?
+                AND c.date_fin <= ?
+            GROUP BY e.id, e.nom, e.type_equipement
+            ORDER BY nb_reservations DESC, heures_totales DESC
+            LIMIT " . $limit;
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$dateDebut, $dateFin]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

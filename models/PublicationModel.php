@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/Model.php';
-// ========================================
-// PublicationModel.php - VERSION CORRIGÉE
-// ========================================
+
 class PublicationModel extends Model {
     protected $table = 'Publication';
     
@@ -51,7 +49,7 @@ class PublicationModel extends Model {
     }
     
     /**
-     * Récupérer les publications filtrées
+     * Récupérer les publications filtrées - CORRIGÉ
      */
     public function getAllFiltered($filters = []) {
         $sql = "SELECT p.*, 
@@ -68,9 +66,9 @@ class PublicationModel extends Model {
         $params = [];
         
         // Filtre par type de publication
-        if (!empty($filters['type_publication'])) {
+        if (!empty($filters['type_publication']) || !empty($filters['type'])) {
             $sql .= " AND p.type_publication = :type_publication";
-            $params['type_publication'] = $filters['type_publication'];
+            $params['type_publication'] = $filters['type_publication'] ?? $filters['type'];
         }
         
         // Filtre par domaine
@@ -91,10 +89,10 @@ class PublicationModel extends Model {
             $params['projet_id'] = $filters['projet_id'];
         }
         
-        // Filtre par statut de validation
-        if (!empty($filters['statut_validation'])) {
+        // CORRECTION : Filtre par statut de validation - accepter 'statut' ou 'statut_validation'
+        if (!empty($filters['statut_validation']) || !empty($filters['statut'])) {
             $sql .= " AND p.statut_validation = :statut_validation";
-            $params['statut_validation'] = $filters['statut_validation'];
+            $params['statut_validation'] = $filters['statut_validation'] ?? $filters['statut'];
         }
         
         // Filtre de recherche
@@ -298,15 +296,10 @@ class PublicationModel extends Model {
     }
     
     /**
-     * Mettre à jour le statut de validation
+     * Mettre à jour le statut de validation - MÉTHODE SIMPLIFIÉE
      */
     public function updateStatutValidation($publicationId, $statutValidation) {
-        $stmt = $this->db->prepare("
-            UPDATE Publication 
-            SET statut_validation = ?
-            WHERE id = ?
-        ");
-        return $stmt->execute([$statutValidation, $publicationId]);
+        return $this->update($publicationId, ['statut_validation' => $statutValidation]);
     }
     
     /**
@@ -405,25 +398,24 @@ class PublicationModel extends Model {
      * Récupérer les publications récentes (validées)
      */
     public function getRecent($limit = 5) {
-    $limit = (int) $limit;
+        $limit = (int) $limit;
 
-    $stmt = $this->db->query("
-        SELECT p.*,
-               GROUP_CONCAT(DISTINCT u.username SEPARATOR ', ') as auteurs
-        FROM Publication p
-        LEFT JOIN Publication_Auteur pa ON p.id = pa.publication_id
-        LEFT JOIN Membre m ON pa.membre_id = m.id
-        LEFT JOIN User u ON m.user_id = u.id
-        WHERE p.statut_validation = 'en_attente'
-        GROUP BY p.id
-        ORDER BY p.date_publication DESC
-        LIMIT $limit
-    ");
+        $stmt = $this->db->query("
+            SELECT p.*,
+                   GROUP_CONCAT(DISTINCT u.username SEPARATOR ', ') as auteurs
+            FROM Publication p
+            LEFT JOIN Publication_Auteur pa ON p.id = pa.publication_id
+            LEFT JOIN Membre m ON pa.membre_id = m.id
+            LEFT JOIN User u ON m.user_id = u.id
+            WHERE p.statut_validation = 'en_attente'
+            GROUP BY p.id
+            ORDER BY p.date_publication DESC
+            LIMIT $limit
+        ");
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    
     /**
      * Compter toutes les publications
      */
@@ -433,31 +425,29 @@ class PublicationModel extends Model {
     }
 
     /**
- * Récupérer les publications par auteur (user ou membre)
- * @param int $membreId
- */
-public function getByAuteur($membreId) {
-    $stmt = $this->db->prepare("
-        SELECT p.*, 
-               pa.ordre_auteur,
-               GROUP_CONCAT(DISTINCT u.username SEPARATOR ', ') as auteurs,
-               pr.titre as projet_titre,
-               (SELECT COUNT(*) 
-                FROM Publication_Auteur 
-                WHERE publication_id = p.id) as nb_auteurs
-        FROM Publication p
-        JOIN Publication_Auteur pa ON p.id = pa.publication_id
-        JOIN Membre m ON pa.membre_id = m.id
-        JOIN User u ON m.user_id = u.id
-        LEFT JOIN Projet pr ON p.projet_id = pr.id
-        WHERE pa.membre_id = ?
-        GROUP BY p.id
-        ORDER BY p.date_publication DESC
-    ");
+     * Récupérer les publications par auteur (user ou membre)
+     */
+    public function getByAuteur($membreId) {
+        $stmt = $this->db->prepare("
+            SELECT p.*, 
+                   pa.ordre_auteur,
+                   GROUP_CONCAT(DISTINCT u.username SEPARATOR ', ') as auteurs,
+                   pr.titre as projet_titre,
+                   (SELECT COUNT(*) 
+                    FROM Publication_Auteur 
+                    WHERE publication_id = p.id) as nb_auteurs
+            FROM Publication p
+            JOIN Publication_Auteur pa ON p.id = pa.publication_id
+            JOIN Membre m ON pa.membre_id = m.id
+            JOIN User u ON m.user_id = u.id
+            LEFT JOIN Projet pr ON p.projet_id = pr.id
+            WHERE pa.membre_id = ?
+            GROUP BY p.id
+            ORDER BY p.date_publication DESC
+        ");
 
-    $stmt->execute([$membreId]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
+        $stmt->execute([$membreId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

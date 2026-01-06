@@ -1,0 +1,692 @@
+<?php
+/**
+ * Classes de vues pour la gestion des projets
+ */
+
+require_once __DIR__ . '/../../../lib/components/HeaderComponent.php';
+require_once __DIR__ . '/../../../lib/components/NavigationComponent.php';
+require_once __DIR__ . '/../../../lib/components/PageHeaderComponent.php';
+require_once __DIR__ . '/../../../lib/components/TableComponent.php';
+require_once __DIR__ . '/../../../lib/components/FilterComponent.php';
+require_once __DIR__ . '/../../../lib/components/ModalComponent.php';
+require_once __DIR__ . '/../../../lib/components/FooterComponent.php';
+
+// ============================================================================
+// LISTE DES PROJETS 
+// ============================================================================
+
+class ProjetsListView
+{
+    private array $projets;
+    private ?array $pagination;
+
+    public function __construct(array $projets, ?array $pagination = null)
+    {
+        $this->projets = $projets;
+        $this->pagination = $pagination;
+    }
+
+    public function render(): void
+    {
+        $this->renderHeader();
+        $this->renderNavigation();
+        echo '<div class="container">';
+        $this->renderBreadcrumbs();
+        $this->renderPageHeader();
+        $this->renderFilters();
+        $this->renderTable();
+        $this->renderPagination();
+        echo '</div>';
+        $this->renderModal();
+        $this->renderProgressStyle();
+        $this->renderScripts();
+        $this->renderFooter();
+    }
+
+    private function renderHeader(): void
+    {
+        HeaderComponent::render([
+            'title' => 'Gestion des Projets',
+            'username' => session('username'),
+            'role' => 'admin',
+            'additionalJs' => [
+                base_url('assets/js/crud-handler.js'),
+                base_url('assets/js/table-enhancements.js'),
+                base_url('assets/js/ui.js')
+            ]
+        ]);
+    }
+
+    private function renderNavigation(): void
+    {
+        NavigationComponent::renderSidebar('admin');
+    }
+
+    private function renderBreadcrumbs(): void
+    {
+        NavigationComponent::renderBreadcrumbs([
+            ['label' => 'Dashboard', 'url' => base_url('admin/dashboard')],
+            ['label' => 'Projets']
+        ]);
+    }
+
+    private function renderPageHeader(): void
+    {
+        PageHeaderComponent::render([
+            'title' => 'Projets de Recherche',
+            'actions' => [
+                [
+                    'type' => 'button',
+                    'label' => ' Nouveau projet',
+                    'class' => 'btn-primary',
+                    'onclick' => 'projets.openAddModal()'
+                ],
+                [
+                    'type' => 'button',
+                    'label' => ' Exporter',
+                    'class' => 'btn-secondary',
+                    'onclick' => 'projets.export()'
+                ]
+            ]
+        ]);
+    }
+
+    private function renderFilters(): void
+    {
+        FilterComponent::render([
+            'showSearch' => true,
+            'searchPlaceholder' => 'Rechercher un projet...',
+            'filters' => [
+                [
+                    'name' => 'thematique',
+                    'label' => 'Thématique',
+                    'options' => [
+                        'IA' => 'Intelligence Artificielle',
+                        'Securite' => 'Sécurité Informatique',
+                        'Cloud' => 'Cloud Computing',
+                        'Reseaux' => 'Réseaux',
+                        'Systemes' => 'Systèmes Embarqués',
+                        'Big Data' => 'Big Data',
+                        'IoT' => 'Internet des Objets'
+                    ]
+                ],
+                [
+                    'name' => 'status',
+                    'label' => 'Statut',
+                    'options' => [
+                        'en_cours' => 'En cours',
+                        'termine' => 'Terminé',
+                        'soumis' => 'Soumis',
+                        'approuvé' => 'Approuvé',
+                        'rejeté' => 'Rejeté'
+                    ]
+                ],
+                [
+                    'name' => 'annee',
+                    'label' => 'Année',
+                    'options' => array_combine(
+                        range(date('Y'), 2020),
+                        range(date('Y'), 2020)
+                    )
+                ]
+            
+            ]
+        ]);
+    }
+
+    private function renderTable(): void
+    {
+        TableComponent::render([
+            'data' => $this->projets,
+            'columns' => [
+                [
+                    'key' => 'titre',
+                    'label' => 'Titre du projet',
+                    'formatter' => function($value) {
+                        return '<strong>' . htmlspecialchars($value) . '</strong>';
+                    }
+                ],
+                [
+                    'key' => 'thematique',
+                    'label' => 'Thématique',
+                    'formatter' => function($value) {
+                        return htmlspecialchars($value);
+                    }
+                ],
+                [
+                    'key' => 'responsable_nom',
+                    'label' => 'Responsable',
+                    'formatter' => function($value) {
+                        return $value ? htmlspecialchars($value) : '<em style="color: #9CA3AF;">Non assigné</em>';
+                    }
+                ],
+                [
+                    'key' => 'status',
+                    'label' => 'Statut',
+                    'formatter' => function($value) {
+                        return LabHelpers::getProjetStatusBadge($value);
+                    }
+                ],
+                [
+                    'key' => 'date_debut',
+                    'label' => 'Période',
+                    'formatter' => function($value, $row) {
+                        $debut = format_date($value, 'm/Y');
+                        $fin = !empty($row['date_fin']) ? format_date($row['date_fin'], 'm/Y') : '...';
+                        return "$debut - $fin";
+                    }
+                ],
+                [
+                    'key' => 'progression',
+                    'label' => 'Progression',
+                    'formatter' => function($value, $row) {
+                        $progress = LabHelpers::calculateProjectProgress(
+                            $row['date_debut'], 
+                            $row['date_fin'] ?? null
+                        );
+                        return "<div class='progress' style='min-width: 100px;'>
+                                    <div class='progress-bar' style='width: {$progress}%'>
+                                        {$progress}%
+                                    </div>
+                                </div>";
+                    }
+                ]
+            ],
+            'actions' => [
+                function($row) {
+                    return '<button class="btn-action btn-view" 
+                                    onclick="projets.view(' . $row['id'] . ')" 
+                                    title="Voir détails">
+                                 Voir
+                            </button>';
+                },
+                function($row) {
+                    return '<button class="btn-action btn-edit" 
+                                    onclick="projets.edit(' . $row['id'] . ')"
+                                    title="Modifier">
+                                ✏️
+                            </button>';
+                },
+                function($row) {
+                    return '<button class="btn-action btn-delete" 
+                                    onclick="projets.delete(' . $row['id'] . ')"
+                                    title="Supprimer">
+                                🗑️
+                            </button>';
+                }
+            ],
+            'emptyMessage' => 'Aucun projet trouvé'
+        ]);
+    }
+
+    private function renderPagination(): void
+    {
+        if (isset($this->pagination)) {
+            echo Utils::renderPagination($this->pagination, base_url('admin/projets/projets'));
+        }
+    }
+
+    private function renderModal(): void
+    {
+        ModalComponent::render([
+            'id' => 'projet-modal',
+            'title' => 'Ajouter un projet',
+            'content' => '<div id="modal-form-container"></div>'
+        ]);
+    }
+
+    private function renderProgressStyle(): void
+    {
+        ?>
+        <style>
+        .progress {
+            width: 100%;
+            height: 24px;
+            background: #E5E7EB;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #5B7FFF, #667eea);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            transition: width 0.3s ease;
+        }
+        </style>
+        <?php
+    }
+
+// Remplacez la méthode renderScripts() dans ProjetsListView.php par ceci :
+
+private function renderScripts(): void
+{
+    ?>
+    <script>
+    class ProjetsHandler {
+        constructor() {
+            this.baseUrl = '<?= base_url("admin/projets/projets") ?>';
+            this.apiUrl = '<?= base_url("api/admin/projets") ?>';
+            this.currentProjetId = null;
+            this.init();
+        }
+        
+        init() {
+            this.attachEventListeners();
+            console.log('✅ Gestionnaire de projets initialisé');
+        }
+        
+        attachEventListeners() {
+            const modal = document.getElementById('projet-modal');
+            if (modal) {
+                modal.onclick = (e) => {
+                    if (e.target === modal) this.closeModal();
+                };
+            }
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') this.closeModal();
+            });
+        }
+        
+        view(id) {
+            window.location.href = `${this.baseUrl}/view/${id}`;
+        }
+        
+        openAddModal() {
+            this.loadForm(null);
+        }
+        
+        edit(id) {
+            this.loadForm(id);
+        }
+        
+        async delete(id) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${this.apiUrl}/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.showNotification(data.message || 'Projet supprimé', 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    this.showNotification(data.message || 'Erreur', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                this.showNotification('Erreur de connexion', 'error');
+            }
+        }
+        
+        async loadForm(id = null) {
+            const modal = document.getElementById('projet-modal');
+            const container = document.getElementById('modal-form-container');
+            
+            if (!modal || !container) {
+                console.error('Modal ou conteneur introuvable');
+                return;
+            }
+            
+            const modalTitle = modal.querySelector('.modal-header h2');
+            if (modalTitle) {
+                modalTitle.textContent = id ? 'Modifier le projet' : 'Ajouter un projet';
+            }
+            
+            container.innerHTML = '<div style="text-align: center; padding: 40px;"><div class="spinner"></div>Chargement...</div>';
+            modal.style.display = 'flex';
+            
+            try {
+                const url = id ? `${this.baseUrl}/form/${id}` : `${this.baseUrl}/form`;
+                
+                const response = await fetch(url, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                
+                if (!response.ok) throw new Error('Erreur de chargement');
+                
+                const html = await response.text();
+                container.innerHTML = html;
+                this.currentProjetId = id;
+                
+                // IMPORTANT : Attacher l'événement de soumission au formulaire
+                this.attachFormSubmit();
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                container.innerHTML = '<p style="color: red; text-align: center; padding: 40px;">Erreur lors du chargement du formulaire</p>';
+            }
+        }
+        
+        // NOUVELLE MÉTHODE : Gérer la soumission du formulaire
+        attachFormSubmit() {
+            const form = document.getElementById('projet-form');
+            if (!form) return;
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                
+                // Désactiver le bouton pendant l'envoi
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enregistrement...';
+                
+                try {
+                    const formData = new FormData(form);
+                    
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        this.showNotification(data.message || 'Projet enregistré avec succès', 'success');
+                        this.closeModal();
+                        
+                        // Recharger la page après un court délai
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        // Afficher les erreurs de validation
+                        if (data.errors) {
+                            let errorMsg = 'Erreurs de validation :\n';
+                            for (let field in data.errors) {
+                                errorMsg += `- ${data.errors[field]}\n`;
+                            }
+                            this.showNotification(errorMsg, 'error');
+                        } else {
+                            this.showNotification(data.message || 'Erreur lors de l\'enregistrement', 'error');
+                        }
+                        
+                        // Réactiver le bouton
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    this.showNotification('Erreur de connexion au serveur', 'error');
+                    
+                    // Réactiver le bouton
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
+            });
+        }
+        
+        closeModal() {
+            const modal = document.getElementById('projet-modal');
+            if (modal) {
+                modal.style.display = 'none';
+                const container = document.getElementById('modal-form-container');
+                if (container) container.innerHTML = '';
+                this.currentProjetId = null;
+            }
+        }
+        
+        async openAddMembreModal(projetId) {
+            this.currentProjetId = projetId;
+            
+            try {
+                const response = await fetch(`${this.apiUrl}/${projetId}/membres-disponibles`, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.showMembreSelectionModal(data.membres);
+                } else {
+                    this.showNotification('Erreur lors du chargement', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                this.showNotification('Erreur de connexion', 'error');
+            }
+        }
+        
+        showMembreSelectionModal(membres) {
+            const modal = document.getElementById('projet-modal');
+            const container = document.getElementById('modal-form-container');
+            
+            if (!modal || !container) return;
+            
+            const modalTitle = modal.querySelector('.modal-header h2');
+            if (modalTitle) modalTitle.textContent = 'Ajouter un membre';
+            
+            let html = `
+                <form id="add-membre-form">
+                    <div class="form-group">
+                        <label for="membre-select">Sélectionner un membre *</label>
+                        <select id="membre-select" name="membre_id" required>
+                            <option value="">-- Choisir un membre --</option>
+            `;
+            
+            if (membres.length === 0) {
+                html += `<option value="" disabled>Aucun membre disponible</option>`;
+            } else {
+                membres.forEach(membre => {
+                    html += `
+                        <option value="${membre.id}">
+                            ${this.escapeHtml(membre.username)}
+                            ${membre.grade ? ' - ' + this.escapeHtml(membre.grade) : ''}
+                        </option>
+                    `;
+                });
+            }
+            
+            html += `
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="role-select">Rôle dans le projet</label>
+                        <select id="role-select" name="role">
+                            <option value="Participant">Participant</option>
+                            <option value="Co-responsable">Co-responsable</option>
+                            <option value="Chercheur">Chercheur</option>
+                            <option value="Doctorant">Doctorant</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secondary" onclick="projets.closeModal()">
+                            Annuler
+                        </button>
+                        <button type="submit" class="btn-primary" ${membres.length === 0 ? 'disabled' : ''}>
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+            `;
+            
+            container.innerHTML = html;
+            modal.style.display = 'flex';
+            
+            // Attacher l'événement de soumission
+            if (membres.length > 0) {
+                document.getElementById('add-membre-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addMembre();
+                });
+            }
+        }
+        
+        async addMembre() {
+            const membreId = document.getElementById('membre-select').value;
+            const role = document.getElementById('role-select').value;
+            
+            if (!membreId) {
+                this.showNotification('Veuillez sélectionner un membre', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${this.apiUrl}/add-membre`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        projet_id: this.currentProjetId,
+                        membre_id: membreId,
+                        role: role
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.showNotification('Membre ajouté', 'success');
+                    this.closeModal();
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    this.showNotification(data.message || 'Erreur', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                this.showNotification('Erreur de connexion', 'error');
+            }
+        }
+        
+        async removeMembre(projetId, membreId, membreName) {
+            if (!confirm(`Retirer ${membreName} de ce projet ?`)) return;
+            
+            try {
+                const response = await fetch(`${this.apiUrl}/remove-membre`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        projet_id: projetId,
+                        membre_id: membreId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    this.showNotification('Membre retiré', 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    this.showNotification(data.message || 'Erreur', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                this.showNotification('Erreur de connexion', 'error');
+            }
+        }
+        
+        export() {
+            const params = new URLSearchParams(window.location.search);
+            params.set('export', 'csv');
+            window.location.href = `${this.baseUrl}?${params.toString()}`;
+        }
+        
+        genererRapport(id) {
+            window.open(`${this.baseUrl}/rapport/${id}`, '_blank');
+        }
+        
+        showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            const colors = {
+                success: '#10B981',
+                error: '#EF4444',
+                warning: '#F59E0B',
+                info: '#3B82F6'
+            };
+            
+            notification.style.background = colors[type] || colors.info;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    }
+
+    // Initialisation globale
+    let projets;
+    document.addEventListener('DOMContentLoaded', () => {
+        projets = new ProjetsHandler();
+    });
+    </script>
+
+    <style>
+    @keyframes slideIn {
+        from { transform: translateX(400px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(400px); opacity: 0; }
+    }
+    
+    .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #5B7FFF;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    </style>
+    <?php
+}
+
+    private function renderFooter(): void
+    {
+        FooterComponent::render(['role' => 'admin']);
+    }
+}

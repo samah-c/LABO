@@ -1,5 +1,3 @@
-
-
 <?php
 require_once __DIR__ . '/controllers/auth/AuthController.php';
 require_once __DIR__ . '/lib/helpers.php';
@@ -144,6 +142,12 @@ if (preg_match('#^/evenements/(\d+)$#', $uri, $matches)) {
 // ===== ACTUALITÉS =====
 if ($uri === '/actualites') {
     $visiteurController->actualites();
+    exit;
+}
+
+// Détail d'une actualité
+if (preg_match('#^/actualites/(\d+)$#', $uri, $matches)) {
+    $visiteurController->actualiteDetail($matches[1]);
     exit;
 }
 
@@ -487,48 +491,57 @@ if (strpos($uri, '/admin') === 0) {
         }
     }
 
-    // ===== PROJETS =====
-    if (strpos($uri, '/admin/projets') === 0) {
-        require_once __DIR__ . '/controllers/admin/ProjetsController.php';
-        $projetsController = new ProjetsController();
-        
-        // Export
-        if ($uri === '/admin/projets/projets' && isset($_GET['export'])) {
-            $projetsController->export();
-            exit;
-        }
-        
-        // Rapport
-        if (preg_match('#^/admin/projets/projets/rapport/(\d+)$#', $uri, $matches)) {
-            $projetsController->genererRapport($matches[1]);
-            exit;
-        }
-        
-        // Formulaire (AJAX)
-        if (preg_match('#^/admin/projets/projets/form(/(\d+))?$#', $uri, $matches)) {
-            $id = $matches[2] ?? null;
-            $projetsController->form($id);
-            exit;
-        }
-        
-        // Sauvegarder
-        if ($uri === '/admin/projets/projets/save' && $method === 'POST') {
-            $projetsController->save();
-            exit;
-        }
-        
-        // Vue détaillée
-        if (preg_match('#^/admin/projets/projets/view/(\d+)$#', $uri, $matches)) {
-            $projetsController->view($matches[1]);
-            exit;
-        }
-        
-        // Liste
-        if ($uri === '/admin/projets' || $uri === '/admin/projets/projets') {
-            $projetsController->index();
-            exit;
-        }
+       
+     // ===== PROJETS =====
+if (strpos($uri, '/admin/projets') === 0) {
+    require_once __DIR__ . '/controllers/admin/ProjetsController.php';
+    $projetsController = new ProjetsController();
+     
+    // Au début de la section projets dans le router
+error_log("URI reçu pour projets: " . $uri);
+
+if (preg_match('#^/admin/projets/projets/rapport/(\d+)$#', $uri, $matches)) {
+    error_log("Route rapport détectée pour ID: " . $matches[1]);
+    $projetsController->genererRapport($matches[1]);
+    exit;
+}
+    // Export
+    if ($uri === '/admin/projets/projets' && isset($_GET['export'])) {
+        $projetsController->export();
+        exit;
     }
+
+    // RAPPORT 
+    if (preg_match('#^/admin/projets/projets/rapport/(\d+)$#', $uri, $matches)) {
+        $projetsController->genererRapport($matches[1]);
+        exit;
+    }
+    
+    // Formulaire (AJAX)
+    if (preg_match('#^/admin/projets/projets/form(/(\d+))?$#', $uri, $matches)) {
+        $id = $matches[2] ?? null;
+        $projetsController->form($id);
+        exit;
+    }
+    
+    // Sauvegarder
+    if ($uri === '/admin/projets/projets/save' && $method === 'POST') {
+        $projetsController->save();
+        exit;
+    }
+    
+    // Vue détaillée - APRÈS rapport
+    if (preg_match('#^/admin/projets/projets/view/(\d+)$#', $uri, $matches)) {
+        $projetsController->view($matches[1]);
+        exit;
+    }
+    
+    // Liste
+    if ($uri === '/admin/projets' || $uri === '/admin/projets/projets') {
+        $projetsController->index();
+        exit;
+    }
+}
     
     // ===== ÉQUIPES =====
     if (strpos($uri, '/admin/equipes') === 0) {
@@ -583,6 +596,7 @@ if (strpos($uri, '/admin') === 0) {
             $publicationsController->rapport();
             exit;
         }
+
         
         // Formulaire (AJAX)
         if (preg_match('#^/admin/publications/publications/form(/(\d+))?$#', $uri, $matches)) {
@@ -591,11 +605,6 @@ if (strpos($uri, '/admin') === 0) {
             exit;
         }
         
-        // Sauvegarder
-        if ($uri === '/admin/publications/publications/save' && $method === 'POST') {
-            $publicationsController->save();
-            exit;
-        }
         
         // Vue détaillée
         if (preg_match('#^/admin/publications/publications/view/(\d+)$#', $uri, $matches)) {
@@ -606,6 +615,12 @@ if (strpos($uri, '/admin') === 0) {
         // Liste
         if ($uri === '/admin/publications/publications') {
             $publicationsController->index();
+            exit;
+        }
+
+          // Sauvegarder
+        if ($uri === '/admin/publications/publications/save' && $method === 'POST') {
+            $publicationsController->save();
             exit;
         }
     }
@@ -644,6 +659,13 @@ if (strpos($uri, '/admin') === 0) {
             $equipementsController->rapport();
             exit;
         }
+
+   if (strpos($uri, '/admin/equipements/equipements/export-pdf') !== false) {
+    $equipementsController = new EquipementsController();
+    $equipementsController->exportRapport();
+    exit;
+}
+        
         
         // Formulaire (AJAX)
         if (preg_match('#^/admin/equipements/equipements/form(/(\d+))?$#', $uri, $matches)) {
@@ -822,6 +844,30 @@ if (strpos($uri, '/membre') === 0) {
         $membreController->soumettrePublication();
         exit;
     }
+
+    // GET projets for publication form
+if ($uri === '/membre/publications/get-projets' && $method === 'GET') {
+    require_once __DIR__ . '/../controllers/member/PublicationController.php';
+    $controller = new PublicationController();
+    $controller->getProjets();
+    exit;
+}
+
+// GET membres for co-auteurs
+if ($uri === '/membre/publications/get-membres' && $method === 'GET') {
+    require_once __DIR__ . '/../controllers/member/PublicationController.php';
+    $controller = new PublicationController();
+    $controller->getMembres();
+    exit;
+}
+
+// Route de suppression -
+if (preg_match('#^/membre/publications/delete/(\d+)$#', $uri, $matches) && $method === 'POST') {
+    require_once __DIR__ . '/../controllers/member/PublicationController.php';
+    $controller = new PublicationController();
+    $controller->deletePublication($matches[1]);
+    exit;
+}
     
     // ===== RÉSERVATIONS =====
     if ($uri === '/membre/reservations') {
@@ -842,6 +888,50 @@ if (strpos($uri, '/membre') === 0) {
     // ===== ÉVÉNEMENTS =====
     if ($uri === '/membre/evenements') {
         $membreController->evenements();
+        exit;
+    }
+}
+
+if (strpos($uri, '/api/membre') === 0) {
+    AuthController::requireMembre();
+    
+    // Vérifier les conflits de réservation
+    if ($uri === '/api/membre/reservations/check-conflicts' && $method === 'POST') {
+        require_once __DIR__ . '/controllers/member/ReservationApiController.php';
+        $apiController = new ReservationApiController();
+        $apiController->checkConflicts();
+        exit;
+    }
+    
+    // Statistiques d'un équipement spécifique
+    if (preg_match('#^/api/membre/equipements/(\d+)/stats$#', $uri, $matches) && $method === 'GET') {
+        require_once __DIR__ . '/controllers/member/ReservationApiController.php';
+        $apiController = new ReservationApiController();
+        $apiController->getEquipementStats($matches[1]);
+        exit;
+    }
+    
+    // Statistiques globales des réservations du membre
+    if ($uri === '/api/membre/reservations/stats' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/member/ReservationApiController.php';
+        $apiController = new ReservationApiController();
+        $apiController->getGlobalStats();
+        exit;
+    }
+    
+    // Calendrier des réservations (pour affichage calendrier)
+    if ($uri === '/api/membre/reservations/calendar' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/member/ReservationApiController.php';
+        $apiController = new ReservationApiController();
+        $apiController->getCalendarData();
+        exit;
+    }
+    
+    // Réservations à venir (pour notifications)
+    if ($uri === '/api/membre/reservations/upcoming' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/member/ReservationApiController.php';
+        $apiController = new ReservationApiController();
+        $apiController->getUpcomingReservations();
         exit;
     }
 }

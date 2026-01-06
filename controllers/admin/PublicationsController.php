@@ -10,6 +10,9 @@ require_once __DIR__ . '/../../models/ProjetModel.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../../lib/ViewComponents.php';
 
+require_once __DIR__ . '/../../views/admin/publications/PublicationsListView.php';
+require_once __DIR__ . '/../../views/admin/publications/PublicationDetailView.php';
+
 class PublicationsController {
     private $publicationModel;
     private $membreModel;
@@ -21,43 +24,42 @@ class PublicationsController {
         $this->projetModel = new ProjetModel();
     }
     
-    // ========================================
-    // AFFICHAGE DE LA LISTE
-    // ========================================
-    
     public function index() {
-        // Récupérer les filtres
         $filters = [
             'type_publication' => $_GET['type'] ?? null,
             'domaine' => $_GET['domaine'] ?? null,
             'annee' => $_GET['annee'] ?? null,
             'projet_id' => $_GET['projet_id'] ?? null,
             'search' => $_GET['search'] ?? null,
-            'statut' => $_GET['statut'] ?? null // Pour filtrer par statut de validation
+            'statut' => $_GET['statut'] ?? null
         ];
         
-        // Récupérer les publications filtrées
         $publications = $this->publicationModel->getAllFiltered($filters);
         
-        // Enrichir avec les noms des auteurs
         foreach ($publications as &$pub) {
             $auteurs = $this->publicationModel->getAuteurs($pub['id']);
             $pub['auteurs_noms'] = implode(', ', array_column($auteurs, 'username'));
         }
         
-        // Récupérer les options pour les filtres
         $types = $this->publicationModel->getTypes();
         $domaines = $this->publicationModel->getDomaines();
         $annees = $this->publicationModel->getAnnees();
         $projets = $this->publicationModel->getProjets();
         
-        // Charger la vue
-        require_once __DIR__ . '/../../views/admin/publications/publications.php';
+        $perPage = 10;
+        $page = $_GET['page'] ?? 1;
+        $pagination = Utils::paginate(count($publications), $perPage, $page);
+        
+        $view = new PublicationsListView(
+            $publications,
+            $types,
+            $annees,
+            $domaines,
+            $projets,
+            $pagination
+        );
+        $view->render();
     }
-    
-    // ========================================
-    // FORMULAIRE (AJAX)
-    // ========================================
     
     public function form($id = null) {
         if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
@@ -78,23 +80,23 @@ class PublicationsController {
             $auteurs = $this->publicationModel->getAuteurs($id);
         }
         
-        // Récupérer les listes pour les selects
         $projets = $this->projetModel->getAll();
         $membres = $this->membreModel->getAllMembresWithUser();
         
-        // Générer le formulaire
         $this->renderForm($publication, $auteurs, $projets, $membres);
     }
     
     private function renderForm($publication, $auteurs, $projets, $membres) {
         $isEdit = !empty($publication);
+        $typeActuel = $publication['type_publication'] ?? '';
+        $domaineActuel = $publication['domaine'] ?? '';
+        $statutActuel = $publication['statut_validation'] ?? 'en_attente';
         ?>
         <form id="publication-form" action="<?= base_url('admin/publications/publications/save') ?>" method="POST">
             <?php if ($isEdit): ?>
                 <input type="hidden" name="id" value="<?= $publication['id'] ?>">
             <?php endif; ?>
             
-            <!-- Titre -->
             <div class="form-group">
                 <label for="titre">Titre *</label>
                 <input type="text" 
@@ -105,18 +107,17 @@ class PublicationsController {
                        placeholder="Titre de la publication">
             </div>
             
-            <!-- Type et Domaine -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="type_publication">Type *</label>
                     <select id="type_publication" name="type_publication" required>
                         <option value="">-- Sélectionner --</option>
-                        <option value="Article" <?= ($publication['type_publication'] ?? '') === 'Article' ? 'selected' : '' ?>>Article</option>
-                        <option value="Conférence" <?= ($publication['type_publication'] ?? '') === 'Conférence' ? 'selected' : '' ?>>Conférence</option>
-                        <option value="Thèse" <?= ($publication['type_publication'] ?? '') === 'Thèse' ? 'selected' : '' ?>>Thèse</option>
-                        <option value="Rapport" <?= ($publication['type_publication'] ?? '') === 'Rapport' ? 'selected' : '' ?>>Rapport</option>
-                        <option value="Livre" <?= ($publication['type_publication'] ?? '') === 'Livre' ? 'selected' : '' ?>>Livre</option>
-                        <option value="Chapitre" <?= ($publication['type_publication'] ?? '') === 'Chapitre' ? 'selected' : '' ?>>Chapitre</option>
+                        <option value="Article" <?= $typeActuel === 'Article' ? 'selected' : '' ?>>Article</option>
+                        <option value="Conférence" <?= $typeActuel === 'Conférence' ? 'selected' : '' ?>>Conférence</option>
+                        <option value="Thèse" <?= $typeActuel === 'Thèse' ? 'selected' : '' ?>>Thèse</option>
+                        <option value="Rapport" <?= $typeActuel === 'Rapport' ? 'selected' : '' ?>>Rapport</option>
+                        <option value="Livre" <?= $typeActuel === 'Livre' ? 'selected' : '' ?>>Livre</option>
+                        <option value="Chapitre" <?= $typeActuel === 'Chapitre' ? 'selected' : '' ?>>Chapitre</option>
                     </select>
                 </div>
                 
@@ -124,17 +125,16 @@ class PublicationsController {
                     <label for="domaine">Domaine</label>
                     <select id="domaine" name="domaine">
                         <option value="">-- Sélectionner --</option>
-                        <option value="IA" <?= ($publication['domaine'] ?? '') === 'IA' ? 'selected' : '' ?>>Intelligence Artificielle</option>
-                        <option value="Sécurité" <?= ($publication['domaine'] ?? '') === 'Sécurité' ? 'selected' : '' ?>>Sécurité</option>
-                        <option value="Réseaux" <?= ($publication['domaine'] ?? '') === 'Réseaux' ? 'selected' : '' ?>>Réseaux</option>
-                        <option value="Blockchain" <?= ($publication['domaine'] ?? '') === 'Blockchain' ? 'selected' : '' ?>>Blockchain</option>
-                        <option value="IoT" <?= ($publication['domaine'] ?? '') === 'IoT' ? 'selected' : '' ?>>IoT</option>
-                        <option value="Big Data" <?= ($publication['domaine'] ?? '') === 'Big Data' ? 'selected' : '' ?>>Big Data</option>
+                        <option value="IA" <?= $domaineActuel === 'IA' ? 'selected' : '' ?>>Intelligence Artificielle</option>
+                        <option value="Sécurité" <?= $domaineActuel === 'Sécurité' ? 'selected' : '' ?>>Sécurité</option>
+                        <option value="Réseaux" <?= $domaineActuel === 'Réseaux' ? 'selected' : '' ?>>Réseaux</option>
+                        <option value="Blockchain" <?= $domaineActuel === 'Blockchain' ? 'selected' : '' ?>>Blockchain</option>
+                        <option value="IoT" <?= $domaineActuel === 'IoT' ? 'selected' : '' ?>>IoT</option>
+                        <option value="Big Data" <?= $domaineActuel === 'Big Data' ? 'selected' : '' ?>>Big Data</option>
                     </select>
                 </div>
             </div>
             
-            <!-- Date et Projet -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="date_publication">Date de publication *</label>
@@ -159,7 +159,6 @@ class PublicationsController {
                 </div>
             </div>
             
-            <!-- Résumé -->
             <div class="form-group">
                 <label for="resume">Résumé *</label>
                 <textarea id="resume" 
@@ -169,7 +168,6 @@ class PublicationsController {
                           placeholder="Résumé de la publication"><?= e($publication['resume'] ?? '') ?></textarea>
             </div>
             
-            <!-- DOI et Lien -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="doi">DOI</label>
@@ -190,18 +188,16 @@ class PublicationsController {
                 </div>
             </div>
             
-            <!-- Statut de validation -->
             <div class="form-group">
                 <label for="statut_validation">Statut de validation *</label>
                 <select id="statut_validation" name="statut_validation" required>
-                    <option value="en_attente" <?= ($publication['statut_validation'] ?? 'en_attente') === 'en_attente' ? 'selected' : '' ?>>En attente</option>
-                    <option value="valide" <?= ($publication['statut_validation'] ?? '') === 'valide' ? 'selected' : '' ?>>Validé</option>
-                    <option value="rejete" <?= ($publication['statut_validation'] ?? '') === 'rejete' ? 'selected' : '' ?>>Rejeté</option>
+                    <option value="en_attente" <?= $statutActuel === 'en_attente' ? 'selected' : '' ?>>En attente</option>
+                    <option value="valide" <?= $statutActuel === 'valide' ? 'selected' : '' ?>>Validé</option>
+                    <option value="rejete" <?= $statutActuel === 'rejete' ? 'selected' : '' ?>>Rejeté</option>
                 </select>
                 <small>Les publications validées sont visibles publiquement</small>
             </div>
             
-            <!-- Auteurs -->
             <div class="form-group">
                 <label>Auteurs *</label>
                 <div id="auteurs-container">
@@ -241,7 +237,6 @@ class PublicationsController {
                 </button>
             </div>
             
-            <!-- Boutons -->
             <div class="modal-footer">
                 <button type="button" class="btn-secondary" onclick="publications.closeModal()">
                     Annuler
@@ -252,78 +247,67 @@ class PublicationsController {
             </div>
         </form>
         
-<script>
-(function() {
-    let auteurIndex = <?= count($auteurs) ?>;
-    const membresOptions = `
-        <option value="">-- Sélectionner --</option>
-        <?php foreach ($membres as $membre): ?>
-            <option value="<?= $membre['id'] ?>">
-                <?= e($membre['username']) ?> 
-                <?= $membre['grade'] ? '- ' . e($membre['grade']) : '' ?>
-            </option>
-        <?php endforeach; ?>
-    `;
-    
-    window.addAuteur = function() {
-        const container = document.getElementById('auteurs-container');
-        const row = document.createElement('div');
-        row.className = 'auteur-row';
-        row.dataset.index = auteurIndex++;
-        row.innerHTML = `
-            <select name="auteurs[]" required>
-                ${membresOptions}
-            </select>
-            <button type="button" class="btn-icon btn-remove" onclick="removeAuteur(this)">X</button>
-        `;
-        container.appendChild(row);
-    };
-    
-    window.removeAuteur = function(button) {
-        const container = document.getElementById('auteurs-container');
-        const rows = container.querySelectorAll('.auteur-row');
-        
-        if (rows.length > 1) {
-            button.closest('.auteur-row').remove();
-        } else {
-            alert('Il doit y avoir au moins un auteur');
-        }
-    };
-    
-    // IMPORTANT: Attacher l'event IMMÉDIATEMENT
-    const form = document.getElementById('publication-form');
-    if (form) {
-        // Retirer tous les anciens listeners
-        const newForm = form.cloneNode(true);
-        form.parentNode.replaceChild(newForm, form);
-        
-        // Attacher le nouveau listener
-        newForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+        <script>
+        (function() {
+            let auteurIndex = <?= count($auteurs) ?>;
+            const membresOptions = `
+                <option value="">-- Sélectionner --</option>
+                <?php foreach ($membres as $membre): ?>
+                    <option value="<?= $membre['id'] ?>">
+                        <?= e($membre['username']) ?> 
+                        <?= $membre['grade'] ? '- ' . e($membre['grade']) : '' ?>
+                    </option>
+                <?php endforeach; ?>
+            `;
             
-            console.log('Form submit intercepté');
-            console.log('window.publications existe?', !!window.publications);
-            console.log('window.parent.publications existe?', !!window.parent.publications);
+            window.addAuteur = function() {
+                const container = document.getElementById('auteurs-container');
+                const row = document.createElement('div');
+                row.className = 'auteur-row';
+                row.dataset.index = auteurIndex++;
+                row.innerHTML = `
+                    <select name="auteurs[]" required>
+                        ${membresOptions}
+                    </select>
+                    <button type="button" class="btn-icon btn-remove" onclick="removeAuteur(this)">🗑️</button>
+                `;
+                container.appendChild(row);
+            };
             
-            const handler = window.publications || window.parent.publications;
+            window.removeAuteur = function(button) {
+                const container = document.getElementById('auteurs-container');
+                const rows = container.querySelectorAll('.auteur-row');
+                
+                if (rows.length > 1) {
+                    button.closest('.auteur-row').remove();
+                } else {
+                    alert('Il doit y avoir au moins un auteur');
+                }
+            };
             
-            if (handler && typeof handler.submitForm === 'function') {
-                handler.submitForm(this);
-            } else {
-                console.error('Handler publications introuvable');
-                alert('Erreur: Handler non initialisé. Veuillez recharger la page.');
+            const form = document.getElementById('publication-form');
+            if (form) {
+                const newForm = form.cloneNode(true);
+                form.parentNode.replaceChild(newForm, form);
+                
+                newForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const handler = window.publications || window.parent.publications;
+                    
+                    if (handler && typeof handler.submitForm === 'function') {
+                        handler.submitForm(this);
+                    } else {
+                        console.error('Handler publications introuvable');
+                        alert('Erreur: Handler non initialisé. Veuillez recharger la page.');
+                    }
+                    
+                    return false;
+                });
             }
-            
-            return false;
-        });
-        
-        console.log('Event listener attaché au formulaire');
-    } else {
-        console.error('Formulaire publication-form introuvable');
-    }
-})();
-</script>
+        })();
+        </script>
         
         <style>
         .auteur-row {
@@ -371,17 +355,12 @@ class PublicationsController {
         <?php
     }
     
-    // ========================================
-    // SAUVEGARDE
-    // ========================================
-    
     public function save() {
         header('Content-Type: application/json');
         
         try {
             $id = $_POST['id'] ?? null;
             
-            // Validation
             $errors = $this->validate($_POST);
             if (!empty($errors)) {
                 echo json_encode([
@@ -392,7 +371,6 @@ class PublicationsController {
                 return;
             }
             
-            // Préparer les données
             $data = [
                 'titre' => trim($_POST['titre']),
                 'type_publication' => $_POST['type_publication'],
@@ -405,7 +383,6 @@ class PublicationsController {
                 'statut_validation' => $_POST['statut_validation'] ?? 'en_attente'
             ];
             
-            // Créer ou mettre à jour
             if ($id) {
                 $this->publicationModel->update($id, $data);
                 $publicationId = $id;
@@ -415,13 +392,10 @@ class PublicationsController {
                 $message = 'Publication créée avec succès';
             }
             
-            // Gérer les auteurs
             if (isset($_POST['auteurs']) && is_array($_POST['auteurs'])) {
-                // Supprimer les anciens auteurs
                 $stmt = $this->publicationModel->getConnection()->prepare("DELETE FROM Publication_Auteur WHERE publication_id = ?");
                 $stmt->execute([$publicationId]);
                 
-                // Ajouter les nouveaux auteurs
                 foreach ($_POST['auteurs'] as $ordre => $membreId) {
                     if (!empty($membreId)) {
                         $this->publicationModel->addAuteur($publicationId, $membreId, $ordre + 1);
@@ -470,10 +444,6 @@ class PublicationsController {
         return $errors;
     }
     
-    // ========================================
-    // VUE DÉTAILLÉE
-    // ========================================
-    
     public function view($id) {
         $publication = $this->publicationModel->getById($id);
         
@@ -483,21 +453,16 @@ class PublicationsController {
             return;
         }
         
-        // Récupérer les auteurs
         $auteurs = $this->publicationModel->getAuteurs($id);
         
-        // Récupérer le projet si associé
         $projet = null;
         if ($publication['projet_id']) {
             $projet = $this->projetModel->getById($publication['projet_id']);
         }
         
-        require_once __DIR__ . '/../../views/admin/publications/publication-detail.php';
+        $view = new PublicationDetailView($publication, $auteurs, $projet);
+        $view->render();
     }
-    
-    // ========================================
-    // RÉCUPÉRATION (API)
-    // ========================================
     
     public function get($id) {
         header('Content-Type: application/json');
@@ -512,7 +477,6 @@ class PublicationsController {
             return;
         }
         
-        // Récupérer les auteurs
         $auteurs = $this->publicationModel->getAuteurs($id);
         $publication['auteurs'] = $auteurs;
         
@@ -521,10 +485,6 @@ class PublicationsController {
             'publication' => $publication
         ]);
     }
-    
-    // ========================================
-    // SUPPRESSION
-    // ========================================
     
     public function delete($id) {
         header('Content-Type: application/json');
@@ -540,11 +500,9 @@ class PublicationsController {
                 return;
             }
             
-            // Supprimer les auteurs associés
             $stmt = $this->publicationModel->getConnection()->prepare("DELETE FROM Publication_Auteur WHERE publication_id = ?");
             $stmt->execute([$id]);
             
-            // Supprimer la publication
             $this->publicationModel->delete($id);
             
             echo json_encode([
@@ -561,54 +519,55 @@ class PublicationsController {
         }
     }
     
-    // ========================================
-    // VALIDATION DES PUBLICATIONS
-    // ========================================
-     public function valider($id) {
-    error_log("Validation demandée pour publication ID: $id");
-    header('Content-Type: application/json');
+  
     
-    try {
-        $result = $this->publicationModel->update($id, ['statut_validation' => 'valide']);
-        error_log("Résultat update: " . ($result ? "success" : "failed"));
+    public function valider($id) {
+        header('Content-Type: application/json');
+        error_log("Validation demandée pour publication ID: $id");
         
-        echo json_encode([
-            'success' => true,
-            'message' => 'Publication validée'
-        ]);
-    } catch (Exception $e) {
-        error_log("Erreur validation: " . $e->getMessage());
-        echo json_encode([
-            'success' => false,
-            'message' => 'Erreur lors de la validation: ' . $e->getMessage()
-        ]);
+        try {
+            $result = $this->publicationModel->update($id, ['statut_validation' => 'valide']);
+            error_log("Résultat update: " . ($result ? "success" : "failed"));
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Publication validée avec succès'
+            ]);
+        } catch (Exception $e) {
+            error_log("Erreur validation: " . $e->getMessage());
+            echo json_encode([
+                'success' => false,
+                'message' => 'Erreur lors de la validation: ' . $e->getMessage()
+            ]);
+        }
+        
+        exit; 
     }
-}
 
-public function rejeter($id) {
-    error_log("Rejet demandé pour publication ID: $id");
-    header('Content-Type: application/json');
-    
-    try {
-        $result = $this->publicationModel->update($id, ['statut_validation' => 'rejete']);
-        error_log("Résultat update: " . ($result ? "success" : "failed"));
+    public function rejeter($id) {
+        header('Content-Type: application/json');
+        error_log("Rejet demandé pour publication ID: $id");
         
-        echo json_encode([
-            'success' => true,
-            'message' => 'Publication rejetée'
-        ]);
-    } catch (Exception $e) {
-        error_log("Erreur rejet: " . $e->getMessage());
-        echo json_encode([
-            'success' => false,
-            'message' => 'Erreur lors du rejet: ' . $e->getMessage()
-        ]);
+        try {
+            $result = $this->publicationModel->update($id, ['statut_validation' => 'rejete']);
+            error_log("Résultat update: " . ($result ? "success" : "failed"));
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'Publication rejetée'
+            ]);
+        } catch (Exception $e) {
+            error_log("Erreur rejet: " . $e->getMessage());
+            echo json_encode([
+                'success' => false,
+                'message' => 'Erreur lors du rejet: ' . $e->getMessage()
+            ]);
+        }
+        
+        exit; // ← LIGNE CRITIQUE
     }
-}
-    // ========================================
-    // RAPPORTS BIBLIOGRAPHIQUES
-    // ========================================
     
+    // Reste du code (rapport, export, etc.)
     public function rapport() {
         $type = $_GET['type'] ?? 'annee';
         $format = $_GET['format'] ?? 'html';
@@ -623,116 +582,54 @@ public function rejeter($id) {
             $data = $this->genererRapportComplet();
         }
         
-        if ($format === 'pdf') {
-            $this->exporterRapportPDF($data, $type);
-        } elseif ($format === 'csv') {
-            $this->exporterRapportCSV($data);
-        } else {
-            require_once __DIR__ . '/../../views/admin/publications/rapport-publications.php';
+        if (class_exists('PublicationsPdfExportView')) {
+            $pdfExport = new PublicationsPdfExportView($data, $type);
+            
+            if ($format === 'pdf') {
+                $pdfExport->generate();
+            } elseif ($format === 'csv') {
+                $this->exporterRapportCSV($data);
+            } else {
+                $pdfExport->renderHtmlPreview();
+            }
         }
     }
     
     private function genererRapportAnnuel($annee = null) {
-        if (!$annee) {
-            $annee = date('Y');
-        }
+        if (!$annee) $annee = date('Y');
         
         $publications = $this->publicationModel->getAllFiltered(['annee' => $annee]);
         
-        // Enrichir avec les auteurs
         foreach ($publications as &$pub) {
             $auteurs = $this->publicationModel->getAuteurs($pub['id']);
             $pub['auteurs_noms'] = implode(', ', array_column($auteurs, 'username'));
         }
         
-        $rapport = [
+        return [
             'titre' => "Rapport bibliographique $annee",
             'annee' => $annee,
             'total' => count($publications),
-            'par_type' => [],
-            'par_domaine' => [],
             'publications' => $publications
         ];
-        
-        // Regrouper par type
-        foreach ($publications as $pub) {
-            $type = $pub['type_publication'];
-            if (!isset($rapport['par_type'][$type])) {
-                $rapport['par_type'][$type] = 0;
-            }
-            $rapport['par_type'][$type]++;
-            
-            // Par domaine
-            if ($pub['domaine']) {
-                $domaine = $pub['domaine'];
-                if (!isset($rapport['par_domaine'][$domaine])) {
-                    $rapport['par_domaine'][$domaine] = 0;
-                }
-                $rapport['par_domaine'][$domaine]++;
-            }
-        }
-        
-        return $rapport;
     }
     
     private function genererRapportAuteur($membreId = null) {
-        if (!$membreId) {
-            return ['error' => 'Membre non spécifié'];
-        }
+        if (!$membreId) return ['error' => 'Membre non spécifié'];
         
         $membre = $this->membreModel->getById($membreId);
         $publications = $this->publicationModel->getByAuteur($membreId);
         
-        // Enrichir avec les auteurs
-        foreach ($publications as &$pub) {
-            $auteurs = $this->publicationModel->getAuteurs($pub['id']);
-            $pub['auteurs_noms'] = implode(', ', array_column($auteurs, 'username'));
-        }
-        
-        // Récupérer le username du membre
-        if ($membre) {
-            $db = $this->publicationModel->getConnection();
-            $userStmt = $db->prepare("SELECT username FROM User WHERE id = ?");
-            $userStmt->execute([$membre['user_id']]);
-            $user = $userStmt->fetch();
-            $membre['username'] = $user['username'] ?? 'Inconnu';
-        }
-        
-        $rapport = [
+        return [
             'titre' => "Publications de " . ($membre['username'] ?? 'Inconnu'),
             'membre' => $membre,
             'total' => count($publications),
-            'par_annee' => [],
-            'par_type' => [],
             'publications' => $publications
         ];
-        
-        foreach ($publications as $pub) {
-            $annee = date('Y', strtotime($pub['date_publication']));
-            if (!isset($rapport['par_annee'][$annee])) {
-                $rapport['par_annee'][$annee] = 0;
-            }
-            $rapport['par_annee'][$annee]++;
-            
-            $type = $pub['type_publication'];
-            if (!isset($rapport['par_type'][$type])) {
-                $rapport['par_type'][$type] = 0;
-            }
-            $rapport['par_type'][$type]++;
-        }
-        
-        return $rapport;
     }
     
     private function genererRapportComplet() {
         $stats = $this->publicationModel->getStats();
         $publications = $this->publicationModel->getAll();
-        
-        // Enrichir avec les auteurs
-        foreach ($publications as &$pub) {
-            $auteurs = $this->publicationModel->getAuteurs($pub['id']);
-            $pub['auteurs_noms'] = implode(', ', array_column($auteurs, 'username'));
-        }
         
         return [
             'titre' => 'Rapport bibliographique complet',
@@ -741,65 +638,15 @@ public function rejeter($id) {
         ];
     }
     
-    private function exporterRapportPDF($data, $type) {
-        // Pour l'instant, rediriger vers HTML avec suggestion d'impression
-        // Une vraie implémentation nécessiterait TCPDF ou DOMPDF
-        
-        header('Content-Type: text/html; charset=utf-8');
-        
-        echo '<!DOCTYPE html>';
-        echo '<html><head>';
-        echo '<meta charset="UTF-8">';
-        echo '<title>' . htmlspecialchars($data['titre']) . '</title>';
-        echo '<style>';
-        echo 'body { font-family: Arial, sans-serif; margin: 40px; }';
-        echo 'h1 { color: #1F2937; border-bottom: 3px solid #3B82F6; padding-bottom: 10px; }';
-        echo 'h2 { color: #3B82F6; margin-top: 30px; }';
-        echo '.publication { margin: 20px 0; padding: 15px; background: #F9FAFB; border-left: 4px solid #3B82F6; }';
-        echo '.meta { color: #6B7280; font-size: 14px; }';
-        echo '@media print { body { margin: 20px; } }';
-        echo '</style>';
-        echo '<script>window.onload = function() { window.print(); }</script>';
-        echo '</head><body>';
-        
-        echo '<h1>' . htmlspecialchars($data['titre']) . '</h1>';
-        echo '<p class="meta">Généré le ' . date('d/m/Y à H:i') . '</p>';
-        
-        if (!empty($data['publications'])) {
-            echo '<h2>Publications (' . count($data['publications']) . ')</h2>';
-            
-            foreach ($data['publications'] as $pub) {
-                echo '<div class="publication">';
-                echo '<strong>' . htmlspecialchars($pub['titre']) . '</strong><br>';
-                echo '<span class="meta">';
-                echo htmlspecialchars($pub['type_publication']) . ' - ';
-                echo date('Y', strtotime($pub['date_publication']));
-                if (!empty($pub['auteurs_noms'])) {
-                    echo ' - ' . htmlspecialchars($pub['auteurs_noms']);
-                }
-                echo '</span>';
-                if (!empty($pub['resume'])) {
-                    echo '<p>' . nl2br(htmlspecialchars($pub['resume'])) . '</p>';
-                }
-                echo '</div>';
-            }
-        }
-        
-        echo '</body></html>';
-        exit;
-    }
-    
     private function exporterRapportCSV($data) {
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="rapport_publications_' . date('Y-m-d') . '.csv"');
         
         $output = fopen('php://output', 'w');
-        fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF)); // UTF-8 BOM
+        fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
         
-        // En-têtes
         fputcsv($output, ['Titre', 'Type', 'Date', 'Auteurs', 'DOI', 'Domaine']);
         
-        // Données
         foreach ($data['publications'] as $pub) {
             fputcsv($output, [
                 $pub['titre'],
@@ -814,10 +661,6 @@ public function rejeter($id) {
         fclose($output);
         exit;
     }
-    
-    // ========================================
-    // EXPORT
-    // ========================================
     
     public function export() {
         $filters = [
@@ -859,3 +702,4 @@ public function rejeter($id) {
         exit;
     }
 }
+?>

@@ -10,6 +10,8 @@ require_once __DIR__ . '/../../models/PublicationModel.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../auth/AuthController.php';
 
+require_once __DIR__ . '/../../views/admin/projets/ProjetsListView.php';
+require_once __DIR__ . '/../../views/admin/projets/ProjetDetailView.php';
 class ProjetsController {
     private $projetModel;
     private $membreModel;
@@ -26,25 +28,27 @@ class ProjetsController {
      * Liste des projets avec filtres et recherche
      */
     public function index() {
-        // Récupérer les filtres
-        $filters = [
-            'thematique' => get('thematique'),
-            'status' => get('status'),
-            'search' => get('search')
-        ];
-        
-        // Récupérer les projets filtrés
-        $projets = $this->projetModel->getAllFiltered($filters);
-        
-        // Pagination
-        $page = (int) get('page', 1);
-        $perPage = 10;
-        $pagination = Utils::paginate(count($projets), $perPage, $page);
-        $projets = array_slice($projets, $pagination['offset'], $perPage);
-        
-        // Charger la vue
-        require_once __DIR__ . '/../../views/admin/projets/projets.php';
-    }
+    // Récupérer les filtres
+    $filters = [
+        'thematique' => get('thematique'),
+        'status' => get('status'),
+        'annee' => get('annee'),  
+        'search' => get('search')
+    ];
+    
+    // Récupérer les projets filtrés
+    $projets = $this->projetModel->getAllFiltered($filters);
+    
+    // Pagination
+    $page = (int) get('page', 1);
+    $perPage = 10;
+    $pagination = Utils::paginate(count($projets), $perPage, $page);
+    $projets = array_slice($projets, $pagination['offset'], $perPage);
+    
+    // Charger la vue
+    $view = new ProjetsListView($projets, $pagination);
+    $view->render();
+}
     
     /**
      * Vue détaillée d'un projet
@@ -89,7 +93,14 @@ class ProjetsController {
         ];
         
         // Charger la vue détaillée
-        require_once __DIR__ . '/../../views/admin/projets/view.php';
+               $view = new ProjetDetailView(
+                           $projet,
+                           $responsable,
+                           $membres,
+                           $publications,
+                           $stats
+                );
+                $view->render();
     }
     
     /**
@@ -464,50 +475,56 @@ class ProjetsController {
     }
     
     /**
-     * Générer un rapport PDF pour un projet
-     */
-    public function genererRapport($id) {
-        $projet = $this->projetModel->getById($id);
-        
-        if (!$projet) {
-            $_SESSION['error'] = 'Projet non trouvé';
-            redirect(base_url('admin/projets/projets'));
-        }
-        
-        // Récupérer toutes les données nécessaires
-        $membres = $this->projetModel->getMembres($id);
-        $publications = $this->projetModel->getPublications($id);
-        $responsable = $this->membreModel->getById($projet['responsable_id']);
-        
-        // Générer le rapport PDF (à implémenter avec une bibliothèque PDF)
-        // Pour l'instant, on redirige vers une vue HTML imprimable
-        require_once __DIR__ . '/../../views/admin/projets/rapport.php';
-    }
-    
-    /**
      * Exporter les projets en CSV
      */
     public function export() {
-        $projets = $this->projetModel->getAllWithResponsables();
+    // Récupérer les filtres appliqués
+    $filters = [
+        'thematique' => get('thematique'),
+        'status' => get('status'),
+        'annee' => get('annee'),
+        'search' => get('search')
+    ];
+    
+    // Récupérer tous les projets avec les filtres appliqués
+    $projets = $this->projetModel->getAllFiltered($filters);
+    
+    // Préparer les données pour l'export
+    $data = [];
+    
+    // En-têtes du CSV
+    $data[] = [
+        'Titre', 
+        'Thématique', 
+        'Responsable', 
+        'Statut',  // Correction: utilisez 'Statut' au lieu de 'status'
+        'Date début', 
+        'Date fin', 
+        'Budget (DZD)', 
+        'Nb membres'
+    ];
+    
+    // Données des projets
+    foreach ($projets as $projet) {
+        // Compter les membres pour ce projet
+        $membres = $this->projetModel->getMembres($projet['id']);
+        $nbMembres = count($membres);
         
-        $data = [];
-        $data[] = ['Titre', 'Thématique', 'Responsable', 'status', 'Date début', 'Date fin', 'Budget', 'Nb membres'];
-        
-        foreach ($projets as $projet) {
-            $data[] = [
-                $projet['titre'],
-                $projet['thematique'],
-                $projet['responsable_nom'] ?? 'Non assigné',
-                $projet['status'],
-                format_date($projet['date_debut']),
-                format_date($projet['date_fin'] ?? ''),
-                $projet['budget'] ?? '0',
-                $projet['nb_membres'] ?? 0
-            ];
-        }
-        
-        LabHelpers::exportToCsv($data, 'projets_' . date('Y-m-d') . '.csv');
+        $data[] = [
+            $projet['titre'] ?? '',
+            $projet['thematique'] ?? '',
+            $projet['responsable_username'] ?? $projet['responsable_nom'] ?? 'Non assigné',
+            $projet['status'] ?? 'en_cours',  // Valeur par défaut si status absent
+            !empty($projet['date_debut']) ? format_date($projet['date_debut'], 'd/m/Y') : '',
+            !empty($projet['date_fin']) ? format_date($projet['date_fin'], 'd/m/Y') : '',
+            !empty($projet['budget']) ? number_format($projet['budget'], 2, ',', ' ') : '0',
+            $nbMembres
+        ];
     }
+    
+    // Générer et télécharger le fichier CSV
+    LabHelpers::exportToCsv($data, 'projets_' . date('Y-m-d') . '.csv');
+}
     
     /**
      * API - Récupérer un projet par ID
@@ -519,6 +536,109 @@ class ProjetsController {
             json(['success' => true, 'projet' => $projet]);
         } else {
             json(['success' => false, 'message' => 'Projet non trouvé']);
+        }
+    }
+
+    /**
+ * Récupérer les membres disponibles pour un projet (AJAX)
+ */
+public function getMembresDisponibles($projetId) {
+    try {
+        // Récupérer tous les membres
+        $tousMembres = $this->membreModel->getAllMembresWithUser();
+        
+        // Récupérer les membres déjà dans le projet
+        $membresProjet = $this->projetModel->getMembres($projetId);
+        $membresProjetIds = array_column($membresProjet, 'id');
+        
+        // Récupérer aussi le responsable du projet pour l'exclure
+        $projet = $this->projetModel->getById($projetId);
+        if (!empty($projet['responsable_id'])) {
+            $membresProjetIds[] = $projet['responsable_id'];
+        }
+        
+        // Filtrer les membres disponibles
+        $membresDisponibles = array_filter($tousMembres, function($membre) use ($membresProjetIds) {
+            return !in_array($membre['id'], $membresProjetIds);
+        });
+        
+        json([
+            'success' => true, 
+            'membres' => array_values($membresDisponibles)
+        ]);
+        
+    } catch (Exception $e) {
+        json(['success' => false, 'message' => 'Erreur: ' . $e->getMessage()]);
+    }
+}
+
+/**
+     * Générer un rapport PDF pour un projet
+     */
+    public function genererRapport($id) {
+        // IMPORTANT: Désactiver l'affichage des erreurs pour éviter les outputs
+        error_reporting(0);
+        ini_set('display_errors', '0');
+        
+        // Nettoyer tous les buffers de sortie existants
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        // Démarrer un buffer propre
+        ob_start();
+        
+        try {
+            $projet = $this->projetModel->getById($id);
+            
+            if (!$projet) {
+                throw new Exception('Projet non trouvé');
+            }
+            
+            // Récupérer toutes les données nécessaires
+            $membres = $this->projetModel->getMembres($id);
+            $publications = $this->projetModel->getPublications($id);
+            $responsable = null;
+            
+            if (!empty($projet['responsable_id'])) {
+                $responsable = $this->membreModel->getWithDetails($projet['responsable_id']);
+            }
+            
+            // Si pas de responsable trouvé, utiliser les données du projet
+            if (!$responsable && !empty($projet['responsable_username'])) {
+                $responsable = [
+                    'id' => $projet['responsable_id'],
+                    'username' => $projet['responsable_username']
+                ];
+            }
+            
+            // Charger la classe d'export PDF
+            require_once __DIR__ . '/../../views/admin/projets/RapportProjetPDF.php';
+            
+            // Créer l'instance
+            $pdfExport = new ProjetPdfExportView(
+                $projet,
+                $responsable,
+                $membres,
+                $publications
+            );
+            
+            // Générer le PDF (la méthode gère elle-même l'output et exit)
+            $pdfExport->generate();
+            
+        } catch (Exception $e) {
+            // En cas d'erreur, nettoyer et afficher un message
+            while (ob_get_level()) {
+                ob_end_clean();
+            }
+            
+            header('Content-Type: text/html; charset=utf-8');
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
+            echo '<h1>Erreur lors de la génération du PDF</h1>';
+            echo '<p>' . htmlspecialchars($e->getMessage()) . '</p>';
+            echo '<p><a href="' . base_url('admin/projets/projets/view/' . $id) . '">← Retour au projet</a></p>';
+            echo '</body></html>';
+            exit;
         }
     }
 }

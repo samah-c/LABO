@@ -11,6 +11,14 @@ require_once __DIR__ . '/../../models/EquipeModel.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../auth/AuthController.php';
 
+// Importer les classes de vue
+require_once __DIR__ . '/../../views/admin/equipements/EquipementsListView.php';
+require_once __DIR__ . '/../../views/admin/equipements/EquipementDetailView.php';
+require_once __DIR__ . '/../../views/admin/equipements/EquipementsDashboardView.php';
+require_once __DIR__ . '/../../views/admin/equipements/EquipementsHistoryView.php';
+require_once __DIR__ . '/../../views/admin/equipements/EquipementsReportView.php';
+require_once __DIR__ . '/../../views/admin/equipements/EquipementsListView.php';
+
 class EquipementsController {
     private $equipementModel;
     private $creneauModel;
@@ -53,8 +61,9 @@ class EquipementsController {
         $pagination = Utils::paginate(count($equipements), $perPage, $page);
         $equipements = array_slice($equipements, $pagination['offset'], $perPage);
         
-        // Charger la vue
-        require_once __DIR__ . '/../../views/admin/equipements/equipements.php';
+        // Utiliser la classe de vue
+        $view = new EquipementsListView($equipements, $pagination);
+        $view->render();
     }
     
     /**
@@ -81,8 +90,9 @@ class EquipementsController {
             'taux_utilisation' => $this->calculateTauxUtilisation($id)
         ];
         
-        // Charger la vue détaillée
-        require_once __DIR__ . '/../../views/admin/equipements/view.php';
+        // Utiliser la classe de vue
+        $view = new EquipementDetailView($equipement, $stats, $creneaux);
+        $view->render();
     }
     
     /**
@@ -353,10 +363,9 @@ class EquipementsController {
         // Conflits de réservation
         $conflits = $this->creneauModel->getConflits();
         
-        // Prochaines maintenances (à implémenter dans MaintenanceModel si nécessaire)
-        $maintenances_prevues = [];
-        
-        require_once __DIR__ . '/../../views/admin/equipements/dashboard.php';
+        // Utiliser la classe de vue
+        $view = new EquipementsDashboardView($stats, $libres, $reserves, $maintenance, $conflits);
+        $view->render();
     }
     
     /**
@@ -379,7 +388,9 @@ class EquipementsController {
         $pagination = Utils::paginate(count($creneaux), $perPage, $page);
         $creneaux = array_slice($creneaux, $pagination['offset'], $perPage);
         
-        require_once __DIR__ . '/../../views/admin/equipements/historique.php';
+        // Utiliser la classe de vue
+        $view = new EquipementsHistoryView($creneaux, $equipement, $pagination);
+        $view->render();
     }
     
     /**
@@ -418,9 +429,106 @@ class EquipementsController {
             $statsParMembre = [];
         }
         
-        require_once __DIR__ . '/../../views/admin/equipements/rapport.php';
+        // Utiliser la classe de vue
+        $view = new EquipementsReportView(
+            $dateDebut,
+            $dateFin,
+            $nbReservations,
+            $statsParMembre,
+            $tauxOccupation
+        );
+        $view->render();
     }
     
+ public function exportRapport() {
+    // IMPORTANT: Désactiver l'affichage des erreurs pour éviter les outputs
+    error_reporting(0);
+    ini_set('display_errors', '0');
+    
+    // Nettoyer tous les buffers de sortie existants
+    while (ob_get_level()) {
+        ob_end_clean();
+    }
+    
+    // Démarrer un buffer propre
+    ob_start();
+    
+    try {
+        $dateDebut = get('date_debut', date('Y-m-01'));
+        $dateFin = get('date_fin', date('Y-m-d'));
+        
+        // Préparer les données pour le PDF
+        $nbReservations = $this->creneauModel->countBetween($dateDebut, $dateFin);
+        $statsParMembre = $this->creneauModel->getStatsParMembre($dateDebut, $dateFin);
+        
+        // Calculer le total des heures
+        $heuresTotal = 0;
+        if (!empty($statsParMembre)) {
+            foreach ($statsParMembre as $stat) {
+                $heuresTotal += $stat['heures_totales'] ?? 0;
+            }
+        }
+        
+        // Statistiques globales pour le PDF
+        $stats = [
+            ['label' => 'Réservations totales', 'value' => $nbReservations],
+            ['label' => 'Utilisateurs actifs', 'value' => count($statsParMembre)],
+            ['label' => 'Heures d\'utilisation', 'value' => round($heuresTotal, 0)],
+        ];
+        
+        // Types d'équipements
+        $typesEquipements = $this->equipementModel->getStatsByType();
+        
+        // Top équipements
+        $topEquipements = $this->equipementModel->getTopEquipements($dateDebut, $dateFin);
+        
+        // Taux d'occupation
+        $equipements = $this->equipementModel->getAll();
+        $tauxOccupation = [];
+        
+        if (!empty($equipements)) {
+            foreach ($equipements as $equipement) {
+                $taux = $this->calculateTauxUtilisation($equipement['id'], $dateDebut, $dateFin);
+                $tauxOccupation[] = [
+                    'nom' => $equipement['nom'],
+                    'taux' => $taux
+                ];
+            }
+        }
+        
+        // Charger la classe d'export (chemin corrigé)
+        require_once __DIR__ . '/../../views/admin/equipements/RapportEquipementsPDF.php';
+        
+        // Créer l'instance
+        $pdfExport = new EquipementsPdfExportView(
+            $dateDebut,
+            $dateFin,
+            $stats,
+            $typesEquipements,
+            $topEquipements,
+            $statsParMembre,
+            $tauxOccupation
+        );
+        
+        // Générer le PDF (la méthode gère elle-même l'output et exit)
+        $pdfExport->generate();
+        
+    } catch (Exception $e) {
+        // En cas d'erreur, nettoyer et afficher un message
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        header('Content-Type: text/html; charset=utf-8');
+        echo '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>';
+        echo '<h1>Erreur lors de la génération du PDF</h1>';
+        echo '<p>' . htmlspecialchars($e->getMessage()) . '</p>';
+        echo '<p>Trace: <pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre></p>';
+        echo '<p><a href="' . base_url('admin/equipements/equipements/rapport') . '">← Retour au rapport</a></p>';
+        echo '</body></html>';
+        exit;
+    }
+}
     /**
      * Planifier une maintenance
      */
@@ -525,4 +633,3 @@ class EquipementsController {
         }
     }
 }
-?>

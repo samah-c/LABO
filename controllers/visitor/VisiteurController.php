@@ -1,6 +1,6 @@
 <?php
 /**
- * VisiteurController.php - Contrôleur pour les pages publiques
+ * Contrôleur pour les pages publiques
  * Gère l'affichage des pages accessibles aux visiteurs
  */
 
@@ -15,6 +15,22 @@ require_once __DIR__ . '/../../models/PartenaireModel.php';
 require_once __DIR__ . '/../../models/Model.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../../lib/ViewComponents.php';
+require_once __DIR__ . '/../../views/visitor/OrganigrammeView.php';
+require_once __DIR__ . '/../../views/visitor/HomeView.php';
+require_once __DIR__ . '/../../views/visitor/ContactView.php';
+require_once __DIR__ . '/../../views/visitor/publications/PublicationsListView.php';
+require_once __DIR__ . '/../../views/visitor/publications/PublicationDetailView.php';
+require_once __DIR__ . '/../../views/visitor/projets/ProjetsListView.php';
+require_once __DIR__ . '/../../views/visitor/projets/ProjetDetailView.php';
+require_once __DIR__ . '/../../views/visitor/equipements/EquipementsView.php';
+require_once __DIR__ . '/../../views/visitor/equipements/EquipementDetailView.php';
+require_once __DIR__ . '/../../views/visitor/membres/MembresView.php';
+require_once __DIR__ . '/../../views/visitor/membres/MembreDetailView.php';
+require_once __DIR__ . '/../../views/visitor/evenements/EvenementsView.php';
+require_once __DIR__ . '/../../views/visitor/evenements/EvenementDetailView.php';
+require_once __DIR__ . '/../../views/visitor/actualites/ActualitesView.php';
+require_once __DIR__ . '/../../views/visitor/actualites/ActualiteDetailView.php';
+
 
 class VisiteurController {
     private $projetModel;
@@ -123,7 +139,22 @@ class VisiteurController {
             error_log("Erreur dans VisiteurController::index() - " . $e->getMessage());
         }
         
-        require_once __DIR__ . '/../../views/visitor/index.php';
+     
+
+        $data = [
+            'stats' => $stats,
+            'actualites' => $actualites,
+            'actualitesScientifiques' => $actualitesScientifiques,
+            'presentation' => $presentation,
+            'directeur' => $directeur,
+            'evenements' => $evenements,
+            'partenaires' => $partenaires,
+            'projetsRecents' => $projetsRecents,
+            'publicationsRecentes' => $publicationsRecentes
+        ];
+
+        $view = new HomeView($data);
+        $view->render();
     }
     
     /**
@@ -215,7 +246,8 @@ class VisiteurController {
         $pagination = Utils::paginate(count($projets), $perPage, $page);
         $projets = array_slice($projets, $pagination['offset'], $perPage);
         
-        require_once __DIR__ . '/../../views/visitor/projets/projets.php';
+        $view = new ProjetsListView($projets, $pagination);
+        $view->render();
     }
 
     /**
@@ -254,7 +286,8 @@ class VisiteurController {
             )
         ];
         
-        require_once __DIR__ . '/../../views/visitor/projets/projet-detail.php';
+        $view = new ProjetDetailView($projet, $membres, $publications, $responsable, $stats);
+        $view->render();
     }
     
     /**
@@ -309,7 +342,8 @@ class VisiteurController {
         $pagination = Utils::paginate(count($publications), $perPage, $page);
         $publications = array_slice($publications, $pagination['offset'], $perPage);
         
-        require_once __DIR__ . '/../../views/visitor/publications/publications.php';
+        $view = new PublicationsListView($publications, $pagination);
+        $view->render();
     }
 
     /**
@@ -339,7 +373,8 @@ class VisiteurController {
             $projet = $this->projetModel->getById($publication['projet_id']);
         }
         
-        require_once __DIR__ . '/../../views/visitor/publications/publication-detail.php';
+        $view = new PublicationDetailView($publication, $auteurs, $projet);
+        $view->render();
     }
 
     /**
@@ -381,7 +416,8 @@ class VisiteurController {
         $pagination = Utils::paginate(count($equipements), $perPage, $page);
         $equipements = array_slice($equipements, $pagination['offset'], $perPage);
         
-        require_once __DIR__ . '/../../views/visitor/equipements/equipements.php';
+        $view = new EquipementsView($equipements, $pagination);
+        $view->render();
     }
 
     /**
@@ -402,7 +438,8 @@ class VisiteurController {
             'taux_utilisation' => 0
         ];
         
-        require_once __DIR__ . '/../../views/visitor/equipements/equipement-detail.php';
+        $view = new EquipementDetailView($equipement, $stats);
+        $view->render();
     }
 
     /**
@@ -443,7 +480,8 @@ class VisiteurController {
         $pagination = Utils::paginate(count($membres), $perPage, $page);
         $membres = array_slice($membres, $pagination['offset'], $perPage);
         
-        require_once __DIR__ . '/../../views/visitor/membres/membres.php';
+        $view = new MembresView($membres, $pagination);
+        $view->render();
     }
 
     /**
@@ -466,66 +504,101 @@ class VisiteurController {
             return ($pub['statut_validation'] ?? '') === 'valide';
         });
         
-        require_once __DIR__ . '/../../views/visitor/membres/membre-detail.php';
+        $view = new MembreDetailView($membre, $projets, $publications);
+        $view->render();
     }
-    
+
+
     /**
-     * Liste des événements
+     * Liste des événements publics
      */
+    
     public function evenements() {
-        $filters = [
-            'type' => get('type'),
-            'mois' => get('mois')
-        ];
-        
-        $evenements = $this->evenementModel->getUpcoming();
-        
-        if (!empty($filters['type'])) {
-            $evenements = array_filter($evenements, function($e) use ($filters) {
-                return $e['type_evenement'] === $filters['type'];
-            });
-        }
-        
-        if (!empty($filters['mois'])) {
-            $evenements = array_filter($evenements, function($e) use ($filters) {
-                return date('Y-m', strtotime($e['date_evenement'])) === $filters['mois'];
-            });
-        }
-        
-        require_once __DIR__ . '/../../views/visitor/evenements.php';
+    $evenements = $this->evenementModel->getUpcoming();
+    
+    // Appliquer les filtres
+    $filters = [
+        'type' => get('type'),
+        'mois' => get('mois'),
+        'search' => get('search')
+    ];
+    
+    if (!empty($filters['search'])) {
+        $evenements = array_filter($evenements, function($e) use ($filters) {
+            return stripos($e['titre'], $filters['search']) !== false ||
+                   stripos($e['description'] ?? '', $filters['search']) !== false;
+        });
     }
     
-    /**
-     * Détail d'un événement
-     */
-    public function evenementDetail($id) {
-        $evenement = $this->evenementModel->getById($id);
-        
-        if (!$evenement) {
-            flash('error', 'Événement introuvable');
-            redirect('evenements');
-        }
-        
-        require_once __DIR__ . '/../../views/visitor/evenement-detail.php';
+    if (!empty($filters['type'])) {
+        $evenements = array_filter($evenements, function($e) use ($filters) {
+            return $e['type_evenement'] === $filters['type'];
+        });
     }
     
+    if (!empty($filters['mois'])) {
+        $evenements = array_filter($evenements, function($e) use ($filters) {
+            return date('Y-m', strtotime($e['date_evenement'])) === $filters['mois'];
+        });
+    }
+    
+    // Pagination
+    $page = (int) get('page', 1);
+    $perPage = 12;
+    $pagination = Utils::paginate(count($evenements), $perPage, $page);
+    $evenements = array_slice($evenements, $pagination['offset'], $perPage);
+    
+    // Instancier et afficher la vue (2 lignes)
+    $view = new EvenementsView($evenements, $pagination);
+    $view->render();
+}
+
+/**
+ * Détail d'un événement
+ */
+public function evenementDetail($id) {
+    $evenement = $this->evenementModel->getById($id);
+    
+    if (!$evenement) {
+        $_SESSION['error'] = 'Événement introuvable';
+        redirect(base_url('evenements'));
+        exit;
+    }
+    
+    // Instancier et afficher la vue (2 lignes)
+    $view = new EvenementDetailView($evenement);
+    $view->render();
+}
+    
     /**
-     * Page des actualités
+     * Liste des actualités
      */
     public function actualites() {
-        $publications = $this->publicationModel->getRecent(5);
-        $evenements = $this->evenementModel->getRecent(5);
+        // Récupérer les publications récentes
+        $publications = $this->publicationModel->getRecent(10);
         
+        // Récupérer les événements récents
+        $evenements = $this->evenementModel->getRecent(10);
+        
+        // Récupérer les actualités scientifiques
+        $actualitesScientifiques = $this->actualiteModel->getAllScientifiques(10);
+        
+        // Récupérer les actualités laboratoire
+        $actualitesLaboratoire = $this->actualiteModel->getAllLaboratoire(10);
+        
+        // Fusionner toutes les actualités
         $actualites = [];
         
+        // Ajouter les publications
         foreach ($publications as $pub) {
             $actualites[] = [
                 'type' => 'publication',
-                'date' => $pub['created_at'] ?? $pub['date_publication'],
+                'date' => $pub['date_publication'],
                 'data' => $pub
             ];
         }
         
+        // Ajouter les événements
         foreach ($evenements as $event) {
             $actualites[] = [
                 'type' => 'evenement',
@@ -534,18 +607,167 @@ class VisiteurController {
             ];
         }
         
+        // Ajouter les actualités scientifiques
+        foreach ($actualitesScientifiques as $actu) {
+            $actualites[] = [
+                'type' => 'scientifique',
+                'source' => 'scientifique',
+                'date' => $actu['date_publication'],
+                'data' => $actu,
+                'titre' => $actu['titre'],
+                'description' => $actu['description'],
+                'image' => $actu['image'] ?? null
+            ];
+        }
+        
+        // Ajouter les actualités laboratoire
+        foreach ($actualitesLaboratoire as $actu) {
+            $actualites[] = [
+                'type' => 'laboratoire',
+                'source' => 'laboratoire',
+                'date' => $actu['date_publication'],
+                'data' => $actu,
+                'titre' => $actu['titre'],
+                'description' => $actu['description'],
+                'image' => $actu['image'] ?? null
+            ];
+        }
+        
+        // Trier par date décroissante
         usort($actualites, function($a, $b) {
             return strtotime($b['date']) - strtotime($a['date']);
         });
         
-        require_once __DIR__ . '/../../views/visitor/actualites.php';
+        // Appliquer les filtres
+        $filters = [
+            'type' => get('type'),
+            'mois' => get('mois'),
+            'search' => get('search')
+        ];
+        
+        if (!empty($filters['search'])) {
+            $actualites = array_filter($actualites, function($a) use ($filters) {
+                $titre = $a['data']['titre'] ?? '';
+                $description = $a['data']['description'] ?? $a['data']['resume'] ?? '';
+                return stripos($titre, $filters['search']) !== false ||
+                       stripos($description, $filters['search']) !== false;
+            });
+        }
+        
+        if (!empty($filters['type'])) {
+            $actualites = array_filter($actualites, function($a) use ($filters) {
+                return $a['type'] === $filters['type'] || 
+                       ($a['source'] ?? '') === $filters['type'];
+            });
+        }
+        
+        if (!empty($filters['mois'])) {
+            $actualites = array_filter($actualites, function($a) use ($filters) {
+                return date('Y-m', strtotime($a['date'])) === $filters['mois'];
+            });
+        }
+        
+        // Pagination
+        $page = (int) get('page', 1);
+        $perPage = 12;
+        $pagination = Utils::paginate(count($actualites), $perPage, $page);
+        $actualites = array_slice($actualites, $pagination['offset'], $perPage);
+        
+       
+        $view = new ActualitesView($actualites, $pagination);
+        $view->render();
     }
+    
+    /**
+     * Détail d'une actualité
+     */
+    public function actualiteDetail($id) {
+        // Essayer de récupérer l'actualité scientifique
+        $actualite = null;
+        $source = 'scientifique';
+        
+        try {
+            $db = Database::getInstance()->getConnection();
+            
+            // Chercher dans actualite_scientifique
+            $stmt = $db->prepare("
+                SELECT 
+                    a.id,
+                    a.titre,
+                    a.contenu as description,
+                    a.image,
+                    a.date_publication,
+                    'scientifique' as source,
+                    u.username as auteur_nom
+                FROM actualite_scientifique a
+                LEFT JOIN membre m ON a.auteur_id = m.id
+                LEFT JOIN user u ON m.user_id = u.id
+                WHERE a.id = ?
+            ");
+            $stmt->execute([$id]);
+            $actualite = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // Si pas trouvé, chercher dans actualite_laboratoire
+            if (!$actualite) {
+                $stmt = $db->prepare("
+                    SELECT 
+                        id,
+                        titre,
+                        descriptif as description,
+                        image,
+                        date_publication,
+                        lien_detail,
+                        'laboratoire' as source
+                    FROM actualite_laboratoire
+                    WHERE id = ?
+                ");
+                $stmt->execute([$id]);
+                $actualite = $stmt->fetch(PDO::FETCH_ASSOC);
+                $source = 'laboratoire';
+            }
+            
+        } catch (Exception $e) {
+            error_log("Erreur actualiteDetail(): " . $e->getMessage());
+        }
+        
+        if (!$actualite) {
+            $_SESSION['error'] = 'Actualité introuvable';
+            redirect(base_url('actualites'));
+            exit;
+        }
+        
+        // Récupérer les actualités liées (même source)
+        $actualitesLiees = [];
+        if ($source === 'scientifique') {
+            $actualitesLiees = $this->actualiteModel->getAllScientifiques(5);
+            // Retirer l'actualité courante
+            $actualitesLiees = array_filter($actualitesLiees, function($a) use ($id) {
+                return $a['id'] != $id;
+            });
+        } else {
+            $actualitesLiees = $this->actualiteModel->getAllLaboratoire(5);
+            // Retirer l'actualité courante
+            $actualitesLiees = array_filter($actualitesLiees, function($a) use ($id) {
+                return $a['id'] != $id;
+            });
+        }
+        
+
+        $view = new ActualiteDetailView($actualite, $actualitesLiees);
+        $view->render();
+    }
+
     
     /**
      * Page de contact
      */
     public function contact() {
-        require_once __DIR__ . '/../../views/visitor/contact.php';
+        $successMessage = $_SESSION['success'] ?? null;
+        $errorMessage = $_SESSION['error'] ?? null;
+        unset($_SESSION['success'], $_SESSION['error']);
+        
+        $view = new ContactView([], $successMessage, $errorMessage);
+        $view->render();
     }
     
     /**
@@ -630,6 +852,7 @@ public function organigramme() {
         error_log("Erreur dans VisiteurController::organigramme() - " . $e->getMessage());
     }
     
-    require_once __DIR__ . '/../../views/visitor/organigramme.php';
+     $view = new OrganigrammeView($directeur, $membres, $equipes, $this->equipeModel);
+     $view->render();
 }
 }

@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../models/PublicationModel.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../../lib/ViewComponents.php';
 require_once __DIR__ . '/../../lib/CrudView.php';
-require_once __DIR__ . '/../../views/admin/dashboard.php';
+require_once __DIR__ . '/../../views/admin/DashboardView.php';
 
 class AdminController {
     private $userModel;
@@ -39,9 +39,9 @@ class AdminController {
             'total_projets' => count($this->projetModel->getAll()),
             'total_publications' => count($this->publicationModel->getAll()),
         ];
-        
-        $dashboardView = new Dashboard($stats, session('username'));
-        $dashboardView->render();
+
+        $dashboard = new DashboardView($stats, session('username'));
+        $dashboard->render();
     }
     
 

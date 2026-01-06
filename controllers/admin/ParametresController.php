@@ -8,6 +8,8 @@ require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../auth/AuthController.php';
 require_once __DIR__ . '/../../config/database.php';
 
+require_once __DIR__ . '/../../views/admin/parametres/ParametresView.php';
+
 class ParametresController {
     private $settingsFile;
     private $backupDir;
@@ -35,7 +37,8 @@ class ParametresController {
         $settings = $this->loadSettings();
         $backups = $this->getBackupsList();
         
-        require_once __DIR__ . '/../../views/admin/parametres/parametres.php';
+        $view = new ParametresView($settings, $backups);
+        $view->render();
     }
     
     /**

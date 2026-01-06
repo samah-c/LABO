@@ -1,213 +1,36 @@
 /**
- * Gestionnaire pour la page profil membre
+ * profil-handler.js - FIXED VERSION
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Gestionnaire de profil initialisé');
+    console.log('✓ Profil handler initialized');
 
-    // Éléments du formulaire
-    const profilForm = document.getElementById('profil-form');
-    const passwordForm = document.getElementById('password-form');
-    const btnSave = document.getElementById('btn-save');
-
-    // Sauvegarder les valeurs initiales pour la réinitialisation
-    let initialFormData = null;
-    if (profilForm) {
-        initialFormData = new FormData(profilForm);
+    // Handle photo preview
+    const photoInput = document.getElementById('photo-input');
+    if (photoInput) {
+        photoInput.addEventListener('change', handlePhotoChange);
     }
 
-    // Validation du formulaire profil
-    if (profilForm) {
-        profilForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (!validateProfilForm()) {
-                return false;
-            }
-            
-            if (btnSave) {
-                btnSave.disabled = true;
-                btnSave.textContent = 'Enregistrement...';
-            }
-            
-            // Soumettre le formulaire
-            this.submit();
-        });
+    // Optional: Add phone formatting
+    const telephoneInput = document.getElementById('telephone');
+    if (telephoneInput) {
+        telephoneInput.addEventListener('input', formatPhoneNumber);
     }
 
-    // Validation du formulaire mot de passe
-    if (passwordForm) {
-        passwordForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (!validatePasswordForm()) {
-                return false;
-            }
-            
-            // Soumettre le formulaire
-            this.submit();
-        });
-    }
-
-    // Validation en temps réel
+    // Optional: Email validation on blur
     const emailInput = document.getElementById('email');
     if (emailInput) {
         emailInput.addEventListener('blur', function() {
-            validateEmail(this.value);
-        });
-    }
-
-    const telephoneInput = document.getElementById('telephone');
-    if (telephoneInput) {
-        telephoneInput.addEventListener('input', function() {
-            formatPhoneNumber(this);
-        });
-    }
-
-    // Confirmation avant de quitter si modifications non sauvegardées
-    let formModified = false;
-    if (profilForm) {
-        const inputs = profilForm.querySelectorAll('input, textarea, select');
-        inputs.forEach(input => {
-            input.addEventListener('change', function() {
-                formModified = true;
-            });
-        });
-
-        window.addEventListener('beforeunload', function(e) {
-            if (formModified) {
-                e.preventDefault();
-                e.returnValue = '';
+            const email = this.value.trim();
+            if (email && !isValidEmail(email)) {
+                showError('Adresse email invalide');
             }
-        });
-    }
-
-    // Réinitialiser le flag lors de la soumission
-    if (profilForm) {
-        profilForm.addEventListener('submit', function() {
-            formModified = false;
         });
     }
 });
 
 /**
- * Valider le formulaire profil
- */
-function validateProfilForm() {
-    const nom = document.getElementById('nom').value.trim();
-    const prenom = document.getElementById('prenom').value.trim();
-    const email = document.getElementById('email').value.trim();
-
-    // Vérifier les champs obligatoires
-    if (!nom) {
-        showError('Veuillez saisir votre nom');
-        document.getElementById('nom').focus();
-        return false;
-    }
-
-    if (!prenom) {
-        showError('Veuillez saisir votre prénom');
-        document.getElementById('prenom').focus();
-        return false;
-    }
-
-    if (!email) {
-        showError('Veuillez saisir votre email');
-        document.getElementById('email').focus();
-        return false;
-    }
-
-    if (!validateEmail(email)) {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * Valider le formulaire de changement de mot de passe
- */
-function validatePasswordForm() {
-    const currentPassword = document.getElementById('current_password').value;
-    const newPassword = document.getElementById('new_password').value;
-    const confirmPassword = document.getElementById('confirm_password').value;
-
-    if (!currentPassword) {
-        showError('Veuillez saisir votre mot de passe actuel');
-        document.getElementById('current_password').focus();
-        return false;
-    }
-
-    if (!newPassword) {
-        showError('Veuillez saisir un nouveau mot de passe');
-        document.getElementById('new_password').focus();
-        return false;
-    }
-
-    if (newPassword.length < 6) {
-        showError('Le mot de passe doit contenir au moins 6 caractères');
-        document.getElementById('new_password').focus();
-        return false;
-    }
-
-    if (newPassword !== confirmPassword) {
-        showError('Les mots de passe ne correspondent pas');
-        document.getElementById('confirm_password').focus();
-        return false;
-    }
-
-    if (newPassword === currentPassword) {
-        showError('Le nouveau mot de passe doit être différent de l\'ancien');
-        document.getElementById('new_password').focus();
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * Valider une adresse email
- */
-function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    if (!emailRegex.test(email)) {
-        showError('Veuillez saisir une adresse email valide');
-        document.getElementById('email').focus();
-        return false;
-    }
-    
-    return true;
-}
-
-/**
- * Formater le numéro de téléphone
- */
-function formatPhoneNumber(input) {
-    let value = input.value.replace(/\D/g, '');
-    
-    if (value.length > 0) {
-        // Format: +213 XX XX XX XX
-        if (value.startsWith('213')) {
-            value = value.substring(3);
-        }
-        
-        if (value.length > 2) {
-            value = value.substring(0, 2) + ' ' + value.substring(2);
-        }
-        if (value.length > 5) {
-            value = value.substring(0, 5) + ' ' + value.substring(5);
-        }
-        if (value.length > 8) {
-            value = value.substring(0, 8) + ' ' + value.substring(8, 10);
-        }
-        
-        input.value = '+213 ' + value;
-    }
-}
-
-/**
- * Gérer le changement de photo
+ * Handle photo change with preview
  */
 function handlePhotoChange(event) {
     const file = event.target.files[0];
@@ -216,19 +39,23 @@ function handlePhotoChange(event) {
         return;
     }
     
-    // Vérifier le type de fichier
+    console.log('Photo selected:', file.name, file.size, 'bytes');
+    
+    // Validate file type
     if (!file.type.startsWith('image/')) {
         showError('Veuillez sélectionner une image');
+        event.target.value = '';
         return;
     }
     
-    // Vérifier la taille (max 5MB)
+    // Validate file size (5MB)
     if (file.size > 5 * 1024 * 1024) {
         showError('L\'image ne doit pas dépasser 5 MB');
+        event.target.value = '';
         return;
     }
     
-    // Prévisualiser l'image
+    // Preview the image
     const reader = new FileReader();
     reader.onload = function(e) {
         const preview = document.getElementById('avatar-preview');
@@ -236,8 +63,9 @@ function handlePhotoChange(event) {
         
         if (preview) {
             preview.src = e.target.result;
+            console.log('✓ Preview updated (existing img)');
         } else if (placeholder) {
-            // Créer un nouvel élément img
+            // Replace placeholder with image
             const img = document.createElement('img');
             img.id = 'avatar-preview';
             img.src = e.target.result;
@@ -246,152 +74,107 @@ function handlePhotoChange(event) {
             img.style.height = '140px';
             img.style.borderRadius = '50%';
             img.style.objectFit = 'cover';
-            img.style.border = '4px solid var(--border-color)';
+            img.style.border = '4px solid #e0e0e0';
             
             placeholder.parentNode.replaceChild(img, placeholder);
+            console.log('✓ Preview created (replaced placeholder)');
         }
         
-        showSuccess('Photo sélectionnée. N\'oubliez pas d\'enregistrer vos modifications.');
+        showSuccess('Photo sélectionnée. Cliquez sur "Enregistrer" pour sauvegarder.');
+    };
+    
+    reader.onerror = function() {
+        showError('Erreur lors de la lecture du fichier');
+        console.error('FileReader error');
     };
     
     reader.readAsDataURL(file);
 }
 
 /**
- * Réinitialiser le formulaire
+ * Format phone number (Algerian format)
  */
-function resetForm() {
-    const profilForm = document.getElementById('profil-form');
+function formatPhoneNumber(event) {
+    let value = event.target.value.replace(/\D/g, '');
     
-    if (confirm('Êtes-vous sûr de vouloir annuler vos modifications ?')) {
-        if (profilForm) {
-            profilForm.reset();
-            
-            // Réinitialiser aussi la prévisualisation de la photo si modifiée
-            const photoInput = document.getElementById('photo-input');
-            if (photoInput) {
-                photoInput.value = '';
-            }
-            
-            // Recharger la page pour restaurer l'état initial
-            window.location.reload();
+    if (value.length > 0) {
+        // Remove 213 prefix if present
+        if (value.startsWith('213')) {
+            value = value.substring(3);
         }
+        
+        // Format: +213 XX XX XX XX
+        let formatted = '+213 ';
+        if (value.length > 0) formatted += value.substring(0, 2);
+        if (value.length > 2) formatted += ' ' + value.substring(2, 4);
+        if (value.length > 4) formatted += ' ' + value.substring(4, 6);
+        if (value.length > 6) formatted += ' ' + value.substring(6, 8);
+        
+        event.target.value = formatted.trim();
     }
 }
 
 /**
- * Afficher un message d'erreur
+ * Validate email format
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+/**
+ * Show error message
  */
 function showError(message) {
-    // Supprimer les alertes existantes
-    const existingAlerts = document.querySelectorAll('.alert-error');
-    existingAlerts.forEach(alert => alert.remove());
+    removeAlerts();
     
-    // Créer une nouvelle alerte
     const alert = document.createElement('div');
     alert.className = 'alert alert-error';
     alert.textContent = message;
     
-    // Insérer en haut de la page
-    const container = document.querySelector('.profil-container');
+    const container = document.querySelector('.profil-container') || document.querySelector('.container');
     if (container) {
         container.insertBefore(alert, container.firstChild);
-        
-        // Faire défiler vers le haut
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
-        // Supprimer après 5 secondes
-        setTimeout(() => {
-            alert.remove();
-        }, 5000);
+        setTimeout(() => alert.remove(), 5000);
     }
 }
 
 /**
- * Afficher un message de succès
+ * Show success message
  */
 function showSuccess(message) {
-    // Supprimer les alertes existantes
-    const existingAlerts = document.querySelectorAll('.alert-success');
-    existingAlerts.forEach(alert => alert.remove());
+    removeAlerts();
     
-    // Créer une nouvelle alerte
     const alert = document.createElement('div');
     alert.className = 'alert alert-success';
     alert.textContent = message;
     
-    // Insérer en haut de la page
-    const container = document.querySelector('.profil-container');
+    const container = document.querySelector('.profil-container') || document.querySelector('.container');
     if (container) {
         container.insertBefore(alert, container.firstChild);
-        
-        // Faire défiler vers le haut
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
-        // Supprimer après 5 secondes
-        setTimeout(() => {
-            alert.remove();
-        }, 5000);
+        setTimeout(() => alert.remove(), 5000);
     }
 }
 
 /**
- * Activer/désactiver l'édition inline (fonctionnalité future)
+ * Remove existing alerts
  */
-function toggleEdit(fieldId) {
-    const field = document.getElementById(fieldId);
-    if (field) {
-        field.disabled = !field.disabled;
-        field.focus();
-    }
+function removeAlerts() {
+    const alerts = document.querySelectorAll('.alert-error, .alert-success');
+    alerts.forEach(alert => alert.remove());
 }
 
-/**
- * Prévisualiser les modifications avant sauvegarde
- */
-function previewChanges() {
-    const form = document.getElementById('profil-form');
-    if (!form) return;
-    
-    const formData = new FormData(form);
-    const changes = [];
-    
-    for (let [key, value] of formData.entries()) {
-        const input = form.elements[key];
-        if (input && input.defaultValue !== value) {
-            changes.push({
-                field: key,
-                oldValue: input.defaultValue,
-                newValue: value
-            });
-        }
-    }
-    
-    if (changes.length > 0) {
-        console.log('Modifications détectées:', changes);
-        return true;
-    }
-    
-    return false;
-}
-
-/**
- * Validation côté client pour éviter les soumissions multiples
- */
-let isSubmitting = false;
-
+// Log when forms are submitted (for debugging)
 document.addEventListener('submit', function(e) {
-    if (isSubmitting) {
-        e.preventDefault();
-        return false;
+    if (e.target.id === 'profil-form') {
+        console.log('✓ Profile form submitting...');
+        const formData = new FormData(e.target);
+        console.log('Form data:', Array.from(formData.entries()));
+    } else if (e.target.id === 'password-form') {
+        console.log('✓ Password form submitting...');
     }
-    
-    if (e.target.id === 'profil-form' || e.target.id === 'password-form') {
-        isSubmitting = true;
-        
-        // Réactiver après 3 secondes en cas d'erreur
-        setTimeout(() => {
-            isSubmitting = false;
-        }, 3000);
-    }
-});
+}, true); // Use capture phase to log before any preventDefault

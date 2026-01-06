@@ -22,13 +22,36 @@ class ProjetModel extends Model {
     /**
      * Récupérer tous les projets avec responsables
      */
-    public function getAllWithResponsables() {
-        $stmt = $this->db->query("
-            SELECT p.id,
+   public function getAllWithResponsables() {
+    $stmt = $this->db->query("
+        SELECT p.id,
+               p.titre,
+               p.description,
+               p.thematique,
+               p.status,
+               p.date_debut,
+               p.date_fin,
+               p.type_financement,
+               p.responsable_id,
+               u.username as responsable_nom,
+               (SELECT COUNT(*) FROM Projet_Membre WHERE projet_id = p.id) as nb_membres
+        FROM Projet p
+        LEFT JOIN Membre m ON p.responsable_id = m.id
+        LEFT JOIN User u ON m.user_id = u.id
+        ORDER BY p.date_debut DESC
+    ");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+    
+    /**
+     * Récupérer les projets filtrés
+     */
+public function getAllFiltered($filters = []) {
+    $sql = "SELECT p.id,
                    p.titre,
                    p.description,
                    p.thematique,
-                   p.status as statut,
+                   p.status,
                    p.date_debut,
                    p.date_fin,
                    p.type_financement,
@@ -38,62 +61,45 @@ class ProjetModel extends Model {
             FROM Projet p
             LEFT JOIN Membre m ON p.responsable_id = m.id
             LEFT JOIN User u ON m.user_id = u.id
-            ORDER BY p.date_debut DESC
-        ");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            WHERE 1=1";
+    
+    $params = [];
+    
+    // Filtre par thématique
+    if (!empty($filters['thematique'])) {
+        $sql .= " AND p.thematique = :thematique";
+        $params['thematique'] = $filters['thematique'];
     }
     
-    /**
-     * Récupérer les projets filtrés
-     */
-    public function getAllFiltered($filters = []) {
-        $sql = "SELECT p.id,
-                       p.titre,
-                       p.description,
-                       p.thematique,
-                       p.status as statut,
-                       p.date_debut,
-                       p.date_fin,
-                       p.type_financement,
-                       p.responsable_id,
-                       u.username as responsable_nom,
-                       (SELECT COUNT(*) FROM Projet_Membre WHERE projet_id = p.id) as nb_membres
-                FROM Projet p
-                LEFT JOIN Membre m ON p.responsable_id = m.id
-                LEFT JOIN User u ON m.user_id = u.id
-                WHERE 1";
-        
-        $params = [];
-        
-        // Filtre par thématique
-        if (!empty($filters['thematique'])) {
-            $sql .= " AND p.thematique = :thematique";
-            $params['thematique'] = $filters['thematique'];
-        }
-        
-        // Filtre par statut
-        if (!empty($filters['statut'])) {
-            $sql .= " AND p.status = :statut";
-            $params['statut'] = $filters['statut'];
-        }
-        
-        // Filtre de recherche
-        if (!empty($filters['search'])) {
-            $sql .= " AND (p.titre LIKE :search 
-                           OR u.username LIKE :search
-                           OR p.thematique LIKE :search
-                           OR p.description LIKE :search)";
-            $params['search'] = '%' . $filters['search'] . '%';
-        }
-        
-        // Tri par défaut (les plus récents en premier)
-        $sql .= " ORDER BY p.date_debut DESC";
-        
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute($params);
-        
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Filtre par statut
+    if (!empty($filters['status'])) {
+        $sql .= " AND p.status = :status";
+        $params['status'] = $filters['status'];
     }
+    
+    // ← AJOUT IMPORTANT : Filtre par année
+    if (!empty($filters['annee'])) {
+        $sql .= " AND YEAR(p.date_debut) = :annee";
+        $params['annee'] = (int)$filters['annee'];
+    }
+    
+    // Filtre de recherche
+    if (!empty($filters['search'])) {
+        $sql .= " AND (p.titre LIKE :search 
+                       OR u.username LIKE :search
+                       OR p.thematique LIKE :search
+                       OR p.description LIKE :search)";
+        $params['search'] = '%' . $filters['search'] . '%';
+    }
+    
+    // Tri par défaut
+    $sql .= " ORDER BY p.date_debut DESC";
+    
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute($params);
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
     
     /**
      * Récupérer les projets d'un membre (responsable + participant)
