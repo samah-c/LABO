@@ -1,7 +1,6 @@
 <?php
 /**
  * FilterComponent.php - Composant pour la gestion des filtres et recherche
- * À placer dans : /TDW_project/lib/components/FilterComponent.php
  */
 
 require_once __DIR__ . '/../LabHelpers.php';

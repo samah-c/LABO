@@ -102,7 +102,7 @@ class PublicationsListView
                 ],
                 [
                     'type' => 'button',
-                    'label' => ' Rapport bibliographique',
+                    'label' => 'Rapport bibliographique',
                     'onclick' => 'genererRapport()'
                 ],
                 [
@@ -236,12 +236,12 @@ class PublicationsListView
                 'label' => 'Type',
                 'formatter' => function($value) {
                     $colors = [
-                        'Article' => '#3B82F6',
-                        'Conférence' => '#8B5CF6',
-                        'Thèse' => '#EC4899',
-                        'Rapport' => '#F59E0B',
-                        'Livre' => '#10B981',
-                        'Chapitre' => '#6366F1'
+                        'article' => '#3B82F6',
+                        'communication' => '#8B5CF6',
+                        'these' => '#EC4899',
+                        'rapport' => '#F59E0B',
+                        'poster' => '#10B981',
+                        'autre' => '#6366F1'
                     ];
                     $color = $colors[$value] ?? '#6B7280';
                     return '<span class="badge" style="background: ' . $color . ';">' . e($value) . '</span>';

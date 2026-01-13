@@ -1,4 +1,20 @@
 <?php
+
+// Définir l'encodage
+header('Content-Type: text/html; charset=UTF-8');
+mb_internal_encoding('UTF-8');
+ini_set('default_charset', 'UTF-8');
+
+// Forcer l'encodage pour les données POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    array_walk_recursive($_POST, function(&$value) {
+        if (is_string($value)) {
+            $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+        }
+    });
+}
+
+
 require_once __DIR__ . '/controllers/auth/AuthController.php';
 require_once __DIR__ . '/lib/helpers.php';
 
@@ -151,6 +167,12 @@ if (preg_match('#^/actualites/(\d+)$#', $uri, $matches)) {
     exit;
 }
 
+if ($uri === '/offres') {
+    error_log("Route LISTE appelée");
+    $visiteurController->offres();
+    exit;
+}
+
 // ===== CONTACT =====
 if ($uri === '/contact') {
     $visiteurController->contact();
@@ -211,6 +233,12 @@ if (strpos($uri, '/api/admin') === 0) {
         // POST /api/admin/projets/add-membre
         if ($uri === '/api/admin/projets/add-membre' && $method === 'POST') {
             $projetsController->addMembre();
+            exit;
+        }
+
+        // GET /api/admin/projets/:id/membres-disponibles
+        if (preg_match('#^/api/admin/projets/(\d+)/membres-disponibles$#', $uri, $matches) && $method === 'GET') {
+            $projetsController->getMembresDisponibles($matches[1]);
             exit;
         }
         
@@ -801,6 +829,9 @@ if (strpos($uri, '/membre') === 0) {
     require_once __DIR__ . '/controllers/member/MembreController.php';
     $membreController = new MembreController();
     
+     require_once __DIR__ . '/controllers/member/PublicationController.php';
+    $publicationController = new PublicationController();
+    
     // ===== DASHBOARD =====
     if ($uri === '/membre' || $uri === '/membre/dashboard') {
         $membreController->dashboard();
@@ -823,16 +854,29 @@ if (strpos($uri, '/membre') === 0) {
     exit;
 }
     
-    // ===== PROJETS =====
-    if ($uri === '/membre/projets') {
-        $membreController->projets();
-        exit;
-    }
-    
-    if (preg_match('#^/membre/projets/(\d+)$#', $uri, $matches)) {
-        $membreController->projetDetail($matches[1]);
-        exit;
-    }
+   // ===== PROJETS =====
+if ($uri === '/membre/projets') {
+    $membreController->projets();
+    exit;
+}
+
+// Route pour le formulaire d'édition (AJAX) - GET
+if (preg_match('#^/membre/projets/form/(\d+)$#', $uri, $matches) && $method === 'GET') {
+    $membreController->projetForm($matches[1]);
+    exit;
+}
+
+// Route pour sauvegarder les modifications - POST
+if ($uri === '/membre/projets/save' && $method === 'POST') {
+    $membreController->projetSave();
+    exit;
+}
+
+// Route pour voir un projet (doit être APRÈS form et save)
+if (preg_match('#^/membre/projets/(\d+)$#', $uri, $matches)) {
+    $membreController->projetDetail($matches[1]);
+    exit;
+}
     
     // ===== PUBLICATIONS =====
     if ($uri === '/membre/publications') {
@@ -847,25 +891,34 @@ if (strpos($uri, '/membre') === 0) {
 
     // GET projets for publication form
 if ($uri === '/membre/publications/get-projets' && $method === 'GET') {
-    require_once __DIR__ . '/../controllers/member/PublicationController.php';
-    $controller = new PublicationController();
-    $controller->getProjets();
+   
+    $publicationController->getProjets();
     exit;
 }
 
 // GET membres for co-auteurs
 if ($uri === '/membre/publications/get-membres' && $method === 'GET') {
-    require_once __DIR__ . '/../controllers/member/PublicationController.php';
-    $controller = new PublicationController();
-    $controller->getMembres();
+    $publicationController->getMembres();
     exit;
 }
 
 // Route de suppression -
 if (preg_match('#^/membre/publications/delete/(\d+)$#', $uri, $matches) && $method === 'POST') {
-    require_once __DIR__ . '/../controllers/member/PublicationController.php';
-    $controller = new PublicationController();
-    $controller->deletePublication($matches[1]);
+  
+    $publicationController->deletePublication($matches[1]);
+    exit;
+}
+
+// Route de suppression -
+if (preg_match('#^/membre/publications/get/(\d+)$#', $uri, $matches) && $method === 'GET') {
+  
+    $publicationController->getPublication($matches[1]);
+    exit;
+}
+
+// Route de modification - UPDATE
+if (preg_match('#^/membre/publications/update/(\d+)$#', $uri, $matches) && $method === 'POST') {
+    $publicationController->updatePublication($matches[1]);
     exit;
 }
     

@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../lib/components/HeaderComponent.php';
 require_once __DIR__ . '/../../../lib/components/NavigationComponent.php';
 require_once __DIR__ . '/../../../lib/components/FooterComponent.php';
 
-class PublicationDetailView
+class PublicationsDetailView
 {
     private array $publication;
     private array $auteurs;

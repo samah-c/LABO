@@ -1,14 +1,4 @@
 <?php
-/**
- * PublicationController.php - Contrôleur dédié pour la gestion des publications
- * À créer dans : controllers/member/PublicationController.php
- */
-
-require_once __DIR__ . '/../../models/PublicationModel.php';
-require_once __DIR__ . '/../../models/MembreModel.php';
-require_once __DIR__ . '/../../models/ProjetModel.php';
-require_once __DIR__ . '/../../lib/helpers.php';
-require_once __DIR__ . '/../auth/AuthController.php';
 
 class PublicationController {
     private $publicationModel;
@@ -18,38 +8,154 @@ class PublicationController {
     private $membre;
     
     public function __construct() {
-        AuthController::checkSessionTimeout();
+        // Désactiver l'affichage des erreurs AVANT tout
+        ini_set('display_errors', '0');
+        error_reporting(E_ALL);
         
-        $this->publicationModel = new PublicationModel();
-        $this->membreModel = new MembreModel();
-        $this->projetModel = new ProjetModel();
+        // Démarrer le buffer de sortie
+        if (!ob_get_level()) {
+            ob_start();
+        }
         
-        // Récupérer l'ID du membre connecté
-        $userId = session('user_id');
-        $this->membre = $this->membreModel->getByUserId($userId);
-        $this->membreId = $this->membre['id'] ?? null;
+        try {
+            AuthController::checkSessionTimeout();
+            
+            $this->publicationModel = new PublicationModel();
+            $this->membreModel = new MembreModel();
+            $this->projetModel = new ProjetModel();
+            
+            $userId = session('user_id');
+            
+            if ($userId) {
+                $this->membre = $this->membreModel->getByUserId($userId);
+                $this->membreId = $this->membre['id'] ?? null;
+            } else {
+                $this->membre = null;
+                $this->membreId = null;
+            }
+            
+        } catch (Exception $e) {
+            error_log("PublicationController init error: " . $e->getMessage());
+            
+            if ($this->isAjaxRequest()) {
+                $this->cleanJsonResponse([
+                    'success' => false,
+                    'message' => 'Erreur d\'initialisation'
+                ], 500);
+            }
+        }
     }
     
-    /**
-     * Créer une nouvelle publication
-     */
+    private function isAjaxRequest() {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+               strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
+    
+    private function cleanJsonResponse($data, $statusCode = 200) {
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        http_response_code($statusCode);
+        header('Content-Type: application/json; charset=utf-8');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        
+        echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+    
+    public function getMembres() {
+        ini_set('display_errors', '0');
+        
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        ob_start();
+        
+        try {
+            AuthController::requireMembre();
+            
+            $membres = $this->membreModel->getAll();
+            
+            if ($this->membreId) {
+                $membres = array_filter($membres, function($m) {
+                    return $m['id'] != $this->membreId;
+                });
+            }
+            
+            $this->cleanJsonResponse([
+                'success' => true,
+                'membres' => array_values($membres)
+            ]);
+            
+        } catch (Exception $e) {
+            error_log("GET MEMBRES ERROR: " . $e->getMessage());
+            
+            $this->cleanJsonResponse([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération des membres',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function getProjets() {
+        ini_set('display_errors', '0');
+        
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        ob_start();
+        
+        try {
+            AuthController::requireMembre();
+            
+            if (!$this->membreId) {
+                throw new Exception("Membre ID non trouvé");
+            }
+            
+            $projets = $this->projetModel->getByMembre($this->membreId);
+            
+            $this->cleanJsonResponse([
+                'success' => true,
+                'projets' => $projets ?? []
+            ]);
+            
+        } catch (Exception $e) {
+            error_log("GET PROJETS ERROR: " . $e->getMessage());
+            
+            $this->cleanJsonResponse([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération des projets',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
     public function createPublication() {
+        ini_set('display_errors', '0');
+        
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        ob_start();
+        
         AuthController::requireMembre();
         
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $this->jsonResponse(['success' => false, 'message' => 'Méthode non autorisée'], 405);
+            $this->cleanJsonResponse(['success' => false, 'message' => 'Méthode non autorisée'], 405);
             return;
         }
         
-        error_log("=== CREATE PUBLICATION START ===");
-        error_log("POST data: " . print_r($_POST, true));
-        
         try {
-            // Récupérer et valider les données
             $data = $this->validatePublicationData();
             
             if (!$data['valid']) {
-                $this->jsonResponse([
+                $this->cleanJsonResponse([
                     'success' => false,
                     'message' => $data['error']
                 ], 400);
@@ -58,36 +164,28 @@ class PublicationController {
             
             $publicationData = $data['data'];
             
-            // Insérer la publication dans la base de données
             $publicationId = $this->insertPublication($publicationData);
             
             if (!$publicationId) {
                 throw new Exception("Erreur lors de l'insertion de la publication");
             }
             
-            // Ajouter le membre actuel comme auteur principal
             $this->publicationModel->addAuteur($publicationId, $this->membreId, 1);
             
-            // Ajouter les co-auteurs si présents
             if (!empty($publicationData['co_auteurs'])) {
                 $this->addCoAuteurs($publicationId, $publicationData['co_auteurs']);
             }
             
-            error_log("=== CREATE PUBLICATION SUCCESS ===");
-            error_log("Publication ID: " . $publicationId);
-            
-            $this->jsonResponse([
+            $this->cleanJsonResponse([
                 'success' => true,
                 'message' => 'Publication créée avec succès. En attente de validation.',
                 'publication_id' => $publicationId
             ]);
             
         } catch (Exception $e) {
-            error_log("=== CREATE PUBLICATION ERROR ===");
-            error_log("Error: " . $e->getMessage());
-            error_log("Stack trace: " . $e->getTraceAsString());
+            error_log("CREATE PUBLICATION ERROR: " . $e->getMessage());
             
-            $this->jsonResponse([
+            $this->cleanJsonResponse([
                 'success' => false,
                 'message' => 'Une erreur est survenue: ' . $e->getMessage()
             ], 500);
@@ -95,8 +193,257 @@ class PublicationController {
     }
     
     /**
-     * Valider les données de la publication
+     * 🔧 CORRECTION: Récupérer une publication pour modification
      */
+    public function getPublication($id) {
+        // Désactiver les erreurs
+        error_reporting(0);
+        ini_set('display_errors', '0');
+        
+        // Nettoyer TOUS les buffers
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        // Démarrer un buffer propre
+        ob_start();
+        
+        try {
+            AuthController::requireMembre();
+            
+            // Vérifier que l'ID est valide
+            if (!is_numeric($id) || $id <= 0) {
+                $this->cleanJsonResponse([
+                    'success' => false, 
+                    'message' => 'ID de publication invalide'
+                ], 400);
+                return;
+            }
+            
+            // Récupérer la publication
+            $publication = $this->publicationModel->getById($id);
+            
+            if (!$publication) {
+                $this->cleanJsonResponse([
+                    'success' => false, 
+                    'message' => 'Publication non trouvée'
+                ], 404);
+                return;
+            }
+            
+            // Récupérer les auteurs
+            $auteurs = $this->publicationModel->getAuteurs($id);
+            
+            // Vérifier que le membre est auteur
+            $isAuteur = false;
+            $isPrimaryAuthor = false;
+            
+            foreach ($auteurs as $auteur) {
+                if ($auteur['id'] == $this->membreId) {
+                    $isAuteur = true;
+                    if (isset($auteur['ordre_auteur']) && $auteur['ordre_auteur'] == 1) {
+                        $isPrimaryAuthor = true;
+                    }
+                    break;
+                }
+            }
+            
+            if (!$isAuteur) {
+                $this->cleanJsonResponse([
+                    'success' => false, 
+                    'message' => 'Non autorisé à consulter cette publication'
+                ], 403);
+                return;
+            }
+            
+            // Récupérer les co-auteurs (sauf l'auteur principal)
+            $coAuteurs = [];
+            foreach ($auteurs as $auteur) {
+                if ($auteur['ordre_auteur'] != 1) {
+                    $coAuteurs[] = (string)$auteur['id'];
+                }
+            }
+            
+            $publication['co_auteurs'] = $coAuteurs;
+            $publication['is_primary_author'] = $isPrimaryAuthor;
+            
+            // Log pour debug
+            error_log("Publication loaded successfully: ID=$id, Primary Author: " . ($isPrimaryAuthor ? 'Yes' : 'No'));
+            
+            $this->cleanJsonResponse([
+                'success' => true,
+                'publication' => $publication
+            ]);
+            
+        } catch (Exception $e) {
+            error_log("GET PUBLICATION ERROR: " . $e->getMessage());
+            error_log("Stack trace: " . $e->getTraceAsString());
+            
+            $this->cleanJsonResponse([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération de la publication'
+            ], 500);
+        }
+    }
+    
+    public function updatePublication($id) {
+        ini_set('display_errors', '0');
+        
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        ob_start();
+        
+        AuthController::requireMembre();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->cleanJsonResponse(['success' => false, 'message' => 'Méthode non autorisée'], 405);
+            return;
+        }
+        
+        try {
+            $publication = $this->publicationModel->getById($id);
+            
+            if (!$publication) {
+                $this->cleanJsonResponse(['success' => false, 'message' => 'Publication non trouvée'], 404);
+                return;
+            }
+            
+            $auteurs = $this->publicationModel->getAuteurs($id);
+            $isPrimaryAuthor = false;
+            
+            foreach ($auteurs as $auteur) {
+                if ($auteur['id'] == $this->membreId && isset($auteur['ordre_auteur']) && $auteur['ordre_auteur'] == 1) {
+                    $isPrimaryAuthor = true;
+                    break;
+                }
+            }
+            
+            if (!$isPrimaryAuthor) {
+                $this->cleanJsonResponse(['success' => false, 'message' => 'Seul l\'auteur principal peut modifier cette publication'], 403);
+                return;
+            }
+            
+            $data = $this->validatePublicationData();
+            
+            if (!$data['valid']) {
+                $this->cleanJsonResponse([
+                    'success' => false,
+                    'message' => $data['error']
+                ], 400);
+                return;
+            }
+            
+            $publicationData = $data['data'];
+            
+            $this->updatePublicationData($id, $publicationData);
+            
+            $db = $this->publicationModel->getConnection();
+            $stmt = $db->prepare("DELETE FROM Publication_Auteur WHERE publication_id = ? AND ordre_auteur != 1");
+            $stmt->execute([$id]);
+            
+            if (!empty($publicationData['co_auteurs'])) {
+                $this->addCoAuteurs($id, $publicationData['co_auteurs']);
+            }
+            
+            if ($publication['statut_validation'] === 'rejete') {
+                $stmt = $db->prepare("UPDATE Publication SET statut_validation = 'en_attente' WHERE id = ?");
+                $stmt->execute([$id]);
+            }
+            
+            $this->cleanJsonResponse([
+                'success' => true,
+                'message' => 'Publication modifiée avec succès'
+            ]);
+            
+        } catch (Exception $e) {
+            error_log("UPDATE PUBLICATION ERROR: " . $e->getMessage());
+            
+            $this->cleanJsonResponse([
+                'success' => false,
+                'message' => 'Une erreur est survenue: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function deletePublication($id) {
+        error_reporting(0);
+        ini_set('display_errors', '0');
+        
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        ob_start();
+        
+        AuthController::requireMembre();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->cleanJsonResponse(['success' => false, 'message' => 'Méthode non autorisée'], 405);
+            return;
+        }
+        
+        try {
+            $publication = $this->publicationModel->getById($id);
+            
+            if (!$publication) {
+                $this->cleanJsonResponse(['success' => false, 'message' => 'Publication non trouvée'], 404);
+                return;
+            }
+            
+            $auteurs = $this->publicationModel->getAuteurs($id);
+            $isAuteur = false;
+            $isPrimaryAuthor = false;
+            
+            foreach ($auteurs as $auteur) {
+                if ($auteur['id'] == $this->membreId) {
+                    $isAuteur = true;
+                    if (isset($auteur['ordre_auteur']) && $auteur['ordre_auteur'] == 1) {
+                        $isPrimaryAuthor = true;
+                    }
+                    break;
+                }
+            }
+            
+            if (!$isAuteur) {
+                $this->cleanJsonResponse(['success' => false, 'message' => 'Non autorisé à supprimer cette publication'], 403);
+                return;
+            }
+            
+            if (!$isPrimaryAuthor) {
+                $this->cleanJsonResponse(['success' => false, 'message' => 'Seul l\'auteur principal peut supprimer cette publication'], 403);
+                return;
+            }
+            
+            $db = $this->publicationModel->getConnection();
+            
+            $stmt = $db->prepare("DELETE FROM Publication_Auteur WHERE publication_id = ?");
+            $stmt->execute([$id]);
+            
+            $stmt = $db->prepare("DELETE FROM Publication WHERE id = ?");
+            
+            if ($stmt->execute([$id])) {
+                error_log("Publication #$id supprimée par " . session('username'));
+                
+                $this->cleanJsonResponse([
+                    'success' => true,
+                    'message' => 'Publication supprimée avec succès'
+                ]);
+            } else {
+                throw new Exception("Erreur lors de la suppression");
+            }
+            
+        } catch (Exception $e) {
+            error_log("DELETE PUBLICATION ERROR: " . $e->getMessage());
+            
+            $this->cleanJsonResponse([
+                'success' => false,
+                'message' => 'Une erreur est survenue lors de la suppression'
+            ], 500);
+        }
+    }
+    
     private function validatePublicationData() {
         $titre = trim(post('titre', ''));
         $typePublication = trim(post('type_publication', ''));
@@ -104,14 +451,12 @@ class PublicationController {
         $datePublication = trim(post('date_publication', ''));
         $domaine = trim(post('domaine', ''));
         
-        // Champs optionnels
         $doi = trim(post('doi', ''));
         $lien = trim(post('lien', ''));
         $lienTelechargement = trim(post('lien_telechargement', ''));
         $projetId = post('projet_id', null);
         $coAuteurs = post('co_auteurs', []);
         
-        // Validation des champs obligatoires
         if (empty($titre)) {
             return ['valid' => false, 'error' => 'Le titre est obligatoire'];
         }
@@ -141,13 +486,11 @@ class PublicationController {
             return ['valid' => false, 'error' => 'La date de publication est obligatoire'];
         }
         
-        // Valider la date
         $date = DateTime::createFromFormat('Y-m-d', $datePublication);
         if (!$date) {
             return ['valid' => false, 'error' => 'Format de date invalide'];
         }
         
-        // Vérifier que la date n'est pas dans le futur
         if ($date > new DateTime()) {
             return ['valid' => false, 'error' => 'La date de publication ne peut pas être dans le futur'];
         }
@@ -156,17 +499,14 @@ class PublicationController {
             return ['valid' => false, 'error' => 'Le domaine est obligatoire'];
         }
         
-        // Valider le lien si présent
         if (!empty($lien) && !filter_var($lien, FILTER_VALIDATE_URL)) {
             return ['valid' => false, 'error' => 'Lien invalide'];
         }
         
-        // Valider le lien de téléchargement si présent
         if (!empty($lienTelechargement) && !filter_var($lienTelechargement, FILTER_VALIDATE_URL)) {
             return ['valid' => false, 'error' => 'Lien de téléchargement invalide'];
         }
         
-        // Valider le DOI si présent
         if (!empty($doi) && !preg_match('/^10\.\d{4,}\/\S+$/', $doi)) {
             return ['valid' => false, 'error' => 'Format DOI invalide (doit commencer par 10.)'];
         }
@@ -188,9 +528,6 @@ class PublicationController {
         ];
     }
     
-    /**
-     * Insérer la publication dans la base de données
-     */
     private function insertPublication($data) {
         $db = $this->publicationModel->getConnection();
         
@@ -229,11 +566,8 @@ class PublicationController {
         return $db->lastInsertId();
     }
     
-    /**
-     * Ajouter les co-auteurs
-     */
     private function addCoAuteurs($publicationId, $coAuteurs) {
-        $ordre = 2; // L'auteur principal est à l'ordre 1
+        $ordre = 2;
         
         foreach ($coAuteurs as $membreId) {
             if (!empty($membreId) && is_numeric($membreId)) {
@@ -243,237 +577,42 @@ class PublicationController {
         }
     }
     
-    /**
-     * Mettre à jour une publication
-     */
-    public function updatePublication($id) {
-        AuthController::requireMembre();
-        
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $this->jsonResponse(['success' => false, 'message' => 'Méthode non autorisée'], 405);
-            return;
-        }
-        
-        try {
-            // Vérifier que la publication existe et appartient au membre
-            $publication = $this->publicationModel->getById($id);
-            
-            if (!$publication) {
-                $this->jsonResponse(['success' => false, 'message' => 'Publication non trouvée'], 404);
-                return;
-            }
-            
-            // Vérifier que le membre est un auteur de la publication
-            $auteurs = $this->publicationModel->getAuteurs($id);
-            $isAuteur = false;
-            foreach ($auteurs as $auteur) {
-                if ($auteur['id'] == $this->membreId) {
-                    $isAuteur = true;
-                    break;
-                }
-            }
-            
-            if (!$isAuteur) {
-                $this->jsonResponse(['success' => false, 'message' => 'Non autorisé'], 403);
-                return;
-            }
-            
-            // Valider les données
-            $data = $this->validatePublicationData();
-            
-            if (!$data['valid']) {
-                $this->jsonResponse(['success' => false, 'message' => $data['error']], 400);
-                return;
-            }
-            
-            $publicationData = $data['data'];
-            unset($publicationData['co_auteurs']); // Ne pas mettre à jour les auteurs ici
-            
-            // Mettre à jour la publication
-            $db = $this->publicationModel->getConnection();
-            
-            $sql = "UPDATE Publication SET 
-                titre = ?, 
-                type_publication = ?, 
-                resume = ?, 
-                date_publication = ?, 
-                domaine = ?, 
-                doi = ?, 
-                lien = ?, 
-                lien_telechargement = ?,
-                projet_id = ?
-                WHERE id = ?";
-            
-            $stmt = $db->prepare($sql);
-            
-            $result = $stmt->execute([
-                $publicationData['titre'],
-                $publicationData['type_publication'],
-                $publicationData['resume'],
-                $publicationData['date_publication'],
-                $publicationData['domaine'],
-                $publicationData['doi'] ?: null,
-                $publicationData['lien'] ?: null,
-                $publicationData['lien_telechargement'] ?: null,
-                $publicationData['projet_id'],
-                $id
-            ]);
-            
-            if ($result) {
-                $this->jsonResponse([
-                    'success' => true,
-                    'message' => 'Publication mise à jour avec succès'
-                ]);
-            } else {
-                throw new Exception("Erreur lors de la mise à jour");
-            }
-            
-        } catch (Exception $e) {
-            error_log("Update publication error: " . $e->getMessage());
-            $this->jsonResponse([
-                'success' => false,
-                'message' => 'Une erreur est survenue: ' . $e->getMessage()
-            ], 500);
-        }
-    }
-/**
- * Supprimer une publication (soft delete)
- */
-public function deletePublication($id) {
-    // Prevent any output before JSON
-    ob_clean();
-    
-    AuthController::requireMembre();
-    
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        $this->jsonResponse(['success' => false, 'message' => 'Méthode non autorisée'], 405);
-        return;
-    }
-    
-    try {
-        // Récupérer la publication
-        $publication = $this->publicationModel->getById($id);
-        
-        if (!$publication) {
-            $this->jsonResponse(['success' => false, 'message' => 'Publication non trouvée'], 404);
-            return;
-        }
-        
-        // Vérifier que le membre est auteur
-        $auteurs = $this->publicationModel->getAuteurs($id);
-        $isAuteur = false;
-        $isPrimaryAuthor = false;
-        
-        foreach ($auteurs as $auteur) {
-            if ($auteur['id'] == $this->membreId) {
-                $isAuteur = true;
-                if (isset($auteur['ordre_auteur']) && $auteur['ordre_auteur'] == 1) {
-                    $isPrimaryAuthor = true;
-                }
-                break;
-            }
-        }
-        
-        if (!$isAuteur) {
-            $this->jsonResponse(['success' => false, 'message' => 'Non autorisé à supprimer cette publication'], 403);
-            return;
-        }
-        
-        // Seul l'auteur principal ou un admin peut supprimer
-        if (!$isPrimaryAuthor && session('role') !== 'admin') {
-            $this->jsonResponse(['success' => false, 'message' => 'Seul l\'auteur principal peut supprimer cette publication'], 403);
-            return;
-        }
-        
-        // Supprimer la publication (hard delete)
+    private function updatePublicationData($id, $data) {
         $db = $this->publicationModel->getConnection();
         
-        // D'abord supprimer les relations dans Publication_Auteur
-        $stmt = $db->prepare("DELETE FROM Publication_Auteur WHERE publication_id = ?");
-        $stmt->execute([$id]);
+        $sql = "UPDATE Publication SET 
+            titre = ?, 
+            type_publication = ?, 
+            resume = ?, 
+            date_publication = ?, 
+            domaine = ?, 
+            doi = ?, 
+            lien = ?, 
+            lien_telechargement = ?,
+            projet_id = ?
+            WHERE id = ?";
         
-        // Ensuite supprimer la publication
-        $stmt = $db->prepare("DELETE FROM Publication WHERE id = ?");
+        $stmt = $db->prepare($sql);
         
-        if ($stmt->execute([$id])) {
-            $this->jsonResponse([
-                'success' => true,
-                'message' => 'Publication supprimée avec succès'
-            ]);
-        } else {
-            throw new Exception("Erreur lors de la suppression");
+        $result = $stmt->execute([
+            $data['titre'],
+            $data['type_publication'],
+            $data['resume'],
+            $data['date_publication'],
+            $data['domaine'],
+            $data['doi'] ?: null,
+            $data['lien'] ?: null,
+            $data['lien_telechargement'] ?: null,
+            $data['projet_id'],
+            $id
+        ]);
+        
+        if (!$result) {
+            error_log("SQL Error: " . print_r($stmt->errorInfo(), true));
+            throw new Exception("Erreur lors de la mise à jour de la publication");
         }
         
-    } catch (Exception $e) {
-        error_log("Delete publication error: " . $e->getMessage());
-        $this->jsonResponse([
-            'success' => false,
-            'message' => 'Une erreur est survenue lors de la suppression'
-        ], 500);
+        return true;
     }
-}
-
-/**
- * Envoyer une réponse JSON
- */
-private function jsonResponse($data, $statusCode = 200) {
-    // Clear any previous output
-    if (ob_get_length()) ob_clean();
-    
-    http_response_code($statusCode);
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
-    exit;
-}
-    
-    /**
-     * Récupérer les membres pour le formulaire
-     */
-    public function getMembres() {
-        AuthController::requireMembre();
-        
-        try {
-            $membres = $this->membreModel->getAll();
-            
-            // Filtrer le membre actuel
-            $membres = array_filter($membres, function($m) {
-                return $m['id'] != $this->membreId;
-            });
-            
-            $this->jsonResponse([
-                'success' => true,
-                'membres' => array_values($membres)
-            ]);
-            
-        } catch (Exception $e) {
-            $this->jsonResponse([
-                'success' => false,
-                'message' => 'Erreur lors de la récupération des membres'
-            ], 500);
-        }
-    }
-    
-    /**
-     * Récupérer les projets pour le formulaire
-     */
-    public function getProjets() {
-        AuthController::requireMembre();
-        
-        try {
-            $projets = $this->projetModel->getByMembre($this->membreId);
-            
-            $this->jsonResponse([
-                'success' => true,
-                'projets' => $projets
-            ]);
-            
-        } catch (Exception $e) {
-            $this->jsonResponse([
-                'success' => false,
-                'message' => 'Erreur lors de la récupération des projets'
-            ], 500);
-        }
-    }
-
 }
 ?>

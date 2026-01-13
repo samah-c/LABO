@@ -1,7 +1,6 @@
 <?php
 /**
  * FooterComponent.php - Composant pour la gestion du footer
- * À placer dans : /TDW_project/lib/components/FooterComponent.php
  */
 
 require_once __DIR__ . '/../LabHelpers.php';

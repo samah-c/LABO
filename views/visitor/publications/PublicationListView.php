@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../../lib/components/NavigationComponent.php';
 require_once __DIR__ . '/../../../lib/components/FilterComponent.php';
 require_once __DIR__ . '/../../../lib/components/FooterComponent.php';
 
-class PublicationsListView
+class PublicationListView
 {
     private array $publications;
     private ?array $pagination;

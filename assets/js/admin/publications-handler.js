@@ -141,66 +141,156 @@ class PublicationsHandler {
      * Charger le formulaire dans la modale
      */
     async loadForm(id = null) {
-        const modal = document.getElementById('publication-modal');
-        const container = document.getElementById('modal-form-container');
+    const modal = document.getElementById('publication-modal');
+    const container = document.getElementById('modal-form-container');
+    
+    if (!modal || !container) {
+        console.error('Modale ou conteneur introuvable');
+        return;
+    }
+    
+    // Mettre à jour le titre
+    const modalTitle = modal.querySelector('.modal-header h2');
+    if (modalTitle) {
+        modalTitle.textContent = id ? 'Modifier la publication' : 'Ajouter une publication';
+    }
+    
+    // Afficher loader
+    container.innerHTML = `
+        <div class="loader">
+            <div class="spinner"></div>
+            <p>Chargement du formulaire...</p>
+        </div>
+    `;
+    
+    modal.style.display = 'flex';
+    
+    try {
+        const url = id ? `${this.baseUrl}/form/${id}` : `${this.baseUrl}/form`;
         
-        if (!modal || !container) {
-            console.error('Modale ou conteneur introuvable');
-            return;
+        const response = await fetch(url, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Erreur de chargement');
         }
         
-        // Mettre à jour le titre
-        const modalTitle = modal.querySelector('.modal-header h2');
-        if (modalTitle) {
-            modalTitle.textContent = id ? 'Modifier la publication' : 'Ajouter une publication';
-        }
+        const html = await response.text();
+        container.innerHTML = html;
         
-        // Afficher loader
+        this.currentPublicationId = id;
+        
+        //  CORRECTION CRITIQUE : Attacher l'event listener au formulaire
+        setTimeout(() => {
+            this.attachFormSubmitHandler();
+        }, 100);
+        
+    } catch (error) {
+        console.error('Erreur:', error);
         container.innerHTML = `
-            <div class="loader">
-                <div class="spinner"></div>
-                <p>Chargement du formulaire...</p>
+            <div class="error-message">
+                <p> Erreur lors du chargement du formulaire</p>
+                <button class="btn-secondary" onclick="publications.closeModal()">Fermer</button>
             </div>
         `;
+    }
+}
+
+// 🔧 NOUVELLE MÉTHODE : Attacher le gestionnaire de soumission
+attachFormSubmitHandler() {
+    const form = document.getElementById('publication-form');
+    
+    if (!form) {
+        console.error(' Formulaire non trouvé');
+        return;
+    }
+    
+    console.log(' Formulaire trouvé, attachement du handler AJAX');
+    
+    // Retirer tous les anciens event listeners
+    const newForm = form.cloneNode(true);
+    form.parentNode.replaceChild(newForm, form);
+    
+    // Attacher le nouveau event listener
+    newForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(' Soumission AJAX interceptée');
+        this.submitForm(newForm);
+        return false;
+    });
+}
+
+// REMPLACER la méthode submitForm :
+
+async submitForm(form) {
+    console.log(' Début de soumission...');
+    
+    const formData = new FormData(form);
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.innerHTML : '';
+    
+    // Désactiver le bouton
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-small"></span> Enregistrement...';
+    }
+    
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        });
         
-        modal.style.display = 'flex';
+        //  VÉRIFIER LE CONTENT-TYPE
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            console.error(' Réponse non-JSON reçue');
+            throw new Error('Réponse serveur invalide');
+        }
         
-        try {
-            const url = id ? `${this.baseUrl}/form/${id}` : `${this.baseUrl}/form`;
+        const data = await response.json();
+        console.log(' Réponse JSON:', data);
+        
+        if (data.success) {
+            this.showNotification(data.message || 'Publication enregistrée avec succès', 'success');
+            this.closeModal();
             
-            const response = await fetch(url, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-            
-            if (!response.ok) {
-                throw new Error('Erreur de chargement');
-            }
-            
-            const html = await response.text();
-            container.innerHTML = html;
-            
-            this.currentPublicationId = id;
+            // Recharger après 1 seconde
             setTimeout(() => {
-                const form = document.getElementById('publication-form');
-                if (form) {
-                    console.log('Formulaire trouvé, attachement de l\'event listener');
-                } else {
-                    console.error('Formulaire non trouvé après chargement');
-                }
-            }, 100);
+                window.location.reload();
+            }, 1000);
             
-        } catch (error) {
-            console.error('Erreur:', error);
-            container.innerHTML = `
-                <div class="error-message">
-                    <p>❌ Erreur lors du chargement du formulaire</p>
-                    <button class="btn-secondary" onclick="publications.closeModal()">Fermer</button>
-                </div>
-            `;
+        } else {
+            // Afficher les erreurs
+            if (data.errors) {
+                this.displayErrors(form, data.errors);
+            }
+            this.showNotification(data.message || 'Erreur lors de l\'enregistrement', 'error');
+            
+            // Réactiver le bouton
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }
+        
+    } catch (error) {
+        console.error(' Erreur de soumission:', error);
+        this.showNotification('Erreur de connexion au serveur', 'error');
+        
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
         }
     }
+}
     
     /**
      * Soumettre le formulaire
@@ -239,7 +329,7 @@ class PublicationsHandler {
                 // Réactiver le bouton
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = '💾 Enregistrer';
+                    submitBtn.innerHTML = ' Enregistrer';
                 }
             }
         } catch (error) {
@@ -248,7 +338,7 @@ class PublicationsHandler {
             
             if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '💾 Enregistrer';
+                submitBtn.innerHTML = ' Enregistrer';
             }
         }
     }
@@ -442,7 +532,7 @@ class PublicationsHandler {
                         Annuler
                     </button>
                     <button type="submit" class="btn-primary">
-                        📊 Générer le rapport
+                         Générer le rapport
                     </button>
                 </div>
             </form>
@@ -640,7 +730,7 @@ class PublicationsHandler {
                 row.className = 'no-results-row';
                 row.innerHTML = `
                     <td colspan="100" class="empty-message" style="text-align: center; padding: 40px; color: #9CA3AF;">
-                        🔍 Aucun résultat trouvé
+                         Aucun résultat trouvé
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -779,7 +869,7 @@ let publications;
 document.addEventListener('DOMContentLoaded', () => {
     publications = new PublicationsHandler();
     window.publications = publications;
-    console.log('✅ Gestionnaire de publications initialisé');
+    console.log(' Gestionnaire de publications initialisé');
 });
 
 // ========================================

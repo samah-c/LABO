@@ -1,6 +1,6 @@
 <?php
 /**
- * Vue de la liste des réservations du membre
+ * Vue de la liste des réservations du membre - VERSION CORRIGÉE
  */
 require_once __DIR__ . '/../../lib/components/HeaderComponent.php';
 require_once __DIR__ . '/../../lib/components/NavigationComponent.php';
@@ -23,6 +23,11 @@ class ReservationsListView
         $this->historique = $historique;
         $this->equipements = $equipements;
         $this->stats = $stats;
+        
+        // DEBUG - Log equipment data
+        error_log("=== EQUIPEMENTS DATA ===");
+        error_log("Count: " . count($equipements));
+        error_log("Data: " . print_r($equipements, true));
     }
 
     public function render(): void
@@ -73,9 +78,9 @@ class ReservationsListView
             'subtitle' => 'Gérez vos réservations d\'équipements',
             'actions' => [
                 [
-                    'type' => 'modal',
+                    'type' => 'button',
                     'label' => 'Nouvelle réservation',
-                    'modalId' => 'reservation-modal',
+                    'onclick' => 'openReservationModal()',
                     'class' => 'btn-primary'
                 ]
             ]
@@ -171,7 +176,7 @@ class ReservationsListView
         <div class="card reservation-card">
             <div class="card-header">
                 <div class="header-left">
-                    <h3>🔧 <?= e($reservation['equipement_nom']) ?></h3>
+                    <h3> <?= e($reservation['equipement_nom']) ?></h3>
                     <span class="badge badge-<?= $status['color'] ?>">
                         <?= $status['label'] ?>
                     </span>
@@ -182,11 +187,11 @@ class ReservationsListView
             <div class="card-body">
                 <div class="info-list">
                     <div class="info-item">
-                        <span class="info-label"> Début</span>
+                        <span class="info-label">date Début</span>
                         <span class="info-value"><?= format_date($reservation['date_debut'], 'd/m/Y H:i') ?></span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label"> Fin</span>
+                        <span class="info-label">date Fin</span>
                         <span class="info-value"><?= format_date($reservation['date_fin'], 'd/m/Y H:i') ?></span>
                     </div>
                     <?php if (!empty($reservation['motif'])): ?>
@@ -204,7 +209,7 @@ class ReservationsListView
                       onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');">
                     <?= csrf_field() ?>
                     <button type="submit" class="btn-danger-outline">
-                        Annuler la réservation
+                         Annuler la réservation
                     </button>
                 </form>
             </div>
@@ -235,11 +240,11 @@ class ReservationsListView
     private function renderHistoriqueItem(array $reservation): void
     {
         $statusConfig = [
-            'terminee' => ['color' => 'secondary', 'label' => 'Terminée'],
-            'annule' => ['color' => 'danger', 'label' => 'Annulée']
+            'terminee' => ['color' => 'secondary', 'label' => 'Terminée', 'icon' => '✓'],
+            'annule' => ['color' => 'danger', 'label' => 'Annulée', 'icon' => '✕']
         ];
         
-        $status = $statusConfig[$reservation['statut']] ?? ['color' => 'secondary', 'label' => $reservation['statut']];
+        $status = $statusConfig[$reservation['statut']] ?? ['color' => 'secondary', 'label' => $reservation['statut'], 'icon' => '📋'];
         ?>
         <div class="historique-item <?= $reservation['statut'] ?>">
             <div class="item-icon">
@@ -248,7 +253,7 @@ class ReservationsListView
             <div class="item-content">
                 <div class="item-header">
                     <div>
-                        <h4> <?= e($reservation['equipement_nom']) ?></h4>
+                        <h4><?= e($reservation['equipement_nom']) ?></h4>
                         <span class="item-type"><?= e($reservation['type_equipement']) ?></span>
                     </div>
                     <span class="badge badge-<?= $status['color'] ?>">
@@ -291,8 +296,8 @@ class ReservationsListView
             <h3><?= $data['title'] ?></h3>
             <p><?= $data['message'] ?></p>
             <?php if ($data['showButton']): ?>
-            <button class="btn-primary" onclick="openModal('reservation-modal')">
-                Créer une réservation
+            <button class="btn-primary" onclick="openReservationModal()">
+                 Créer une réservation
             </button>
             <?php endif; ?>
         </div>
@@ -301,53 +306,78 @@ class ReservationsListView
 
     private function renderModal(): void
     {
-        $equipementsOptions = [''];
-        foreach ($this->equipements as $equipement) {
-            $equipementsOptions[$equipement['id']] = $equipement['nom'] . ' - ' . $equipement['type_equipement'];
-        }
-
-        ModalComponent::renderFormModal([
-            'id' => 'reservation-modal',
-            'title' => 'Nouvelle Réservation',
-            'size' => 'medium',
-            'form' => [
-                'action' => base_url('membre/reservations/creer'),
-                'method' => 'POST',
-                'fields' => [
-                    [
-                        'type' => 'select',
-                        'name' => 'equipement_id',
-                        'label' => 'Équipement',
-                        'required' => true,
-                        'options' => $equipementsOptions,
-                        'placeholder' => 'Sélectionner un équipement...'
-                    ],
-                    [
-                        'type' => 'datetime-local',
-                        'name' => 'date_debut',
-                        'label' => 'Date début',
-                        'required' => true,
-                        'attributes' => ['min' => date('Y-m-d\TH:i')]
-                    ],
-                    [
-                        'type' => 'datetime-local',
-                        'name' => 'date_fin',
-                        'label' => 'Date fin',
-                        'required' => true,
-                        'attributes' => ['min' => date('Y-m-d\TH:i')]
-                    ],
-                    [
-                        'type' => 'textarea',
-                        'name' => 'motif',
-                        'label' => 'Motif de la réservation',
-                        'placeholder' => 'Expliquez brièvement l\'objectif de cette réservation...',
-                        'attributes' => ['rows' => 3]
-                    ]
-                ],
-                'submitText' => 'Réserver',
-                'cancelUrl' => null
-            ]
-        ]);
+        ?>
+        <!-- Modal Réservation -->
+        <div id="reservationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2> Nouvelle Réservation</h2>
+                    <button class="modal-close" onclick="closeReservationModal()">×</button>
+                </div>
+                
+                <form id="reservationForm" method="POST" action="<?= base_url('membre/reservations/creer') ?>">
+                    <?= csrf_field() ?>
+                    
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="equipement_id">Équipement *</label>
+                            <select name="equipement_id" id="equipement_id" required class="form-control">
+                                <option value="">-- Sélectionner un équipement --</option>
+                                <?php foreach ($this->equipements as $equipement): ?>
+                                    <option value="<?= $equipement['id'] ?>">
+                                        <?= e($equipement['nom']) ?> - <?= e($equipement['type_equipement']) ?>
+                                        <?php if (!empty($equipement['localisation'])): ?>
+                                            (<?= e($equipement['localisation']) ?>)
+                                        <?php endif; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date_debut">Date début *</label>
+                                <input type="datetime-local" 
+                                       name="date_debut" 
+                                       id="date_debut" 
+                                       required 
+                                       class="form-control"
+                                       min="<?= date('Y-m-d\TH:i') ?>">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="date_fin">Date fin *</label>
+                                <input type="datetime-local" 
+                                       name="date_fin" 
+                                       id="date_fin" 
+                                       required 
+                                       class="form-control"
+                                       min="<?= date('Y-m-d\TH:i') ?>">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="motif">Motif de la réservation</label>
+                            <textarea name="motif" 
+                                      id="motif" 
+                                      rows="3" 
+                                      class="form-control"
+                                      placeholder="Expliquez brièvement l'objectif de cette réservation..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secondary" onclick="closeReservationModal()">
+                            Annuler
+                        </button>
+                        <button type="submit" class="btn-primary">
+                             Réserver
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <?php
     }
 
     private function renderStyles(): void
@@ -378,7 +408,7 @@ class ReservationsListView
             border: 1px solid #FCA5A5;
         }
 
-        /* Stats Cards - style dashboard */
+        /* Stats Cards */
         .stats-grid {
             margin: 24px 0;
         }
@@ -734,6 +764,145 @@ class ReservationsListView
             font-size: 15px;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6B7280;
+            line-height: 1;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .modal-close:hover {
+            background: #F3F4F6;
+            color: #111827;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #5B7FFF;
+            box-shadow: 0 0 0 3px rgba(91, 127, 255, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background: #5B7FFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #4A6FE8;
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background: #F3F4F6;
+            color: #374151;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #E5E7EB;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .reservations-grid {
@@ -758,17 +927,25 @@ class ReservationsListView
             .item-dates {
                 font-size: 12px;
             }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                max-height: 95vh;
+            }
         }
         </style>
         <?php
     }
 
-    private function renderScripts(): void
+  
+private function renderScripts(): void
     {
         ?>
         <script>
         function showTab(tabName) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -776,7 +953,6 @@ class ReservationsListView
                 btn.classList.remove('active');
             });
             
-            // Show selected tab
             document.getElementById('tab-' + tabName).classList.add('active');
             event.target.classList.add('active');
         }
@@ -789,3 +965,4 @@ class ReservationsListView
         FooterComponent::render(['role' => 'membre']);
     }
 }
+?>

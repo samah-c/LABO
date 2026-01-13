@@ -112,12 +112,12 @@ class PublicationsController {
                     <label for="type_publication">Type *</label>
                     <select id="type_publication" name="type_publication" required>
                         <option value="">-- Sélectionner --</option>
-                        <option value="Article" <?= $typeActuel === 'Article' ? 'selected' : '' ?>>Article</option>
-                        <option value="Conférence" <?= $typeActuel === 'Conférence' ? 'selected' : '' ?>>Conférence</option>
-                        <option value="Thèse" <?= $typeActuel === 'Thèse' ? 'selected' : '' ?>>Thèse</option>
-                        <option value="Rapport" <?= $typeActuel === 'Rapport' ? 'selected' : '' ?>>Rapport</option>
-                        <option value="Livre" <?= $typeActuel === 'Livre' ? 'selected' : '' ?>>Livre</option>
-                        <option value="Chapitre" <?= $typeActuel === 'Chapitre' ? 'selected' : '' ?>>Chapitre</option>
+                        <option value="article" <?= $typeActuel === 'article' ? 'selected' : '' ?>>Article</option>
+                        <option value="communication" <?= $typeActuel === 'communication' ? 'selected' : '' ?>>Communication</option>
+                        <option value="these" <?= $typeActuel === 'these' ? 'selected' : '' ?>>Thèse</option>
+                        <option value="rapport" <?= $typeActuel === 'rapport' ? 'selected' : '' ?>>Rapport</option>
+                        <option value="poster" <?= $typeActuel === 'poster' ? 'selected' : '' ?>>Poster</option>
+                        <option value="autre" <?= $typeActuel === 'autre' ? 'selected' : '' ?>>Autre</option>
                     </select>
                 </div>
                 
@@ -356,8 +356,11 @@ class PublicationsController {
     }
     
     public function save() {
-        header('Content-Type: application/json');
-        
+        header('Content-Type: application/json; charset=utf-8');
+       
+        while (ob_get_level()) {
+        ob_end_clean();
+      }
         try {
             $id = $_POST['id'] ?? null;
             
@@ -368,7 +371,7 @@ class PublicationsController {
                     'message' => 'Erreurs de validation',
                     'errors' => $errors
                 ]);
-                return;
+                exit;
             }
             
             $data = [
@@ -415,6 +418,7 @@ class PublicationsController {
                 'success' => false,
                 'message' => 'Erreur lors de l\'enregistrement: ' . $e->getMessage()
             ]);
+            exit;
         }
     }
     

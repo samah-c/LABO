@@ -1,7 +1,6 @@
 <?php
 /**
  * EquipesController.php - Contrôleur complet pour la gestion des équipes
- * Gère toutes les opérations CRUD + gestion des membres
  */
 
 require_once __DIR__ . '/../../models/EquipeModel.php';

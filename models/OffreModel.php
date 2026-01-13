@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/Model.php';
-// ========================================
-// OffreModel.php
-// ========================================
+
 class OffreModel extends Model {
     protected $table = 'Offre_Et_Opportunite';
     
@@ -10,7 +8,6 @@ class OffreModel extends Model {
         $sql = "
             SELECT * FROM Offre_Et_Opportunite 
             WHERE statut = 'active'
-            AND (date_expiration IS NULL OR date_expiration >= CURDATE())
             ORDER BY date_publication DESC
         ";
         if ($limit) $sql .= " LIMIT $limit";
@@ -21,8 +18,23 @@ class OffreModel extends Model {
         $stmt = $this->db->prepare("
             SELECT * FROM Offre_Et_Opportunite 
             WHERE type_offre = ? AND statut = 'active'
+            ORDER BY date_publication DESC
         ");
         $stmt->execute([$type]);
         return $stmt->fetchAll();
+    }
+    
+    public function getById($id) {
+        $stmt = $this->db->prepare("
+            SELECT * FROM Offre_Et_Opportunite 
+            WHERE id = ?
+        ");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+    
+    public function getAll() {
+        $sql = "SELECT * FROM Offre_Et_Opportunite ORDER BY date_publication DESC";
+        return $this->db->query($sql)->fetchAll();
     }
 }

@@ -12,24 +12,27 @@ require_once __DIR__ . '/../../models/MembreModel.php';
 require_once __DIR__ . '/../../models/EvenementModel.php';
 require_once __DIR__ . '/../../models/ActualiteModel.php';
 require_once __DIR__ . '/../../models/PartenaireModel.php';
+require_once __DIR__ . '/../../models/OffreModel.php';
 require_once __DIR__ . '/../../models/Model.php';
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../../lib/ViewComponents.php';
 require_once __DIR__ . '/../../views/visitor/OrganigrammeView.php';
 require_once __DIR__ . '/../../views/visitor/HomeView.php';
 require_once __DIR__ . '/../../views/visitor/ContactView.php';
-require_once __DIR__ . '/../../views/visitor/publications/PublicationsListView.php';
-require_once __DIR__ . '/../../views/visitor/publications/PublicationDetailView.php';
-require_once __DIR__ . '/../../views/visitor/projets/ProjetsListView.php';
-require_once __DIR__ . '/../../views/visitor/projets/ProjetDetailView.php';
+require_once __DIR__ . '/../../views/visitor/publications/PublicationListView.php';
+require_once __DIR__ . '/../../views/visitor/publications/PublicationsDetailView.php';
+require_once __DIR__ . '/../../views/visitor/projets/ProjetListView.php';
+require_once __DIR__ . '/../../views/visitor/projets/ProjetsDetailView.php';
 require_once __DIR__ . '/../../views/visitor/equipements/EquipementsView.php';
-require_once __DIR__ . '/../../views/visitor/equipements/EquipementDetailView.php';
+require_once __DIR__ . '/../../views/visitor/equipements/EquipementsDetailView.php';
 require_once __DIR__ . '/../../views/visitor/membres/MembresView.php';
 require_once __DIR__ . '/../../views/visitor/membres/MembreDetailView.php';
 require_once __DIR__ . '/../../views/visitor/evenements/EvenementsView.php';
-require_once __DIR__ . '/../../views/visitor/evenements/EvenementDetailView.php';
+require_once __DIR__ . '/../../views/visitor/evenements/EvenementsDetailView.php';
 require_once __DIR__ . '/../../views/visitor/actualites/ActualitesView.php';
 require_once __DIR__ . '/../../views/visitor/actualites/ActualiteDetailView.php';
+require_once __DIR__ . '/../../views/visitor/offres/OffresListView.php';    
+
 
 
 class VisiteurController {
@@ -41,6 +44,7 @@ class VisiteurController {
     private $evenementModel;
     private $actualiteModel;
     private $partenaireModel;
+    private $offreModel;
     
     public function __construct() {
         $this->projetModel = new ProjetModel();
@@ -51,6 +55,7 @@ class VisiteurController {
         $this->equipementModel = new EquipementModel();
         $this->actualiteModel = new ActualiteModel();
         $this->partenaireModel = new PartenaireModel();
+        $this->offreModel = new OffreModel();
     }
     
     /**
@@ -82,8 +87,7 @@ class VisiteurController {
             $stats['total_membres'] = $this->membreModel->count();
             $stats['total_equipes'] = $this->equipeModel->count();
             
-            // Actualités pour le diaporama
-                // ============================================
+    // ============================================
     // ACTUALITÉS POUR LE DIAPORAMA
     // ============================================
     try {
@@ -125,6 +129,11 @@ class VisiteurController {
             
             // Événements à venir
             $evenements = $this->evenementModel->getUpcoming(6);
+
+            $evenementsScientifiques = $this->getEvenementsScientifiques(6);
+        
+       
+            $offres = $this->offreModel->getActives(6);
             
             // Partenaires
             $partenaires = $this->partenaireModel->getRecent(6);
@@ -148,6 +157,8 @@ class VisiteurController {
             'presentation' => $presentation,
             'directeur' => $directeur,
             'evenements' => $evenements,
+            'evenementsScientifiques' => $evenementsScientifiques,
+            'offres' => $offres,
             'partenaires' => $partenaires,
             'projetsRecents' => $projetsRecents,
             'publicationsRecentes' => $publicationsRecentes
@@ -246,7 +257,7 @@ class VisiteurController {
         $pagination = Utils::paginate(count($projets), $perPage, $page);
         $projets = array_slice($projets, $pagination['offset'], $perPage);
         
-        $view = new ProjetsListView($projets, $pagination);
+        $view = new ProjetListView($projets, $pagination);
         $view->render();
     }
 
@@ -286,7 +297,7 @@ class VisiteurController {
             )
         ];
         
-        $view = new ProjetDetailView($projet, $membres, $publications, $responsable, $stats);
+        $view = new ProjetsDetailView($projet, $membres, $publications, $responsable, $stats);
         $view->render();
     }
     
@@ -342,7 +353,7 @@ class VisiteurController {
         $pagination = Utils::paginate(count($publications), $perPage, $page);
         $publications = array_slice($publications, $pagination['offset'], $perPage);
         
-        $view = new PublicationsListView($publications, $pagination);
+        $view = new PublicationListView($publications, $pagination);
         $view->render();
     }
 
@@ -373,7 +384,7 @@ class VisiteurController {
             $projet = $this->projetModel->getById($publication['projet_id']);
         }
         
-        $view = new PublicationDetailView($publication, $auteurs, $projet);
+        $view = new PublicationsDetailView($publication, $auteurs, $projet);
         $view->render();
     }
 
@@ -438,7 +449,7 @@ class VisiteurController {
             'taux_utilisation' => 0
         ];
         
-        $view = new EquipementDetailView($equipement, $stats);
+        $view = new EquipementsDetailView($equipement, $stats);
         $view->render();
     }
 
@@ -566,7 +577,7 @@ public function evenementDetail($id) {
     }
     
     // Instancier et afficher la vue (2 lignes)
-    $view = new EvenementDetailView($evenement);
+    $view = new EvenementsDetailView($evenement);
     $view->render();
 }
     
@@ -799,7 +810,7 @@ public function evenementDetail($id) {
         redirect('contact');
     }
 
-    /**
+/**
  * Page Organigramme - Présentation et équipes
  */
 public function organigramme() {
@@ -855,4 +866,164 @@ public function organigramme() {
      $view = new OrganigrammeView($directeur, $membres, $equipes, $this->equipeModel);
      $view->render();
 }
+
+
+/**
+ * Récupérer les événements scientifiques (ateliers, séminaires, conférences)
+ */
+private function getEvenementsScientifiques($limit = 6) {
+    try {
+        $db = Database::getInstance()->getConnection();
+        
+        // Utiliser la vue v_evenements_scientifiques qui fait déjà la jointure
+        $sql = "
+            SELECT 
+                id,
+                titre,
+                type_evenement,
+                type_scientifique,
+                date_evenement,
+                lieu,
+                description,
+                theme_scientifique,
+                intervenant_principal,
+                nombre_participants,
+                organisateur_nom
+            FROM v_evenements_scientifiques
+            WHERE date_evenement >= CURDATE()
+            ORDER BY date_evenement ASC
+        ";
+        
+        if ($limit) {
+            $sql .= " LIMIT " . intval($limit);
+        }
+        
+        $stmt = $db->query($sql);
+        $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        error_log("Événements scientifiques futurs trouvés: " . count($evenements));
+        
+        // Si aucun événement futur, prendre les plus récents
+        if (empty($evenements)) {
+            error_log("⚠ Aucun événement futur, récupération des plus récents...");
+            
+            $sql = "
+                SELECT 
+                    id,
+                    titre,
+                    type_evenement,
+                    type_scientifique,
+                    date_evenement,
+                    lieu,
+                    description,
+                    theme_scientifique,
+                    intervenant_principal,
+                    nombre_participants,
+                    organisateur_nom
+                FROM v_evenements_scientifiques
+                ORDER BY date_evenement DESC
+            ";
+            
+            if ($limit) {
+                $sql .= " LIMIT " . intval($limit);
+            }
+            
+            $stmt = $db->query($sql);
+            $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            error_log("Événements scientifiques récents trouvés: " . count($evenements));
+        }
+        
+        // Log des résultats pour débogage
+        if (!empty($evenements)) {
+            error_log("Premier événement: " . print_r($evenements[0], true));
+        }
+        
+        return $evenements;
+        
+    } catch (Exception $e) {
+        error_log("✗ Erreur getEvenementsScientifiques(): " . $e->getMessage());
+        error_log("Stack trace: " . $e->getTraceAsString());
+        return [];
+    }
+}
+
+/**
+ * Liste des offres et opportunités
+ */
+public function offres() {
+    // Récupérer toutes les offres actives
+    $offres = $this->offreModel->getActives(); 
+    
+    // Appliquer les filtres
+    $filters = [
+        'type' => get('type'),
+        'statut' => get('statut'),
+        'search' => get('search'),
+        'sort' => get('sort', 'date')
+    ];
+    
+    // Filtrer par recherche
+    if (!empty($filters['search'])) {
+        $offres = array_filter($offres, function($o) use ($filters) {
+            return stripos($o['titre'], $filters['search']) !== false ||
+                   stripos($o['description'] ?? '', $filters['search']) !== false;
+        });
+    }
+    
+    // Filtrer par type
+    if (!empty($filters['type'])) {
+        $offres = array_filter($offres, function($o) use ($filters) {
+            return ($o['type_offre'] ?? '') === $filters['type'];
+        });
+    }
+    
+    // Filtrer par statut
+    if (!empty($filters['statut'])) {
+        $now = time();
+        $offres = array_filter($offres, function($o) use ($filters, $now) {
+            $dateExpiration = $o['date_expiration'] ?? '';
+            $isExpired = !empty($dateExpiration) && strtotime($dateExpiration) < $now;
+            
+            if ($filters['statut'] === 'active') {
+                return !$isExpired;
+            } else if ($filters['statut'] === 'expiree') {
+                return $isExpired;
+            }
+            return true;
+        });
+    }
+    
+    // Trier les résultats
+    $sortType = $filters['sort'];
+    usort($offres, function($a, $b) use ($sortType) {
+        switch ($sortType) {
+            case 'expiration':
+                $dateA = strtotime($a['date_expiration'] ?? '9999-12-31');
+                $dateB = strtotime($b['date_expiration'] ?? '9999-12-31');
+                return $dateA - $dateB;
+                
+            case 'titre':
+                return strcasecmp($a['titre'] ?? '', $b['titre'] ?? '');
+                
+            case 'date':
+            default:
+                $dateA = strtotime($a['date_publication'] ?? '1970-01-01');
+                $dateB = strtotime($b['date_publication'] ?? '1970-01-01');
+                return $dateB - $dateA; // Plus récent en premier
+        }
+    });
+    
+    // Pagination
+    $page = (int) get('page', 1);
+    $perPage = 12;
+    $pagination = Utils::paginate(count($offres), $perPage, $page);
+    $offres = array_slice($offres, $pagination['offset'], $perPage);
+    
+    // Instancier et afficher la vue
+    $view = new OffresListView($offres, $pagination);
+    $view->render();
+}
+
+
 }

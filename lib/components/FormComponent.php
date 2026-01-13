@@ -1,7 +1,6 @@
 <?php
 /**
  * FormComponent.php - Composant pour la gestion des formulaires
- * À placer dans : /TDW_project/lib/components/FormComponent.php
  */
 
 require_once __DIR__ . '/../LabHelpers.php';
@@ -66,7 +65,13 @@ class FormComponent {
      *   - attributes: array - Attributs HTML additionnels
      */
     public static function renderField($field) {
+        
         $type = $field['type'] ?? 'text';
+
+        if ($type === 'html') {
+        echo $field['content'] ?? '';
+        return;
+    }
         $name = $field['name'] ?? '';
         $label = $field['label'] ?? '';
         $value = $field['value'] ?? old($name);
@@ -88,6 +93,11 @@ class FormComponent {
             
             <?php
             switch ($type) {
+
+                case 'html':
+                    echo $field['content'] ?? '';
+                    break;
+
                 case 'select':
                     self::renderSelect($name, $options, $value, $required, $placeholder, $attributes);
                     break;

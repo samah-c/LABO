@@ -5,3 +5,25 @@
 [2025-12-13 22:45:01] [INFO] [IP: ::1] Utilisateur sauvegardé par admin
 [2026-01-02 09:58:08] [INFO] [IP: ::1] Paramètres généraux mis à jour par admin
 [2026-01-05 03:54:30] [INFO] [IP: ::1] Utilisateur sauvegardé par admin
+[2026-01-13 20:05:22] [ERROR] [IP: ::1] Erreur sauvegarde projet: SQLSTATE[42S22]: Column not found: 1054 Champ 'descriptif' inconnu dans field list
+[2026-01-13 20:09:49] [ERROR] [IP: ::1] Erreur sauvegarde projet: SQLSTATE[42S22]: Column not found: 1054 Champ 'budget' inconnu dans field list
+[2026-01-13 20:11:00] [ERROR] [IP: ::1] Erreur sauvegarde projet: SQLSTATE[42S22]: Column not found: 1054 Champ 'source_financement' inconnu dans field list
+[2026-01-13 20:11:43] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 20:14:18] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 20:22:40] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 20:23:02] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 20:44:33] [INFO] [IP: ::1] Projet #3 mis à jour par le responsable user
+[2026-01-13 20:44:44] [INFO] [IP: ::1] Projet #3 mis à jour par le responsable user
+[2026-01-13 20:44:57] [INFO] [IP: ::1] Projet #3 mis à jour par le responsable user
+[2026-01-13 20:55:01] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:05:22] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:23:15] [INFO] [IP: ::1] Membre #1 ajouté au projet #3 par admin
+[2026-01-13 21:23:27] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:23:34] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:23:50] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:24:06] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:26:47] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:27:01] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:27:10] [INFO] [IP: ::1] Projet sauvegardé par admin
+[2026-01-13 21:37:23] [INFO] [IP: ::1] Paramètres généraux mis à jour par admin
+[2026-01-13 21:40:14] [INFO] [IP: ::1] Paramètres généraux mis à jour par admin

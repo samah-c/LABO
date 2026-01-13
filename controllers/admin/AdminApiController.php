@@ -1,7 +1,6 @@
 <?php
 /**
  * AdminApiController.php - API REST pour le dashboard admin
- * À créer dans : controllers/admin/AdminApiController.php
  */
 
 require_once __DIR__ . '/../../models/AdminModel.php';

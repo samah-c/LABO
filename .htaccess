@@ -23,3 +23,5 @@ Options -Indexes
 # Configuration PHP pour les PDF
 php_value max_execution_time 300
 php_value memory_limit 256M
+
+php_flag xdebug.mode off

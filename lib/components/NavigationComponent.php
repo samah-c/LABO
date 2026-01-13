@@ -100,7 +100,8 @@ class NavigationComponent {
                 ['url' => 'admin/projets', 'label' => 'Projets'],
                 ['url' => 'admin/publications/publications', 'label' => 'Publications'],
                 ['url' => 'admin/equipements', 'label' => 'Équipements'],
-                ['url' => 'admin/evenements', 'label' => 'Événements']
+                ['url' => 'admin/evenements', 'label' => 'Événements'],
+                ['url' => 'admin/parametres', 'label' => 'Paramètres']
             ],
             'membre' => [
                 ['url' => 'membre/dashboard', 'label' => 'Tableau de bord'],

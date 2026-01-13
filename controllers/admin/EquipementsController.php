@@ -1,7 +1,6 @@
 <?php
 /**
  * EquipementsController.php - Contrôleur complet pour la gestion des équipements
- * Gère toutes les opérations CRUD + réservations, maintenances, et rapports
  */
 
 require_once __DIR__ . '/../../models/EquipementModel.php';

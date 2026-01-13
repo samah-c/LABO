@@ -251,9 +251,10 @@ class ContactView
                 <div class="social-links">
                     <?php
                     $socialLinks = [
-                        ['icon' => 'facebook.png', 'name' => 'Facebook', 'url' => '#'],
-                        ['icon' => 'twitter.png', 'name' => 'Twitter', 'url' => '#'],
-                        ['icon' => 'linkedin.png', 'name' => 'LinkedIn', 'url' => '#']
+                        ['icon' => 'facebook.png', 'name' => 'Facebook', 'url' => 'https://facebook.com'],
+                        ['icon' => 'twitter.png', 'name' => 'Twitter', 'url' => 'https://twitter.com'],
+                        ['icon' => 'esi.png', 'name' => 'Site de l\'ESI', 'url' => 'https://www.esi.dz'],
+                        ['icon' => 'linkedin.png', 'name' => 'LinkedIn', 'url' => 'https://linkedin.com']
                     ];
 
                     foreach ($socialLinks as $link) {

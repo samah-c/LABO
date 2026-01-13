@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../lib/components/NavigationComponent.php';
 require_once __DIR__ . '/../../../lib/components/FooterComponent.php';
 require_once __DIR__ . '/../../../lib/LabHelpers.php';
 
-class EvenementDetailView
+class EvenementsDetailView
 {
     private array $evenement;
 

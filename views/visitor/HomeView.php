@@ -31,9 +31,12 @@ class HomeView
         $this->renderActualitesScientifiques();
         $this->renderPresentation();
         $this->renderEvenements();
+        $this->renderEvenementsScientifiques(); 
+       $this->renderOffresOpportunites();
         $this->renderPartenaires();
         $this->renderProjets();
         $this->renderPublications();
+        $this->renderActualites();
         echo '</div>'; // content-wrapper
         echo '</div>'; // visitor-container
         $this->renderStyles();
@@ -143,7 +146,7 @@ class HomeView
             <?php if (!empty($actualites)): ?>
                 <div class="actualites-grid">
                     <?php foreach ($actualites as $actu): ?>
-                        <article class="actualite-card">
+                        <article class="actualite-scientifique-card">
                             <h3><?= e($actu['titre']) ?></h3>
                             <p><?= truncate($actu['description'] ?? '', 150) ?></p>
                             <div class="actualite-meta">
@@ -222,6 +225,146 @@ class HomeView
         </section>
         <?php
     }
+
+private function renderEvenementsScientifiques(): void
+{
+    $evenementsScientifiques = $this->data['evenementsScientifiques'] ?? [];
+    ?>
+    <section class="content-section">
+        <div class="section-header">
+            <h2 class="section-title">Événements scientifiques</h2>
+        </div>
+        
+        <?php if (!empty($evenementsScientifiques)): ?>
+            <div class="events-grid">
+                <?php foreach ($evenementsScientifiques as $event): ?>
+                    <article class="event-card">
+                        <div class="event-date">
+                            <div class="date-day"><?= date('d', strtotime($event['date_evenement'])) ?></div>
+                            <div class="date-month"><?= date('M', strtotime($event['date_evenement'])) ?></div>
+                        </div>
+                        <div class="event-content">
+                            <span class="event-type">
+                                <?php
+                                $typeValue = $event['type_scientifique'] ?? $event['type_evenement'] ?? 'autre';
+                                $typeLabels = [
+                                    'atelier' => 'Atelier',
+                                    'seminaire' => 'Séminaire',
+                                    'conference' => 'Conférence',
+                                    'colloque' => 'Colloque'
+                                ];
+                                echo $typeLabels[$typeValue] ?? ucfirst($typeValue);
+                                ?>
+                            </span>
+                            <h3><?= e($event['titre']) ?></h3>
+                            
+                            <?php if (!empty($event['theme_scientifique'])): ?>
+                                <p class="event-theme" style="margin: 8px 0; color: var(--gray-700); font-size: 13px;">
+                                    <strong>Thème :</strong> <?= e($event['theme_scientifique']) ?>
+                                </p>
+                            <?php endif; ?>
+                            
+                            <?php if (!empty($event['intervenant_principal'])): ?>
+                                <p class="event-intervenant" style="margin: 8px 0; color: var(--gray-700); font-size: 13px;">
+                                    <strong>Intervenant :</strong> <?= e($event['intervenant_principal']) ?>
+                                </p>
+                            <?php endif; ?>
+                            
+                            <p class="event-location"><?= e($event['lieu'] ?? 'À définir') ?></p>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="empty-message">Aucun événement scientifique prévu pour le moment</p>
+        <?php endif; ?>
+    </section>
+    <?php
+}
+
+/**
+ * Rendu des offres et opportunités
+ */
+private function renderOffresOpportunites(): void
+{
+    $offres = $this->data['offres'] ?? [];
+    ?>
+    <section class="content-section offres-section">
+        <div class="section-header">
+            <h2 class="section-title">Offres et opportunités</h2>
+            <a href="<?= base_url('offres') ?>" class="see-all">Voir toutes les offres</a>
+        </div>
+        
+        <?php if (!empty($offres)): ?>
+            <div class="offres-grid">
+                <?php foreach ($offres as $offre): ?>
+                    <article class="offre-card">
+                        <div class="offre-header">
+                            <span class="offre-type-badge badge-<?= e(strtolower($offre['type_offre'])) ?>">
+                                <?php
+                                $typeLabels = [
+                                    'stage' => 'Stage',
+                                    'these' => 'Thèse',
+                                    'bourse' => 'Bourse',
+                                    'collaboration' => 'Collaboration',
+                                    'emploi' => 'Emploi',
+                                    'postdoc' => 'Post-Doc'
+                                ];
+                                echo $typeLabels[$offre['type_offre']] ?? ucfirst($offre['type_offre']);
+                                ?>
+                            </span>
+                            
+                            <?php if (!empty($offre['date_expiration'])): ?>
+                                <div class="offre-expiration">
+                                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                                    </svg>
+                                    Expire le <?= date('d/m/Y', strtotime($offre['date_expiration'])) ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <div class="offre-content">
+                            <h3><?= e($offre['titre']) ?></h3>
+                            
+                            <?php if (!empty($offre['description'])): ?>
+                                <p class="offre-description">
+                                    <?= truncate($offre['description'], 100) ?>
+                                </p>
+                            <?php endif; ?>
+                            
+                            <div class="offre-meta">
+                                <?php if (!empty($offre['lieu'])): ?>
+                                    <span class="offre-meta-item">
+                                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 0a5 5 0 0 0-5 5c0 3.5 5 11 5 11s5-7.5 5-11a5 5 0 0 0-5-5z"/>
+                                        </svg>
+                                        <?= e($offre['lieu']) ?>
+                                    </span>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($offre['duree'])): ?>
+                                    <span class="offre-meta-item">
+                                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"/>
+                                        </svg>
+                                        <?= e($offre['duree']) ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="empty-message">Aucune offre disponible actuellement</p>
+        <?php endif; ?>
+    </section>
+    <?php
+}
+
 
     /**
      * Rendu des partenaires
@@ -338,6 +481,102 @@ class HomeView
         </section>
         <?php
     }
+    /**
+     * Rendu des actualités
+     */
+    private function renderActualites(): void
+    {
+        $actualites = $this->data['actualites'] ?? [];
+        
+        // Couleurs par type
+        $typeColors = [
+            'publication' => '#3B82F6',
+            'evenement' => '#8B5CF6',
+            'scientifique' => '#10B981',
+            'laboratoire' => '#F59E0B'
+        ];
+        
+        // Labels
+        $typeLabels = [
+            'publication' => 'Publication',
+            'evenement' => 'Événement',
+            'scientifique' => 'Actualité Scientifique',
+            'laboratoire' => 'Actualité Laboratoire'
+        ];
+        
+        if (empty($actualites)): ?>
+            <p class="empty-message">Aucune actualité disponible</p>
+        <?php return; endif; ?>
+        
+        <section class="content-section">
+            <div class="section-header">
+            <h2 class="section-title">Actualités</h2>
+            <a href="<?= base_url('actualites') ?>" class="see-all">Voir toutes les actualités</a>
+            </div>
+            <div class="actualites-list">
+                <?php foreach ($actualites as $actualite): ?>
+                    <?php
+                    $type = $actualite['type'] ?? 'laboratoire';
+                    $source = $actualite['source'] ?? 'laboratoire';
+                    $badgeColor = $typeColors[$type] ?? $typeColors[$source] ?? '#6B7280';
+                    $typeLabel = $typeLabels[$type] ?? $typeLabels[$source] ?? 'Actualité';
+                    $date = $actualite['date'] ?? $actualite['date_publication'] ?? date('Y-m-d');
+                    $hasImage = !empty($actualite['image'] ?? null);
+                    $imagePath = $hasImage ? base_url('uploads/' . $actualite['image']) : null;
+                    $detailUrl = base_url('actualites/' . $actualite['id']);
+                    ?>
+                    
+                    <article class="actualite-card">
+                        <?php if ($imagePath): ?>
+                        <div class="actualite-image">
+                            <img src="<?= htmlspecialchars($imagePath) ?>" 
+                                 alt="<?= htmlspecialchars($actualite['titre'] ?? 'Actualité') ?>">
+                            <span class="actualite-badge" style="background: <?= $badgeColor ?>;">
+                                <?= htmlspecialchars($typeLabel) ?>
+                            </span>
+                        </div>
+                        <?php else: ?>
+                        <div class="actualite-image-placeholder">
+                            <span class="actualite-badge" style="background: <?= $badgeColor ?>;">
+                                <?= htmlspecialchars($typeLabel) ?>
+                            </span>
+                        </div>
+                        <?php endif; ?>
+                        
+                        <div class="actualite-content">
+                            <div class="actualite-meta">
+                                <span class="actualite-date"><?= htmlspecialchars(date('d/m/Y', strtotime($date))) ?></span>
+                                <?php if (!empty($actualite['auteur_nom'] ?? null)): ?>
+                                <span class="actualite-author">
+                                    Par <?= htmlspecialchars($actualite['auteur_nom']) ?>
+                                </span>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <h3 class="actualite-title">
+                                <a href="<?= htmlspecialchars($detailUrl) ?>">
+                                    <?= htmlspecialchars($actualite['titre'] ?? 'Sans titre') ?>
+                                </a>
+                            </h3>
+                            
+                            <?php if (!empty($actualite['description'] ?? null)): ?>
+                            <p class="actualite-description">
+                                <?= truncate($actualite['description'], 150) ?>
+                            </p>
+                            <?php endif; ?>
+                            
+                            <a href="<?= htmlspecialchars($detailUrl) ?>" class="btn-primary btn-small">
+                                Lire la suite
+                            </a>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </section>
+        <?php
+    }
+
+
 
     /**
      * Rendu des styles
@@ -558,47 +797,184 @@ class HomeView
 /* ============================================
    ACTUALITÉS
    ============================================ */
-.actualites-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
-}
 
-.actualite-card {
-    background: var(--bg-card);
-    padding: 24px;
+   .actualite-scientifique-card {
+    background: white;
     border-radius: var(--border-radius-lg);
     border: 1px solid var(--border-color);
+    padding: 24px;
     transition: var(--transition);
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--shadow-sm);
 }
 
-.actualite-card:hover {
+.actualite-scientifique-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-4px);
     border-color: var(--primary);
 }
 
-.actualite-card h3 {
+.actualite-scientifique-card h3 {
     margin: 0 0 12px 0;
     font-size: 18px;
     font-weight: 600;
     color: var(--gray-900);
+    line-height: 1.4;
 }
 
-.actualite-card p {
+.actualite-scientifique-card p {
     color: var(--gray-600);
     line-height: 1.6;
-    margin: 0 0 12px 0;
+    margin: 0 0 16px 0;
     font-size: 14px;
 }
 
+.actualite-scientifique-card .actualite-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--gray-500);
+    font-weight: 500;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+.actualites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.actualites-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+}
+
+.actualite-card {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.actualite-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-6px);
+    border-color: var(--primary);
+}
+
+.actualite-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--gray-100);
+}
+
+.actualite-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.actualite-card:hover .actualite-image img {
+    transform: scale(1.08);
+}
+
+.actualite-image-placeholder {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actualite-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+}
+
+.actualite-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 .actualite-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
     font-size: 13px;
     color: var(--gray-500);
     font-weight: 500;
 }
 
+.actualite-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.actualite-author {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.actualite-author::before {
+    content: '•';
+    margin-right: 4px;
+}
+
+.actualite-title {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.actualite-title a {
+    color: var(--gray-900);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.actualite-title a:hover {
+    color: var(--primary);
+}
+
+.actualite-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    flex: 1;
+}
+
+.btn-small {
+    padding: 10px 20px;
+    font-size: 13px;
+    align-self: flex-start;
+}
 /* ============================================
    PRÉSENTATION
    ============================================ */
@@ -928,6 +1304,187 @@ class HomeView
     .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
+.event-header-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* ============================================
+   OFFRES ET OPPORTUNITÉS
+   ============================================ */
+.offres-section {
+    background: linear-gradient(135deg, #f6f9fc 0%, #f0f4f8 100%);
+    padding: 48px 40px;
+    border-radius: var(--border-radius-xl);
+    margin-bottom: 48px;
+}
+
+.offres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.offre-card {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.offre-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-6px);
+    border-color: var(--primary);
+}
+
+.offre-header {
+    background: var(--gray-50);
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.offre-type-badge {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-stage { 
+    background: rgba(33, 150, 243, 0.1); 
+    color: #1976d2; 
+}
+
+.badge-these { 
+    background: rgba(156, 39, 176, 0.1); 
+    color: #7b1fa2; 
+}
+
+.badge-bourse { 
+    background: rgba(255, 193, 7, 0.1); 
+    color: #f57c00; 
+}
+
+.badge-collaboration { 
+    background: rgba(76, 175, 80, 0.1); 
+    color: #388e3c; 
+}
+
+.badge-emploi { 
+    background: rgba(244, 67, 54, 0.1); 
+    color: #d32f2f; 
+}
+
+.badge-postdoc { 
+    background: rgba(0, 188, 212, 0.1); 
+    color: #0097a7; 
+}
+
+.offre-expiration {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray-600);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.offre-content {
+    padding: 24px;
+}
+
+.offre-content h3 {
+    margin: 0 0 12px 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.4;
+}
+
+.offre-description {
+    color: var(--gray-600);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.offre-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.offre-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray-500);
+    font-size: 13px;
+}
+
+.offre-meta-item svg {
+    flex-shrink: 0;
+}
+
+.btn-offre-details {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 20px;
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.btn-offre-details:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+
+@media (max-width: 768px) {
+    .scientific-events-grid,
+    .offres-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .offres-section {
+        padding: 32px 24px;
+    }
+    
+    .event-header-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .offre-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
 @media (max-width: 480px) {
     .slide-text h2 { font-size: 24px; }
     .stat-card .number { font-size: 36px; }

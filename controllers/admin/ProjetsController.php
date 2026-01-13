@@ -69,7 +69,6 @@ class ProjetsController {
         $publications = $this->projetModel->getPublications($id);
         
         // Récupérer le responsable
-       // Récupérer le responsable
        $responsable = null;
        if (!empty($projet['responsable_id'])) {
        $responsable = $this->membreModel->getWithDetails($projet['responsable_id']);
@@ -106,69 +105,116 @@ class ProjetsController {
     /**
      * Formulaire d'ajout/édition de projet (AJAX)
      */
-    public function form($id = null) {
-        // Récupérer le projet si édition
-        $projet = $id ? $this->projetModel->getById($id) : null;
+public function form($id = null) {
+    // Récupérer le projet si édition
+    $projet = $id ? $this->projetModel->getById($id) : null;
+    
+    // Déterminer quels membres afficher pour le select du responsable
+    if ($id) {
+        // En mode ÉDITION : afficher uniquement les membres du projet
+        $membresProjet = $this->projetModel->getMembres($id);
+        $membres = [];
         
-        // Récupérer tous les membres pour le select du responsable
+        // Récupérer les détails complets de chaque membre
+        foreach ($membresProjet as $membreProjet) {
+            $membreDetails = $this->membreModel->getById($membreProjet['id']);
+            if ($membreDetails) {
+                // Combiner les infos du projet avec les détails du membre
+                $membres[] = array_merge($membreDetails, [
+                    'username' => $membreProjet['username'] ?? $membreDetails['username'],
+                    'grade' => $membreProjet['grade'] ?? $membreDetails['grade'] ?? ''
+                ]);
+            }
+        }
+        
+        // Ajouter le responsable actuel s'il n'est pas déjà dans la liste
+        if (!empty($projet['responsable_id'])) {
+            $responsableActuel = $this->membreModel->getById($projet['responsable_id']);
+            $responsableExists = false;
+            
+            foreach ($membres as $m) {
+                if ($m['id'] == $projet['responsable_id']) {
+                    $responsableExists = true;
+                    break;
+                }
+            }
+            
+            if (!$responsableExists && $responsableActuel) {
+                array_unshift($membres, $responsableActuel);
+            }
+        }
+    } else {
+        // En mode CRÉATION : afficher tous les membres disponibles
         $membres = $this->membreModel->getAllMembresWithUser();
+    }
+    
+    // Générer le formulaire
+    ?>
+    <form id="projet-form" method="POST" action="<?= base_url('admin/projets/projets/save') ?>">
+        <?= csrf_field() ?>
+        <input type="hidden" name="id" value="<?= $projet['id'] ?? '' ?>">
         
-        // Générer le formulaire
-        ?>
-        <form id="projet-form" method="POST" action="<?= base_url('admin/projets/projets/save') ?>">
-            <?= csrf_field() ?>
-            <input type="hidden" name="id" value="<?= $projet['id'] ?? '' ?>">
-            
+        <div class="form-group">
+            <label for="titre">Titre du projet *</label>
+            <input type="text" 
+                   name="titre" 
+                   id="titre" 
+                   value="<?= e($projet['titre'] ?? '') ?>" 
+                   required 
+                   placeholder="Ex: Système de détection d'intrusion par IA">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea name="description" 
+                      id="description" 
+                      rows="4" 
+                      required 
+                      placeholder="Description détaillée du projet"><?= e($projet['description'] ?? '') ?></textarea>
+        </div>
+        
+        <div class="form-row">
             <div class="form-group">
-                <label for="titre">Titre du projet *</label>
-                <input type="text" 
-                       name="titre" 
-                       id="titre" 
-                       value="<?= e($projet['titre'] ?? '') ?>" 
-                       required 
-                       placeholder="Ex: Système de détection d'intrusion par IA">
+                <label for="thematique">Thématique *</label>
+                <select name="thematique" id="thematique" required>
+                    <option value="">-- Sélectionner --</option>
+                    <option value="IA" <?= ($projet['thematique'] ?? '') === 'IA' ? 'selected' : '' ?>>Intelligence Artificielle</option>
+                    <option value="Securite" <?= ($projet['thematique'] ?? '') === 'Securite' ? 'selected' : '' ?>>Sécurité Informatique</option>
+                    <option value="Cloud" <?= ($projet['thematique'] ?? '') === 'Cloud' ? 'selected' : '' ?>>Cloud Computing</option>
+                    <option value="Reseaux" <?= ($projet['thematique'] ?? '') === 'Reseaux' ? 'selected' : '' ?>>Réseaux</option>
+                    <option value="Systemes_embarques" <?= ($projet['thematique'] ?? '') === 'Systemes_embarques' ? 'selected' : '' ?>>Systèmes Embarqués</option>
+                    <option value="Autre" <?= ($projet['thematique'] ?? '') === 'Autre' ? 'selected' : '' ?>>Autre</option>
+                </select>
             </div>
             
             <div class="form-group">
-                <label for="descriptif">Description *</label>
-                <textarea name="descriptif" 
-                          id="descriptif" 
-                          rows="4" 
-                          required 
-                          placeholder="Description détaillée du projet"><?= e($projet['descriptif'] ?? '') ?></textarea>
+                <label for="status">Status *</label>
+                <select name="status" id="status" required>
+                   <option value="en_cours" <?= ($projet['status'] ?? '') === 'en_cours' ? 'selected' : '' ?>>En cours</option>
+                   <option value="termine" <?= ($projet['status'] ?? '') === 'termine' ? 'selected' : '' ?>>Terminé</option>
+                   <option value="soumis" <?= ($projet['status'] ?? '') === 'soumis' ? 'selected' : '' ?>>Soumis</option>
+                   <option value="approuvé" <?= ($projet['status'] ?? '') === 'approuvé' ? 'selected' : '' ?>>Approuvé</option>
+                   <option value="rejeté" <?= ($projet['status'] ?? '') === 'rejeté' ? 'selected' : '' ?>>Rejeté</option>
+                </select>
             </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="thematique">Thématique *</label>
-                    <select name="thematique" id="thematique" required>
-                        <option value="">-- Sélectionner --</option>
-                        <option value="Intelligence Artificielle" <?= ($projet['thematique'] ?? '') === 'Intelligence Artificielle' ? 'selected' : '' ?>>Intelligence Artificielle</option>
-                        <option value="Sécurité Informatique" <?= ($projet['thematique'] ?? '') === 'Sécurité Informatique' ? 'selected' : '' ?>>Sécurité Informatique</option>
-                        <option value="Cloud Computing" <?= ($projet['thematique'] ?? '') === 'Cloud Computing' ? 'selected' : '' ?>>Cloud Computing</option>
-                        <option value="Réseaux" <?= ($projet['thematique'] ?? '') === 'Réseaux' ? 'selected' : '' ?>>Réseaux</option>
-                        <option value="Systèmes Embarqués" <?= ($projet['thematique'] ?? '') === 'Systèmes Embarqués' ? 'selected' : '' ?>>Systèmes Embarqués</option>
-                        <option value="Big Data" <?= ($projet['thematique'] ?? '') === 'Big Data' ? 'selected' : '' ?>>Big Data</option>
-                        <option value="IoT" <?= ($projet['thematique'] ?? '') === 'IoT' ? 'selected' : '' ?>>Internet des Objets</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="status">status *</label>
-                    <select name="status" id="status" required>
-                       <option value="en_cours" <?= ($projet['status'] ?? '') === 'en_cours' ? 'selected' : '' ?>>En cours</option>
-                       <option value="termine" <?= ($projet['status'] ?? '') === 'termine' ? 'selected' : '' ?>>Terminé</option>
-                       <option value="soumis" <?= ($projet['status'] ?? '') === 'soumis' ? 'selected' : '' ?>>Soumis</option>
-                       <option value="approuvé" <?= ($projet['status'] ?? '') === 'approuvé' ? 'selected' : '' ?>>Approuvé</option>
-                       <option value="rejeté" <?= ($projet['status'] ?? '') === 'rejeté' ? 'selected' : '' ?>>Rejeté</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="responsable_id">Responsable scientifique *</label>
-                <select name="responsable_id" id="responsable_id" required>
-                    <option value="">-- Sélectionner un responsable --</option>
+        </div>
+        
+        <div class="form-group">
+            <label for="responsable_id">
+                Responsable scientifique *
+                <?php if ($id): ?>
+                    <small style="color: #6B7280; font-weight: normal;">
+                        (Sélectionner parmi les membres du projet)
+                    </small>
+                <?php endif; ?>
+            </label>
+            <select name="responsable_id" id="responsable_id" required>
+                <option value="">-- Sélectionner un responsable --</option>
+                <?php if (empty($membres)): ?>
+                    <option value="" disabled>
+                        <?= $id ? 'Aucun membre dans ce projet' : 'Aucun membre disponible' ?>
+                    </option>
+                <?php else: ?>
                     <?php foreach ($membres as $membre): ?>
                         <option value="<?= $membre['id'] ?>" 
                                 <?= ($projet['responsable_id'] ?? '') == $membre['id'] ? 'selected' : '' ?>>
@@ -178,74 +224,59 @@ class ProjetsController {
                             <?php endif; ?>
                         </option>
                     <?php endforeach; ?>
-                </select>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="date_debut">Date de début *</label>
-                    <input type="date" 
-                           name="date_debut" 
-                           id="date_debut" 
-                           value="<?= $projet['date_debut'] ?? '' ?>"
-                           required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="date_fin">Date de fin prévue</label>
-                    <input type="date" 
-                           name="date_fin" 
-                           id="date_fin" 
-                           value="<?= $projet['date_fin'] ?? '' ?>">
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="budget">Budget (DZD)</label>
-                    <input type="number" 
-                           name="budget" 
-                           id="budget" 
-                           value="<?= $projet['budget'] ?? '' ?>"
-                           step="0.01"
-                           placeholder="Ex: 500000.00">
-                </div>
-                
-                <div class="form-group">
-                    <label for="source_financement">Source de financement</label>
-                    <input type="text" 
-                           name="source_financement" 
-                           id="source_financement" 
-                           value="<?= e($projet['source_financement'] ?? '') ?>"
-                           placeholder="Ex: MESRS, DG-RSDT">
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" onclick="closeModal()">
-                    Annuler
-                </button>
-                <button type="submit" class="btn-primary">
-                    <?= $id ? 'Mettre à jour' : 'Créer le projet' ?>
-                </button>
-            </div>
-        </form>
+                <?php endif; ?>
+            </select>
+            <?php if ($id && empty($membres)): ?>
+                <p style="color: #EF4444; font-size: 13px; margin-top: 8px;">
+                    Aucun membre n'est assigné à ce projet. Ajoutez d'abord des membres avant de changer le responsable.
+                </p>
+            <?php endif; ?>
+        </div>
         
-        <style>
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-        </style>
-        <?php
+        <div class="form-row">
+            <div class="form-group">
+                <label for="date_debut">Date de début *</label>
+                <input type="date" 
+                       name="date_debut" 
+                       id="date_debut" 
+                       value="<?= $projet['date_debut'] ?? '' ?>"
+                       required>
+            </div>
+            
+            <div class="form-group">
+                <label for="date_fin">Date de fin prévue</label>
+                <input type="date" 
+                       name="date_fin" 
+                       id="date_fin" 
+                       value="<?= $projet['date_fin'] ?? '' ?>">
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeModal()">
+                Annuler
+            </button>
+            <button type="submit" class="btn-primary">
+                <?= $id ? 'Mettre à jour' : 'Créer le projet' ?>
+            </button>
+        </div>
+    </form>
+    
+    <style>
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
     }
+    
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+    <?php
+}
     
     /**
      * Sauvegarder un projet (création ou mise à jour)
@@ -268,14 +299,12 @@ class ProjetsController {
         try {
             $data = [
                 'titre' => Utils::sanitize($_POST['titre']),
-                'descriptif' => Utils::sanitize($_POST['descriptif']),
+                'description' => Utils::sanitize($_POST['description']),
                 'thematique' => Utils::sanitize($_POST['thematique']),
                 'status' => Utils::sanitize($_POST['status']),
                 'responsable_id' => (int)$_POST['responsable_id'],
                 'date_debut' => $_POST['date_debut'],
                 'date_fin' => $_POST['date_fin'] ?? null,
-                'budget' => !empty($_POST['budget']) ? floatval($_POST['budget']) : null,
-                'source_financement' => Utils::sanitize($_POST['source_financement'] ?? '')
             ];
             
             // Validation
@@ -285,8 +314,8 @@ class ProjetsController {
                 $errors['titre'] = 'Le titre est requis';
             }
             
-            if (empty($data['descriptif'])) {
-                $errors['descriptif'] = 'La description est requise';
+            if (empty($data['description'])) {
+                $errors['description'] = 'La description est requise';
             }
             
             if (empty($data['thematique'])) {
@@ -500,7 +529,6 @@ class ProjetsController {
         'Statut',  // Correction: utilisez 'Statut' au lieu de 'status'
         'Date début', 
         'Date fin', 
-        'Budget (DZD)', 
         'Nb membres'
     ];
     
@@ -517,7 +545,6 @@ class ProjetsController {
             $projet['status'] ?? 'en_cours',  // Valeur par défaut si status absent
             !empty($projet['date_debut']) ? format_date($projet['date_debut'], 'd/m/Y') : '',
             !empty($projet['date_fin']) ? format_date($projet['date_fin'], 'd/m/Y') : '',
-            !empty($projet['budget']) ? number_format($projet['budget'], 2, ',', ' ') : '0',
             $nbMembres
         ];
     }
@@ -543,31 +570,72 @@ class ProjetsController {
  * Récupérer les membres disponibles pour un projet (AJAX)
  */
 public function getMembresDisponibles($projetId) {
+    // Vérifier que c'est une requête AJAX
+    if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || 
+        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {
+        header('HTTP/1.1 400 Bad Request');
+        json(['success' => false, 'message' => 'Requête invalide']);
+        return;
+    }
+    
     try {
-        // Récupérer tous les membres
+        // Vérifier que le projet existe
+        $projet = $this->projetModel->getById($projetId);
+        if (!$projet) {
+            json(['success' => false, 'message' => 'Projet non trouvé']);
+            return;
+        }
+        
+        // Récupérer tous les membres avec leurs détails utilisateur
         $tousMembres = $this->membreModel->getAllMembresWithUser();
+        
+        // Log pour debug (à retirer en production)
+        error_log("Tous les membres: " . count($tousMembres));
         
         // Récupérer les membres déjà dans le projet
         $membresProjet = $this->projetModel->getMembres($projetId);
         $membresProjetIds = array_column($membresProjet, 'id');
         
+        // Log pour debug
+        error_log("Membres du projet: " . implode(', ', $membresProjetIds));
+        
         // Récupérer aussi le responsable du projet pour l'exclure
-        $projet = $this->projetModel->getById($projetId);
         if (!empty($projet['responsable_id'])) {
-            $membresProjetIds[] = $projet['responsable_id'];
+            $membresProjetIds[] = (int)$projet['responsable_id'];
         }
+        
+        // Log pour debug
+        error_log("IDs à exclure: " . implode(', ', $membresProjetIds));
         
         // Filtrer les membres disponibles
         $membresDisponibles = array_filter($tousMembres, function($membre) use ($membresProjetIds) {
-            return !in_array($membre['id'], $membresProjetIds);
+            $membreId = (int)$membre['id'];
+            $isAvailable = !in_array($membreId, $membresProjetIds);
+            
+            // Log pour debug
+            error_log("Membre {$membreId} ({$membre['username']}): " . ($isAvailable ? 'disponible' : 'déjà dans le projet'));
+            
+            return $isAvailable;
         });
+        
+        // Réindexer le tableau
+        $membresDisponibles = array_values($membresDisponibles);
+        
+        // Log final
+        error_log("Membres disponibles: " . count($membresDisponibles));
         
         json([
             'success' => true, 
-            'membres' => array_values($membresDisponibles)
+            'membres' => $membresDisponibles,
+            'debug' => [
+                'total_membres' => count($tousMembres),
+                'membres_projet' => count($membresProjet),
+                'membres_disponibles' => count($membresDisponibles)
+            ]
         ]);
         
     } catch (Exception $e) {
+        error_log("Erreur getMembresDisponibles: " . $e->getMessage());
         json(['success' => false, 'message' => 'Erreur: ' . $e->getMessage()]);
     }
 }

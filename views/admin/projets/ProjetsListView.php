@@ -105,9 +105,9 @@ class ProjetsListView
                         'Securite' => 'Sécurité Informatique',
                         'Cloud' => 'Cloud Computing',
                         'Reseaux' => 'Réseaux',
-                        'Systemes' => 'Systèmes Embarqués',
-                        'Big Data' => 'Big Data',
-                        'IoT' => 'Internet des Objets'
+                        'Systemes_embarques' => 'Systèmes Embarqués',
+                        'Autre' => 'Autre',
+                     
                     ]
                 ],
                 [

@@ -196,7 +196,7 @@ class EvenementDetailView
     {
         ?>
         <div class="detail-card">
-            <h2>👤 Organisateur</h2>
+            <h2> Organisateur</h2>
             <div class="organisateur-info">
                 <div class="organisateur-avatar">
                     <?= strtoupper($this->organisateur['username'][0]) ?>
