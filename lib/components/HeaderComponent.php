@@ -62,7 +62,7 @@ class HeaderComponent {
             <!-- Header -->
             <div class="header">
                 <div class="header-left">
-                    <img src="<?= base_url('assets/images/logo/laboratory.png') ?>" alt="Logo Laboratoire" class="header-logo">
+                    <img src="<?= self::getLogoPath() ?>" alt="Logo Laboratoire" class="header-logo">
                     <h1><?= htmlspecialchars($title) ?></h1>
                 </div>
                 <div class="user-info">
@@ -94,28 +94,101 @@ class HeaderComponent {
         <?php
     }
     
-    /**
-     * Affiche les liens de réseaux sociaux
-     */
-    private static function renderSocialLinks() {
-        $socialLinks = [
-            ['url' => 'https://facebook.com', 'icon' => 'facebook.png', 'name' => 'Facebook'],
-            ['url' => 'https://twitter.com', 'icon' => 'twitter.png', 'name' => 'Twitter'],
-            ['url' => 'https://linkedin.com', 'icon' => 'linkedin.png', 'name' => 'LinkedIn'],
-            ['url' => 'https://www.esi.dz', 'icon' => 'esi.png', 'name' => 'Site de l\'esi']
-        ];
-        ?>
-        <div class="header-social-links">
-            <?php foreach ($socialLinks as $link): ?>
-                <a href="<?= htmlspecialchars($link['url']) ?>" target="_blank" title="<?= htmlspecialchars($link['name']) ?>">
-                    <img src="<?= base_url('assets/images/icons/' . $link['icon']) ?>" 
-                         alt="<?= htmlspecialchars($link['name']) ?>" 
-                         width="20" height="20">
-                </a>
-            <?php endforeach; ?>
-        </div>
-        <?php
+
+/**
+ * Affiche les liens de réseaux sociaux (dynamiques depuis settings.json)
+ */
+private static function renderSocialLinks() {
+    // Charger les paramètres
+    $settingsFile = __DIR__ . '/../../config/settings.json';
+    $settings = [];
+    
+    if (file_exists($settingsFile)) {
+        $content = file_get_contents($settingsFile);
+        $settings = json_decode($content, true) ?: [];
     }
+    
+    // Configuration des liens sociaux avec URLs dynamiques
+    $socialLinks = [
+        [
+            'url' => $settings['facebook_url'] ?? 'https://facebook.com',
+            'icon' => 'facebook.png',
+            'name' => 'Facebook',
+            'enabled' => !empty($settings['facebook_url'])
+        ],
+        [
+            'url' => $settings['twitter_url'] ?? 'https://twitter.com',
+            'icon' => 'twitter.png',
+            'name' => 'Twitter',
+            'enabled' => !empty($settings['twitter_url'])
+        ],
+        [
+            'url' => $settings['linkedin_url'] ?? 'https://linkedin.com',
+            'icon' => 'linkedin.png',
+            'name' => 'LinkedIn',
+            'enabled' => !empty($settings['linkedin_url'])
+        ],
+        [
+            'url' => $settings['website_url'] ?? 'https://www.esi.dz',
+            'icon' => 'esi.png',
+            'name' => 'Site officiel',
+            'enabled' => !empty($settings['website_url'])
+        ]
+    ];
+    
+    // Filtrer pour n'afficher que les liens configurés
+    $socialLinks = array_filter($socialLinks, function($link) {
+        return $link['enabled'];
+    });
+    
+    // Si aucun lien configuré, ne rien afficher
+    if (empty($socialLinks)) {
+        return;
+    }
+    
+    ?>
+    <div class="header-social-links">
+        <?php foreach ($socialLinks as $link): ?>
+            <a href="<?= htmlspecialchars($link['url']) ?>" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               title="<?= htmlspecialchars($link['name']) ?>">
+                <img src="<?= base_url('assets/images/icons/' . $link['icon']) ?>" 
+                     alt="<?= htmlspecialchars($link['name']) ?>" 
+                     width="20" height="20">
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <?php
+}
+
+    /**
+ * Récupère le chemin du logo depuis le dossier uploads/logo/
+ */
+private static function getLogoPath() {
+    $logoDir = __DIR__ . '/../../uploads/logo';
+    
+    // Créer le dossier s'il n'existe pas
+    if (!is_dir($logoDir)) {
+        mkdir($logoDir, 0755, true);
+    }
+    
+    // Chercher le premier fichier image dans le dossier
+    $allowedExtensions = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'];
+    $files = scandir($logoDir);
+    
+    foreach ($files as $file) {
+        if ($file === '.' || $file === '..') continue;
+        
+        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        if (in_array($ext, $allowedExtensions)) {
+            return base_url('uploads/logo/' . $file);
+        }
+    }
+    
+    // Logo par défaut si aucun logo trouvé
+    return base_url('assets/images/logo/laboratory.png');
+}
     
     /**
      * NOUVEAU: Affiche la cloche de notification

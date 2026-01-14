@@ -86,7 +86,7 @@ return [
         'real_time_stats' => true,
         'notifications' => true,
         'export_csv' => true,
-        'export_pdf' => false // Nécessite une bibliothèque
+        'export_pdf' => true // Nécessite une bibliothèque
     ]
 ];
 ?>

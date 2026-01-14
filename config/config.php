@@ -4,7 +4,7 @@ return [
     'db' => [
         'host' => '127.0.0.1',
         'name' => 'TDW',
-        'user' => 'admin',
-        'pass' => 'admin'
+        'user' => 'root',
+        'pass' => ''
     ]
 ];

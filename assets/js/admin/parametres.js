@@ -1,9 +1,7 @@
 /**
- * parametres.js - Gestion interactive des paramètres
- * À placer dans : assets/js/parametres.js
+ * parametres.js - Version avec meilleur diagnostic des erreurs
  */
 
-// Configuration des URLs
 const BASE_URL = window.location.origin + '/TDW_project';
 
 // Fonction de sauvegarde de la base de données
@@ -15,25 +13,43 @@ function backupDatabase() {
     btn.disabled = true;
     btn.textContent = '⏳ Sauvegarde en cours...';
     
-    fetch(`${BASE_URL}/admin/parametres/backup-database`, {
+    fetch(`${BASE_URL}/api/admin/database/backup`, {
         method: 'POST',
         headers: { 
             'X-Requested-With': 'XMLHttpRequest',
             'Content-Type': 'application/json'
         }
     })
-    .then(res => res.json())
+    .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        // Vérifier le type de contenu
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            console.error('Response is not JSON:', contentType);
+            return response.text().then(text => {
+                console.error('Response body:', text);
+                throw new Error('La réponse du serveur n\'est pas au format JSON');
+            });
+        }
+        
+        return response.json();
+    })
     .then(data => {
+        console.log('Parsed JSON:', data);
+        
         if (data.success) {
-            showAlert('✓ Sauvegarde créée avec succès : ' + data.filename, 'success');
+            showAlert(`✓ Sauvegarde créée avec succès : ${data.filename} (${data.size_formatted || ''})`, 'success');
             setTimeout(() => location.reload(), 1500);
         } else {
-            showAlert('✗ Erreur : ' + data.message, 'error');
+            console.error('Backup failed:', data);
+            showAlert('✗ Erreur : ' + (data.message || 'Erreur inconnue'), 'error');
         }
     })
     .catch(error => {
-        console.error('Erreur:', error);
-        showAlert('✗ Erreur lors de la sauvegarde', 'error');
+        console.error('Fetch error:', error);
+        showAlert('✗ Erreur de communication : ' + error.message, 'error');
     })
     .finally(() => {
         btn.disabled = false;
@@ -41,22 +57,47 @@ function backupDatabase() {
     });
 }
 
-// Fonction pour afficher la modale de restauration
-function showRestoreModal() {
-    const modal = document.getElementById('restore-modal');
-    if (modal) {
-        modal.classList.add('is-open');
-        modal.style.display = 'flex';
-    }
-}
-
-// Fonction pour fermer la modale de restauration
-function closeRestoreModal() {
-    const modal = document.getElementById('restore-modal');
-    if (modal) {
-        modal.classList.remove('is-open');
-        modal.style.display = 'none';
-    }
+// Fonction pour vider le cache
+function clearCache() {
+    if (!confirm('Vider le cache ?')) return;
+    
+    const btn = event.target;
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = '⏳ Nettoyage...';
+    
+    fetch(`${BASE_URL}/api/admin/cache/clear`, {
+        method: 'POST',
+        headers: { 
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            return response.text().then(text => {
+                console.error('Clear cache response:', text);
+                throw new Error('La réponse du serveur n\'est pas au format JSON');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            showAlert('✓ Cache vidé avec succès', 'success');
+        } else {
+            showAlert('✗ Erreur : ' + data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Clear cache error:', error);
+        showAlert('✗ Erreur : ' + error.message, 'error');
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.textContent = originalText;
+    });
 }
 
 // Fonction de restauration de la base de données
@@ -71,14 +112,23 @@ function restoreDatabase() {
     btn.disabled = true;
     btn.textContent = '⏳ Restauration...';
     
-    fetch(`${BASE_URL}/admin/parametres/restore-database`, {
+    fetch(`${BASE_URL}/api/admin/database/restore`, {
         method: 'POST',
         body: formData,
         headers: { 
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
-    .then(res => res.json())
+    .then(response => {
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            return response.text().then(text => {
+                console.error('Restore response:', text);
+                throw new Error('La réponse du serveur n\'est pas au format JSON');
+            });
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             showAlert('✓ Base de données restaurée avec succès', 'success');
@@ -89,8 +139,8 @@ function restoreDatabase() {
         }
     })
     .catch(error => {
-        console.error('Erreur:', error);
-        showAlert('✗ Erreur lors de la restauration', 'error');
+        console.error('Restore error:', error);
+        showAlert('✗ Erreur : ' + error.message, 'error');
     })
     .finally(() => {
         btn.disabled = false;
@@ -103,40 +153,6 @@ function downloadBackup(filename) {
     window.location.href = `${BASE_URL}/admin/parametres/download-backup/${filename}`;
 }
 
-// Fonction pour vider le cache
-function clearCache() {
-    if (!confirm('Vider le cache ?')) return;
-    
-    const btn = event.target;
-    const originalText = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = '⏳ Nettoyage...';
-    
-    fetch(`${BASE_URL}/admin/parametres/clear-cache`, {
-        method: 'POST',
-        headers: { 
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            showAlert('✓ Cache vidé avec succès', 'success');
-        } else {
-            showAlert('✗ Erreur : ' + data.message, 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Erreur:', error);
-        showAlert('✗ Erreur lors du nettoyage', 'error');
-    })
-    .finally(() => {
-        btn.disabled = false;
-        btn.textContent = originalText;
-    });
-}
-
 // Fonction pour sauvegarder les paramètres de maintenance
 function saveMaintenanceSettings() {
     const mode = document.getElementById('maintenance_mode').checked;
@@ -147,7 +163,7 @@ function saveMaintenanceSettings() {
     btn.disabled = true;
     btn.textContent = '⏳ Enregistrement...';
     
-    fetch(`${BASE_URL}/admin/parametres/save-maintenance`, {
+    fetch(`${BASE_URL}/api/admin/maintenance/save`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -155,7 +171,16 @@ function saveMaintenanceSettings() {
         },
         body: JSON.stringify({ mode, message })
     })
-    .then(res => res.json())
+    .then(response => {
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            return response.text().then(text => {
+                console.error('Maintenance response:', text);
+                throw new Error('La réponse du serveur n\'est pas au format JSON');
+            });
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             showAlert('✓ Paramètres de maintenance enregistrés', 'success');
@@ -164,8 +189,8 @@ function saveMaintenanceSettings() {
         }
     })
     .catch(error => {
-        console.error('Erreur:', error);
-        showAlert('✗ Erreur lors de l\'enregistrement', 'error');
+        console.error('Maintenance error:', error);
+        showAlert('✗ Erreur : ' + error.message, 'error');
     })
     .finally(() => {
         btn.disabled = false;
@@ -173,34 +198,83 @@ function saveMaintenanceSettings() {
     });
 }
 
+// Fonctions pour les modales
+function showRestoreModal() {
+    const modal = document.getElementById('restore-modal');
+    if (modal) {
+        modal.classList.add('is-open');
+        modal.style.display = 'flex';
+    }
+}
+
+function closeRestoreModal() {
+    const modal = document.getElementById('restore-modal');
+    if (modal) {
+        modal.classList.remove('is-open');
+        modal.style.display = 'none';
+    }
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('is-open');
+        modal.style.display = 'flex';
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('is-open');
+        modal.style.display = 'none';
+    }
+}
+
 // Fonction utilitaire pour afficher des alertes
 function showAlert(message, type = 'info') {
     // Supprimer les anciennes alertes
-    const oldAlerts = document.querySelectorAll('.alert');
+    const oldAlerts = document.querySelectorAll('.custom-alert');
     oldAlerts.forEach(alert => alert.remove());
     
     // Créer la nouvelle alerte
     const alert = document.createElement('div');
-    alert.className = `alert alert-${type} show`;
+    alert.className = `custom-alert custom-alert-${type}`;
     alert.textContent = message;
     
-    // Insérer l'alerte en haut du container
-    const container = document.querySelector('.container');
-    if (container) {
-        container.insertBefore(alert, container.firstChild);
-        
-        // Auto-suppression après 5 secondes
-        setTimeout(() => {
-            alert.classList.remove('show');
-            setTimeout(() => alert.remove(), 300);
-        }, 5000);
-    } else {
-        alert(message);
-    }
+    // Style inline pour l'alerte
+    Object.assign(alert.style, {
+        position: 'fixed',
+        top: '20px',
+        right: '20px',
+        padding: '15px 20px',
+        borderRadius: '8px',
+        color: 'white',
+        fontSize: '14px',
+        fontWeight: '500',
+        zIndex: '10000',
+        minWidth: '300px',
+        maxWidth: '500px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        animation: 'slideIn 0.3s ease-out',
+        backgroundColor: type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'
+    });
+    
+    // Insérer l'alerte
+    document.body.appendChild(alert);
+    
+    // Auto-suppression après 5 secondes
+    setTimeout(() => {
+        alert.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => alert.remove(), 300);
+    }, 5000);
 }
 
-// Fermer les modales en cliquant sur la croix
+// Initialisation au chargement du DOM
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Parametres.js loaded');
+    
+    // Fermer les modales en cliquant sur la croix
     const modalCloses = document.querySelectorAll('.modal-close');
     modalCloses.forEach(close => {
         close.addEventListener('click', function() {
@@ -261,6 +335,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Ajouter les animations CSS
+if (!document.getElementById('parametres-animations')) {
+    const style = document.createElement('style');
+    style.id = 'parametres-animations';
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
 // Exposer les fonctions globalement
 window.backupDatabase = backupDatabase;
 window.showRestoreModal = showRestoreModal;
@@ -269,3 +373,6 @@ window.restoreDatabase = restoreDatabase;
 window.downloadBackup = downloadBackup;
 window.clearCache = clearCache;
 window.saveMaintenanceSettings = saveMaintenanceSettings;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.showAlert = showAlert;

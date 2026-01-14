@@ -16285,3 +16285,872 @@ cations
 2026-01-14 01:44:42 - Processed URI: /admin/parametres - Method: GET
 2026-01-14 01:44:42 - URI: /TDW_project/assets/js/parametres.js
 2026-01-14 01:44:42 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 01:55:03 - URI: /TDW_project/admin/parametres
+2026-01-14 01:55:03 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 01:55:03 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 01:55:03 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 01:55:07 - URI: /TDW_project/admin/parametres
+2026-01-14 01:55:07 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 01:55:07 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 01:55:07 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 01:55:16 - URI: /TDW_project/api/admin/maintenance/save
+2026-01-14 01:55:16 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 01:55:20 - URI: /TDW_project/logout
+2026-01-14 01:55:20 - Processed URI: /logout - Method: GET
+2026-01-14 01:55:20 - URI: /TDW_project/login?logout=1
+2026-01-14 01:55:20 - Processed URI: /login - Method: GET
+2026-01-14 01:55:22 - URI: /TDW_project/
+2026-01-14 01:55:22 - Processed URI: / - Method: GET
+2026-01-14 01:55:24 - URI: /TDW_project/login
+2026-01-14 01:55:24 - Processed URI: /login - Method: GET
+2026-01-14 01:55:31 - URI: /TDW_project/auth/login
+2026-01-14 01:55:31 - Processed URI: /auth/login - Method: POST
+2026-01-14 01:55:32 - URI: /TDW_project/admin/dashboard
+2026-01-14 01:55:32 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 01:55:32 - URI: /TDW_project/api/admin/stats
+2026-01-14 01:55:32 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 01:55:36 - URI: /TDW_project/admin/parametres
+2026-01-14 01:55:36 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 01:55:36 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 01:55:36 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 01:55:56 - URI: /TDW_project/api/admin/database/backup
+2026-01-14 01:55:56 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 01:56:02 - URI: /TDW_project/admin/parametres/save-social
+2026-01-14 01:56:02 - Processed URI: /admin/parametres/save-social - Method: POST
+2026-01-14 01:56:02 - URI: /TDW_project/admin/parametres
+2026-01-14 01:56:02 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 01:56:02 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 01:56:02 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 01:56:11 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 01:56:11 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 01:56:11 - URI: /TDW_project/admin/parametres
+2026-01-14 01:56:11 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 01:56:11 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 01:56:11 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 01:56:28 - URI: /TDW_project/admin/parametres/download-backup/backup_2026-01-14_01-55-56.sql
+2026-01-14 01:56:28 - Processed URI: /admin/parametres/download-backup/backup_2026-01-14_01-55-56.sql - Method: GET
+2026-01-14 01:56:57 - URI: /TDW_project/api/admin/maintenance/save
+2026-01-14 01:56:57 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 01:57:09 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 01:57:09 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 01:57:15 - URI: /TDW_project/admin/parametres
+2026-01-14 01:57:15 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 01:57:15 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 01:57:15 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 01:57:21 - URI: /TDW_project/api/admin/database/backup
+2026-01-14 01:57:21 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 01:57:29 - URI: /TDW_project/admin/parametres
+2026-01-14 01:57:29 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 01:57:29 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 01:57:29 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:02:49 - URI: /TDW_project/admin/parametres
+2026-01-14 02:02:49 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:02:49 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:02:49 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:11:44 - URI: /TDW_project/admin/parametres
+2026-01-14 02:11:44 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:11:44 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:11:44 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:11:49 - URI: /TDW_project/admin/parametres
+2026-01-14 02:11:49 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:11:49 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:11:49 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:12:37 - URI: /TDW_project/admin/parametres
+2026-01-14 02:12:37 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:12:37 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:12:37 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:12:40 - URI: /TDW_project/admin/equipements
+2026-01-14 02:12:40 - Processed URI: /admin/equipements - Method: GET
+2026-01-14 02:12:42 - URI: /TDW_project/admin/parametres
+2026-01-14 02:12:42 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:12:42 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:12:42 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:14:22 - URI: /TDW_project/admin/parametres
+2026-01-14 02:14:22 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:14:22 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:14:22 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:14:22 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:14:22 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:14:38 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 02:14:38 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 02:14:38 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 02:14:38 - URI: /TDW_project/admin/parametres
+2026-01-14 02:14:38 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:14:38 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:14:38 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:14:38 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:14:38 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:16:48 - URI: /TDW_project/admin/parametres
+2026-01-14 02:16:48 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:16:48 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:16:48 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:16:48 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:16:48 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:06 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 02:17:06 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 02:17:06 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 02:17:13 - URI: /TDW_project/api/admin/database/backup
+2026-01-14 02:17:13 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 02:17:13 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 02:17:16 - URI: /TDW_project/admin/parametres
+2026-01-14 02:17:16 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:16 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:16 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:17:16 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:16 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:23 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 02:17:23 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 02:17:23 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 02:17:25 - URI: /TDW_project/admin/parametres
+2026-01-14 02:17:25 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:25 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:25 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:17:25 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:25 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:47 - URI: /TDW_project/admin/parametres
+2026-01-14 02:17:47 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:47 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:47 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:17:47 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:47 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:49 - URI: /TDW_project/admin/parametres
+2026-01-14 02:17:49 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:49 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:17:49 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:17:49 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:17:49 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:18:10 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 02:18:10 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 02:18:10 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 02:18:10 - URI: /TDW_project/admin/parametres
+2026-01-14 02:18:10 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:18:10 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:18:10 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:18:10 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:18:10 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:18:19 - URI: /TDW_project/api/admin/maintenance/save
+2026-01-14 02:18:19 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 02:18:19 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 02:18:23 - URI: /TDW_project/logout
+2026-01-14 02:18:23 - Processed URI: /logout - Method: GET
+2026-01-14 02:18:23 - Processed URI: /logout - Method: GET
+2026-01-14 02:27:35 - URI: /TDW_project/admin/parametres
+2026-01-14 02:27:35 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:27:35 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:27:36 - URI: /TDW_project/admin/parametres
+2026-01-14 02:27:36 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:27:36 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:27:37 - URI: /TDW_project/admin/dashboard
+2026-01-14 02:27:37 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:27:37 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:27:38 - URI: /TDW_project/login
+2026-01-14 02:27:38 - Processed URI: /login - Method: GET
+2026-01-14 02:27:38 - Processed URI: /login - Method: GET
+2026-01-14 02:27:43 - URI: /TDW_project/
+2026-01-14 02:27:43 - Processed URI: / - Method: GET
+2026-01-14 02:27:43 - Processed URI: / - Method: GET
+2026-01-14 02:27:45 - URI: /TDW_project/login
+2026-01-14 02:27:45 - Processed URI: /login - Method: GET
+2026-01-14 02:27:45 - Processed URI: /login - Method: GET
+2026-01-14 02:27:52 - URI: /TDW_project/auth/login
+2026-01-14 02:27:52 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:27:52 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:27:53 - URI: /TDW_project/admin/dashboard
+2026-01-14 02:27:53 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:27:53 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:27:53 - URI: /TDW_project/api/admin/stats
+2026-01-14 02:27:53 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 02:27:53 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 02:28:03 - URI: /TDW_project/admin/parametres
+2026-01-14 02:28:03 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:28:03 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:28:03 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:28:03 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:28:03 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:28:13 - URI: /TDW_project/api/admin/maintenance/save
+2026-01-14 02:28:13 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 02:28:13 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 02:29:45 - URI: /TDW_project/admin/parametres
+2026-01-14 02:29:45 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:29:45 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:29:45 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:29:45 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:29:45 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:29:52 - URI: /TDW_project/admin/parametres
+2026-01-14 02:29:52 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:29:52 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:29:52 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:29:52 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:29:52 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:29:57 - URI: /TDW_project/api/admin/database/backup
+2026-01-14 02:29:57 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 02:29:57 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 02:30:07 - URI: /TDW_project/admin/parametres
+2026-01-14 02:30:07 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:30:07 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:30:08 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:30:08 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:30:08 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:30:11 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 02:30:11 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 02:30:11 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 02:30:14 - URI: /TDW_project/admin/parametres
+2026-01-14 02:30:14 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:30:14 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:30:14 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:30:14 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:30:14 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:30:15 - URI: /TDW_project/admin/parametres
+2026-01-14 02:30:15 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:30:15 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:30:15 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:30:15 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:30:15 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:33:39 - URI: /TDW_project/admin/parametres
+2026-01-14 02:33:39 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:33:39 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:33:39 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:33:39 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:33:39 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:33:46 - URI: /TDW_project/admin/parametres/5
+2026-01-14 02:33:46 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:33:46 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:35:32 - URI: /TDW_project/admin/parametres/5
+2026-01-14 02:35:32 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:35:32 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:38:35 - URI: /TDW_project/admin/parametres/5
+2026-01-14 02:38:35 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:38:35 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:40:14 - URI: /TDW_project/admin/parametres/5
+2026-01-14 02:40:14 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:40:14 - Processed URI: /admin/parametres/5 - Method: GET
+2026-01-14 02:40:16 - URI: /TDW_project/admin/parametres
+2026-01-14 02:40:16 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:40:16 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:40:17 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:40:17 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:40:17 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:40:50 - URI: /TDW_project/admin/evenements
+2026-01-14 02:40:50 - Processed URI: /admin/evenements - Method: GET
+2026-01-14 02:40:50 - Processed URI: /admin/evenements - Method: GET
+2026-01-14 02:40:55 - URI: /TDW_project/admin/evenements
+2026-01-14 02:40:55 - Processed URI: /admin/evenements - Method: GET
+2026-01-14 02:40:55 - Processed URI: /admin/evenements - Method: GET
+2026-01-14 02:41:01 - URI: /TDW_project/admin/dashboard
+2026-01-14 02:41:01 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:41:01 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:41:01 - URI: /TDW_project/api/admin/stats
+2026-01-14 02:41:01 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 02:41:01 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 02:41:02 - URI: /TDW_project/admin/equipes/equipes
+2026-01-14 02:41:02 - Processed URI: /admin/equipes/equipes - Method: GET
+2026-01-14 02:41:02 - Processed URI: /admin/equipes/equipes - Method: GET
+2026-01-14 02:41:03 - URI: /TDW_project/admin/projets
+2026-01-14 02:41:03 - Processed URI: /admin/projets - Method: GET
+2026-01-14 02:41:03 - Processed URI: /admin/projets - Method: GET
+2026-01-14 02:41:05 - URI: /TDW_project/admin/equipements
+2026-01-14 02:41:05 - Processed URI: /admin/equipements - Method: GET
+2026-01-14 02:41:05 - Processed URI: /admin/equipements - Method: GET
+2026-01-14 02:41:07 - URI: /TDW_project/admin/parametres
+2026-01-14 02:41:07 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:41:07 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:41:07 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:41:07 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:41:07 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:41:09 - URI: /TDW_project/admin/notifications
+2026-01-14 02:41:09 - Processed URI: /admin/notifications - Method: GET
+2026-01-14 02:41:09 - Processed URI: /admin/notifications - Method: GET
+2026-01-14 02:41:12 - URI: /TDW_project/admin/parametres
+2026-01-14 02:41:12 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:41:12 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:41:12 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:41:12 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:41:12 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:41:18 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 02:41:18 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 02:41:18 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 02:41:18 - URI: /TDW_project/admin/parametres
+2026-01-14 02:41:18 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:41:18 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:41:19 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:41:19 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:41:19 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:43:38 - URI: /TDW_project/admin/parametres
+2026-01-14 02:43:38 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:43:38 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:43:38 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:43:38 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:43:38 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:43:42 - URI: /TDW_project/admin/parametres/m
+2026-01-14 02:43:42 - Processed URI: /admin/parametres/m - Method: GET
+2026-01-14 02:43:42 - Processed URI: /admin/parametres/m - Method: GET
+2026-01-14 02:43:48 - URI: /TDW_project/admin/parametres
+2026-01-14 02:43:48 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:43:48 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:43:48 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:43:48 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:43:48 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:44:01 - URI: /TDW_project/api/admin/maintenance/save
+2026-01-14 02:44:01 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 02:44:01 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 02:44:06 - URI: /TDW_project/logout
+2026-01-14 02:44:06 - Processed URI: /logout - Method: GET
+2026-01-14 02:44:06 - Processed URI: /logout - Method: GET
+2026-01-14 02:44:06 - URI: /TDW_project/login?logout=1
+2026-01-14 02:44:06 - Processed URI: /login - Method: GET
+2026-01-14 02:44:06 - Processed URI: /login - Method: GET
+2026-01-14 02:44:08 - URI: /TDW_project/
+2026-01-14 02:44:08 - Processed URI: / - Method: GET
+2026-01-14 02:44:08 - Processed URI: / - Method: GET
+2026-01-14 02:44:16 - URI: /TDW_project/login
+2026-01-14 02:44:16 - Processed URI: /login - Method: GET
+2026-01-14 02:44:16 - Processed URI: /login - Method: GET
+2026-01-14 02:44:27 - URI: /TDW_project/auth/login
+2026-01-14 02:44:27 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:44:27 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:44:28 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:28 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:28 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:30 - URI: /TDW_project/login
+2026-01-14 02:44:30 - Processed URI: /login - Method: GET
+2026-01-14 02:44:30 - Processed URI: /login - Method: GET
+2026-01-14 02:44:30 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:30 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:30 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:33 - URI: /TDW_project/login
+2026-01-14 02:44:33 - Processed URI: /login - Method: GET
+2026-01-14 02:44:33 - Processed URI: /login - Method: GET
+2026-01-14 02:44:33 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:33 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:33 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:34 - URI: /TDW_project/login
+2026-01-14 02:44:34 - Processed URI: /login - Method: GET
+2026-01-14 02:44:34 - Processed URI: /login - Method: GET
+2026-01-14 02:44:34 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:34 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:34 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:35 - URI: /TDW_project/login
+2026-01-14 02:44:35 - Processed URI: /login - Method: GET
+2026-01-14 02:44:35 - Processed URI: /login - Method: GET
+2026-01-14 02:44:35 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:35 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:35 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:37 - URI: /TDW_project/login
+2026-01-14 02:44:37 - Processed URI: /login - Method: GET
+2026-01-14 02:44:37 - Processed URI: /login - Method: GET
+2026-01-14 02:44:37 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:37 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:37 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:55 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:55 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:55 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:56 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:56 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:56 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:57 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:57 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:57 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:58 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:44:58 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:44:58 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:45:02 - URI: /TDW_project/login
+2026-01-14 02:45:02 - Processed URI: /login - Method: GET
+2026-01-14 02:45:02 - Processed URI: /login - Method: GET
+2026-01-14 02:45:02 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:45:02 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:45:02 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:46:50 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:46:50 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:46:50 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:46:50 - URI: /TDW_project/membre/notifications/getUserNotifications
+2026-01-14 02:46:50 - Processed URI: /membre/notifications/getUserNotifications - Method: GET
+2026-01-14 02:46:50 - Processed URI: /membre/notifications/getUserNotifications - Method: GET
+2026-01-14 02:46:50 - URI: /TDW_project/membre/notifications/getUnreadCount
+2026-01-14 02:46:50 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:46:50 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:46:52 - URI: /TDW_project/membre/profil
+2026-01-14 02:46:52 - Processed URI: /membre/profil - Method: GET
+2026-01-14 02:46:52 - Processed URI: /membre/profil - Method: GET
+2026-01-14 02:46:52 - URI: /TDW_project/membre/notifications/getUserNotifications
+2026-01-14 02:46:52 - Processed URI: /membre/notifications/getUserNotifications - Method: GET
+2026-01-14 02:46:52 - Processed URI: /membre/notifications/getUserNotifications - Method: GET
+2026-01-14 02:46:52 - URI: /TDW_project/membre/notifications/getUnreadCount
+2026-01-14 02:46:52 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:46:52 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:46:53 - URI: /TDW_project/membre/projets
+2026-01-14 02:46:53 - Processed URI: /membre/projets - Method: GET
+2026-01-14 02:46:53 - Processed URI: /membre/projets - Method: GET
+2026-01-14 02:46:53 - URI: /TDW_project/membre/notifications/getUnreadCount
+2026-01-14 02:46:53 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:46:53 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:46:53 - URI: /TDW_project/membre/notifications/getUserNotifications
+2026-01-14 02:46:53 - Processed URI: /membre/notifications/getUserNotifications - Method: GET
+2026-01-14 02:46:53 - Processed URI: /membre/notifications/getUserNotifications - Method: GET
+2026-01-14 02:47:23 - URI: /TDW_project/membre/notifications/getUnreadCount
+2026-01-14 02:47:23 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:47:23 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:47:53 - URI: /TDW_project/membre/notifications/getUnreadCount
+2026-01-14 02:47:53 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:47:53 - Processed URI: /membre/notifications/getUnreadCount - Method: GET
+2026-01-14 02:48:02 - URI: /TDW_project/membre/projets
+2026-01-14 02:48:02 - Processed URI: /membre/projets - Method: GET
+2026-01-14 02:48:02 - Processed URI: /membre/projets - Method: GET
+2026-01-14 02:48:03 - URI: /TDW_project/login
+2026-01-14 02:48:03 - Processed URI: /login - Method: GET
+2026-01-14 02:48:03 - Processed URI: /login - Method: GET
+2026-01-14 02:48:03 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:48:03 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:03 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:05 - URI: /TDW_project/login
+2026-01-14 02:48:05 - Processed URI: /login - Method: GET
+2026-01-14 02:48:05 - Processed URI: /login - Method: GET
+2026-01-14 02:48:05 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:48:05 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:05 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:06 - URI: /TDW_project/login
+2026-01-14 02:48:06 - Processed URI: /login - Method: GET
+2026-01-14 02:48:06 - Processed URI: /login - Method: GET
+2026-01-14 02:48:06 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:48:06 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:06 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:10 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:48:10 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:10 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:22 - URI: /TDW_project/
+2026-01-14 02:48:22 - Processed URI: / - Method: GET
+2026-01-14 02:48:22 - Processed URI: / - Method: GET
+2026-01-14 02:48:26 - URI: /TDW_project/login
+2026-01-14 02:48:26 - Processed URI: /login - Method: GET
+2026-01-14 02:48:26 - Processed URI: /login - Method: GET
+2026-01-14 02:48:26 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:48:26 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:26 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:27 - URI: /TDW_project/login
+2026-01-14 02:48:27 - Processed URI: /login - Method: GET
+2026-01-14 02:48:27 - Processed URI: /login - Method: GET
+2026-01-14 02:48:27 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:48:27 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:27 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:45 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:48:45 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:45 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:48:46 - URI: /TDW_project/
+2026-01-14 02:48:46 - Processed URI: / - Method: GET
+2026-01-14 02:48:46 - Processed URI: / - Method: GET
+2026-01-14 02:49:37 - URI: /TDW_project/
+2026-01-14 02:49:37 - Processed URI: / - Method: GET
+2026-01-14 02:49:37 - Processed URI: / - Method: GET
+2026-01-14 02:49:39 - URI: /TDW_project/login
+2026-01-14 02:49:39 - Processed URI: /login - Method: GET
+2026-01-14 02:49:39 - Processed URI: /login - Method: GET
+2026-01-14 02:49:39 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:49:39 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:49:39 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:49:40 - URI: /TDW_project/login
+2026-01-14 02:49:40 - Processed URI: /login - Method: GET
+2026-01-14 02:49:40 - Processed URI: /login - Method: GET
+2026-01-14 02:49:40 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:49:40 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:49:40 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:52:09 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:52:09 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:52:09 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:52:12 - URI: /TDW_project/logout
+2026-01-14 02:52:12 - Processed URI: /logout - Method: GET
+2026-01-14 02:52:12 - Processed URI: /logout - Method: GET
+2026-01-14 02:52:12 - URI: /TDW_project/login?logout=1
+2026-01-14 02:52:12 - Processed URI: /login - Method: GET
+2026-01-14 02:52:12 - Processed URI: /login - Method: GET
+2026-01-14 02:52:20 - URI: /TDW_project/
+2026-01-14 02:52:20 - Processed URI: / - Method: GET
+2026-01-14 02:52:20 - Processed URI: / - Method: GET
+2026-01-14 02:52:28 - URI: /TDW_project/login
+2026-01-14 02:52:28 - Processed URI: /login - Method: GET
+2026-01-14 02:52:28 - Processed URI: /login - Method: GET
+2026-01-14 02:52:34 - URI: /TDW_project/auth/login
+2026-01-14 02:52:34 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:52:34 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:52:35 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:52:35 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:52:35 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:52:44 - URI: /TDW_project/login
+2026-01-14 02:52:44 - Processed URI: /login - Method: GET
+2026-01-14 02:52:44 - Processed URI: /login - Method: GET
+2026-01-14 02:52:44 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:52:44 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:52:44 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:54:15 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:54:15 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:54:15 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:54:35 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:54:35 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:54:35 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:55:30 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:55:30 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:55:30 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:55:44 - URI: /TDW_project/login
+2026-01-14 02:55:44 - Processed URI: /login - Method: GET
+2026-01-14 02:55:44 - Processed URI: /login - Method: GET
+2026-01-14 02:55:44 - URI: /TDW_project/membre/dashboard
+2026-01-14 02:55:44 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:55:44 - Processed URI: /membre/dashboard - Method: GET
+2026-01-14 02:55:47 - URI: /TDW_project/logout
+2026-01-14 02:55:47 - Processed URI: /logout - Method: GET
+2026-01-14 02:55:47 - Processed URI: /logout - Method: GET
+2026-01-14 02:55:47 - URI: /TDW_project/login?logout=1
+2026-01-14 02:55:47 - Processed URI: /login - Method: GET
+2026-01-14 02:55:47 - Processed URI: /login - Method: GET
+2026-01-14 02:55:55 - URI: /TDW_project/auth/login
+2026-01-14 02:55:55 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:55:55 - Processed URI: /auth/login - Method: POST
+2026-01-14 02:55:56 - URI: /TDW_project/admin/dashboard
+2026-01-14 02:55:56 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:55:56 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 02:55:56 - URI: /TDW_project/api/admin/stats
+2026-01-14 02:55:56 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 02:55:56 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 02:56:00 - URI: /TDW_project/admin/parametres
+2026-01-14 02:56:00 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:56:00 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 02:56:00 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 02:56:00 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:56:00 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 02:56:14 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 02:56:14 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 02:56:14 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:03:35 - URI: /TDW_project/admin/parametres
+2026-01-14 03:03:35 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:03:35 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:03:35 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:03:35 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:03:35 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:03:35 - URI: /TDW_project/uploads/logo_1768357090.png
+2026-01-14 03:03:35 - Processed URI: /uploads/logo_1768357090.png - Method: GET
+2026-01-14 03:03:35 - Processed URI: /uploads/logo_1768357090.png - Method: GET
+2026-01-14 03:03:52 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 03:03:52 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:03:52 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:03:52 - URI: /TDW_project/admin/parametres
+2026-01-14 03:03:52 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:03:52 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:03:52 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:03:52 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:03:52 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:03:57 - URI: /TDW_project/admin/parametres
+2026-01-14 03:03:57 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:03:57 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:03:57 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:03:57 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:03:57 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:12:19 - URI: /TDW_project/admin/parametres
+2026-01-14 03:12:19 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:12:19 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:12:19 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:12:19 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:12:19 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:12:19 - URI: /TDW_project/uploads/logologo_1768359832.png
+2026-01-14 03:12:19 - Processed URI: /uploads/logologo_1768359832.png - Method: GET
+2026-01-14 03:12:19 - Processed URI: /uploads/logologo_1768359832.png - Method: GET
+2026-01-14 03:12:33 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 03:12:33 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:12:33 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:12:33 - URI: /TDW_project/admin/parametres
+2026-01-14 03:12:33 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:12:33 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:12:33 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:12:33 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:12:33 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:12:33 - URI: /TDW_project/uploads/logologo_1768360353.png
+2026-01-14 03:12:33 - Processed URI: /uploads/logologo_1768360353.png - Method: GET
+2026-01-14 03:12:33 - Processed URI: /uploads/logologo_1768360353.png - Method: GET
+2026-01-14 03:12:37 - URI: /TDW_project/admin/parametres
+2026-01-14 03:12:37 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:12:37 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:12:37 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:12:37 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:12:37 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:12:37 - URI: /TDW_project/uploads/logologo_1768360353.png
+2026-01-14 03:12:37 - Processed URI: /uploads/logologo_1768360353.png - Method: GET
+2026-01-14 03:12:37 - Processed URI: /uploads/logologo_1768360353.png - Method: GET
+2026-01-14 03:14:19 - URI: /TDW_project/admin/parametres
+2026-01-14 03:14:19 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:14:19 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:14:19 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:14:19 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:14:19 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:14:28 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 03:14:28 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:14:28 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:14:39 - URI: /TDW_project/api/admin/database/backup
+2026-01-14 03:14:39 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 03:14:39 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 03:14:40 - URI: /TDW_project/admin/parametres
+2026-01-14 03:14:40 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:14:40 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:14:40 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:14:40 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:14:40 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:17:50 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 03:17:50 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:17:50 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:19:00 - URI: /TDW_project/admin/parametres
+2026-01-14 03:19:00 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:00 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:00 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:19:00 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:00 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:05 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 03:19:05 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:19:05 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:19:12 - URI: /TDW_project/api/admin/database/backup
+2026-01-14 03:19:12 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 03:19:12 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 03:19:14 - URI: /TDW_project/admin/parametres
+2026-01-14 03:19:14 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:14 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:14 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:19:14 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:14 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:20 - URI: /TDW_project/api/admin/cache/clear
+2026-01-14 03:19:20 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:19:20 - Processed URI: /api/admin/cache/clear - Method: POST
+2026-01-14 03:19:23 - URI: /TDW_project/admin/parametres
+2026-01-14 03:19:23 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:23 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:23 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:19:23 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:23 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:39 - URI: /TDW_project/api/admin/maintenance/save
+2026-01-14 03:19:39 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 03:19:39 - Processed URI: /api/admin/maintenance/save - Method: POST
+2026-01-14 03:19:42 - URI: /TDW_project/admin/parametres
+2026-01-14 03:19:42 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:42 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:42 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:19:42 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:42 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:55 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 03:19:55 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:19:55 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:19:55 - URI: /TDW_project/admin/parametres
+2026-01-14 03:19:55 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:55 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:19:55 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:19:55 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:19:55 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:22:17 - URI: /TDW_project/admin/parametres
+2026-01-14 03:22:17 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:22:17 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:22:17 - URI: /TDW_project/uploads/logo_1768360795.jpg
+2026-01-14 03:22:17 - Processed URI: /uploads/logo_1768360795.jpg - Method: GET
+2026-01-14 03:22:17 - Processed URI: /uploads/logo_1768360795.jpg - Method: GET
+2026-01-14 03:22:17 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:22:17 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:22:17 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:22:27 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 03:22:27 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:22:27 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:22:27 - URI: /TDW_project/admin/parametres
+2026-01-14 03:22:27 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:22:27 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:22:27 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:22:27 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:22:27 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:22:27 - URI: /TDW_project/uploads/logo_1768360947.png
+2026-01-14 03:22:27 - Processed URI: /uploads/logo_1768360947.png - Method: GET
+2026-01-14 03:22:27 - Processed URI: /uploads/logo_1768360947.png - Method: GET
+2026-01-14 03:23:04 - URI: /TDW_project/admin/parametres
+2026-01-14 03:23:04 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:23:04 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:23:04 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:23:04 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:23:04 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:29:59 - URI: /TDW_project/admin/parametres
+2026-01-14 03:29:59 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:29:59 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:29:59 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:29:59 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:29:59 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:30:16 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 03:30:16 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:30:16 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:30:16 - URI: /TDW_project/admin/parametres
+2026-01-14 03:30:16 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:30:16 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:30:16 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:30:16 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:30:16 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:31:18 - URI: /TDW_project/admin/parametres/save-general
+2026-01-14 03:31:18 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:31:18 - Processed URI: /admin/parametres/save-general - Method: POST
+2026-01-14 03:31:18 - URI: /TDW_project/admin/parametres
+2026-01-14 03:31:18 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:31:18 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:31:18 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:31:18 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:31:18 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:31:58 - URI: /TDW_project/api/admin/database/backup
+2026-01-14 03:31:58 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 03:31:58 - Processed URI: /api/admin/database/backup - Method: POST
+2026-01-14 03:32:00 - URI: /TDW_project/admin/parametres
+2026-01-14 03:32:00 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:32:00 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:32:00 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:32:00 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:32:00 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:32:03 - URI: /TDW_project/admin/parametres/download-backup/backup_2026-01-14_03-31-58.sql
+2026-01-14 03:32:03 - Processed URI: /admin/parametres/download-backup/backup_2026-01-14_03-31-58.sql - Method: GET
+2026-01-14 03:32:03 - Processed URI: /admin/parametres/download-backup/backup_2026-01-14_03-31-58.sql - Method: GET
+2026-01-14 03:32:23 - URI: /TDW_project/admin/notifications
+2026-01-14 03:32:23 - Processed URI: /admin/notifications - Method: GET
+2026-01-14 03:32:23 - Processed URI: /admin/notifications - Method: GET
+2026-01-14 03:32:28 - URI: /TDW_project/admin/parametres
+2026-01-14 03:32:28 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:32:28 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:32:28 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:32:28 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:32:28 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:32:31 - URI: /TDW_project/admin/parametres
+2026-01-14 03:32:31 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:32:31 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:32:31 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:32:31 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:32:31 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:42:29 - URI: /TDW_project/admin/parametres
+2026-01-14 03:42:29 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:42:29 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:42:29 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:42:29 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:42:29 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:42:35 - URI: /TDW_project/logout
+2026-01-14 03:42:35 - Processed URI: /logout - Method: GET
+2026-01-14 03:42:35 - Processed URI: /logout - Method: GET
+2026-01-14 03:42:35 - URI: /TDW_project/login?logout=1
+2026-01-14 03:42:35 - Processed URI: /login - Method: GET
+2026-01-14 03:42:35 - Processed URI: /login - Method: GET
+2026-01-14 03:42:37 - URI: /TDW_project/
+2026-01-14 03:42:37 - Processed URI: / - Method: GET
+2026-01-14 03:42:37 - Processed URI: / - Method: GET
+2026-01-14 03:42:42 - URI: /TDW_project/contact
+2026-01-14 03:42:42 - Processed URI: /contact - Method: GET
+2026-01-14 03:42:42 - Processed URI: /contact - Method: GET
+2026-01-14 03:43:20 - URI: /TDW_project/login
+2026-01-14 03:43:20 - Processed URI: /login - Method: GET
+2026-01-14 03:43:20 - Processed URI: /login - Method: GET
+2026-01-14 03:43:27 - URI: /TDW_project/auth/login
+2026-01-14 03:43:27 - Processed URI: /auth/login - Method: POST
+2026-01-14 03:43:27 - Processed URI: /auth/login - Method: POST
+2026-01-14 03:43:28 - URI: /TDW_project/admin/dashboard
+2026-01-14 03:43:28 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 03:43:28 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 03:43:28 - URI: /TDW_project/api/admin/stats
+2026-01-14 03:43:28 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 03:43:28 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 03:43:33 - URI: /TDW_project/admin/parametres
+2026-01-14 03:43:33 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:43:33 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:43:33 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:43:33 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:43:33 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:44:25 - URI: /TDW_project/admin/parametres/save-social
+2026-01-14 03:44:25 - Processed URI: /admin/parametres/save-social - Method: POST
+2026-01-14 03:44:25 - Processed URI: /admin/parametres/save-social - Method: POST
+2026-01-14 03:44:25 - URI: /TDW_project/admin/parametres
+2026-01-14 03:44:25 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:44:25 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:44:25 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:44:25 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:44:25 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:44:31 - URI: /TDW_project/logout
+2026-01-14 03:44:31 - Processed URI: /logout - Method: GET
+2026-01-14 03:44:31 - Processed URI: /logout - Method: GET
+2026-01-14 03:44:31 - URI: /TDW_project/login?logout=1
+2026-01-14 03:44:31 - Processed URI: /login - Method: GET
+2026-01-14 03:44:31 - Processed URI: /login - Method: GET
+2026-01-14 03:44:33 - URI: /TDW_project/
+2026-01-14 03:44:33 - Processed URI: / - Method: GET
+2026-01-14 03:44:33 - Processed URI: / - Method: GET
+2026-01-14 03:44:54 - URI: /TDW_project/contact
+2026-01-14 03:44:54 - Processed URI: /contact - Method: GET
+2026-01-14 03:44:54 - Processed URI: /contact - Method: GET
+2026-01-14 03:44:59 - URI: /TDW_project/contact
+2026-01-14 03:44:59 - Processed URI: /contact - Method: GET
+2026-01-14 03:44:59 - Processed URI: /contact - Method: GET
+2026-01-14 03:45:47 - URI: /TDW_project/contact
+2026-01-14 03:45:47 - Processed URI: /contact - Method: GET
+2026-01-14 03:45:47 - Processed URI: /contact - Method: GET
+2026-01-14 03:45:49 - URI: /TDW_project/contact
+2026-01-14 03:45:49 - Processed URI: /contact - Method: GET
+2026-01-14 03:45:49 - Processed URI: /contact - Method: GET
+2026-01-14 03:45:53 - URI: /TDW_project/contact
+2026-01-14 03:45:53 - Processed URI: /contact - Method: GET
+2026-01-14 03:45:53 - Processed URI: /contact - Method: GET
+2026-01-14 03:48:41 - URI: /TDW_project/contact
+2026-01-14 03:48:41 - Processed URI: /contact - Method: GET
+2026-01-14 03:48:41 - Processed URI: /contact - Method: GET
+2026-01-14 03:48:44 - URI: /TDW_project/contact
+2026-01-14 03:48:44 - Processed URI: /contact - Method: GET
+2026-01-14 03:48:44 - Processed URI: /contact - Method: GET
+2026-01-14 03:49:04 - URI: /TDW_project/contact
+2026-01-14 03:49:04 - Processed URI: /contact - Method: GET
+2026-01-14 03:49:04 - Processed URI: /contact - Method: GET
+2026-01-14 03:49:07 - URI: /TDW_project/contact
+2026-01-14 03:49:07 - Processed URI: /contact - Method: GET
+2026-01-14 03:49:07 - Processed URI: /contact - Method: GET
+2026-01-14 03:50:28 - URI: /TDW_project/contact
+2026-01-14 03:50:28 - Processed URI: /contact - Method: GET
+2026-01-14 03:50:28 - Processed URI: /contact - Method: GET
+2026-01-14 03:50:30 - URI: /TDW_project/contact
+2026-01-14 03:50:30 - Processed URI: /contact - Method: GET
+2026-01-14 03:50:30 - Processed URI: /contact - Method: GET
+2026-01-14 03:50:32 - URI: /TDW_project/contact
+2026-01-14 03:50:32 - Processed URI: /contact - Method: GET
+2026-01-14 03:50:32 - Processed URI: /contact - Method: GET
+2026-01-14 03:52:50 - URI: /TDW_project/contact
+2026-01-14 03:52:50 - Processed URI: /contact - Method: GET
+2026-01-14 03:52:50 - Processed URI: /contact - Method: GET
+2026-01-14 03:53:01 - URI: /TDW_project/equipements
+2026-01-14 03:53:01 - Processed URI: /equipements - Method: GET
+2026-01-14 03:53:01 - Processed URI: /equipements - Method: GET
+2026-01-14 03:53:02 - URI: /TDW_project/publications
+2026-01-14 03:53:02 - Processed URI: /publications - Method: GET
+2026-01-14 03:53:02 - Processed URI: /publications - Method: GET
+2026-01-14 03:53:03 - URI: /TDW_project/projets
+2026-01-14 03:53:03 - Processed URI: /projets - Method: GET
+2026-01-14 03:53:03 - Processed URI: /projets - Method: GET
+2026-01-14 03:53:04 - URI: /TDW_project/
+2026-01-14 03:53:04 - Processed URI: / - Method: GET
+2026-01-14 03:53:04 - Processed URI: / - Method: GET
+2026-01-14 03:53:10 - URI: /TDW_project/login
+2026-01-14 03:53:10 - Processed URI: /login - Method: GET
+2026-01-14 03:53:10 - Processed URI: /login - Method: GET
+2026-01-14 03:53:21 - URI: /TDW_project/auth/login
+2026-01-14 03:53:21 - Processed URI: /auth/login - Method: POST
+2026-01-14 03:53:21 - Processed URI: /auth/login - Method: POST
+2026-01-14 03:53:22 - URI: /TDW_project/admin/dashboard
+2026-01-14 03:53:22 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 03:53:22 - Processed URI: /admin/dashboard - Method: GET
+2026-01-14 03:53:22 - URI: /TDW_project/api/admin/stats
+2026-01-14 03:53:22 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 03:53:22 - Processed URI: /api/admin/stats - Method: GET
+2026-01-14 03:53:26 - URI: /TDW_project/admin/notifications
+2026-01-14 03:53:26 - Processed URI: /admin/notifications - Method: GET
+2026-01-14 03:53:26 - Processed URI: /admin/notifications - Method: GET
+2026-01-14 03:53:27 - URI: /TDW_project/admin/parametres
+2026-01-14 03:53:27 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:53:27 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:53:27 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:53:27 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:53:27 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:53:28 - URI: /TDW_project/admin/equipements
+2026-01-14 03:53:28 - Processed URI: /admin/equipements - Method: GET
+2026-01-14 03:53:28 - Processed URI: /admin/equipements - Method: GET
+2026-01-14 03:53:30 - URI: /TDW_project/admin/parametres
+2026-01-14 03:53:30 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:53:30 - Processed URI: /admin/parametres - Method: GET
+2026-01-14 03:53:30 - URI: /TDW_project/assets/js/parametres.js
+2026-01-14 03:53:30 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:53:30 - Processed URI: /assets/js/parametres.js - Method: GET
+2026-01-14 03:53:37 - URI: /TDW_project/admin/equipes/equipes
+2026-01-14 03:53:37 - Processed URI: /admin/equipes/equipes - Method: GET
+2026-01-14 03:53:37 - Processed URI: /admin/equipes/equipes - Method: GET

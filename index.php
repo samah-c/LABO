@@ -1,9 +1,19 @@
 <?php
 
+
 // Définir l'encodage
 header('Content-Type: text/html; charset=UTF-8');
 mb_internal_encoding('UTF-8');
 ini_set('default_charset', 'UTF-8');
+
+// Configuration de session AVANT de démarrer la session
+ini_set('session.cookie_httponly', 1);
+ini_set('session.use_only_cookies', 1);
+
+// Démarrer la session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Forcer l'encodage pour les données POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,19 +23,314 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     });
 }
+
+// Charger les helpers (nécessaire pour base_url)
+require_once __DIR__ . '/lib/helpers.php';
+
+// ============================================================
+// VÉRIFICATION DU MODE MAINTENANCE
+// ============================================================
+
+/**
+ * Vérifier le mode maintenance
+ * IMPORTANT: Cette fonction doit être appelée APRÈS avoir traité les routes de login
+ */
+function checkMaintenanceMode() {
+    // Charger les paramètres
+    $settingsFile = __DIR__ . '/config/settings.json';
+    
+    if (!file_exists($settingsFile)) {
+        return; // Pas de fichier de config, pas de maintenance
+    }
+    
+    $content = file_get_contents($settingsFile);
+    $settings = json_decode($content, true);
+    
+    // Si le mode maintenance n'est pas activé, continuer normalement
+    if (empty($settings['maintenance_mode'])) {
+        return;
+    }
+    
+    // Le mode maintenance est activé
+    // Vérifier si l'utilisateur est admin
+    $isAdmin = isset($_SESSION['user_id']) && 
+               isset($_SESSION['role']) && 
+               $_SESSION['role'] === 'admin';
+    
+    if ($isAdmin) {
+        // Admin → Laisser passer
+        return;
+    }
+    
+    // Non admin → Afficher la page de maintenance
+    displayMaintenancePage($settings);
+}
+/**
+ * Afficher la page de maintenance
+ */
+function displayMaintenancePage($settings) {
+    $message = $settings['maintenance_message'] ?? 'Site en maintenance, revenez bientôt.';
+    $labName = $settings['lab_name'] ?? 'Laboratoire TDW';
+    
+    http_response_code(503);
+    header('Retry-After: 3600');
+    ?>
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Maintenance - <?= htmlspecialchars($labName) ?></title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                background: #f8f9fa;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+            
+            .maintenance-container {
+                background: white;
+                padding: 60px 50px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                max-width: 600px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .status-badge {
+                display: inline-block;
+                padding: 8px 16px;
+                background: #fee;
+                border: 1px solid #fdd;
+                border-radius: 4px;
+                color: #c00;
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 32px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            
+            .icon-container {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 32px;
+                background: #f0f4f8;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .icon-container svg {
+                width: 40px;
+                height: 40px;
+                color: #64748b;
+            }
+            
+            h1 {
+                color: #1e293b;
+                font-size: 32px;
+                margin-bottom: 16px;
+                font-weight: 700;
+            }
+            
+            .subtitle {
+                color: #64748b;
+                font-size: 16px;
+                margin-bottom: 32px;
+                font-weight: 400;
+            }
+            
+            .message {
+                color: #475569;
+                font-size: 15px;
+                line-height: 1.7;
+                margin-bottom: 36px;
+                padding: 24px;
+                background: #f8fafc;
+                border-radius: 6px;
+                border-left: 3px solid #3b82f6;
+            }
+            
+            .info-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+                margin: 32px 0;
+            }
+            
+            .info-item {
+                padding: 20px;
+                background: #f8fafc;
+                border-radius: 6px;
+                border: 1px solid #e2e8f0;
+            }
+            
+            .info-item-label {
+                color: #64748b;
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin-bottom: 8px;
+            }
+            
+            .info-item-value {
+                color: #1e293b;
+                font-size: 18px;
+                font-weight: 600;
+            }
+            
+            .contact {
+                margin-top: 32px;
+                padding-top: 32px;
+                border-top: 1px solid #e2e8f0;
+            }
+            
+            .contact-text {
+                color: #64748b;
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+            
+            .contact a {
+                color: #3b82f6;
+                text-decoration: none;
+                font-weight: 500;
+            }
+            
+            .contact a:hover {
+                text-decoration: underline;
+            }
+            
+            .admin-login {
+                margin-top: 32px;
+            }
+            
+            .btn-login {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 14px 32px;
+                background: #3b82f6;
+                color: white;
+                text-decoration: none;
+                border-radius: 6px;
+                font-size: 15px;
+                font-weight: 600;
+                transition: background 0.2s;
+            }
+            
+            .btn-login:hover {
+                background: #2563eb;
+            }
+            
+            @media (max-width: 640px) {
+                .maintenance-container {
+                    padding: 40px 30px;
+                }
+                
+                h1 {
+                    font-size: 26px;
+                }
+                
+                .info-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="maintenance-container">
+            <div class="status-badge">
+                En maintenance
+            </div>
+            
+            <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </div>
+            
+            <h1>Site en Maintenance</h1>
+            <div class="subtitle">Nous améliorons votre expérience</div>
+            
+            <div class="message">
+                <?= nl2br(htmlspecialchars($message)) ?>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-item-label">Statut</div>
+                    <div class="info-item-value">En cours</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-item-label">Auto-refresh</div>
+                    <div class="info-item-value">5 minutes</div>
+                </div>
+            </div>
+            
+            <?php if (!empty($settings['lab_email'])): ?>
+            <div class="contact">
+                <div class="contact-text">Besoin d'aide urgente ?</div>
+                <a href="mailto:<?= htmlspecialchars($settings['lab_email']) ?>">
+                    <?= htmlspecialchars($settings['lab_email']) ?>
+                </a>
+            </div>
+            <?php endif; ?>
+            
+            <div class="admin-login">
+                <a href="<?= base_url('login') ?>" class="btn-login">
+                    Connexion Administrateur
+                </a>
+            </div>
+            <div class="admin-login">
+                <a href="<?= base_url('logout') ?>" class="btn-login">
+                    Déconnexion
+                </a>
+            </div>
+            <div class="contact-text" style="padding-top: 40px;">Vous devez déconnecter avant pour connecter comme étant admin </div>
+        </div>
+        
+        
+        <script>
+            setTimeout(() => location.reload(), 300000);
+        </script>
+    </body>
+    </html>
+    <?php
+    exit;
+}
+
+
+// ============================================================
+// CONFIGURATION SUITE
+// ============================================================
+
 require_once __DIR__ . '/controllers/auth/AuthController.php';
 require_once __DIR__ . '/lib/helpers.php';
 
-
 // Désactiver le cache pour le développement
-header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
-header("Pragma: no-cache"); // HTTP 1.0
-header("Expires: 0"); // Proxies
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_only_cookies', 1);
 
 // Logging
 $logFile = __DIR__ . '/logs/debug.log';
@@ -34,6 +339,30 @@ if (!is_dir($logDir)) {
     mkdir($logDir, 0755, true);
 }
 file_put_contents($logFile, date('Y-m-d H:i:s') . " - URI: " . $_SERVER['REQUEST_URI'] . "\n", FILE_APPEND);
+
+// Autoloader
+spl_autoload_register(function ($class) {
+    $paths = [
+        __DIR__ . '/models/' . $class . '.php',
+        __DIR__ . '/controllers/' . $class . '.php',
+        __DIR__ . '/controllers/admin/' . $class . '.php',
+        __DIR__ . '/views/components/' . $class . '.php',
+        __DIR__ . '/views/admin/' . $class . '.php'
+    ];
+    
+    foreach ($paths as $file) {
+        if (file_exists($file)) {
+            require_once $file;
+            return;
+        }
+    }
+});
+
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = str_replace('/TDW_project', '', $uri);
+$method = $_SERVER['REQUEST_METHOD'];
+
+file_put_contents($logFile, date('Y-m-d H:i:s') . " - Processed URI: $uri - Method: $method\n", FILE_APPEND);
 
 // Autoloader
 spl_autoload_register(function ($class) {
@@ -81,6 +410,10 @@ if ($uri === '/logout') {
     $authController->logout();
     exit;
 }
+
+// Appeler la vérification du mode maintenance
+checkMaintenanceMode();
+
 
 // ============================================================
 // ROUTES VISITEUR (PUBLIC)
@@ -756,65 +1089,35 @@ if (preg_match('#^/admin/projets/projets/rapport/(\d+)$#', $uri, $matches)) {
         }
     }
     
-    // ===== PARAMÈTRES =====
-    if (strpos($uri, '/admin/parametres') === 0) {
-        require_once __DIR__ . '/controllers/admin/ParametresController.php';
-        $parametresController = new ParametresController();
-        
-        // Télécharger un backup (plus spécifique d'abord)
-        if (preg_match('#^/admin/parametres/download-backup/(.+)$#', $uri, $matches)) {
-            $parametresController->downloadBackup($matches[1]);
-            exit;
-        }
-        
-        // Backup database
-        if ($uri === '/admin/parametres/backup-database' && $method === 'POST') {
-            $parametresController->backupDatabase();
-            exit;
-        }
-        
-        // Restore database
-        if ($uri === '/admin/parametres/restore-database' && $method === 'POST') {
-            $parametresController->restoreDatabase();
-            exit;
-        }
-        
-        // Clear cache
-        if ($uri === '/admin/parametres/clear-cache' && $method === 'POST') {
-            $parametresController->clearCache();
-            exit;
-        }
-        
-        // Save maintenance
-        if ($uri === '/admin/parametres/save-maintenance' && $method === 'POST') {
-            $parametresController->saveMaintenance();
-            exit;
-        }
-        
-        // Sauvegarder paramètres généraux
-        if ($uri === '/admin/parametres/save-general' && $method === 'POST') {
-            $parametresController->saveGeneral();
-            exit;
-        }
-        
-        // Sauvegarder réseaux sociaux
-        if ($uri === '/admin/parametres/save-social' && $method === 'POST') {
-            $parametresController->saveSocial();
-            exit;
-        }
-        
-        // Sauvegarder thème
-        if ($uri === '/admin/parametres/save-theme' && $method === 'POST') {
-            $parametresController->saveTheme();
-            exit;
-        }
-        
-        // Page principale des paramètres
-        if ($uri === '/admin/parametres') {
-            $parametresController->index();
-            exit;
-        }
+if (strpos($uri, '/admin/parametres') === 0) {
+    require_once __DIR__ . '/controllers/admin/ParametresController.php';
+    $parametresController = new ParametresController();
+    
+    // Télécharger un backup (plus spécifique d'abord)
+    if (preg_match('#^/admin/parametres/download-backup/(.+)$#', $uri, $matches)) {
+        $parametresController->downloadBackup($matches[1]);
+        exit;
     }
+    
+    // Sauvegarder paramètres généraux
+    if ($uri === '/admin/parametres/save-general' && $method === 'POST') {
+        $parametresController->saveGeneral();
+        exit;
+    }
+    
+    // Sauvegarder réseaux sociaux
+    if ($uri === '/admin/parametres/save-social' && $method === 'POST') {
+        $parametresController->saveSocial();
+        exit;
+    }
+    
+    
+    // Page principale des paramètres
+    if ($uri === '/admin/parametres') {
+        $parametresController->index();
+        exit;
+    }
+}
 
     // ===== NOTIFICATIONS =====
 if (strpos($uri, '/admin/notifications') === 0) {
@@ -1024,6 +1327,7 @@ if (strpos($uri, '/membre/notifications') === 0) {
 }
 }
 
+
 if (strpos($uri, '/api/membre') === 0) {
     AuthController::requireMembre();
     
@@ -1080,85 +1384,272 @@ http_response_code(404);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page non trouvée</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/TDW_project/assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
+            padding: 20px;
         }
+        
         .error-container {
-            text-align: center;
             background: white;
-            padding: 60px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 500px;
+            padding: 60px 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
         }
-        .error-container h1 {
+        
+        .error-code {
+            margin-bottom: 30px;
+        }
+        
+        .error-code h1 {
             font-size: 120px;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            color: #3b82f6;
+            line-height: 1;
+            letter-spacing: -0.05em;
+        }
+        
+        .error-title {
+            color: #1e293b;
+            font-size: 28px;
+            margin-bottom: 16px;
             font-weight: 700;
         }
-        .error-container h2 {
-            color: #2c3e50;
-            margin: 20px 0;
+        
+        .error-message {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
         }
-        .error-container p {
-            color: #7f8c8d;
-            margin: 20px 0;
-        }
-        .error-container .debug-info {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
+        
+        .debug-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 24px;
+            margin: 32px 0;
             text-align: left;
-            font-family: monospace;
-            font-size: 12px;
-            color: #495057;
         }
-        .error-container a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
+        
+        .debug-info-title {
+            color: #1e293b;
+            font-size: 13px;
             font-weight: 600;
-            transition: transform 0.3s;
-        }
-        .error-container a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
+        .debug-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
         
+        .debug-item:last-child {
+            border-bottom: none;
+        }
+        
+        .debug-label {
+            color: #64748b;
+            font-weight: 600;
+        }
+        
+        .debug-value {
+            color: #3b82f6;
+            font-weight: 500;
+            word-break: break-all;
+            max-width: 60%;
+            text-align: right;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .suggestions {
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .suggestions-title {
+            color: #1e293b;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .suggestions-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .suggestion-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        
+        .suggestion-link:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+        
+        @media (max-width: 640px) {
+            .error-container {
+                padding: 40px 30px;
+            }
+            
+            .error-code h1 {
+                font-size: 80px;
+            }
+            
+            .error-title {
+                font-size: 24px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .suggestions-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .debug-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            
+            .debug-value {
+                max-width: 100%;
+                text-align: left;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="error-container">
-        <h1>404</h1>
-        <h2>Page non trouvée</h2>
-        <p>Désolé, la page que vous recherchez n'existe pas ou a été déplacée.</p>
-        
-        <div class="debug-info">
-            <strong>URL demandée:</strong> <?= htmlspecialchars($uri) ?><br>
-            <strong>Méthode:</strong> <?= htmlspecialchars($method) ?>
+        <div class="error-code">
+            <h1>404</h1>
         </div>
         
-        <a href="/TDW_project/">Retour à l'accueil</a>
+        <h2 class="error-title">Page non trouvée</h2>
+        <p class="error-message">
+            Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
+        </p>
+        
+        <div class="debug-info">
+            <div class="debug-info-title">Informations de débogage</div>
+            <div class="debug-item">
+                <span class="debug-label">URL demandée:</span>
+                <span class="debug-value" id="requested-url"></span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Méthode:</span>
+                <span class="debug-value" id="method"></span>
+            </div>
+            <div class="debug-item">
+                <span class="debug-label">Code d'erreur:</span>
+                <span class="debug-value">404 Not Found</span>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/TDW_project/" class="btn btn-primary">
+                Retour à l'accueil
+            </a>
+            <button onclick="window.history.back()" class="btn btn-secondary">
+                Page précédente
+            </button>
+        </div>
+        
+        <div class="suggestions">
+            <div class="suggestions-title">Pages populaires</div>
+            <div class="suggestions-list">
+                <a href="/TDW_project/projets" class="suggestion-link">Projets de recherche</a>
+                <a href="/TDW_project/publications" class="suggestion-link">Publications</a>
+                <a href="/TDW_project/membres" class="suggestion-link">Membres de l'équipe</a>
+                <a href="/TDW_project/contact" class="suggestion-link">Nous contacter</a>
+            </div>
+        </div>
     </div>
-
+    
+    <script>
+        document.getElementById('requested-url').textContent = window.location.pathname;
+        document.getElementById('method').textContent = 'GET';
+    </script>
 </body>
 </html>
 <?php exit; ?>

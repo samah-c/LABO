@@ -376,4 +376,76 @@ function clear_flash() {
     
     unset($_SESSION['flash']);
 }
+
+function setFlash($key, $message) {
+    if (!isset($_SESSION['flash'])) {
+        $_SESSION['flash'] = [];
+    }
+    $_SESSION['flash'][$key] = $message;
+}
+
+/**
+ * Récupérer un message flash
+ * @param string $key Clé du message
+ * @return string|null Le message ou null
+ */
+function getFlash($key) {
+    if (isset($_SESSION['flash'][$key])) {
+        $message = $_SESSION['flash'][$key];
+        unset($_SESSION['flash'][$key]); // Supprimer immédiatement après lecture
+        return $message;
+    }
+    return null;
+}
+
+/**
+ * Vérifier si un message flash existe
+ * @param string $key Clé du message
+ * @return bool
+ */
+function hasFlash($key) {
+    return isset($_SESSION['flash'][$key]);
+}
+
+/**
+ * Récupérer tous les messages flash et les supprimer
+ * @return array
+ */
+function getAllFlash() {
+    $messages = $_SESSION['flash'] ?? [];
+    unset($_SESSION['flash']);
+    return $messages;
+}
+
+/**
+ * Définir un message de succès
+ * @param string $message
+ */
+function setSuccess($message) {
+    setFlash('success', $message);
+}
+
+/**
+ * Définir un message d'erreur
+ * @param string $message
+ */
+function setError($message) {
+    setFlash('error', $message);
+}
+
+/**
+ * Définir un message d'info
+ * @param string $message
+ */
+function setInfo($message) {
+    setFlash('info', $message);
+}
+
+/**
+ * Définir un message d'avertissement
+ * @param string $message
+ */
+function setWarning($message) {
+    setFlash('warning', $message);
+}
 ?>

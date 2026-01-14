@@ -145,7 +145,7 @@ class ParametresView
             
             if (!empty($this->settings['lab_logo'])): ?>
                 <div class="current-logo">
-                    <img src="<?= base_url('uploads/' . $this->settings['lab_logo']) ?>" 
+                    <img src="<?= base_url('uploads/logo/' . $this->settings['lab_logo']) ?>" 
                          alt="Logo actuel" style="max-width: 200px; margin-top: 10px;">
                 </div>
             <?php endif; ?>
@@ -221,7 +221,7 @@ class ParametresView
                 </button>
                 
                 <button class="btn-danger" onclick="clearCache()">
-                     Vider le cache
+                     Vider 
                 </button>
             </div>
             
@@ -307,16 +307,30 @@ class ParametresView
     /**
      * Rendu des scripts JavaScript
      */
-    private function renderScripts(): void
+  private function renderScripts(): void
     {
+        // Récupérer et EFFACER immédiatement les messages flash
+        $successMessage = getFlash('success');
+        $errorMessage = getFlash('error');
         ?>
         <script>
+        // Afficher les messages de succès/erreur UNE SEULE FOIS
+        document.addEventListener('DOMContentLoaded', function() {
+            <?php if ($successMessage): ?>
+                showAlert('<?= addslashes($successMessage) ?>', 'success');
+            <?php endif; ?>
+            
+            <?php if ($errorMessage): ?>
+                showAlert('<?= addslashes($errorMessage) ?>', 'error');
+            <?php endif; ?>
+        });
+
         function backupDatabase() {
             if (!confirm('Créer une sauvegarde de la base de données ?')) return;
             
             const btn = event.target;
             btn.disabled = true;
-            btn.textContent = ' Sauvegarde en cours...';
+            btn.textContent = '⏳ Sauvegarde en cours...';
             
             fetch('<?= base_url("api/admin/database/backup") ?>', {
                 method: 'POST',
@@ -325,19 +339,19 @@ class ParametresView
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert(' Sauvegarde créée avec succès');
-                    location.reload();
+                    showAlert('✓ Sauvegarde créée avec succès', 'success');
+                    setTimeout(() => location.reload(), 1500);
                 } else {
-                    alert(' Erreur : ' + data.message);
+                    showAlert('✗ Erreur : ' + data.message, 'error');
                 }
             })
             .catch(error => {
-                alert(' Erreur lors de la sauvegarde');
+                showAlert('✗ Erreur lors de la sauvegarde', 'error');
                 console.error(error);
             })
             .finally(() => {
                 btn.disabled = false;
-                btn.textContent = ' Sauvegarder la base de données';
+                btn.textContent = '💾 Sauvegarder la base de données';
             });
         }
 
@@ -355,14 +369,14 @@ class ParametresView
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert(' Base de données restaurée avec succès');
-                    location.reload();
+                    showAlert('✓ Base de données restaurée avec succès', 'success');
+                    setTimeout(() => location.reload(), 1500);
                 } else {
-                    alert(' Erreur : ' + data.message);
+                    showAlert('✗ Erreur : ' + data.message, 'error');
                 }
             })
             .catch(error => {
-                alert(' Erreur lors de la restauration');
+                showAlert('✗ Erreur lors de la restauration', 'error');
                 console.error(error);
             });
         }
@@ -381,9 +395,9 @@ class ParametresView
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert(' Cache vidé avec succès');
+                    showAlert('✓ Cache vidé avec succès', 'success');
                 } else {
-                    alert(' Erreur');
+                    showAlert('✗ Erreur', 'error');
                 }
             });
         }
@@ -403,18 +417,85 @@ class ParametresView
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert(' Paramètres de maintenance enregistrés');
+                    showAlert('✓ Paramètres de maintenance enregistrés', 'success');
                 } else {
-                    alert(' Erreur');
+                    showAlert('✗ Erreur', 'error');
                 }
             });
         }
 
-        // Afficher les messages de succès
-        <?php if (session('success')): ?>
-            alert('<?= htmlspecialchars(session('success')) ?>');
-        <?php endif; ?>
+        // Fonction pour afficher les alertes
+        function showAlert(message, type = 'info') {
+            // Supprimer les anciennes alertes
+            const oldAlerts = document.querySelectorAll('.custom-alert');
+            oldAlerts.forEach(alert => alert.remove());
+            
+            // Créer la nouvelle alerte
+            const alert = document.createElement('div');
+            alert.className = 'custom-alert custom-alert-' + type;
+            alert.textContent = message;
+            
+            // Ajouter au body
+            document.body.appendChild(alert);
+            
+            // Auto-suppression après 5 secondes
+            setTimeout(() => {
+                alert.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => alert.remove(), 300);
+            }, 5000);
+        }
         </script>
+        
+        <style>
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 10000;
+            min-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .custom-alert-success {
+            background: #10b981;
+        }
+        
+        .custom-alert-error {
+            background: #ef4444;
+        }
+        
+        .custom-alert-info {
+            background: #3b82f6;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+        </style>
         <?php
     }
 

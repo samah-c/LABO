@@ -1,32 +1,32 @@
 <?php
 /**
- * ParametresController.php - Contrôleur complet pour la gestion des paramètres
- * Gère la configuration, thème, et backup/restauration de la BDD
+ * ParametresController.php - Version corrigée
+ * Corrections: Buffer de sortie propre + gestion du cache
  */
 
 require_once __DIR__ . '/../../lib/helpers.php';
 require_once __DIR__ . '/../auth/AuthController.php';
 require_once __DIR__ . '/../../config/database.php';
-
 require_once __DIR__ . '/../../views/admin/parametres/ParametresView.php';
 
 class ParametresController {
     private $settingsFile;
     private $backupDir;
     private $uploadsDir;
+    private $cacheDir;
     
     public function __construct() {
         AuthController::requireAdmin();
         $this->settingsFile = __DIR__ . '/../../config/settings.json';
         $this->backupDir = __DIR__ . '/../../backups';
-        $this->uploadsDir = __DIR__ . '/../../uploads';
+        $this->uploadsDir = __DIR__ . '/../../uploads/logo';
+        $this->cacheDir = __DIR__ . '/../../backups';
         
         // Créer les dossiers s'ils n'existent pas
-        if (!is_dir($this->backupDir)) {
-            mkdir($this->backupDir, 0755, true);
-        }
-        if (!is_dir($this->uploadsDir)) {
-            mkdir($this->uploadsDir, 0755, true);
+        foreach ([$this->backupDir, $this->uploadsDir, $this->cacheDir] as $dir) {
+            if (!is_dir($dir)) {
+                mkdir($dir, 0755, true);
+            }
         }
     }
     
@@ -48,7 +48,6 @@ class ParametresController {
         try {
             $settings = $this->loadSettings();
             
-            // Données du formulaire
             $data = [
                 'lab_name' => Utils::sanitize($_POST['lab_name'] ?? ''),
                 'lab_description' => Utils::sanitize($_POST['lab_description'] ?? ''),
@@ -57,42 +56,32 @@ class ParametresController {
                 'lab_address' => Utils::sanitize($_POST['lab_address'] ?? '')
             ];
             
-            // Gestion du logo
+           // Gestion du logo
             if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
                 $logo = $this->uploadLogo($_FILES['logo']);
                 if ($logo) {
-                    // Supprimer l'ancien logo
-                    if (!empty($settings['lab_logo'])) {
-                        $oldLogo = $this->uploadsDir . '/' . $settings['lab_logo'];
-                        if (file_exists($oldLogo)) {
-                            unlink($oldLogo);
-                        }
-                    }
                     $data['lab_logo'] = $logo;
                 } else {
-                    $_SESSION['error'] = 'Erreur lors de l\'upload du logo';
+                    setError('Erreur lors de l\'upload du logo');
                     redirect(base_url('admin/parametres'));
+                    return;
                 }
             } else {
-                // Conserver l'ancien logo
                 $data['lab_logo'] = $settings['lab_logo'] ?? null;
             }
             
-            // Fusionner avec les paramètres existants
             $settings = array_merge($settings, $data);
             
-            // Sauvegarder
             if ($this->saveSettings($settings)) {
-                $_SESSION['success'] = 'Paramètres généraux enregistrés avec succès';
+                setSuccess('Paramètres généraux enregistrés avec succès');
+                Utils::log("Paramètres généraux mis à jour par " . session('username'));
             } else {
-                $_SESSION['error'] = 'Erreur lors de l\'enregistrement';
+                setError('Erreur lors de l\'enregistrement');
             }
-            
-            Utils::log("Paramètres généraux mis à jour par " . session('username'));
             
         } catch (Exception $e) {
             Utils::log("Erreur sauvegarde paramètres: " . $e->getMessage(), 'ERROR');
-            $_SESSION['error'] = 'Erreur: ' . $e->getMessage();
+            setError('Erreur: ' . $e->getMessage());
         }
         
         redirect(base_url('admin/parametres'));
@@ -115,41 +104,13 @@ class ParametresController {
             $settings = array_merge($settings, $data);
             
             if ($this->saveSettings($settings)) {
-                $_SESSION['success'] = 'Réseaux sociaux enregistrés avec succès';
+                setSuccess('Réseaux sociaux enregistrés avec succès');
             } else {
-                $_SESSION['error'] = 'Erreur lors de l\'enregistrement';
+                setError('Erreur lors de l\'enregistrement');
             }
             
         } catch (Exception $e) {
-            $_SESSION['error'] = 'Erreur: ' . $e->getMessage();
-        }
-        
-        redirect(base_url('admin/parametres'));
-    }
-    
-    /**
-     * Sauvegarder le thème
-     */
-    public function saveTheme() {
-        try {
-            $settings = $this->loadSettings();
-            
-            $data = [
-                'primary_color' => Utils::sanitize($_POST['primary_color'] ?? '#2563eb'),
-                'secondary_color' => Utils::sanitize($_POST['secondary_color'] ?? '#64748b'),
-                'theme_mode' => Utils::sanitize($_POST['theme_mode'] ?? 'light')
-            ];
-            
-            $settings = array_merge($settings, $data);
-            
-            if ($this->saveSettings($settings)) {
-                $_SESSION['success'] = 'Thème enregistré avec succès';
-            } else {
-                $_SESSION['error'] = 'Erreur lors de l\'enregistrement';
-            }
-            
-        } catch (Exception $e) {
-            $_SESSION['error'] = 'Erreur: ' . $e->getMessage();
+            setError('Erreur: ' . $e->getMessage());
         }
         
         redirect(base_url('admin/parametres'));
@@ -157,11 +118,31 @@ class ParametresController {
     
     /**
      * Créer une sauvegarde de la base de données
+     * VERSION CORRIGÉE - Buffer de sortie propre
      */
     public function backupDatabase() {
+        // CRITIQUE: Nettoyer TOUT buffer de sortie existant
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        
+        // Démarrer un nouveau buffer propre
+        ob_start();
+        
         try {
             $filename = 'backup_' . date('Y-m-d_H-i-s') . '.sql';
             $filepath = $this->backupDir . '/' . $filename;
+            
+            // Vérifier que le dossier existe et est accessible
+            if (!is_dir($this->backupDir)) {
+                if (!mkdir($this->backupDir, 0755, true)) {
+                    throw new Exception("Impossible de créer le dossier de sauvegarde");
+                }
+            }
+            
+            if (!is_writable($this->backupDir)) {
+                throw new Exception("Le dossier de sauvegarde n'est pas accessible en écriture");
+            }
             
             // Connexion à la base de données
             $db = Database::getInstance()->getConnection();
@@ -173,63 +154,97 @@ class ParametresController {
                 $tables[] = $row[0];
             }
             
+            if (empty($tables)) {
+                throw new Exception("Aucune table trouvée dans la base de données");
+            }
+            
             // Créer le contenu du backup
             $output = "-- Backup Database\n";
             $output .= "-- Date: " . date('Y-m-d H:i:s') . "\n";
             $output .= "-- Generated by: " . session('username') . "\n\n";
-            $output .= "SET FOREIGN_KEY_CHECKS=0;\n\n";
+            $output .= "SET FOREIGN_KEY_CHECKS=0;\n";
+            $output .= "SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';\n";
+            $output .= "SET time_zone = '+00:00';\n\n";
             
             foreach ($tables as $table) {
-                // Structure de la table
-                $result = $db->query("SHOW CREATE TABLE `$table`");
-                $row = $result->fetch(PDO::FETCH_ASSOC);
-                
-                $output .= "-- Table: $table\n";
-                $output .= "DROP TABLE IF EXISTS `$table`;\n";
-                $output .= $row['Create Table'] . ";\n\n";
-                
-                // Données de la table
-                $result = $db->query("SELECT * FROM `$table`");
-                $rows = $result->fetchAll(PDO::FETCH_ASSOC);
-                
-                if (!empty($rows)) {
-                    $output .= "-- Data for table: $table\n";
+                try {
+                    // Structure de la table
+                    $result = $db->query("SHOW CREATE TABLE `$table`");
+                    $row = $result->fetch(PDO::FETCH_ASSOC);
                     
-                    foreach ($rows as $row) {
-                        $values = array_map(function($value) use ($db) {
-                            if ($value === null) {
-                                return 'NULL';
-                            }
-                            return $db->quote($value);
-                        }, array_values($row));
+                    $output .= "\n-- --------------------------------------------------------\n";
+                    $output .= "-- Table: $table\n";
+                    $output .= "-- --------------------------------------------------------\n\n";
+                    $output .= "DROP TABLE IF EXISTS `$table`;\n";
+                    $output .= $row['Create Table'] . ";\n\n";
+                    
+                    // Données de la table
+                    $result = $db->query("SELECT * FROM `$table`");
+                    $rows = $result->fetchAll(PDO::FETCH_ASSOC);
+                    
+                    if (!empty($rows)) {
+                        $output .= "-- Data for table: $table\n";
+                        $output .= "LOCK TABLES `$table` WRITE;\n";
                         
-                        $columns = '`' . implode('`, `', array_keys($row)) . '`';
-                        $output .= "INSERT INTO `$table` ($columns) VALUES (" . implode(', ', $values) . ");\n";
+                        foreach ($rows as $row) {
+                            $values = array_map(function($value) use ($db) {
+                                if ($value === null) {
+                                    return 'NULL';
+                                }
+                                return $db->quote($value);
+                            }, array_values($row));
+                            
+                            $columns = '`' . implode('`, `', array_keys($row)) . '`';
+                            $output .= "INSERT INTO `$table` ($columns) VALUES (" . implode(', ', $values) . ");\n";
+                        }
+                        
+                        $output .= "UNLOCK TABLES;\n\n";
                     }
-                    
-                    $output .= "\n";
+                } catch (Exception $e) {
+                    $output .= "-- Error with table $table: " . $e->getMessage() . "\n\n";
                 }
             }
             
             $output .= "SET FOREIGN_KEY_CHECKS=1;\n";
             
             // Écrire le fichier
-            file_put_contents($filepath, $output);
+            $bytesWritten = file_put_contents($filepath, $output);
             
-            Utils::log("Backup créé: $filename par " . session('username'));
+            if ($bytesWritten === false) {
+                throw new Exception("Impossible d'écrire le fichier de sauvegarde");
+            }
             
-            $this->jsonResponse([
+            Utils::log("Backup créé: $filename (" . $this->formatBytes($bytesWritten) . ") par " . session('username'));
+            
+            // Nettoyer le buffer avant d'envoyer la réponse
+            ob_end_clean();
+            
+            // Envoyer UNIQUEMENT du JSON
+            header('Content-Type: application/json; charset=utf-8');
+            http_response_code(200);
+            echo json_encode([
                 'success' => true,
                 'message' => 'Sauvegarde créée avec succès',
-                'filename' => $filename
-            ]);
+                'filename' => $filename,
+                'size' => $bytesWritten,
+                'size_formatted' => $this->formatBytes($bytesWritten)
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
             
         } catch (Exception $e) {
+            error_log("Erreur backup: " . $e->getMessage());
             Utils::log("Erreur backup: " . $e->getMessage(), 'ERROR');
-            $this->jsonResponse([
+            
+            // Nettoyer le buffer avant d'envoyer l'erreur
+            ob_end_clean();
+            
+            header('Content-Type: application/json; charset=utf-8');
+            http_response_code(500);
+            echo json_encode([
                 'success' => false,
-                'message' => 'Erreur lors de la sauvegarde: ' . $e->getMessage()
-            ]);
+                'message' => $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
         }
     }
     
@@ -237,9 +252,15 @@ class ParametresController {
      * Restaurer une sauvegarde
      */
     public function restoreDatabase() {
+        // Nettoyer le buffer
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        ob_start();
+        
         try {
             if (!isset($_FILES['backup_file']) || $_FILES['backup_file']['error'] !== UPLOAD_ERR_OK) {
-                $this->jsonResponse(['success' => false, 'message' => 'Aucun fichier fourni']);
+                throw new Exception('Aucun fichier fourni');
             }
             
             $file = $_FILES['backup_file'];
@@ -247,14 +268,14 @@ class ParametresController {
             // Vérifier l'extension
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
             if ($ext !== 'sql') {
-                $this->jsonResponse(['success' => false, 'message' => 'Format de fichier invalide. Seuls les fichiers .sql sont acceptés']);
+                throw new Exception('Format de fichier invalide. Seuls les fichiers .sql sont acceptés');
             }
             
             // Lire le contenu du fichier
             $sql = file_get_contents($file['tmp_name']);
             
             if (empty($sql)) {
-                $this->jsonResponse(['success' => false, 'message' => 'Fichier vide']);
+                throw new Exception('Fichier vide');
             }
             
             // Exécuter le SQL
@@ -283,17 +304,27 @@ class ParametresController {
             
             Utils::log("Base de données restaurée par " . session('username'));
             
-            $this->jsonResponse([
+            ob_end_clean();
+            
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
                 'success' => true,
                 'message' => 'Base de données restaurée avec succès'
-            ]);
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
             
         } catch (Exception $e) {
             Utils::log("Erreur restauration: " . $e->getMessage(), 'ERROR');
-            $this->jsonResponse([
+            
+            ob_end_clean();
+            
+            header('Content-Type: application/json; charset=utf-8');
+            http_response_code(500);
+            echo json_encode([
                 'success' => false,
-                'message' => 'Erreur lors de la restauration: ' . $e->getMessage()
-            ]);
+                'message' => $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
         }
     }
     
@@ -304,8 +335,9 @@ class ParametresController {
         $filepath = $this->backupDir . '/' . basename($filename);
         
         if (!file_exists($filepath)) {
-            $_SESSION['error'] = 'Fichier introuvable';
+            setError('Fichier introuvable');
             redirect(base_url('admin/parametres'));
+            return;
         }
         
         header('Content-Type: application/sql');
@@ -316,33 +348,77 @@ class ParametresController {
     }
     
     /**
-     * Vider le cache
+     * Vider le cache - VERSION CORRIGÉE
      */
     public function clearCache() {
+        // Nettoyer le buffer
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        ob_start();
+        
         try {
-            $cacheDir = __DIR__ . '/../../cache';
+            $deletedFiles = 0;
+            $errors = [];
             
-            if (is_dir($cacheDir)) {
-                $files = glob($cacheDir . '/*');
+            // Vider le dossier cache
+            if (is_dir($this->cacheDir)) {
+                $files = glob($this->cacheDir . '/*');
                 foreach ($files as $file) {
                     if (is_file($file)) {
-                        unlink($file);
+                        if (unlink($file)) {
+                            $deletedFiles++;
+                        } else {
+                            $errors[] = basename($file);
+                        }
                     }
                 }
             }
             
-            Utils::log("Cache vidé par " . session('username'));
+            // Vider les sessions si nécessaire
+            $sessionPath = session_save_path();
+            if (!empty($sessionPath) && is_dir($sessionPath)) {
+                $sessionFiles = glob($sessionPath . '/sess_*');
+                foreach ($sessionFiles as $file) {
+                    // Ne pas supprimer la session actuelle
+                    if (is_file($file) && basename($file) !== 'sess_' . session_id()) {
+                        if (@unlink($file)) {
+                            $deletedFiles++;
+                        }
+                    }
+                }
+            }
             
-            $this->jsonResponse([
+            // Vider le cache PHP opcode si disponible
+            if (function_exists('opcache_reset')) {
+                opcache_reset();
+            }
+            
+            Utils::log("Cache vidé: $deletedFiles fichiers supprimés par " . session('username'));
+            
+            ob_end_clean();
+            
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
                 'success' => true,
-                'message' => 'Cache vidé avec succès'
-            ]);
+                'message' => "Cache vidé avec succès ($deletedFiles fichiers supprimés)",
+                'deleted_files' => $deletedFiles,
+                'errors' => $errors
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
             
         } catch (Exception $e) {
-            $this->jsonResponse([
+            Utils::log("Erreur nettoyage cache: " . $e->getMessage(), 'ERROR');
+            
+            ob_end_clean();
+            
+            header('Content-Type: application/json; charset=utf-8');
+            http_response_code(500);
+            echo json_encode([
                 'success' => false,
                 'message' => 'Erreur: ' . $e->getMessage()
-            ]);
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
         }
     }
     
@@ -350,30 +426,44 @@ class ParametresController {
      * Sauvegarder les paramètres de maintenance
      */
     public function saveMaintenance() {
+        // Nettoyer le buffer
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        ob_start();
+        
         try {
             $input = json_decode(file_get_contents('php://input'), true);
             
             $settings = $this->loadSettings();
             $settings['maintenance_mode'] = !empty($input['mode']);
-            $settings['maintenance_message'] = Utils::sanitize($input['message'] ?? '');
+            $settings['maintenance_message'] = Utils::sanitize($input['message'] ?? 'Site en maintenance, revenez bientôt.');
             
             if ($this->saveSettings($settings)) {
-                $this->jsonResponse([
+                Utils::log("Mode maintenance: " . ($settings['maintenance_mode'] ? 'activé' : 'désactivé') . " par " . session('username'));
+                
+                ob_end_clean();
+                
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode([
                     'success' => true,
                     'message' => 'Paramètres de maintenance enregistrés'
-                ]);
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
             } else {
-                $this->jsonResponse([
-                    'success' => false,
-                    'message' => 'Erreur lors de l\'enregistrement'
-                ]);
+                throw new Exception('Erreur lors de l\'enregistrement');
             }
             
         } catch (Exception $e) {
-            $this->jsonResponse([
+            ob_end_clean();
+            
+            header('Content-Type: application/json; charset=utf-8');
+            http_response_code(500);
+            echo json_encode([
                 'success' => false,
-                'message' => 'Erreur: ' . $e->getMessage()
-            ]);
+                'message' => $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
         }
     }
     
@@ -425,23 +515,31 @@ class ParametresController {
     /**
      * Upload du logo
      */
-    private function uploadLogo($file) {
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        
-        if (!in_array($file['type'], $allowedTypes)) {
-            return false;
-        }
-        
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $filename = 'logo_' . time() . '.' . $ext;
-        $destination = $this->uploadsDir . '/' . $filename;
-        
-        if (move_uploaded_file($file['tmp_name'], $destination)) {
-            return $filename;
-        }
-        
+private function uploadLogo($file) {
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    
+    if (!in_array($file['type'], $allowedTypes)) {
         return false;
     }
+    
+    // NOUVEAU : Supprimer tous les fichiers existants dans le dossier logo
+    $files = glob($this->uploadsDir . '/*');
+    foreach ($files as $oldFile) {
+        if (is_file($oldFile)) {
+            unlink($oldFile);
+        }
+    }
+    
+    $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $filename = 'logo.' . $ext; // Nom simple et fixe
+    $destination = $this->uploadsDir . '/' . $filename;
+    
+    if (move_uploaded_file($file['tmp_name'], $destination)) {
+        return $filename;
+    }
+    
+    return false;
+}
     
     /**
      * Liste des backups
@@ -472,12 +570,15 @@ class ParametresController {
     }
     
     /**
-     * Envoyer une réponse JSON
+     * Formater les bytes en taille lisible
      */
-    private function jsonResponse($data) {
-        header('Content-Type: application/json');
-        echo json_encode($data);
-        exit;
+    private function formatBytes($bytes, $precision = 2) {
+        $units = ['B', 'KB', 'MB', 'GB'];
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+        $bytes /= (1 << (10 * $pow));
+        return round($bytes, $precision) . ' ' . $units[$pow];
     }
 }
 ?>
