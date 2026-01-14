@@ -44,7 +44,11 @@ class PublicationsView
             'title' => 'Mes Publications - Espace Membre',
             'username' => session('username'),
             'role' => 'membre',
-            'showLogout' => true
+            'showLogout' => true,
+            'showNotifications' => true,
+            'additionalJs' => [
+            base_url('assets/js/member/membre-notifications.js') 
+        ]
         ]);
     }
 

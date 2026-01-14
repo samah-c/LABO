@@ -48,7 +48,11 @@ class ProfilView {
             'title' => 'Mon Profil - Espace Membre',
             'username' => session('username'),
             'role' => 'membre',
-            'showLogout' => true
+            'showNotifications' => true,
+            'showLogout' => true,
+            'additionalJs' => [
+            base_url('assets/js/member/membre-notifications.js') 
+        ]
         ]);
     }
 

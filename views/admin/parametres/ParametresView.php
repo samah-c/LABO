@@ -33,7 +33,6 @@ class ParametresView
         echo '<div class="settings-container">';
         $this->renderLabInfoSection();
         $this->renderSocialSection();
-        $this->renderThemeSection();
         $this->renderDatabaseSection();
         $this->renderMaintenanceSection();
         echo '</div>';
@@ -194,49 +193,6 @@ class ParametresView
                         'label' => 'Site web officiel',
                         'value' => $this->settings['website_url'] ?? '',
                         'placeholder' => 'https://...'
-                    ]
-                ],
-                'submitText' => 'Enregistrer'
-            ]);
-            ?>
-        </div>
-        <?php
-    }
-
-    /**
-     * Rendu de la section thème et apparence
-     */
-    private function renderThemeSection(): void
-    {
-        ?>
-        <div class="settings-section">
-            <h2>Apparence</h2>
-            <?php
-            FormComponent::render([
-                'action' => base_url('admin/parametres/save-theme'),
-                'method' => 'POST',
-                'fields' => [
-                    [
-                        'type' => 'color',
-                        'name' => 'primary_color',
-                        'label' => 'Couleur principale',
-                        'value' => $this->settings['primary_color'] ?? '#2563eb'
-                    ],
-                    [
-                        'type' => 'color',
-                        'name' => 'secondary_color',
-                        'label' => 'Couleur secondaire',
-                        'value' => $this->settings['secondary_color'] ?? '#64748b'
-                    ],
-                    [
-                        'type' => 'select',
-                        'name' => 'theme_mode',
-                        'label' => 'Mode',
-                        'value' => $this->settings['theme_mode'] ?? 'light',
-                        'options' => [
-                            'light' => 'Clair',
-                            'dark' => 'Sombre'
-                        ]
                     ]
                 ],
                 'submitText' => 'Enregistrer'

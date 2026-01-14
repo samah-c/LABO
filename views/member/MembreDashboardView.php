@@ -59,18 +59,18 @@ class MembreDashboardView
      * Rendu de l'en-tête
      */
     private function renderHeader(): void
-    {
-        HeaderComponent::render([
-            'title' => 'Mon Espace Membre',
-            'username' => $this->username,
-            'role' => 'membre',
-            'showLogout' => true,
-            'additionalJs' => [
-                base_url('assets/js/membre-dashboard.js')
-            ]
-        ]);
-    }
-
+{
+    HeaderComponent::render([
+        'title' => 'Mon Espace Membre',
+        'username' => session('username'),
+        'role' => 'membre',
+        'showLogout' => true,
+        'showNotifications' => true, 
+        'additionalJs' => [
+            base_url('assets/js/member/membre-notifications.js') 
+        ]
+    ]);
+}
     /**
      * Rendu de la navigation
      */

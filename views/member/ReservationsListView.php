@@ -54,7 +54,10 @@ class ReservationsListView
             'username' => session('username'),
             'role' => 'membre',
             'showLogout' => true,
-            'additionalJs' => [base_url('assets/js/member/reservations-handler.js')]
+            'showNotifications' => true,
+            'additionalJs' => [base_url('assets/js/member/reservations-handler.js'),
+            base_url('assets/js/member/membre-notifications.js')
+            ]
         ]);
     }
 

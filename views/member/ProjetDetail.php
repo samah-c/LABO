@@ -49,8 +49,10 @@ class ProjetDetail
         'username' => session('username'),
         'role' => 'membre',
         'showLogout' => true,
+        'showNotifications' => true,
         'additionalJs' => $isResponsable ? [
-            base_url('assets/js/member/membre-projets-handler.js')
+            base_url('assets/js/member/membre-projets-handler.js'),
+            base_url('assets/js/member/membre-notifications.js')
         ] : []
     ]);
 }

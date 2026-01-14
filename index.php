@@ -13,8 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     });
 }
-
-
 require_once __DIR__ . '/controllers/auth/AuthController.php';
 require_once __DIR__ . '/lib/helpers.php';
 
@@ -817,6 +815,58 @@ if (preg_match('#^/admin/projets/projets/rapport/(\d+)$#', $uri, $matches)) {
             exit;
         }
     }
+
+    // ===== NOTIFICATIONS =====
+if (strpos($uri, '/admin/notifications') === 0) {
+    require_once __DIR__ . '/controllers/admin/NotificationsController.php';
+    $notificationsController = new NotificationsController();
+    
+    // Formulaire (AJAX)
+    if (preg_match('#^/admin/notifications/form(/(\d+))?$#', $uri, $matches)) {
+        $id = $matches[2] ?? null;
+        $notificationsController->form($id);
+        exit;
+    }
+    
+    // Sauvegarder
+    if ($uri === '/admin/notifications/save' && $method === 'POST') {
+        $notificationsController->save();
+        exit;
+    }
+    
+    // Supprimer
+    if (preg_match('#^/admin/notifications/delete/(\d+)$#', $uri, $matches) && $method === 'POST') {
+        $notificationsController->delete($matches[1]);
+        exit;
+    }
+    
+    // API pour les utilisateurs
+    if ($uri === '/admin/notifications/getUserNotifications' && $method === 'GET') {
+        $notificationsController->getUserNotifications();
+        exit;
+    }
+    
+    if ($uri === '/admin/notifications/getUnreadCount' && $method === 'GET') {
+        $notificationsController->getUnreadCount();
+        exit;
+    }
+    
+    if (preg_match('#^/admin/notifications/markAsRead/(\d+)$#', $uri, $matches) && $method === 'GET') {
+        $notificationsController->markAsRead($matches[1]);
+        exit;
+    }
+    
+    if ($uri === '/admin/notifications/markAllAsRead' && $method === 'GET') {
+        $notificationsController->markAllAsRead();
+        exit;
+    }
+    
+    // Liste
+    if ($uri === '/admin/notifications') {
+        $notificationsController->index();
+        exit;
+    }
+}
 }
 
 // ============================================================
@@ -937,12 +987,41 @@ if (preg_match('#^/membre/publications/update/(\d+)$#', $uri, $matches) && $meth
         $membreController->annulerReservation($matches[1]);
         exit;
     }
+
+    
     
     // ===== ÉVÉNEMENTS =====
     if ($uri === '/membre/evenements') {
         $membreController->evenements();
         exit;
     }
+
+
+    // ===== NOTIFICATIONS MEMBRE =====
+if (strpos($uri, '/membre/notifications') === 0) {
+    require_once __DIR__ . '/controllers/member/MembreNotificationsController.php';
+    $notificationsController = new MembreNotificationsController();
+    
+    if ($uri === '/membre/notifications/getUserNotifications' && $method === 'GET') {
+        $notificationsController->getUserNotifications();
+        exit;
+    }
+    
+    if ($uri === '/membre/notifications/getUnreadCount' && $method === 'GET') {
+        $notificationsController->getUnreadCount();
+        exit;
+    }
+    
+    if (preg_match('#^/membre/notifications/markAsRead/(\d+)$#', $uri, $matches) && $method === 'GET') {
+        $notificationsController->markAsRead($matches[1]);
+        exit;
+    }
+    
+    if ($uri === '/membre/notifications/markAllAsRead' && $method === 'GET') {
+        $notificationsController->markAllAsRead();
+        exit;
+    }
+}
 }
 
 if (strpos($uri, '/api/membre') === 0) {
